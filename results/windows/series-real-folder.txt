@@ -1,0 +1,33 @@
+# What: memory.sh <build> <the real folder> on <a|f> <calls> --file SONG.MID, one run per line:
+#       the build, the mode (a: access, f: fopen), the calls, the private bytes held, and the growth
+#       per call against the run at 1 call. The base is read at 1 and 5 calls: at 20 it passes the limit.
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   base  joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  12d158e82b3040bb7cc2d3572e265cbd01bef93552f08a0cb62a9d3db3ce6d22
+#   pr    joncampbell123/dosbox-x pull request 6831 at f16f945e6adce18af1ffd8db24c1b7a639bcaa42  b00dffe5ca78fe6278bac604386eea35712df8d3905a10d8441fe22b3aea09b2
+#   ret   dircache-retention 527476085df56ec82b654bfa38dd901220c08dd3      7e6bfb3f5380201653d417885ee5b607350a935de84dba2ac12c338c924f9119
+base a     1 private_kb=  513412
+base a     5 private_kb= 1361996  per_call_kb=212146.0
+base f     1 private_kb=  619572
+base f     5 private_kb= 1891860  per_call_kb=318072.0
+pr a     1 private_kb=  301304
+pr a    20 private_kb=  338872  per_call_kb=1977.3
+pr a   200 private_kb=  492956  per_call_kb=963.1
+pr a   500 private_kb=  471276  per_call_kb=340.6
+pr a  1000 private_kb=  503152  per_call_kb=202.1
+pr f     1 private_kb=  301148
+pr f    20 private_kb=  337732  per_call_kb=1925.5
+pr f   200 private_kb=  496380  per_call_kb=981.1
+pr f   500 private_kb=  493552  per_call_kb=385.6
+pr f  1000 private_kb=  501540  per_call_kb=200.6
+ret a     1 private_kb=  301708
+ret a    20 private_kb=  301780  per_call_kb=3.8
+ret a   200 private_kb=  301752  per_call_kb=0.2
+ret a   500 private_kb=  301296  per_call_kb=-0.8
+ret a  1000 private_kb=  301100  per_call_kb=-0.6
+ret f     1 private_kb=  301620
+ret f    20 private_kb=  301572  per_call_kb=-2.5
+ret f   200 private_kb=  301548  per_call_kb=-0.4
+ret f   500 private_kb=  301332  per_call_kb=-0.6
+ret f  1000 private_kb=  301256  per_call_kb=-0.4

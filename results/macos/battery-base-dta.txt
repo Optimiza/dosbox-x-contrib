@@ -1,0 +1,125 @@
+# What: battery.sh --real-dos <base> <dta>   (base, build)
+# With: DIRCACHE_REAL_FOLDER=<a folder of 169,457 files> DIRCACHE_REAL_FILE=SONG.MID DIRCACHE_REGRESSION=<FINDTEST.EXE and LFNTEST.EXE> DIRCACHE_BOOT_IMAGE=<a Windows 98 SE hard disk image>
+# Host: macOS 26 on Apple silicon; builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-15, with the instruments as they stood that day: 117 cells, FINDLIFE with 18 cases
+# Builds (source commit, sha256 of the executable):
+#   base  joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  03ded6f66a1fcf071b785cf9f0ca8211b2ccb08d11956e6ce1e35e95c57801da
+#   dta   dircache-dta 29879873b21a3c71d7c0b107c70f7539b1fa53e9            1bd6c7eb5303fbff0440043df36b32999f5aad81577ec8139d23c512f6657f79
+# Exit: 0. 117 cells, 0 INVALID, 0 not run.
+cell|selftest run.test.sh|-|ran|cases=19 failed=0
+cell|selftest memory.test.sh|-|ran|cases=10 failed=0
+cell|selftest findlife.test.sh|-|ran|cases=7 failed=0
+cell|selftest exact.test.sh|-|ran|cases=10 failed=0
+cell|selftest drift.test.sh|-|ran|cases=9 failed=0
+cell|selftest dtadump.test.sh|-|ran|cases=11 failed=0
+cell|selftest patlist.test.sh|-|ran|cases=9 failed=0
+cell|selftest template.test.sh|-|ran|cases=23 failed=0
+cell|selftest ties.test.sh|-|ran|cases=5 failed=0
+cell|selftest enumstat.test.sh|-|ran|cases=6 failed=0
+cell|selftest passfail.test.sh|-|ran|cases=10 failed=0
+cell|selftest unit.test.sh|-|ran|cases=9 failed=0
+cell|selftest realdos.test.sh|-|ran|cases=24 failed=0
+cell|run synthetic:1000:83 base:build|on|IDENTICAL|entries=1000 A(4e=1002 lfn=1002 look=10) B(4e=1002 lfn=1002 look=10)
+cell|run synthetic:1000:83 base:build|off|IDENTICAL|entries=1000 A(4e=1002 lfn=0 look=5) B(4e=1002 lfn=0 look=5)
+cell|run synthetic:1000:long base:build|on|IDENTICAL|entries=1000 A(4e=1002 lfn=1002 look=10) B(4e=1002 lfn=1002 look=10)
+cell|run synthetic:1000:long base:build|off|IDENTICAL|entries=1000 A(4e=1002 lfn=0 look=5) B(4e=1002 lfn=0 look=5)
+cell|run synthetic:10000:83 base:build|on|IDENTICAL|entries=10000 A(4e=10002 lfn=10002 look=10) B(4e=10002 lfn=10002 look=10)
+cell|run synthetic:10000:83 base:build|off|IDENTICAL|entries=10000 A(4e=10002 lfn=0 look=5) B(4e=10002 lfn=0 look=5)
+cell|run synthetic:10000:long base:build|on|IDENTICAL|entries=10000 A(4e=10002 lfn=10002 look=10) B(4e=10002 lfn=10002 look=10)
+cell|run synthetic:10000:long base:build|off|IDENTICAL|entries=10000 A(4e=10002 lfn=0 look=5) B(4e=10002 lfn=0 look=5)
+cell|run synthetic:50000:83 base:build|on|IDENTICAL|entries=50000 A(4e=50002 lfn=50002 look=10) B(4e=50002 lfn=50002 look=10)
+cell|run synthetic:50000:83 base:build|off|IDENTICAL|entries=50000 A(4e=50002 lfn=0 look=5) B(4e=50002 lfn=0 look=5)
+cell|run synthetic:50000:long base:build|on|IDENTICAL|entries=50000 A(4e=50002 lfn=50002 look=10) B(4e=50002 lfn=50002 look=10)
+cell|run synthetic:50000:long base:build|off|IDENTICAL|entries=50000 A(4e=50002 lfn=0 look=5) B(4e=50002 lfn=0 look=5)
+cell|run real base:build|on|IDENTICAL|entries=169457 A(4e=169113 lfn=169113 look=10) B(4e=169113 lfn=169113 look=10)
+cell|run real base:build|off|IDENTICAL|entries=169457 A(4e=169113 lfn=0 look=5) B(4e=169113 lfn=0 look=5)
+cell|memory synthetic:50000:long a 1 base|on|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=262673
+cell|memory synthetic:50000:long a 1 build|on|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=262912
+cell|memory synthetic:50000:long a 20 base|on|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=1499761
+cell|memory synthetic:50000:long a 20 build|on|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=1499665
+cell|memory synthetic:50000:long d 1 base|on|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=262624
+cell|memory synthetic:50000:long d 1 build|on|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=262624
+cell|memory synthetic:50000:long d 20 base|on|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=1499921
+cell|memory synthetic:50000:long d 20 build|on|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=1499617
+cell|memory synthetic:50000:long f 1 base|on|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=295377
+cell|memory synthetic:50000:long f 1 build|on|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=295553
+cell|memory synthetic:50000:long f 20 base|on|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=2150626
+cell|memory synthetic:50000:long f 20 build|on|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=2150786
+cell|memory synthetic:50000:long r 1 base|on|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=197472
+cell|memory synthetic:50000:long r 1 build|on|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=197488
+cell|memory synthetic:50000:long r 20 base|on|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=197232
+cell|memory synthetic:50000:long r 20 build|on|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=197456
+cell|memory real a 1 base|on|ran|entries=169457 ok=1 slots_full=0 held_footprint_kb=498305
+cell|memory real a 1 build|on|ran|entries=169457 ok=1 slots_full=0 held_footprint_kb=498481
+cell|memory real a 20 base|on|ran|entries=169457 ok=20 slots_full=0 held_footprint_kb=4680196
+cell|memory real a 20 build|on|ran|entries=169457 ok=20 slots_full=0 held_footprint_kb=4680276
+cell|memory real d 1 base|on|ran|entries=169457 ok=1 slots_full=0 held_footprint_kb=498497
+cell|memory real d 1 build|on|ran|entries=169457 ok=1 slots_full=0 held_footprint_kb=498417
+cell|memory real d 20 base|on|ran|entries=169457 ok=20 slots_full=0 held_footprint_kb=4680404
+cell|memory real d 20 build|on|ran|entries=169457 ok=20 slots_full=0 held_footprint_kb=4680596
+cell|memory real f 1 base|on|ran|entries=169457 ok=1 slots_full=0 held_footprint_kb=608417
+cell|memory real f 1 build|on|ran|entries=169457 ok=1 slots_full=0 held_footprint_kb=608529
+cell|memory real f 20 base|on|ran|entries=169457 ok=20 slots_full=0 held_footprint_kb=6881397
+cell|memory real f 20 build|on|ran|entries=169457 ok=20 slots_full=0 held_footprint_kb=6883493
+cell|memory real r 1 base|on|ran|entries=169457 ok=1 slots_full=0 held_footprint_kb=277361
+cell|memory real r 1 build|on|ran|entries=169457 ok=1 slots_full=0 held_footprint_kb=277408
+cell|memory real r 20 base|on|ran|entries=169457 ok=20 slots_full=0 held_footprint_kb=277456
+cell|memory real r 20 build|on|ran|entries=169457 ok=20 slots_full=0 held_footprint_kb=277472
+cell|memory synthetic:50000:83 d 1 base|off|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=229536
+cell|memory synthetic:50000:83 d 1 build|off|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=229568
+cell|memory synthetic:50000:83 d 20 base|off|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=848017
+cell|memory synthetic:50000:83 d 20 build|off|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=847921
+cell|memory synthetic:50000:83 c 1 base|off|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=230704
+cell|memory synthetic:50000:83 c 1 build|off|ran|entries=50000 ok=1 slots_full=0 held_footprint_kb=230736
+cell|memory synthetic:50000:83 c 20 base|off|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=850273
+cell|memory synthetic:50000:83 c 20 build|off|ran|entries=50000 ok=20 slots_full=0 held_footprint_kb=850289
+cell|memory synthetic:100:long a 20000 base|on|ran|entries=100 ok=20000 slots_full=29 held_footprint_kb=191600
+cell|memory synthetic:100:long a 20000 build|on|ran|entries=100 ok=20000 slots_full=29 held_footprint_kb=191664
+cell|memory synthetic:100:long v 20000 base|on|ran|entries=100 ok=20000 slots_full=9 held_footprint_kb=170192
+cell|memory synthetic:100:long v 20000 build|on|ran|entries=100 ok=20000 slots_full=9 held_footprint_kb=170096
+cell|findlife base:build|on|DIFFERENT|A(cases=18 ok=16 differs=2 not_judged=0) B(cases=18 ok=18 differs=0 not_judged=0) differ=lfn-writes-current-dta,fcb-around-lfn
+cell|findlife base:build|off|ALIKE|A(cases=18 ok=14 differs=0 not_judged=4) B(cases=18 ok=14 differs=0 not_judged=4)
+cell|exact base:build|on|ALIKE|basic=ALIKE:362 life=ALIKE:9 shell=ALIKE:72 tree=ALIKE:20 drift=DIFFERENT:7/7 differ=failed-findfirst-other-pattern,lfn-wildcard-writes-exact-dta,lfn-exact-writes-wildcard-dta,fcb-wildcard-around-lfn-exact
+cell|exact base:build|off|ALIKE|basic=ALIKE:362 life=ALIKE:9 shell=ALIKE:69 tree=ALIKE:20 drift=DIFFERENT:7/7 differ=failed-findfirst-other-pattern
+cell|drift base:build|on|DIFFERENT|cases=25 sha256=70fc2e99d792/066536114e2f differ=to-a-later-exact-name,to-a-later-exact-name-in-lower-case,to-a-later-exact-name-in-mixed-case,edited-twice,label-search-then-edited
+cell|drift base:build|off|DIFFERENT|cases=25 sha256=70fc2e99d792/fe1f92205298 differ=to-a-later-exact-name,to-a-later-full-length-name-in-lower-case,to-a-later-full-length-name-in-mixed-case,to-a-later-exact-name-zero-padded,edited-twice,label-search-then-edited
+cell|dtadump base:build|on|DIFFERENT|A(template=7f377d6980ee untouched=2/6 resumed=2/6 fcb=ce9cdd5c399c) B(template=a149391ec426 untouched=6/6 resumed=6/6 fcb=f9c92156e849) differing_lines=16
+cell|dtadump base:build|off|DIFFERENT|A(template=1c5027e13814 untouched=3/6 resumed=3/6 fcb=ce9cdd5c399c) B(template=8044d2aed1bc untouched=6/6 resumed=6/6 fcb=f9c92156e849) differing_lines=41
+cell|patlist base:build|on|ALIKE|patterns=15 sha256=a8e695a8baca/a8e695a8baca
+cell|patlist base:build|off|ALIKE|patterns=15 sha256=dfc20fe25661/dfc20fe25661
+cell|template fat base:build|on|DIFFERENT|lines=38 sha256=0b3f5250a809/e6ba543d12fa differing_lines=1
+cell|template fat base:build|off|DIFFERENT|lines=38 sha256=511332f08802/65cca4ce7cbb differing_lines=3
+cell|template host base:build|on|DIFFERENT|lines=37 sha256=912a42f66374/674cb2c1e6a7 differing_lines=1
+cell|template host base:build|off|DIFFERENT|lines=37 sha256=90124cae2642/a1abc6449986 differing_lines=5
+cell|ties base:build|on|ALIKE|ties=11
+cell|enumstat l long base|on|ran|listed=139 looked_up_ok=137 last=Alpha track 000336.mid slots_full=1 out_of_range=0
+cell|enumstat l long build|on|ran|listed=139 looked_up_ok=137 last=Alpha track 000336.mid slots_full=1 out_of_range=0
+cell|enumstat s long base|on|ran|listed=139 looked_up_ok=137 last=ALPH~137.MID slots_full=1 out_of_range=0
+cell|enumstat s long build|on|ran|listed=139 looked_up_ok=137 last=ALPH~137.MID slots_full=1 out_of_range=0
+cell|enumstat x 83 base|on|ran|listed=3002 looked_up_ok=3000 last=F0002999.TXT slots_full=1 out_of_range=0
+cell|enumstat x 83 build|on|ran|listed=3002 looked_up_ok=3000 last=F0002999.TXT slots_full=1 out_of_range=0
+cell|enumstat s 83 base|off|ran|listed=685 looked_up_ok=683 last=F0000682.TXT slots_full=1 out_of_range=1
+cell|enumstat s 83 build|off|ran|listed=685 looked_up_ok=683 last=F0000682.TXT slots_full=1 out_of_range=1
+cell|enumstat x 83 base|off|ran|listed=3002 looked_up_ok=3000 last=F0002999.TXT slots_full=1 out_of_range=0
+cell|enumstat x 83 build|off|ran|listed=3002 looked_up_ok=3000 last=F0002999.TXT slots_full=1 out_of_range=0
+cell|enumstat n 83 base|off|ran|listed=3002 looked_up_ok=0 last=F0002999.TXT slots_full=0 out_of_range=0
+cell|enumstat n 83 build|off|ran|listed=3002 looked_up_ok=0 last=F0002999.TXT slots_full=0 out_of_range=0
+cell|passfail FINDTEST synthetic:40:long base|on|ran|sha256=e71fa0ffd452 entries=40 pass=10 fail=0 exit=0
+cell|passfail FINDTEST synthetic:40:long build|on|ran|sha256=e71fa0ffd452 entries=40 pass=10 fail=0 exit=0
+cell|passfail FINDTEST synthetic:10000:long base|on|ran|sha256=e71fa0ffd452 entries=10000 pass=10 fail=0 exit=0
+cell|passfail FINDTEST synthetic:10000:long build|on|ran|sha256=e71fa0ffd452 entries=10000 pass=10 fail=0 exit=0
+cell|passfail LFNTEST synthetic:40:long base|on|ran|sha256=10da11a297d0 entries=40 pass=10 fail=0 exit=0
+cell|passfail LFNTEST synthetic:40:long build|on|ran|sha256=10da11a297d0 entries=40 pass=10 fail=0 exit=0
+cell|passfail LFNTEST synthetic:10000:long base|on|ran|sha256=10da11a297d0 entries=10000 pass=10 fail=0 exit=0
+cell|passfail LFNTEST synthetic:10000:long build|on|ran|sha256=10da11a297d0 entries=10000 pass=10 fail=0 exit=0
+cell|unit base|-|ran|tests=68 failures=0 errors=0 disabled=0
+cell|unit build|-|ran|tests=68 failures=0 errors=0 disabled=0
+cell|realdos findlife|off|ran|dos=7.10 cases=18 ok=12 differs=2 not_judged=4 sha256=615d911c7859
+cell|realdos exact|off|ran|dos=7.10 basic=362 life=9 drift=7 sha256=e3a669a35d32
+cell|realdos enumstat s 83|off|ran|dos=7.10 listed=3002 looked_up_ok=3000 last=F0002999.TXT
+cell|realdos enumstat x 83|off|ran|dos=7.10 listed=3002 looked_up_ok=3000 last=F0002999.TXT
+cell|realdos enumstat n 83|off|ran|dos=7.10 listed=3002 looked_up_ok=0 last=F0002999.TXT
+cell|realdos drift|off|ran|dos=7.10 cases=25 sha256=921bcc301dce
+cell|realdos dtadump|off|ran|dos=7.10 template=8044d2aed1bc untouched=6/6 resumed=6/6 fcb=f9c92156e849 sha256=d6dec7521dad
+cell|realdos patlist|off|ran|dos=7.10 patterns=15 sha256=dfc20fe25661
+cell|realdos template|off|ran|dos=7.10 lines=37 sha256=6f970af81275

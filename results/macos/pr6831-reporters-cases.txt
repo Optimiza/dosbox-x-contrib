@@ -1,0 +1,18 @@
+# What: the reporters' cases on pull request 6831's build, one line per run:
+#       memory.sh <pr6831> synthetic:1835:83 off e <1|1835>; memory.sh <pr6831> synthetic:100:long on v 20000;
+#       fc.sh <pr6831> 700 off <1|300>; xcopy.sh <pr6831> <on|off>;
+#       and, last, fc.sh <base> 0 off 300: the base in a folder with no other file.
+# Host: macOS 26 on Apple silicon; builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   pr6831      joncampbell123/dosbox-x pull request 6831 at f16f945e6adce18af1ffd8db24c1b7a639bcaa42  7bb21332ee5a39290e7cddccd611f2dee0967e29be42c6233d8fe7637906e8e8
+#   base        joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  03ded6f66a1fcf071b785cf9f0ca8211b2ccb08d11956e6ce1e35e95c57801da
+# Exit: 0 each.
+memory.sh: mode=e calls=1 lfn=off folder=synthetic:1835:83 file=F0000000.TXT entries=1835 peak_rss_kb=206848 held_rss_kb=206848 held_footprint_kb=167376 samples=7 slots_full=0 guest="mode=e k=1 ok=1 released=1 guest_us=58528" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
+memory.sh: mode=e calls=1835 lfn=off folder=synthetic:1835:83 file=F0000000.TXT entries=1835 peak_rss_kb=206880 held_rss_kb=206880 held_footprint_kb=167408 samples=9 slots_full=0 guest="mode=e k=1835 ok=1835 released=1 guest_us=289161" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
+memory.sh: mode=v calls=20000 lfn=on folder=synthetic:100:long file=Alpha track 000000.mid entries=100 peak_rss_kb=209824 held_rss_kb=209824 held_footprint_kb=170336 samples=10 slots_full=9 guest="mode=v k=20000 ok=20000 released=1 guest_us=489248" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
+fc.sh: files=700 runs=1 lfn=off entries=703 peak_rss_kb=206944 held_rss_kb=206944 held_footprint_kb=167392 samples=7 slots_full=0 compared=1 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
+fc.sh: files=700 runs=300 lfn=off entries=703 peak_rss_kb=221248 held_rss_kb=221248 held_footprint_kb=181696 samples=13 slots_full=0 compared=300 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
+xcopy.sh: lfn=on made=2520 copied=2520 dirs_made=18 dirs_copied=18 said=2520 slots_full=0 out_of_range=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
+xcopy.sh: lfn=off made=2520 copied=2520 dirs_made=18 dirs_copied=18 said=2520 slots_full=0 out_of_range=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
+fc.sh: files=0 runs=300 lfn=off entries=3 peak_rss_kb=221664 held_rss_kb=221664 held_footprint_kb=182128 samples=14 slots_full=0 compared=300 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=base-4e0b6adcf

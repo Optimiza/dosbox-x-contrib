@@ -1,0 +1,29 @@
+# What: drift.sh <base> <dta> on and off, then drift.sh <base> <merge> on and off: the line of the case
+#       label-search-then-edited in each build's report, under the line that names the build.
+#       merge is dircache-retention with dircache-dta merged into it (no conflict).
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   base   joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  12d158e82b3040bb7cc2d3572e265cbd01bef93552f08a0cb62a9d3db3ce6d22
+#   dta    dircache-dta 29879873b21a3c71d7c0b107c70f7539b1fa53e9            d232a93500e999e3ded3a3f0e566abf66073431cae16601a84abc08fb24c0afa
+#   merge  527476085 + 29879873b                                            0d388d13f36fb3f56a3d8d7108a526bc8449cf729ae836c2859512f4151dfca6
+drift.sh: long names on
+drift.sh: build A: base-4e0b6adcf (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+drift.sh: build B: dta-29879873b (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+drift.sh: long names off
+drift.sh: build A: base-4e0b6adcf (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+drift.sh: build B: dta-29879873b (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+drift.sh: long names on
+drift.sh: build A: base-4e0b6adcf (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+drift.sh: build B: retention-dta-merge-527476085 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=0|
+drift.sh: long names off
+drift.sh: build A: base-4e0b6adcf (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+drift.sh: build B: retention-dta-merge-527476085 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=0|

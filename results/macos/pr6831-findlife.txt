@@ -1,0 +1,47 @@
+# What: findlife.sh <exact-name> <pr6831> on, then off: the lines that differ, A (exact-name) then B (pr6831)
+# Host: macOS 26 on Apple silicon; builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   exact-name  dircache-exact-name 73e09f70dc480cdc9f24ca42f2eeb5d1bf5e3504     f9217ddb52894225bb23bf16787c69451a8e3b34d07c00a0a56e7962269a8338
+#   pr6831      joncampbell123/dosbox-x pull request 6831 at f16f945e6adce18af1ffd8db24c1b7a639bcaa42  7bb21332ee5a39290e7cddccd611f2dee0967e29be42c6233d8fe7637906e8e8
+# Exit: 1 both times (the builds differ).
+findlife.sh: long names on
+findlife.sh: build A: exact-name-73e09f70d (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+findlife.sh: build B: pr6831-f16f945e6 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+findlife.sh: DIFFERENT, the lines that differ (A then B):
+< case|remount|mount_rc=0 before=3 search_on_new_drive=32 of 32 foreign=0|ok
+> case|remount|mount_rc=0 before=3 search_on_new_drive=3 of 32 foreign=0|DIFFERS
+< case|nested-same-dta|outer=42 of 42 inner=32 of 32 foreign=0|ok
+> case|nested-same-dta|outer=3 of 42 inner=32 of 32 foreign=0|DIFFERS
+< case|failed-findfirst|error=18 outer=42 of 42 foreign=0|ok
+> case|failed-findfirst|error=18 outer=3 of 42 foreign=0|DIFFERS
+< case|stale-dta-after-reuse|its_slot_held_by_a_search_of_the_other_folder=0 next=entry name=A0001.TXT from_other_folder=0|ok
+> case|stale-dta-after-reuse|its_slot_held_by_a_search_of_the_other_folder=1 next=entry name=B0001.DAT from_other_folder=1|DIFFERS
+< case|child-starts-parent-continues|child_rc=0 total=32 of 32 foreign=0|ok
+> case|child-starts-parent-continues|child_rc=0 total=1 of 32 foreign=0|DIFFERS
+< case|lfn-first-with-no-handle-left|turned_away=2100 outer=3 of 42 foreign=0|DIFFERS
+< case|left-open-past-the-slots|left_open=2100 outer=34 of 42 foreign=30|DIFFERS
+< case|turn-about-past-the-slots|lookups=1960 found=1960 first=28 of 42 second=28 of 32 foreign=0|DIFFERS
+> case|lfn-first-with-no-handle-left|turned_away=2100 outer=42 of 42 foreign=0|ok
+> case|left-open-past-the-slots|left_open=2100 outer=42 of 42 foreign=0|ok
+> case|turn-about-past-the-slots|lookups=2940 found=2940 first=42 of 42 second=32 of 32 foreign=0|ok
+findlife.sh: long names off
+findlife.sh: build A: exact-name-73e09f70d (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+findlife.sh: build B: pr6831-f16f945e6 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+findlife.sh: DIFFERENT, the lines that differ (A then B):
+< case|remount|mount_rc=0 before=3 search_on_new_drive=32 of 32 foreign=0|ok
+> case|remount|mount_rc=0 before=3 search_on_new_drive=3 of 32 foreign=0|DIFFERS
+< case|nested-same-dta|outer=42 of 42 inner=32 of 32 foreign=0|ok
+> case|nested-same-dta|outer=3 of 42 inner=32 of 32 foreign=0|DIFFERS
+< case|failed-findfirst|error=18 outer=42 of 42 foreign=0|ok
+> case|failed-findfirst|error=18 outer=3 of 42 foreign=0|DIFFERS
+< case|stale-dta-after-reuse|its_slot_held_by_a_search_of_the_other_folder=0 next=entry name=A0001.TXT from_other_folder=0|ok
+> case|stale-dta-after-reuse|its_slot_held_by_a_search_of_the_other_folder=1 next=entry name=B0001.DAT from_other_folder=1|DIFFERS
+< case|child-starts-parent-continues|child_rc=0 total=32 of 32 foreign=0|ok
+> case|child-starts-parent-continues|child_rc=0 total=1 of 32 foreign=0|DIFFERS
+< case|libc-two-searches|first=42 of 42 second=32 of 32|ok
+> case|libc-two-searches|first=1 of 42 second=32 of 32|DIFFERS
+< case|left-open-past-the-slots|left_open=2100 outer=34 of 42 foreign=30|DIFFERS
+< case|turn-about-past-the-slots|lookups=2030 found=2030 first=29 of 42 second=29 of 32 foreign=0|DIFFERS
+> case|left-open-past-the-slots|left_open=2100 outer=42 of 42 foreign=0|ok
+> case|turn-about-past-the-slots|lookups=2940 found=2940 first=42 of 42 second=32 of 32 foreign=0|ok

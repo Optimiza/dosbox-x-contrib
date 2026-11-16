@@ -1,0 +1,118 @@
+# What: battery.sh <base> <dta>   (base, build)
+# With: DIRCACHE_REAL_FOLDER=<a folder of 169,457 files> DIRCACHE_REAL_FILE=SONG.MID DIRCACHE_REGRESSION=<FINDTEST.EXE and LFNTEST.EXE> DIRCACHE_PREBUILT=<the guest programs built on macOS>
+#       The real folder there is the same names as empty files: 169,452 of the 169,457 could be made.
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-15, with the instruments as they stood that day: 108 cells, FINDLIFE with 18 cases
+# Builds (source commit, sha256 of the executable):
+#   base  joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  12d158e82b3040bb7cc2d3572e265cbd01bef93552f08a0cb62a9d3db3ce6d22
+#   dta   dircache-dta 29879873b21a3c71d7c0b107c70f7539b1fa53e9            d232a93500e999e3ded3a3f0e566abf66073431cae16601a84abc08fb24c0afa
+# Exit: 3. 108 cells, 3 INVALID, 13 not run. The INVALID cells are ties.sh and the fopen at 20 calls on
+#       both builds: this branch does not carry the exact-name patch.
+cell|selftest run.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest memory.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest findlife.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest exact.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest drift.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest dtadump.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest patlist.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest template.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest ties.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest enumstat.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest passfail.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest unit.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|selftest realdos.test.sh|-|not run|it plays captured runs through a stand-in for the macOS launcher, the launcher of the other hosts
+cell|run synthetic:1000:83 base:build|on|IDENTICAL|entries=1000 A(4e=1002 lfn=1002 look=10) B(4e=1002 lfn=1002 look=10)
+cell|run synthetic:1000:83 base:build|off|IDENTICAL|entries=1000 A(4e=1002 lfn=0 look=5) B(4e=1002 lfn=0 look=5)
+cell|run synthetic:1000:long base:build|on|IDENTICAL|entries=1000 A(4e=1002 lfn=1002 look=10) B(4e=1002 lfn=1002 look=10)
+cell|run synthetic:1000:long base:build|off|IDENTICAL|entries=1000 A(4e=1002 lfn=0 look=5) B(4e=1002 lfn=0 look=5)
+cell|run synthetic:10000:83 base:build|on|IDENTICAL|entries=10000 A(4e=10002 lfn=10002 look=10) B(4e=10002 lfn=10002 look=10)
+cell|run synthetic:10000:83 base:build|off|IDENTICAL|entries=10000 A(4e=10002 lfn=0 look=5) B(4e=10002 lfn=0 look=5)
+cell|run synthetic:10000:long base:build|on|IDENTICAL|entries=10000 A(4e=10002 lfn=10002 look=10) B(4e=10002 lfn=10002 look=10)
+cell|run synthetic:10000:long base:build|off|IDENTICAL|entries=10000 A(4e=10002 lfn=0 look=5) B(4e=10002 lfn=0 look=5)
+cell|run synthetic:50000:83 base:build|on|IDENTICAL|entries=50000 A(4e=50002 lfn=50002 look=10) B(4e=50002 lfn=50002 look=10)
+cell|run synthetic:50000:83 base:build|off|IDENTICAL|entries=50000 A(4e=50002 lfn=0 look=5) B(4e=50002 lfn=0 look=5)
+cell|run synthetic:50000:long base:build|on|IDENTICAL|entries=50000 A(4e=50002 lfn=50002 look=10) B(4e=50002 lfn=50002 look=10)
+cell|run synthetic:50000:long base:build|off|IDENTICAL|entries=50000 A(4e=50002 lfn=0 look=5) B(4e=50002 lfn=0 look=5)
+cell|run real base:build|on|IDENTICAL|entries=169452 A(4e=169108 lfn=169108 look=10) B(4e=169108 lfn=169108 look=10)
+cell|run real base:build|off|IDENTICAL|entries=169452 A(4e=169108 lfn=0 look=5) B(4e=169108 lfn=0 look=5)
+cell|memory synthetic:50000:long a 1 base|on|ran|entries=50000 ok=1 slots_full=0 held_private_kb=289324
+cell|memory synthetic:50000:long a 1 build|on|ran|entries=50000 ok=1 slots_full=0 held_private_kb=289456
+cell|memory synthetic:50000:long a 20 base|on|ran|entries=50000 ok=20 slots_full=0 held_private_kb=1477568
+cell|memory synthetic:50000:long a 20 build|on|ran|entries=50000 ok=20 slots_full=0 held_private_kb=1477196
+cell|memory synthetic:50000:long d 1 base|on|ran|entries=50000 ok=1 slots_full=0 held_private_kb=289416
+cell|memory synthetic:50000:long d 1 build|on|ran|entries=50000 ok=1 slots_full=0 held_private_kb=289392
+cell|memory synthetic:50000:long d 20 base|on|ran|entries=50000 ok=20 slots_full=0 held_private_kb=1477580
+cell|memory synthetic:50000:long d 20 build|on|ran|entries=50000 ok=20 slots_full=0 held_private_kb=1477504
+cell|memory synthetic:50000:long f 1 base|on|ran|entries=50000 ok=1 slots_full=0 held_private_kb=320524
+cell|memory synthetic:50000:long f 1 build|on|ran|entries=50000 ok=1 slots_full=0 held_private_kb=320252
+cell|memory synthetic:50000:long f 20 base|on|ran|entries=50000 ok=20 slots_full=0 held_private_kb=2102708
+cell|memory synthetic:50000:long f 20 build|on|ran|entries=50000 ok=20 slots_full=0 held_private_kb=2103128
+cell|memory synthetic:50000:long r 1 base|on|ran|entries=50000 ok=1 slots_full=0 held_private_kb=226916
+cell|memory synthetic:50000:long r 1 build|on|ran|entries=50000 ok=1 slots_full=0 held_private_kb=226416
+cell|memory synthetic:50000:long r 20 base|on|ran|entries=50000 ok=20 slots_full=0 held_private_kb=226772
+cell|memory synthetic:50000:long r 20 build|on|ran|entries=50000 ok=20 slots_full=0 held_private_kb=226796
+cell|memory real a 1 base|on|ran|entries=169452 ok=1 slots_full=0 held_private_kb=513436
+cell|memory real a 1 build|on|ran|entries=169452 ok=1 slots_full=0 held_private_kb=513444
+cell|memory real a 20 base|on|ran|entries=169452 ok=20 slots_full=0 held_private_kb=4542164
+cell|memory real a 20 build|on|ran|entries=169452 ok=20 slots_full=0 held_private_kb=4542028
+cell|memory real d 1 base|on|ran|entries=169452 ok=1 slots_full=0 held_private_kb=513824
+cell|memory real d 1 build|on|ran|entries=169452 ok=1 slots_full=0 held_private_kb=513788
+cell|memory real d 20 base|on|ran|entries=169452 ok=20 slots_full=0 held_private_kb=4542520
+cell|memory real d 20 build|on|ran|entries=169452 ok=20 slots_full=0 held_private_kb=4542488
+cell|memory real f 1 base|on|ran|entries=169452 ok=1 slots_full=0 held_private_kb=619748
+cell|memory real f 1 build|on|ran|entries=169452 ok=1 slots_full=0 held_private_kb=619444
+cell|memory real f 20 base|on|INVALID|exit=3 windows.ps1: INVALID: the emulator passed the limit of 6291456 kB of working set (peak 6322616 kB) and was killed
+cell|memory real f 20 build|on|INVALID|exit=3 windows.ps1: INVALID: the emulator passed the limit of 6291456 kB of working set (peak 6310620 kB) and was killed
+cell|memory real r 1 base|on|ran|entries=169452 ok=1 slots_full=0 held_private_kb=301556
+cell|memory real r 1 build|on|ran|entries=169452 ok=1 slots_full=0 held_private_kb=301464
+cell|memory real r 20 base|on|ran|entries=169452 ok=20 slots_full=0 held_private_kb=301592
+cell|memory real r 20 build|on|ran|entries=169452 ok=20 slots_full=0 held_private_kb=301700
+cell|memory synthetic:50000:83 d 1 base|off|ran|entries=50000 ok=1 slots_full=0 held_private_kb=257832
+cell|memory synthetic:50000:83 d 1 build|off|ran|entries=50000 ok=1 slots_full=0 held_private_kb=257904
+cell|memory synthetic:50000:83 d 20 base|off|ran|entries=50000 ok=20 slots_full=0 held_private_kb=851776
+cell|memory synthetic:50000:83 d 20 build|off|ran|entries=50000 ok=20 slots_full=0 held_private_kb=852452
+cell|memory synthetic:50000:83 c 1 base|off|ran|entries=50000 ok=1 slots_full=0 held_private_kb=264476
+cell|memory synthetic:50000:83 c 1 build|off|ran|entries=50000 ok=1 slots_full=0 held_private_kb=264384
+cell|memory synthetic:50000:83 c 20 base|off|ran|entries=50000 ok=20 slots_full=0 held_private_kb=979716
+cell|memory synthetic:50000:83 c 20 build|off|ran|entries=50000 ok=20 slots_full=0 held_private_kb=980096
+cell|memory synthetic:100:long a 20000 base|on|ran|entries=100 ok=20000 slots_full=29 held_private_kb=226876
+cell|memory synthetic:100:long a 20000 build|on|ran|entries=100 ok=20000 slots_full=29 held_private_kb=226056
+cell|memory synthetic:100:long v 20000 base|on|ran|entries=100 ok=20000 slots_full=9 held_private_kb=199032
+cell|memory synthetic:100:long v 20000 build|on|ran|entries=100 ok=20000 slots_full=9 held_private_kb=199348
+cell|findlife base:build|on|DIFFERENT|A(cases=18 ok=16 differs=2 not_judged=0) B(cases=18 ok=18 differs=0 not_judged=0) differ=lfn-writes-current-dta,fcb-around-lfn
+cell|findlife base:build|off|ALIKE|A(cases=18 ok=14 differs=0 not_judged=4) B(cases=18 ok=14 differs=0 not_judged=4)
+cell|exact base:build|on|ALIKE|basic=ALIKE:362 life=ALIKE:9 shell=ALIKE:71 tree=ALIKE:20 drift=DIFFERENT:7/7 differ=failed-findfirst-other-pattern,lfn-wildcard-writes-exact-dta,lfn-exact-writes-wildcard-dta,fcb-wildcard-around-lfn-exact
+cell|exact base:build|off|ALIKE|basic=ALIKE:362 life=ALIKE:9 shell=ALIKE:69 tree=ALIKE:20 drift=DIFFERENT:7/7 differ=failed-findfirst-other-pattern
+cell|drift base:build|on|DIFFERENT|cases=25 sha256=70f008b77586/9ffdf47e5714 differ=to-a-later-exact-name,to-a-later-exact-name-in-lower-case,to-a-later-exact-name-in-mixed-case,edited-twice
+cell|drift base:build|off|DIFFERENT|cases=25 sha256=70f008b77586/6fa72aea56a4 differ=to-a-later-exact-name,to-a-later-full-length-name-in-lower-case,to-a-later-full-length-name-in-mixed-case,to-a-later-exact-name-zero-padded,edited-twice
+cell|dtadump base:build|on|DIFFERENT|A(template=7f377d6980ee untouched=2/6 resumed=2/6 fcb=4db7e3a9dc3d) B(template=a149391ec426 untouched=6/6 resumed=6/6 fcb=8e68dd04ab9b) differing_lines=16
+cell|dtadump base:build|off|DIFFERENT|A(template=1c5027e13814 untouched=3/6 resumed=3/6 fcb=4db7e3a9dc3d) B(template=8044d2aed1bc untouched=6/6 resumed=6/6 fcb=8e68dd04ab9b) differing_lines=41
+cell|patlist base:build|on|ALIKE|patterns=15 sha256=53e1ec3222d2/53e1ec3222d2
+cell|patlist base:build|off|ALIKE|patterns=15 sha256=d03ab5adb882/d03ab5adb882
+cell|template fat base:build|on|DIFFERENT|lines=38 sha256=d2a6d8eefee5/06094fe0b5dc differing_lines=1
+cell|template fat base:build|off|DIFFERENT|lines=38 sha256=f6293a142409/988ba897bd2a differing_lines=3
+cell|template host base:build|on|DIFFERENT|lines=37 sha256=b5151752ee01/6d60b5ff0fad differing_lines=1
+cell|template host base:build|off|DIFFERENT|lines=37 sha256=b2dab210b3de/fce62d4664d2 differing_lines=5
+cell|ties base:build|on|INVALID|exit=3 ties.sh: INVALID: no two entries share a short name on this host (ties=0): nothing to compare; the run is kept in <the run's directory>
+cell|enumstat l long base|on|ran|listed=139 looked_up_ok=137 last=Alpha track 002568.mid slots_full=1 out_of_range=0
+cell|enumstat l long build|on|ran|listed=139 looked_up_ok=137 last=Alpha track 002568.mid slots_full=1 out_of_range=0
+cell|enumstat s long base|on|ran|listed=139 looked_up_ok=137 last=AL5ED1~1.MID slots_full=1 out_of_range=0
+cell|enumstat s long build|on|ran|listed=139 looked_up_ok=137 last=AL5ED1~1.MID slots_full=1 out_of_range=0
+cell|enumstat x 83 base|on|ran|listed=3002 looked_up_ok=3000 last=F0002999.TXT slots_full=1 out_of_range=0
+cell|enumstat x 83 build|on|ran|listed=3002 looked_up_ok=3000 last=F0002999.TXT slots_full=1 out_of_range=0
+cell|enumstat s 83 base|off|ran|listed=685 looked_up_ok=683 last=F0000682.TXT slots_full=1 out_of_range=1
+cell|enumstat s 83 build|off|ran|listed=685 looked_up_ok=683 last=F0000682.TXT slots_full=1 out_of_range=1
+cell|enumstat x 83 base|off|ran|listed=3002 looked_up_ok=3000 last=F0002999.TXT slots_full=1 out_of_range=0
+cell|enumstat x 83 build|off|ran|listed=3002 looked_up_ok=3000 last=F0002999.TXT slots_full=1 out_of_range=0
+cell|enumstat n 83 base|off|ran|listed=3002 looked_up_ok=0 last=F0002999.TXT slots_full=0 out_of_range=0
+cell|enumstat n 83 build|off|ran|listed=3002 looked_up_ok=0 last=F0002999.TXT slots_full=0 out_of_range=0
+cell|passfail FINDTEST synthetic:40:long base|on|ran|sha256=e71fa0ffd452 entries=40 pass=10 fail=0 exit=0
+cell|passfail FINDTEST synthetic:40:long build|on|ran|sha256=e71fa0ffd452 entries=40 pass=10 fail=0 exit=0
+cell|passfail FINDTEST synthetic:10000:long base|on|ran|sha256=e71fa0ffd452 entries=10000 pass=10 fail=0 exit=0
+cell|passfail FINDTEST synthetic:10000:long build|on|ran|sha256=e71fa0ffd452 entries=10000 pass=10 fail=0 exit=0
+cell|passfail LFNTEST synthetic:40:long base|on|ran|sha256=10da11a297d0 entries=40 pass=10 fail=0 exit=0
+cell|passfail LFNTEST synthetic:40:long build|on|ran|sha256=10da11a297d0 entries=40 pass=10 fail=0 exit=0
+cell|passfail LFNTEST synthetic:10000:long base|on|ran|sha256=10da11a297d0 entries=10000 pass=10 fail=0 exit=0
+cell|passfail LFNTEST synthetic:10000:long build|on|ran|sha256=10da11a297d0 entries=10000 pass=10 fail=0 exit=0
+cell|unit base|-|ran|tests=68 failures=0 errors=0 disabled=0
+cell|unit build|-|ran|tests=68 failures=0 errors=0 disabled=0
