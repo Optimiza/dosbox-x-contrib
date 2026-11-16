@@ -53,7 +53,7 @@ Source: `battery.sh --real-dos`, cells `findlife`, `dtadump`, `exact` and `drift
   [092-drift.txt](../bench/fixtures/battery/092-drift.txt),
   [122-realdos.txt](../bench/fixtures/battery/122-realdos.txt) and
   [124-realdos.txt](../bench/fixtures/battery/124-realdos.txt).
-- On Windows the cells read the same. They
+- On Windows the cells read the same but for one DRIFT case, told under "What it needs". They
   are in [results/windows/battery-base-dta.txt](../results/windows/battery-base-dta.txt).
 - The FCB digest differs there only by the alias names NTFS gives.
 
@@ -116,5 +116,6 @@ does not write.
 
 **Two DRIFT lines still differ from MS-DOS.** They are nobody's fix here.
 
-- One is the second new file of `folder-gained-files`.
+- One is `folder-gained-files`, the files a folder gains during a search.
+  [Subject 1](01-exact-name.md) has its figures.
 - The other is the order in which a directory that lost an entry is read on.

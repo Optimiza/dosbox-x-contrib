@@ -78,7 +78,7 @@ and with the exact-name build. So the three builds list alike.
 ## What a program can notice
 
 A file created between FindFirst and FindNext is now returned if it sorts behind the entry
-found. DRIFT's case `folder-gained-files` creates two such files:
+found. DRIFT's case `folder-gained-files` creates two files, and one of them sorts behind:
 
 | Build | Entries the search returns after the first |
 | --- | --- |

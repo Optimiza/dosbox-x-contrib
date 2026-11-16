@@ -21,7 +21,7 @@ Source: `fc.sh <base> 0 off 300`, in [results/macos/pr6831-reporters-cases.txt](
 A 4Eh search honours a `*` followed by more characters, and matches the long name too. It is
 the emulator's long-name rule, which no real DOS referees, and it is left as it is.
 
-| PATLIST, 15 patterns | Digest of the list |
+| PATLIST, 15 patterns, on macOS | Digest of the list |
 | --- | --- |
 | Every build, long names off | `dfc20fe25661` |
 | MS-DOS 7.10 | `dfc20fe25661` |
