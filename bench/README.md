@@ -475,7 +475,8 @@ from it. The other fixtures hold, in the same way, what one run of each script l
 Each script has a `<name>.test.sh` beside it that proves its verdicts without an emulator: green,
 different, INVALID and bad usage, on the inputs that produce each. `fixtures/stub-launcher.sh`
 stands in for the launcher and plays what real runs left, kept under `fixtures/`; its header says
-how they were captured. `battery.test.sh` plays one level up: `fixtures/stub-script.sh` stands in
+how they were captured. `launch.test.sh` tests the launcher itself, against
+`fixtures/stub-emulator.sh`, which stands in for a build. `battery.test.sh` plays one level up: `fixtures/stub-script.sh` stands in
 for every script and plays what each printed in one real run of the battery. Run one with
 `bash <name>.test.sh`; `battery.sh` runs them as its first cells, all but its own. They play
 through the macOS launcher, so they run on macOS only, and `memory.test.sh` also needs its `ps`
