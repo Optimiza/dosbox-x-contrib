@@ -14,6 +14,9 @@ the commit it was made from and the sha256 of its executable.
 | `macos/pr6831-reporters-cases.txt` | the reporters' cases on the build of pull request 6831, and FC on the unpatched build in an empty folder |
 | `windows/series-real-folder.txt` | memory held after 1 to 1,000 lookups in the large folder: unpatched, pull request 6831, retention |
 | `windows/label-search-then-edited.txt` | one case of DRIFT on Windows: unpatched, the DTA build alone, and the DTA and retention branches merged |
+| `macos/pr6831-regression-programs.txt` | the two regression programs attached to pull request 6831, on that pull request's own build |
+| `windows/pr6831-findlife.txt` | FINDLIFE on Windows, the build of pull request 6831 against the retention build: the remount case and the lines that differ |
+| `macos/dta-cases.txt` | the DTA build's own lines behind three cells of its battery: two cases of FINDLIFE, one of EXACT, and its DRIFT report |
 
 A battery file is one line per cell, `cell|<name>|<long names>|<verdict>|<figures>`.
 [`bench/README.md`](../bench/README.md) says what each cell runs and what its figures count. In
@@ -45,8 +48,9 @@ its name; the path of a directory a run kept by `<the run's directory>`; the nam
 file looked up in the large folder by `SONG.MID`; and, in the reason of the cells Windows does
 not run, the name of the launcher these runs were made with on macOS by `the macOS launcher`.
 
-That launcher was not `bench/launch.sh`: the runs were made with a larger one of ours that
-gives the emulator the same arguments. `launch.sh` was then checked against it on unpatched
-upstream and on patched builds: DRIFT, EXACT and DRIFT on the MS-DOS image print the same bytes
-through either, the unit tests the same line, and a memory cell the same line but for the
-memory figures.
+That launcher was not `bench/launch.sh`: the runs were made with another launcher of ours,
+not published, that gives the emulator the same arguments. `launch.sh` was then checked against
+it with five commands: `drift.sh` and `exact.sh` on unpatched upstream against a patched build,
+and `realdos.sh` running DRIFT on the MS-DOS image, print the same bytes through either;
+`unit.sh` prints the same line; and a `memory.sh` cell prints the same line but for the memory
+figures.

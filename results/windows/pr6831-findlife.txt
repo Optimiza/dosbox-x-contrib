@@ -1,0 +1,24 @@
+# What: findlife.sh <pr6831> <retention> on: under the line that names each build, its line of the case
+#       remount; then the lines that differ, A (pr6831) then B (retention).
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   pr6831     joncampbell123/dosbox-x pull request 6831 at f16f945e6adce18af1ffd8db24c1b7a639bcaa42  b00dffe5ca78fe6278bac604386eea35712df8d3905a10d8441fe22b3aea09b2
+#   retention  dircache-retention 527476085df56ec82b654bfa38dd901220c08dd3      7e6bfb3f5380201653d417885ee5b607350a935de84dba2ac12c338c924f9119
+# Exit: 1 (the builds differ).
+findlife.sh: long names on
+findlife.sh: build A: pr6831-f16f945e6 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+case|remount|mount_rc=0 before=3 search_on_new_drive=32 of 32 foreign=0|ok
+findlife.sh: build B: retention-527476085 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+case|remount|mount_rc=0 before=3 search_on_new_drive=32 of 32 foreign=0|ok
+findlife.sh: DIFFERENT, the lines that differ (A then B):
+< case|lfn-next-after-its-end|lfn=1 of 1 again=0012 search_in_first_slot=1 of 32 foreign=0|DIFFERS
+< case|nested-same-dta|outer=3 of 42 inner=32 of 32 foreign=0|DIFFERS
+> case|lfn-next-after-its-end|lfn=1 of 1 again=0012 search_in_first_slot=32 of 32 foreign=0|ok
+> case|nested-same-dta|outer=42 of 42 inner=32 of 32 foreign=0|ok
+< case|failed-findfirst|error=18 outer=3 of 42 foreign=0|DIFFERS
+> case|failed-findfirst|error=18 outer=42 of 42 foreign=0|ok
+< case|stale-dta-after-reuse|its_slot_held_by_a_search_of_the_other_folder=1 next=entry name=B0001.DAT from_other_folder=1|DIFFERS
+> case|stale-dta-after-reuse|its_slot_held_by_a_search_of_the_other_folder=0 next=entry name=A0001.TXT from_other_folder=0|ok
+< case|child-starts-parent-continues|child_rc=0 total=1 of 32 foreign=0|DIFFERS
+> case|child-starts-parent-continues|child_rc=0 total=32 of 32 foreign=0|ok

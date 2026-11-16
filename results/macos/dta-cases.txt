@@ -1,0 +1,43 @@
+# What: lines of the reports behind three cells of battery-base-dta.txt:
+#       findlife.sh <base> <dta> on: each build's lines of the cases lfn-writes-current-dta and fcb-around-lfn;
+#       exact.sh <base> <dta> off: the line of failed-findfirst-other-pattern, A (base) then B (dta);
+#       drift.sh <base> <dta> off: the DTA build's report, its 25 cases.
+# Host: macOS 26 on Apple silicon; builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-15
+# Builds (source commit, sha256 of the executable):
+#   base  joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  03ded6f66a1fcf071b785cf9f0ca8211b2ccb08d11956e6ce1e35e95c57801da
+#   dta   dircache-dta 29879873b21a3c71d7c0b107c70f7539b1fa53e9            1bd6c7eb5303fbff0440043df36b32999f5aad81577ec8139d23c512f6657f79
+findlife.sh: build A: base-4e0b6adcf (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+case|lfn-writes-current-dta|outer=3 of 42 foreign=0|DIFFERS
+case|fcb-around-lfn|files=2 of 40 inner=32 of 32|DIFFERS
+findlife.sh: build B: dta-29879873b (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+case|lfn-writes-current-dta|outer=42 of 42 foreign=0|ok
+case|fcb-around-lfn|files=40 of 40 inner=32 of 32|ok
+< drift|failed-findfirst-other-pattern|first=0 failed=3 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+> drift|failed-findfirst-other-pattern|first=0 failed=3 more=0|
+drift.sh: build B: dta-29879873b (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-does-not|first=0 more=0|
+drift|to-a-later-exact-name|first=0 more=1|,ZED.TXT:20:7
+drift|to-an-earlier-exact-name|first=0 more=0|
+drift|to-a-missing-exact-name|first=0 more=0|
+drift|to-its-own-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-lower-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-exact-name-zero-padded|first=0 more=0|
+drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+drift|to-its-own-name-zero-padded|first=0 more=0|
+drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-the-last-entry|first=0 more=0|
+drift|from-a-missing-name|first=18 more=0|
+drift|edited-twice|first=0 more=2|,FOO.TXT:20:3,ZED.TXT:20:7
+drift|saved-and-restored-then-edited|first=0 inner=16 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-gained-files|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-the-entry|first=0 more=5|,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|label-search-then-edited|first=18 more=0|

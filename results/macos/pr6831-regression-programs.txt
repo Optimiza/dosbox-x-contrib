@@ -1,0 +1,12 @@
+# What: passfail.sh <pr6831> synthetic:<40|10000>:long on <FINDTEST.EXE|LFNTEST.EXE>, one line per run:
+#       the two regression programs attached to pull request 6831, built from their author's sources
+#       with Open Watcom, on that pull request's own build.
+# Host: macOS 26 on Apple silicon; builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-14
+# Builds (source commit, sha256 of the executable):
+#   pr6831      joncampbell123/dosbox-x pull request 6831 at f16f945e6adce18af1ffd8db24c1b7a639bcaa42  7bb21332ee5a39290e7cddccd611f2dee0967e29be42c6233d8fe7637906e8e8
+# Exit: 0 each.
+passfail.sh: program=FINDTEST.EXE sha256=e71fa0ffd452 lfn=on folder=synthetic:40:long entries=40 pass=10 fail=0 exit=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
+passfail.sh: program=FINDTEST.EXE sha256=e71fa0ffd452 lfn=on folder=synthetic:10000:long entries=10000 pass=10 fail=0 exit=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
+passfail.sh: program=LFNTEST.EXE sha256=10da11a297d0 lfn=on folder=synthetic:40:long entries=40 pass=10 fail=0 exit=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
+passfail.sh: program=LFNTEST.EXE sha256=10da11a297d0 lfn=on folder=synthetic:10000:long entries=10000 pass=10 fail=0 exit=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=pr6831-f16f945e6
