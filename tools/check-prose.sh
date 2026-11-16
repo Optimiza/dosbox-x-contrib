@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Refuses a page a person reads that breaks a countable limit of .claude/rules/writing.md.
+# Refuses a page a person reads that breaks a countable limit of the writing rules.
 # bash and awk because the bench already needs them; python3 is not something a clone needs.
 set -u
 
-# The limits of .claude/rules/writing.md, written here once.
+# The limits of the writing rules, written here once.
 FRONT_PAGE_WORDS=700
 PARAGRAPH_WORDS=60
 PARAGRAPH_SENTENCES=3
@@ -17,8 +17,8 @@ usage() {
     cat <<EOT
 usage: check-prose.sh [<page>...]
 
-Refuses a page that breaks a limit of .claude/rules/writing.md: one line per finding, with
-its file, line, the limit, the count and the limit's value.
+Refuses a page that breaks a limit of the writing rules: one line per finding, with its
+file, line, the limit, the count and the limit's value.
 
   <page>   a markdown page. None given: every tracked page a person reads, in the git
            repository holding the current directory (README.md, CLAUDE.md, docs/,
