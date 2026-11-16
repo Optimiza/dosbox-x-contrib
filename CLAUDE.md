@@ -60,7 +60,7 @@ Move the commit named above in the same change.
   holds its line. A figure with no filed line does not go in.
 - A result file is the lines as a run printed them, under a header with the command, the
   host, the date and each build's source commit and sha256.
-- `results/README.md` lists the four things replaced in those lines. Replace nothing else.
+- `results/README.md` lists the things replaced in those lines. Replace nothing else.
 - A derived figure says how it is derived. The growth per call is the difference between two
   call counts divided by the calls between them, in MB of 1,024 kB.
 - To reproduce a figure, run the cell its line names with the builds its file names.

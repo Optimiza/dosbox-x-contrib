@@ -20,6 +20,7 @@ Each build is named with the commit it was made from and the sha256 of its execu
 | [`macos/pr6831-regression-programs.txt`](macos/pr6831-regression-programs.txt) | the two regression programs attached to pull request 6831, on that pull request's own build |
 | [`windows/pr6831-findlife.txt`](windows/pr6831-findlife.txt) | FINDLIFE on Windows, the build of pull request 6831 against the retention build: the remount case and the lines that differ |
 | [`macos/dta-cases.txt`](macos/dta-cases.txt) | the DTA build's own lines behind three cells of its battery: two cases of FINDLIFE, one of EXACT, and its DRIFT report |
+| [`macos/launchers.txt`](macos/launchers.txt) | five commands through `bench/launch.sh` and through the launcher the battery files were made with |
 
 Pull request 6831 is
 [another author's pull request, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831).
@@ -66,7 +67,7 @@ The two lines are
 
 ## What was replaced in the lines
 
-The lines are as the runs printed them, with four things replaced:
+The lines are as the runs printed them, with five things replaced:
 
 | In the lines | Replaced by |
 | --- | --- |
@@ -74,11 +75,13 @@ The lines are as the runs printed them, with four things replaced:
 | the path of a directory a run kept | `<the run's directory>` |
 | the name of the one file looked up in the large folder | `SONG.MID` |
 | the name of the launcher, in the reason of the cells Windows does not run | `the macOS launcher` |
+| the path of the MS-DOS boot image | `<a Windows 98 SE hard disk image>` |
 
 That launcher was not `bench/launch.sh`. The runs were made with another launcher of ours,
 not published, that gives the emulator the same arguments.
 
-Five commands print the same through `launch.sh` and through that launcher:
+Five commands print the same through `launch.sh` and through that launcher, in
+[macos/launchers.txt](macos/launchers.txt):
 
 | Command | What the two launchers give |
 | --- | --- |
@@ -86,4 +89,4 @@ Five commands print the same through `launch.sh` and through that launcher:
 | `exact.sh` on the same two builds | the same bytes |
 | `realdos.sh` running DRIFT on the MS-DOS image | the same bytes |
 | `unit.sh` | the same line |
-| a `memory.sh` cell | the same line but for the memory figures |
+| a `memory.sh` cell | the same line but for the memory figures, `samples` and `guest_us`, which also differ between two runs through `launch.sh` |
