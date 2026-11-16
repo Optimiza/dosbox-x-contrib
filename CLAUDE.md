@@ -13,6 +13,7 @@ drafted here for a pull request or a comment.
 | `docs/` | one page per subject, and the pages the front page links to |
 | `bench/` | what anyone runs to get the same lines |
 | `results/` | the lines of the runs the pages quote |
+| `tools/` | the check of the writing rules, and its test |
 
 ## Where the rest lives
 
@@ -86,5 +87,9 @@ The repository is pushed only while it is private. Its visibility is its owner's
 ## Writing
 
 The rules are in `.claude/rules/writing.md`, which loads in every session here.
+
+`tools/check-prose.sh` refuses a page over one of their limits, and `.githooks/pre-commit` runs
+it on the staged pages at every commit. A fresh clone turns the hook on with
+`git config core.hooksPath .githooks`. Its test is `bash tools/check-prose.test.sh`.
 
 Commit messages are Conventional Commits, in English, with no trailer.

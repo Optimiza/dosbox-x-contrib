@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Refuses a commit whose pages, as staged, break a limit of .claude/rules/writing.md.
+# A clone turns it on with: git config core.hooksPath .githooks
+set -u
+
+refuse() {
+    echo "pre-commit: commit refused: $1" >&2
+    exit 1
+}
+
+git_dir=$(git rev-parse --absolute-git-dir) || refuse "not in a git repository"
+scratch=$(mktemp -d "${TMPDIR:-/tmp}/check-prose-staged.XXXXXX") || refuse "could not make a scratch folder"
+trap 'rm -rf "$scratch"' EXIT
+
+# The index as it will be committed, with the script as staged. Git sets GIT_INDEX_FILE for a
+# hook, relative to the top of the work tree on a plain commit: the check runs elsewhere.
+case ${GIT_INDEX_FILE:-} in
+    ''|/*|[A-Za-z]:*) ;;
+    *) GIT_INDEX_FILE=$PWD/$GIT_INDEX_FILE; export GIT_INDEX_FILE ;;
+esac
+git checkout-index --all --prefix="$scratch/" || refuse "could not export the staged files"
+[ -x "$scratch/tools/check-prose.sh" ] || refuse "tools/check-prose.sh is not staged as an executable"
+
+out=$(cd "$scratch" && GIT_DIR=$git_dir GIT_WORK_TREE=$scratch ./tools/check-prose.sh 2>&1)
+rc=$?
+case $rc in
+    0) exit 0 ;;
+    1) echo "$out" >&2; refuse "a page is over a limit of .claude/rules/writing.md" ;;
+    3) echo "$out" >&2; refuse "the check examined no page" ;;
+    *) echo "$out" >&2; refuse "the check exit $rc" ;;
+esac
