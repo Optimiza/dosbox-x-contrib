@@ -97,9 +97,10 @@ build and read the difference; a number from one run says little.
 The guest's line counts the calls that reached the file, and the script refuses a run where one
 did not: a lookup that fails costs the emulator nothing and would read as "no growth".
 
-`--file` takes a pattern as well as a name. With `--file '*.*'` mode `d` repeats a search of the
-whole folder that is never continued, which is the search DOS has no call to close: the
-difference between two call counts is what a build keeps for each one a program leaves.
+On a synthetic folder `--file` takes a pattern as well as a name. With `--file '*.*'` mode `d`
+repeats a search of the whole folder that is never continued, which is the search DOS has no
+call to close: the difference between two call counts is what a build keeps for each one a
+program leaves.
 
 Mode `e` is a program that checks, one name after another, that each file of a folder is there:
 it lists the folder, then looks each file up by a 4Eh search for its name and never continues

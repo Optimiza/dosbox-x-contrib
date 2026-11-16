@@ -12,9 +12,9 @@ and this page says so where it reaches them: it is brought up to date as each on
 | # | Pull request, one subject each | Branch | Needs | State |
 | --- | --- | --- | --- | --- |
 | 1 | A search for one exact name does not copy the whole directory | `dircache-exact-name` | nothing | proved on macOS and Windows |
-| 2 | A search's copy is released without ending a live search | `dircache-retention` | 1 | proved on macOS and Windows |
+| 2 | A search's copy is released without ending a live search | `dircache-retention` | 1 | proved on macOS and Windows; two reporters' cases not run on Windows yet, and one Windows line waits for 10 |
 | 3 | The first read of a large folder | `dircache-first-read` | nothing | not started |
-| 4 | A find call does not disturb another search's DTA | `dircache-dta` | nothing | proved on macOS and Windows |
+| 4 | A find call does not disturb another search's DTA | `dircache-dta` | nothing; one case on Windows also needs 2 | proved on macOS and Windows |
 | 5 | A generated 8.3 alias never equals a real 8.3 name | `dircache-alias` | 3 | not started |
 | 6 | The emulator's DOS answers as MS-DOS does where the contrast found it differs | `dircache-dos-answers` | nothing | not started |
 | 7 | The shell's `DIR` prints the free space of the drive it listed | `dircache-shell-dir` | nothing | in progress |
@@ -23,8 +23,9 @@ and this page says so where it reaches them: it is brought up to date as each on
 | 10 | The x86 dynamic core keeps its code-page handlers across a cache reset | `dyncore-cache-reset` | nothing | cause measured, branch not written |
 
 Every branch is cut from upstream `main-ai` at `4e0b6adcf`, or from the branch it needs, and is
-meant for `main-ai`. None is published yet: the branches are named here by their commits, and
-the links come when the pull requests are opened.
+meant for `main-ai`. None is published or offered yet: the branches are named here by their
+commits, and the links come when the pull requests are opened. The numbers 1 to 10 are this
+page's own; a four-digit number is upstream's.
 
 ## The problem, and the case that showed it
 
@@ -57,6 +58,15 @@ two lists of lines. The scripts, the guest programs' sources and their tests are
 [`bench/`](bench/README.md); the lines of the runs quoted below are in
 [`results/`](results/README.md).
 
+The guest programs are named below in capitals. LISTDUMP writes everything a build lists of a
+folder. MEMPROBE repeats one file call and then holds, so the emulator's memory can be read.
+EXACT asks for one exact name in every way a program can. FINDLIFE interrupts a search, shares
+it or outlives it, one named case at a time, and DRIFT brings a FindNext another pattern than
+its FindFirst had. DTADUMP prints the bytes a find call leaves in a DTA or an FCB, FINDPOS
+moves a search by its saved DTA and asks for the volume label alone, and PATLIST lists what
+patterns with a `*` before more characters return. In a run on three builds the lines call
+unpatched upstream `base`, the retention build `build` and the exact-name build `third`.
+
 **The base.** Every figure compares a patched build with unpatched upstream `main-ai` at
 `4e0b6adcf`. That revision does not compile on macOS without the two lines of
 [pull request 6822, "fix(ide): give the ATAPI sector counters the type of the ATA ones"](https://github.com/joncampbell123/dosbox-x/pull/6822),
@@ -75,7 +85,9 @@ call.
 
 **Both hosts.** Every patch is built and run on macOS (Apple silicon, SDL2) and on Windows
 (x64, Visual Studio, SDL1), with the same scripts under Git Bash. Windows matters twice: it is
-where [issue 6827](https://github.com/joncampbell123/dosbox-x/issues/6827) was reported from,
+where
+[issue 6827, "DOSBox-X consumes huge amounts of memory when running certain programs in directories with lots of files"](https://github.com/joncampbell123/dosbox-x/issues/6827),
+was reported from,
 and there the 8.3 aliases come from NTFS and not from the emulator, so the cells that show an
 alias are the file system's.
 
@@ -138,9 +150,9 @@ is never continued, and without that patch each one would still hold a whole fol
 commits are offered as one: with the first four alone a listing that looks every entry up by
 name stops at the table's reset, and at the head it comes out whole.
 
-It is offered as a proposal on
+It will be offered as a proposal on
 [pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831),
-which addresses the same cost and is discussed below.
+which addresses the same cost and is discussed below, and not as a competing pull request.
 
 What changes: a search is named by its slot and a generation, so a FindNext through a DTA
 whose slot went to another search answers "no more files" and never returns another folder's
@@ -181,7 +193,11 @@ entries, upstream 1 from the root, MS-DOS 12); and DRIFT's `label-search-then-ed
 nothing more where upstream returned 4 entries. Two are in long-name calls, where no real DOS
 referees: a 714Fh asked again after its search ended no longer reads another search (a search
 then returns 32 of 32 entries, upstream 1), and a 714Eh turned away for want of a handle no
-longer leaves its search open (42 of 42, upstream 3).
+longer leaves its search open (42 of 42, upstream 3). And on Windows, with long names on, one
+line of EXACT's section that is printed and not judged differs
+(`fcb-wildcard-around-lfn-exact`, an FCB search around a long-name call): there the retention
+build answers as every build does on macOS, and the other two follow the order of NTFS's
+aliases.
 
 **What it leaves, declared.** MS-DOS keeps the place of a search in the 21 bytes of the DTA it
 reserves, so a program can rewind a search by putting saved bytes back. The emulator keeps the
@@ -208,8 +224,9 @@ regression programs with these instruments and posted what they showed on the pu
 ([the comment](https://github.com/joncampbell123/dosbox-x/pull/6831#issuecomment-6889077629),
 [its follow-up with the MS-DOS confirmation](https://github.com/joncampbell123/dosbox-x/pull/6831#issuecomment-6889773432),
 [the gist with the report and three guest programs](https://gist.github.com/Optimiza/a4a2f4a2aace2ca21dfed75fd4324258)).
-Its regression programs, FINDTEST and LFNTEST, pass on its build, on unpatched upstream and on
-every branch here (10 checks of 10, each).
+Its regression programs, FINDTEST and LFNTEST, pass on its build
+(`results/macos/pr6831-regression-programs.txt`), on unpatched upstream and on every branch
+here (the `passfail` cells): 10 checks of 10, each.
 
 What it changes for a program is that a release can end a search a real DOS would continue.
 These are the cases, the same on unpatched upstream and on the branches here:
@@ -221,11 +238,13 @@ These are the cases, the same on unpatched upstream and on the branches here:
 | A child starts a search in its parent's DTA and ends; the parent reads on | 32 of 32 | 1 of 32 | 32 of 32 |
 | Two enumerations at once through libc, long names off | 42 of 42 | 1 of 42 | 42 of 42 |
 | A saved DTA whose slot went to a search of another folder | no entry of the other folder | an entry of the other folder | |
-| The drive unmounted and mounted again, a search on the new drive | 32 of 32 | 3 of 32, not in every run | |
+| The drive unmounted and mounted again, a search on the new drive | 32 of 32 | 3 of 32 on macOS, 32 of 32 on Windows | |
 
-From `results/macos/pr6831-findlife.txt` (the exact-name build against the pull request's) and
-`bench/fixtures/battery/121-realdos.txt`. The retention build answers the six as unpatched
-upstream does.
+From `results/macos/pr6831-findlife.txt` (the exact-name build against the pull request's),
+`results/windows/pr6831-findlife.txt` and `bench/fixtures/battery/121-realdos.txt`. The
+retention build answers the six as unpatched upstream does. The last case needs the host's
+allocator to hand the new drive the address of the old one, which is why it shows on one host
+and not on the other.
 
 It also leaves two things the retention branch closes: 20,000 searches for the volume label
 still empty its table 9 times (`results/macos/pr6831-reporters-cases.txt`), and on Windows its
@@ -240,7 +259,8 @@ account requires, so there is no figure for it here.
 
 ## 4. A find call does not disturb another search's DTA
 
-Branch `dircache-dta`, five commits ending at `29879873b`. It stands alone.
+Branch `dircache-dta`, five commits ending at `29879873b`. It stands alone, but for one case
+on Windows said below.
 
 Four defects of unpatched upstream, each a find call writing where another search keeps its
 state, and one unchecked index met on the way:
@@ -268,8 +288,10 @@ state, and one unchecked index met on the way:
 | DRIFT, 25 cases of a FindNext that brings another pattern: lines that differ from MS-DOS's report | 8 | 2 | |
 
 From the cells `findlife`, `dtadump`, `exact` and `drift` of
-`results/macos/battery-base-dta.txt`, and the reports in `bench/fixtures/battery`
-(`087-findlife.txt`, `092-drift.txt`, `124-realdos.txt`). The two DRIFT lines left are nobody's
+`results/macos/battery-base-dta.txt`, the patched build's own lines in
+`results/macos/dta-cases.txt`, and unpatched upstream's and MS-DOS's reports in
+`bench/fixtures/battery` (`087-findlife.txt`, `092-drift.txt`, `122-realdos.txt`,
+`124-realdos.txt`). The two DRIFT lines left are nobody's
 fix here: one is the second new file of `folder-gained-files`, the other the order in which a
 directory that lost an entry is read on. On Windows the cells read the same
 (`results/windows/battery-base-dta.txt`), with the FCB digest different only by the alias
@@ -324,14 +346,14 @@ it is what leaves memory behind per child process on Windows in pull request 2's
 
 ## The reporters' cases
 
-Each related upstream issue is reproduced as its reporter describes it, on every build.
+The case of each related upstream issue, rebuilt from its report and run on every build.
 
 | The case | Unpatched | Exact-name | Retention | Pull request 6831 | MS-DOS 7.10 |
 | --- | --- | --- | --- | --- | --- |
 | [Issue 6827](https://github.com/joncampbell123/dosbox-x/issues/6827): FC run 300 times in a folder of 700 files. Memory held after 1 → 300 runs (kB) | 167,632 → 458,353 | 165,904 → 181,008 | 165,968 → 181,216 | 167,392 → 181,696 | 300 of 300 compared |
 | The same: peak resident size at 300 runs (kB) | 497,744 | 220,576 | 220,752 | 221,248 | |
 | [Issue 2485](https://github.com/joncampbell123/dosbox-x/issues/2485): a FindFirst per file over 1,835 files. Memory held after 1 → 1,835 lookups (kB) | 167,344 → 2,363,522 | 167,280 → 168,448 | 167,472 → 168,656 | 167,376 → 167,408 | 1,835 of 1,835 found |
-| [Issue 4904](https://github.com/joncampbell123/dosbox-x/issues/4904), as the maintainer reproduced it: XCOPY of a tree, files that arrived of 2,520 | 2,065 | 2,065 | 2,520 | 2,520 | 2,520 |
+| [Issue 4904](https://github.com/joncampbell123/dosbox-x/issues/4904), after the maintainer's reproduction with XCOPY: a tree copied, files that arrived of 2,520 | 2,065 | 2,065 | 2,520 | 2,520 | 2,520 |
 | Issue 4904, as its reporter describes it: two DTA searches read turn about, of 42 and 32 | 28 and 28 | 28 and 28 | 42 and 32 | 42 and 32 | 42 and 32 |
 
 macOS, long names off but for the turn-about row, from the cells `fc 700`, `memory
@@ -342,16 +364,16 @@ exact-name patch closes issues 6827 and 2485; issue 4904 takes the retention.
 
 These are stand-ins written from the reports: the emulator's own FC from a batch file, a
 program that looks each file up by name, a tree made for the run. The reporters' own attached
-files are being run now and their result is not filed yet.
+files are run separately, and that result is not in this account yet.
 
 ## What was seen and left
 
 | Seen | The measured line | What becomes of it |
 | --- | --- | --- |
-| 300 runs of the emulator's FC leave about 15 MB whatever the folder holds, on every build | unpatched upstream in a folder with no other file: 182,128 kB held after 300 runs; in the folder of 700 files the patched builds hold 181,008 and 181,216 kB | not the directory cache's and not looked for; named to the maintainer |
-| With long names on, 4Eh matches by a wider rule than MS-DOS: a `*` followed by more characters is honoured and the long name is matched too | PATLIST, 15 patterns: every build's list with long names off is MS-DOS's (digest `dfc20fe25661`), with long names on another (`a8e695a8baca`) | the emulator's long-name rule, which no real DOS referees; named to the maintainer |
+| 300 runs of the emulator's FC leave about 15 MB whatever the folder holds, on every build | unpatched upstream in a folder with no other file: 182,128 kB held after 300 runs; in the folder of 700 files the patched builds hold 181,008 and 181,216 kB | not the directory cache's and not looked for; said here so that it is known |
+| With long names on, 4Eh matches by a wider rule than MS-DOS: a `*` followed by more characters is honoured and the long name is matched too | PATLIST, 15 patterns: every build's list with long names off is MS-DOS's (digest `dfc20fe25661`), with long names on another (`a8e695a8baca`) | the emulator's long-name rule, which no real DOS referees; left as it is |
 | Two DRIFT lines differ from MS-DOS on every build | `folder-gained-files`: 7 of MS-DOS's 8 with the exact-name patch; `folder-lost-the-entry`: 5 more where MS-DOS returns none | the first is half closed by pull request 1; the second is the order a changed directory is read in, left |
-| Pull request 6831's build answers the remount case differently from run to run | 3 of 32 in some runs, 32 of 32 in others | the case needs the host's allocator to reuse an address; no claim rests on it |
+| Pull request 6831's build answers the remount case by host | 3 of 32 on macOS, 32 of 32 on Windows | the case needs the host's allocator to reuse an address; no claim rests on it |
 | On Windows the unpatched build passes the bench's memory limit in the large folder | `fopen` at 20 calls: killed at 6,291,456 kB of working set, INVALID | the limit doing its work; the cell is read from 1 and 5 calls |
 | On Windows `ties.sh` is INVALID | no two entries share a short name there: NTFS names the aliases | the script's answer on such a host, not a failure |
 
@@ -364,7 +386,7 @@ patlist` cells.
 | --- | --- | --- |
 | [6823, FindFirst copies and retains the whole directory on every call](https://github.com/joncampbell123/dosbox-x/issues/6823) | open | the copy: covered, measured (pull request 1); the retention: covered, measured (pull request 2); the first read: not yet (pull request 3) |
 | [6827, DOSBox-X consumes huge amounts of memory when running certain programs in directories with lots of files](https://github.com/joncampbell123/dosbox-x/issues/6827) | open | covered, measured by a stand-in (pull request 1) |
-| [4904, FindFirst (int21,4e) can invalidate handles stored in other DTA blocks](https://github.com/joncampbell123/dosbox-x/issues/4904) | open | covered, measured by two stand-ins (pull request 2) |
+| [4904, FindFirst (int21,4e) can invalidate handles stored in other DTA blocks](https://github.com/joncampbell123/dosbox-x/issues/4904) | open | covered, measured by two stand-ins on macOS; not run on Windows yet (pull request 2) |
 | [2485, Cycle with test if file exists in directory with 1835 files will crash](https://github.com/joncampbell123/dosbox-x/issues/2485) | closed | the memory behind it: covered, measured by a stand-in (pull request 1) |
 | [3572, Very slow response when querying a large directory](https://github.com/joncampbell123/dosbox-x/issues/3572) | open | not yet (pull request 3) |
 | [5039, Large number of files in dir stalls dosbox-x](https://github.com/joncampbell123/dosbox-x/issues/5039) | closed | not yet (pull request 3) |
@@ -373,7 +395,8 @@ patlist` cells.
 ## Running it
 
 A clone runs with two DOSBox-X executables, the DJGPP cross compiler and, on macOS, GNU
-`timeout`; nothing here opens a window. The tests of the scripts themselves need no emulator:
+`timeout`; nothing here opens a window. The tests of the scripts themselves need no emulator, and run on
+macOS:
 
 ```sh
 for t in bench/*.test.sh; do bash "$t" || break; done

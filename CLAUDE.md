@@ -7,7 +7,8 @@ emulator source lives here.
 
 ## Where the rest lives
 
-- The emulator branches are in the fork `Optimiza/dosbox-x`: `dircache-exact-name`,
+- The emulator branches belong to the fork `Optimiza/dosbox-x` and are not pushed there yet:
+  `dircache-exact-name`,
   `dircache-retention`, `dircache-first-read`, `dircache-dta`, `dircache-alias`,
   `dircache-dos-answers`, `dircache-shell-dir`, `dircache-findstring`, `dircache-setattr` and
   `dyncore-cache-reset`. Each is cut from upstream `joncampbell123/dosbox-x` `main-ai` at
@@ -15,8 +16,8 @@ emulator source lives here.
   figure is compared with that base, whatever `main-ai` is today.
 - The instruments are developed in the private repository `scry-dosbox-x`, branch `dircache`,
   folder `tests/dircache`. `bench/` is that folder as committed there, last taken at `a25e403`,
-  with the changes listed below. The plan of the work, its decisions and every session's report
-  are in that repository's `.claude/`, and they say which subjects are delivered.
+  with the changes listed below. The record of which subjects are delivered, and with what
+  figures, is kept in that repository.
 - The raw lines of every run are filed outside both repositories, by the work's own record;
   `results/` is made from them.
 
@@ -31,7 +32,8 @@ from a working tree, and apply these changes, each of which must match:
 3. `fixtures/stub-dosbox-run.sh` is `fixtures/stub-launcher.sh` here, and `testlib.sh` hands it
    to the scripts through `DIRCACHE_LAUNCHER`.
 4. `run.test.sh`: the case of a missing launcher uses `DIRCACHE_LAUNCHER`.
-5. `battery.sh` and `README.md`: the launcher's name, and the section "What they need".
+5. `battery.sh` and `README.md`: the launcher's name, the section "What they need", the
+   sentence on `launch.test.sh`, and `--file` taking a pattern on a synthetic folder only.
 6. `fixtures/battery`: the one file name of the large folder is `SONG.MID`.
 
 Then, from a fresh clone: `shellcheck -x -P bench bench/*.sh bench/fixtures/*.sh`, every
