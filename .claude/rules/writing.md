@@ -85,5 +85,8 @@ Take the counts and write them in the last line of the commit body: the words of
 outside tables and code, the longest paragraph of each page in words, and the pages with a
 paragraph over sixty. A page over a limit is not pushed.
 
-The counts are taken by hand or by a script kept outside the repository. No check is wired to
-a commit, a push or CI: the owner has not asked for one.
+The counts are taken by hand or by a script kept outside the repository.
+
+`tools/check-prose.sh` enforces the limits of this file at every commit, through
+`.githooks/pre-commit`. It writes each limit once, at its top, so a limit changed here is
+changed there in the same commit. No CI workflow runs it.
