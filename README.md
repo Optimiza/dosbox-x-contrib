@@ -12,14 +12,14 @@ the figures.
 
 | # | Subject, one pull request each | Branch | Needs | State |
 | --- | --- | --- | --- | --- |
-| 1 | [A search for one exact name does not copy the whole directory](docs/01-exact-name.md) | `dircache-exact-name` | nothing | proved on macOS and Windows |
+| 1 | [A search for one exact name does not copy the whole directory](docs/01-exact-name.md) | `dircache-exact-name` | nothing | proved on macOS and Windows; two reporters' cases not run on Windows yet |
 | 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | `dircache-retention` | 1 | proved on macOS and Windows; two reporters' cases not run on Windows yet, and one Windows line waits for 10 |
 | 3 | [The first read of a large folder](docs/03-first-read.md) | `dircache-first-read` | nothing | not started |
 | 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | `dircache-dta` | nothing; one case on Windows also needs 2 | proved on macOS and Windows |
 | 5 | [A generated 8.3 alias never equals a real 8.3 name](docs/05-alias.md) | `dircache-alias` | 3 | not started |
 | 6 | [The emulator's DOS answers as MS-DOS does where the contrast found it differs](docs/06-dos-answers.md) | `dircache-dos-answers` | nothing | not started |
 | 7 | [The shell's `DIR` prints the free space of the drive it listed](docs/07-shell-dir.md) | `dircache-shell-dir` | nothing | in progress |
-| 8 | [`CommandLine::FindString` does not read past the last word](docs/08-findstring.md) | `dircache-findstring` | nothing | in progress |
+| 8 | [An option given as the last word of a command line is not read past its end](docs/08-findstring.md) | `dircache-findstring` | nothing | in progress |
 | 9 | [An attribute change on Windows does not empty the directory cache](docs/09-setattr.md) | `dircache-setattr` | nothing | cause measured, branch not written |
 | 10 | [The x86 dynamic core keeps its code-page handlers across a cache reset](docs/10-dyncore-cache-reset.md) | `dyncore-cache-reset` | nothing | cause measured, branch not written |
 
