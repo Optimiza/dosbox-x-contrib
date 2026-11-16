@@ -1,0 +1,30 @@
+exit=0 :: exact.sh /builds/base/dosbox-x /builds/retention/dosbox-x on
+exact.sh: long names on
+exact.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+exact.sh: build A, EXACT: slots_full=1 out_of_range=20
+exact.sh: build A, the shell test: slots_full=0 out_of_range=0
+exact.sh: build B: /builds/retention/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+exact.sh: build B, EXACT: slots_full=0 out_of_range=0
+exact.sh: build B, the shell test: slots_full=0 out_of_range=0
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (72 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+exact.sh: the life and drift lines of build A:
+life|whole-folder|n=16
+life|exact-nested-same-dta|outer=1 inner=1
+life|exact-inside-whole-folder|outer=16 of 16 inner=1
+life|exact-two-entries|n=2 inner=16 of 16|ALPHAT~1.MID:20:5,ALPHAT~3.MID:20:4
+life|exact-after-create-and-delete|before=18 created=1 found=1 other_case=1 after=18|NEWFILE.TXT:20:3
+life|exact-across-create|first=0 more=0
+life|lfn-exact-300-then-folder|found=300 folder=16 of 16
+life|exact-abandoned-past-the-slots|found=2108 folder=16 of 16 then=1|ZED.TXT:20:7
+drift|dta-pattern-edited|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|failed-findfirst-other-pattern|first=0 failed=3 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|lfn-wildcard-writes-exact-dta|first=0 lfn=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|lfn-exact-writes-wildcard-dta|lfn=0 outer=4 of 16|,FOO.TXT:20:3
+drift|device-through-exact-dta|first=0 device=0 more=0|
+drift|fcb-exact-around-lfn-exact|lfn=0 files=1|
+drift|fcb-wildcard-around-lfn-exact|lfn=0 files=2|
+life|fcb-wildcard-around-4e-exact|inner=0 files=12

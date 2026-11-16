@@ -1,0 +1,12 @@
+Copying e:\D\BAR.TXT
+Copying e:\D\FOO
+Copying e:\D\FOO.TXT
+Copying e:\D\FOO~1.TXT
+Copying e:\D\PROGRAM
+Copying e:\D\PROGRAM.TXT
+Copying e:\D\PROGRA~1.TXT
+Copying e:\D\PROGRA~2
+8 file(s) copied
+
+ Volume in drive D is DISK1
+ Volume Serial Number is 0013-6C03

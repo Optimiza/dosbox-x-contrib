@@ -1,0 +1,21 @@
+exit=0 :: run.test.sh 
+ok   two different dumps
+ok   each build named
+ok   the same dump twice
+ok   names with bytes above 7Fh
+ok   a dump cut before its trailer
+ok   an entry fewer than the trailer says
+ok   a lookup fewer than the trailer says
+ok   no long-name entry with long names on
+ok   the same dump with long names off
+ok   long-name entries with long names off
+ok   an empty folder
+ok   the launcher refuses the run
+ok   a report that names no build
+ok   a count past the shell's arithmetic
+ok   a folder the guest cannot name with long names off
+ok   neither on nor off
+ok   three arguments
+ok   a build that is not there
+ok   no launcher on the PATH
+19 cases, 0 failed

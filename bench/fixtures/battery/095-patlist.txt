@@ -1,0 +1,37 @@
+exit=0 :: patlist.sh /builds/base/dosbox-x /builds/retention/dosbox-x on
+patlist.sh: long names on
+patlist.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+pat|*R.TXT|first=0 n=1|,BAR.TXT
+pat|B*R.TXT|first=0 n=1|,BAR.TXT
+pat|*O.TXT|first=0 n=1|,FOO.TXT
+pat|ZED.T*T|first=0 n=1|,ZED.TXT
+pat|*.T*T|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+pat|*.*D|first=0 n=4|,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID
+pat|TWO.*|first=0 n=1|,TWO~1.TXT
+pat|ALPHA*.MID|first=0 n=4|,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID
+pat|A*~1.MID|first=0 n=2|,ALPHAT~1.MID,ALPHAT~3.MID
+pat|*~1.*|first=0 n=5|,LONGSU~1,ALPHAT~1.MID,ALPHAT~3.MID,NOEXTE~1,TWO~1.TXT
+pat|NOEXT*.*|first=0 n=2|,NOEXT,NOEXTE~1
+pat|N*|first=0 n=2|,NOEXT,NOEXTE~1
+pat|MIXCASE.TXT|first=0 n=1|,MIXCASE.TXT
+pat|????????.???|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+pat|*.*|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+end|lines=15
+patlist.sh: build B: /builds/retention/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+pat|*R.TXT|first=0 n=1|,BAR.TXT
+pat|B*R.TXT|first=0 n=1|,BAR.TXT
+pat|*O.TXT|first=0 n=1|,FOO.TXT
+pat|ZED.T*T|first=0 n=1|,ZED.TXT
+pat|*.T*T|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+pat|*.*D|first=0 n=4|,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID
+pat|TWO.*|first=0 n=1|,TWO~1.TXT
+pat|ALPHA*.MID|first=0 n=4|,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID
+pat|A*~1.MID|first=0 n=2|,ALPHAT~1.MID,ALPHAT~3.MID
+pat|*~1.*|first=0 n=5|,LONGSU~1,ALPHAT~1.MID,ALPHAT~3.MID,NOEXTE~1,TWO~1.TXT
+pat|NOEXT*.*|first=0 n=2|,NOEXT,NOEXTE~1
+pat|N*|first=0 n=2|,NOEXT,NOEXTE~1
+pat|MIXCASE.TXT|first=0 n=1|,MIXCASE.TXT
+pat|????????.???|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+pat|*.*|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+end|lines=15
+patlist.sh: ALIKE

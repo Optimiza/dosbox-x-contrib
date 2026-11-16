@@ -1,0 +1,2 @@
+exit=0 :: xcopy.sh /builds/base/dosbox-x off
+xcopy.sh: lfn=off made=2520 copied=2065 dirs_made=18 dirs_copied=15 said=2065 slots_full=1 out_of_range=3 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/base/dosbox-x

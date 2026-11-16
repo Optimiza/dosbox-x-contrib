@@ -1,0 +1,2 @@
+exit=0 :: memory.sh /builds/retention/dosbox-x /library/MIDI on d 20 --file SONG.MID
+memory.sh: mode=d calls=20 lfn=on folder=/library/MIDI file=SONG.MID entries=169457 peak_rss_kb=279584 held_rss_kb=162240 held_footprint_kb=277633 samples=368 slots_full=0 guest="mode=d k=20 ok=20 released=1 guest_us=1169" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/retention/dosbox-x

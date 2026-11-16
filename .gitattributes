@@ -1,0 +1,2 @@
+# Captured guest output: a DOS program ends its lines with CR LF, and the capture keeps its bytes.
+bench/fixtures/** -text

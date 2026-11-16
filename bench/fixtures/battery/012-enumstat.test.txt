@@ -1,0 +1,8 @@
+exit=0 :: enumstat.test.sh 
+ok   a row with its listing and the log's counts
+ok   six rows
+ok   a row that is another mode's
+ok   a run that left no output
+ok   the launcher refuses the run
+ok   no argument
+6 cases, 0 failed

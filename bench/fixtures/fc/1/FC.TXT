@@ -1,0 +1,9 @@
+Comparing D:\DIR\ONE.TXT and D:\DIR\TWO.TXT
+No differences
+
+Comparing D:\DIR\ONE.TXT and D:\DIR\TWO.TXT
+No differences
+
+Comparing D:\DIR\ONE.TXT and D:\DIR\TWO.TXT
+No differences
+

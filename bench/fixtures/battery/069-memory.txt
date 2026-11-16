@@ -1,0 +1,2 @@
+exit=0 :: memory.sh /builds/base/dosbox-x synthetic:50000:83 off c 20
+memory.sh: mode=c calls=20 lfn=off folder=synthetic:50000:83 file=F0000000.TXT entries=50000 peak_rss_kb=829568 held_rss_kb=828640 held_footprint_kb=849969 samples=18 slots_full=0 guest="mode=c k=20 ok=20 released=1 guest_us=1374733" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/base/dosbox-x

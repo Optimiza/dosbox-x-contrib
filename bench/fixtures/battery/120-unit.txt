@@ -1,0 +1,2 @@
+exit=0 :: unit.sh /builds/retention/dosbox-x
+unit.sh: tests=68 failures=0 errors=0 disabled=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/retention/dosbox-x

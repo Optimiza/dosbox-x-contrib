@@ -1,0 +1,12 @@
+exit=0 :: passfail.test.sh 
+ok   ten checks that pass
+ok   counts and exit code, upper case only
+ok   no PASS or FAIL line
+ok   the guest did not reach the folder
+ok   no exit code recorded
+ok   an exit code that is not a number
+ok   the launcher refuses the run
+ok   a program that is not an .EXE
+ok   a program name with two dots
+ok   three arguments
+10 cases, 0 failed

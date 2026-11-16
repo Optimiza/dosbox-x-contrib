@@ -1,0 +1,12 @@
+exit=0 :: findlife.test.sh 
+ok   two reports that differ
+ok   each report printed whole
+ok   two searches read turn about, cut short on one build
+ok   and whole on the other
+ok   the same report twice
+ok   a report cut before its trailer
+ok   a report with no case
+ok   the launcher refuses the run
+ok   neither on nor off
+ok   two arguments
+10 cases, 0 failed

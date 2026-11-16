@@ -1,0 +1,12 @@
+Baseline entries: 42
+Baseline nonempty                  PASS
+Two independent FindFirst calls    PASS
+First DTA full enumeration         PASS
+Second DTA full enumeration        PASS
+Restart two searches               PASS
+Replace first DTA search           PASS
+Other DTA survives replacement     PASS
+300 abandoned/replaced searches    PASS
+Enumeration after replacements     PASS
+Active search before normal exit   PASS
+Failures: 0

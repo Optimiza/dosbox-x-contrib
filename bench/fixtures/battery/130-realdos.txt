@@ -1,0 +1,11 @@
+exit=0 :: realdos.sh /builds/retention/dosbox-x /images/boot.img memprobe
+realdos.sh: machine: /builds/retention/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: image: /images/boot.img
+realdos.sh: ver: Windows 98 [Version 4.10.2222]
+realdos.sh: dos|version=7.10 oem=FF
+realdos.sh: dos|true_version=7.10 flags=10
+realdos.sh: dos|int21=030F:04A0 code=EAB20FC9002EF606
+realdos.sh: dos|lfn_714e=7100
+realdos.sh: dos|windows_1600=00
+realdos.sh: dos|drive_z=3
+realdos.sh: names=83 files=1835 mode=e k=1835 ok=1835

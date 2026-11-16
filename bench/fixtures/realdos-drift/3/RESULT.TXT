@@ -1,0 +1,40 @@
+section ver
+
+Windows 98 [Version 4.10.2222]
+
+section dos
+dos|version=7.10 oem=FF
+dos|true_version=7.10 flags=10
+dos|int21=030F:04A0 code=EAB20FC9002EF606
+dos|lfn_714e=7100
+dos|windows_1600=00
+dos|drive_z=3
+end
+section drift
+drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-does-not|first=0 more=0|
+drift|to-a-later-exact-name|first=0 more=1|,ZED.TXT:20:7
+drift|to-an-earlier-exact-name|first=0 more=0|
+drift|to-a-missing-exact-name|first=0 more=0|
+drift|to-its-own-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-lower-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-exact-name-zero-padded|first=0 more=0|
+drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+drift|to-its-own-name-zero-padded|first=0 more=0|
+drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-the-last-entry|first=0 more=0|
+drift|from-a-missing-name|first=18 more=0|
+drift|edited-twice|first=0 more=2|,FOO.TXT:20:3,ZED.TXT:20:7
+drift|saved-and-restored-then-edited|first=0 inner=16 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-gained-files|first=0 more=8|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7,AAANEW.TXT:20:1,BARNEW.TXT:20:1
+drift|folder-lost-the-entry|first=0 more=0|
+drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|label-search-then-edited|first=18 more=0|
+end|lines=25
+section done

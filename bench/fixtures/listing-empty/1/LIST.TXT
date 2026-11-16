@@ -1,0 +1,9 @@
+listdump|folder=D:\EMPTY|use_lfn=1
+4e|0|attr=10|time=acf5|date=5d6e|size=0|name=.
+4e|1|attr=10|time=acf5|date=5d6e|size=0|name=..
+4e-end|err=0012|count=2
+lfn|0|attr=00000010|ctime=0000000000000000|atime=0000000000000000|mtime=000000005d6eacf5|size=0000000000000000|cx=0000|long=.|short=
+lfn|1|attr=00000010|ctime=0000000000000000|atime=0000000000000000|mtime=000000005d6eacf5|size=0000000000000000|cx=0000|long=..|short=
+lfn-end|err=0012|count=2
+lfn-close|cf=0|ax=0000
+end|4e=2|lfn=2|look=0

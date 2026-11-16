@@ -1,0 +1,4 @@
+   1827704 ERROR DOSMISC:DIRCACHE: FindFirst/Next: All slots full. Resetting
+   1827775 ERROR DOSMISC:DIRCACHE: FindFirst/Next failure : ID out of range: 075B
+   1827777 ERROR DOSMISC:DIRCACHE: FindFirst/Next failure : ID out of range: 0001
+   1831226 ERROR DOSMISC:DIRCACHE: FindFirst/Next failure : ID out of range: 0000

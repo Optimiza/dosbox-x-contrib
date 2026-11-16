@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="68" failures="0" disabled="0" errors="0" time="0.005" timestamp="2026-11-15T08:30:28.372" name="AllTests">
+  <testsuite name="DOS_FilesTest" tests="29" failures="0" disabled="0" skipped="0" errors="0" time="0.003" timestamp="2026-11-15T08:30:28.372">
+    <testcase name="DOS_MakeName_Basic_Failures" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_Z_AUTOEXEC_BAT_exists" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_Drive_Index_Set_On_Failure" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_Uppercase" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_CONVERTS_FWD_SLASH" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_STRIP_SPACE" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_Dir_Handling" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_Assumes_Current_Drive_And_Dir" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_Illegal_Chars_After_8_3" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_DOS_PATHLENGTH_checks" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_Enforce_8_3" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_Dot_Handling" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_No_SlashSlash" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_GoodChars" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_DBCS" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_MakeName_Colon_Illegal_Paths" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_FindFirst_Ending_Slash" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_FindFirst_Rejects_Invalid_Names" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_FindFirst_FindVolume" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_FindFirst_FindDevice" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_FindFirst_FindFile" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_FindFirst_FindFile_Nonexistant" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_FindFirst_Overlay_Size_After_SetFileAttr" status="run" result="completed" time="0.001" timestamp="2026-11-15T08:30:28.372" classname="DOS_FilesTest" />
+    <testcase name="DOS_SetFileAttr_Overlay_Base_File_In_Subdirectory" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.373" classname="DOS_FilesTest" />
+    <testcase name="DOS_ChangeDir_Rejects_File_As_Directory" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.374" classname="DOS_FilesTest" />
+    <testcase name="DOS_DTAExtendName_Mutates_Input" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.374" classname="DOS_FilesTest" />
+    <testcase name="DOS_DTAExtendName_Space_Pads" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.374" classname="DOS_FilesTest" />
+    <testcase name="DOS_DTAExtendName_Enforces_8_3" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.374" classname="DOS_FilesTest" />
+    <testcase name="DOS_ReadFile_Sees_Write_Through_Other_Handle" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.374" classname="DOS_FilesTest" />
+  </testsuite>
+  <testsuite name="WildFileCmp" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2026-11-15T08:30:28.375">
+    <testcase name="ExactMatch" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="WildFileCmp" />
+    <testcase name="WildDotWild" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="WildFileCmp" />
+    <testcase name="WildcardNoExt" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="WildFileCmp" />
+    <testcase name="QuestionMark" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="WildFileCmp" />
+  </testsuite>
+  <testsuite name="LWildFileCmp" tests="1" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2026-11-15T08:30:28.375">
+    <testcase name="LFNCompare" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="LWildFileCmp" />
+  </testsuite>
+  <testsuite name="Set_Label" tests="12" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2026-11-15T08:30:28.375">
+    <testcase name="Daggerfall" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="DaggerfallCD" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="LongerThan11" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="LongerThan11CD" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="ShorterThan8" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="ShorterThan8CD" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="EqualTo8" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="EqualTo8CD" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="StripEndingDot" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="NoStripEndingDotCD" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="InvalidCharsEndingDot" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+    <testcase name="InvalidCharsEndingDotCD" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="Set_Label" />
+  </testsuite>
+  <testsuite name="DOS_Shell_CMDSTest" tests="9" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2026-11-15T08:30:28.375">
+    <testcase name="DoCommand_Separating_Chars" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="DOS_Shell_CMDSTest" />
+    <testcase name="DoCommand_All_Cmds_Do_Valid_Execute" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.375" classname="DOS_Shell_CMDSTest" />
+    <testcase name="DoCommand_Trim_Space" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="DOS_Shell_CMDSTest" />
+    <testcase name="DoCommand_Splits_Cmd_and_Args" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="DOS_Shell_CMDSTest" />
+    <testcase name="DoCommand_Doesnt_Split_Colon" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="DOS_Shell_CMDSTest" />
+    <testcase name="DoCommand_Nospace_Dot_Handling" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="DOS_Shell_CMDSTest" />
+    <testcase name="DoCommand_Nospace_Slash_Handling" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="DOS_Shell_CMDSTest" />
+    <testcase name="CMD_ECHO_off_on" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="DOS_Shell_CMDSTest" />
+    <testcase name="CMD_ECHO_space_handling" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="DOS_Shell_CMDSTest" />
+  </testsuite>
+  <testsuite name="DOS_Shell_REDIRTest" tests="2" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2026-11-15T08:30:28.376">
+    <testcase name="CMD_Redirection" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="DOS_Shell_REDIRTest" />
+    <testcase name="ParseLine_Output_Redirection_Without_Pipe" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="DOS_Shell_REDIRTest" />
+  </testsuite>
+  <testsuite name="Win31Publish" tests="4" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2026-11-15T08:30:28.376">
+    <testcase name="RejectsInvalidRangesAndShapes" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="Win31Publish" />
+    <testcase name="ValidatesDescriptorVersionGeometryAndAddresses" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="Win31Publish" />
+    <testcase name="ComposesClippedCursorAndRejectsOutOfBounds" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="Win31Publish" />
+    <testcase name="OwnsSnapshotAndRejectsChangedGenerationOrShape" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="Win31Publish" />
+  </testsuite>
+  <testsuite name="Win31PublishService" tests="7" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2026-11-15T08:30:28.376">
+    <testcase name="AcceptsPageCrossingDescriptorWithoutImmediateVramWrite" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.376" classname="Win31PublishService" />
+    <testcase name="ReplacesPendingSnapshotWithNewestSubmission" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.377" classname="Win31PublishService" />
+    <testcase name="FailedSubmissionAndExplicitCancellationDiscardPendingPixels" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.377" classname="Win31PublishService" />
+    <testcase name="GeometryChangeAndResizeDiscardPendingPixels" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.377" classname="Win31PublishService" />
+    <testcase name="SaveStateLoadDiscardsHostPixelsFromPreviousGuestState" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.377" classname="Win31PublishService" />
+    <testcase name="RejectsUnsupportedContextAndMode" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.377" classname="Win31PublishService" />
+    <testcase name="RejectsBadDescriptorMemoryAndCursor" status="run" result="completed" time="0" timestamp="2026-11-15T08:30:28.377" classname="Win31PublishService" />
+  </testsuite>
+</testsuites>

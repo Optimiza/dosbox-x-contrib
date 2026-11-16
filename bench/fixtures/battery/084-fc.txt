@@ -1,0 +1,2 @@
+exit=0 :: fc.sh /builds/retention/dosbox-x 700 off 1
+fc.sh: files=700 runs=1 lfn=off entries=703 peak_rss_kb=205488 held_rss_kb=205488 held_footprint_kb=165968 samples=7 slots_full=0 compared=1 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/retention/dosbox-x

@@ -1,0 +1,4 @@
+DOSBox-X LFN FindFirst/Next/Close test
+LFN FindFirst failed: AX=28928 (0x7100)
+Use DOSBox-X built-in DOS with LFN enabled,
+and run in a directory containing files.

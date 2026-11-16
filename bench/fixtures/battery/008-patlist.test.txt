@@ -1,0 +1,11 @@
+exit=0 :: patlist.test.sh 
+ok   two reports alike
+ok   each report printed whole
+ok   a pattern answered otherwise
+ok   the lines that differ, counted
+ok   a report cut before its trailer
+ok   a report with no pattern
+ok   the launcher refuses the run
+ok   neither on nor off
+ok   two arguments
+9 cases, 0 failed

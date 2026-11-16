@@ -1,0 +1,16 @@
+Copying e:\D\X\LONGSU~1\INNERL~1.DAT
+Copying e:\D\X\SUBDIR\INNER.TXT
+Copying e:\D\X\A.B
+Copying e:\D\X\ALPHAT~1.MID
+Copying e:\D\X\ALPHAT~2.MID
+Copying e:\D\X\ALPHAT~3.MID
+Copying e:\D\X\ALPHAT~4.MID
+Copying e:\D\X\BAR.TXT
+Copying e:\D\X\FOO.TXT
+Copying e:\D\X\MIXCASE.TXT
+Copying e:\D\X\NOEXT
+Copying e:\D\X\NOEXTE~1
+Copying e:\D\X\TWO~1.TXT
+Copying e:\D\X\ZED.TXT
+Copying e:\D\FOO.TXT
+15 file(s) copied

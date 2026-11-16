@@ -1,0 +1,1 @@
+mode=a k=5 ok=5 released=1 guest_us=310

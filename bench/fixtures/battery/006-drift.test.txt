@@ -1,0 +1,11 @@
+exit=0 :: drift.test.sh 
+ok   two reports that differ in one case
+ok   each report printed whole
+ok   the same report twice
+ok   a report cut before its trailer
+ok   a case fewer than the trailer says
+ok   a report with no case
+ok   the launcher refuses the run
+ok   neither on nor off
+ok   two arguments
+9 cases, 0 failed

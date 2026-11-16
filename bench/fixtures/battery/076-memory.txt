@@ -1,0 +1,2 @@
+exit=0 :: memory.sh /builds/retention/dosbox-x synthetic:100:long on a 20000
+memory.sh: mode=a calls=20000 lfn=on folder=synthetic:100:long file=Alpha track 000000.mid entries=100 peak_rss_kb=204560 held_rss_kb=204560 held_footprint_kb=165104 samples=17 slots_full=0 guest="mode=a k=20000 ok=20000 released=1 guest_us=2200405" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/retention/dosbox-x

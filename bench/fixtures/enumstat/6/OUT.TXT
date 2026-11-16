@@ -1,0 +1,2 @@
+enumstat|mode=n|listed=3002|looked_up_ok=0|last=F0002999.TXT
+end

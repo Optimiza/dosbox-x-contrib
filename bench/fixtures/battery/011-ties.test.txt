@@ -1,0 +1,7 @@
+exit=0 :: ties.test.sh 
+ok   the same report twice
+ok   one pair returned in the other order
+ok   no two entries share a name
+ok   the launcher refuses the run
+ok   one argument
+5 cases, 0 failed

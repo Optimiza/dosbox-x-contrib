@@ -1,0 +1,15 @@
+exit=0 :: passfail.sh /builds/base/dosbox-x synthetic:10000:long on /programs/LFNTEST.EXE
+DOSBox-X LFN FindFirst/Next/Close test
+Baseline entries: 10002
+Baseline enumeration and close         PASS
+Two simultaneous LFN searches          PASS
+First handle full enumeration          PASS
+Second handle full enumeration         PASS
+Close first handle                     PASS
+Close second handle                    PASS
+300 open/close cycles                  PASS
+Enumeration after handle reuse         PASS
+Final handle close                     PASS
+Active LFN search at normal exit       PASS
+Failures: 0
+passfail.sh: program=LFNTEST.EXE sha256=10da11a297d0 lfn=on folder=synthetic:10000:long entries=10000 pass=10 fail=0 exit=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/base/dosbox-x

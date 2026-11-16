@@ -1,0 +1,301 @@
+#!/usr/bin/env bash
+# Boots the DOS of a hard disk image inside DOSBox-X and runs one of the guest programs there, over
+# a FAT disk made for the run: the answers are that DOS's, not the emulator's. See README.md
+# beside this script.
+set -u
+
+usage() {
+    cat <<'EOT'
+usage: realdos.sh <build> <boot image> <id|findlife|exact|enumstat|drift|dtadump|patlist|template|
+                                        findpos|findpos-labelled|memprobe|fc|xcopy>
+
+  <build>       a DOSBox-X executable. It is only the machine here: its own DOS is shut down
+                when the image boots
+  <boot image>  a hard disk image whose first partition starts MS-DOS 7, as the system disk of
+                a Windows 98 does. It is never written: the run boots a copy
+  id            which DOS answers, and nothing else
+  findlife      FINDLIFE over the two folders findlife.sh makes
+  exact         EXACT over the folder exact.sh makes
+  enumstat      ENUMSTAT in its modes s, x and n over 3,000 files with 8.3 names
+  drift         DRIFT over the folder exact.sh makes
+  dtadump       DTADUMP over the folder exact.sh makes
+  patlist       PATLIST over the folder exact.sh makes
+  template      TEMPLATE over the files template.sh makes, in the root of the run's disk, which
+                is then labelled DISK1
+  findpos       FINDPOS over the folder exact.sh makes, the run's disk as it is made: with no
+                label
+  findpos-labelled  the same once the image's own LABEL has named the disk FPLABEL
+  memprobe      MEMPROBE in its mode e over 1,835 files with 8.3 names: each one looked up by
+                a 4Eh that is never continued
+  fc            the emulator's FC.EXE run 300 times from a batch file, as fc.sh runs it, in a
+                folder of 700 files
+  xcopy         the emulator's XCOPY.EXE over the tree xcopy.sh makes
+
+the guest: C: is the copy of the image, with the programs in C:\RD and an AUTOEXEC.BAT that runs
+them, never returns and turns the machine off, so no Windows starts; D: is a FAT16 image made
+for the run that holds the folders under the names the emulator shows with long names off.
+
+prints the machine's path and version line, the image, the DOS's own VER line, what DOSID read of
+the DOS that answered, then the program's report whole (for enumstat, one line per mode; for
+dtadump, the figures dtadump.sh prints come first; for memprobe, the guest's line; for fc, how
+many runs said the two files do not differ; for xcopy, how many files and folders the tree
+holds, how many of each that DOS's own DIR lists under the copy, and the count XCOPY printed).
+
+environment:
+  DJDIR                 the DJGPP cross toolchain (default: $HOME/djgpp)
+  DIRCACHE_PREBUILT     a folder holding the guest programs built on another host
+
+exit: 0 the report is the image's DOS's | 2 usage
+      3 INVALID: the folders did not reach the disk whole, the image did not boot or its DOS
+        did not reach the end of the batch, the emulator's own DOS answered, or the report is
+        cut short; the run's directory is kept and named
+EOT
+}
+
+STAGE_SECONDS=900
+BOOT_SECONDS=1800
+ENUM_FILES=3000
+ENUM_MODES="s x n"
+EACH_FILES=1835
+FC_FILES=700
+FC_RUNS=300
+DISK_MB=64
+
+if [ $# -eq 1 ] && [ "$1" = "--help" ]; then usage; exit 0; fi
+if [ $# -ne 3 ]; then usage >&2; exit 2; fi
+build=$1 image=$2 what=$3
+
+tool=realdos.sh
+here=$(cd "$(dirname "$0")" && pwd) || exit 2
+if [ ! -f "$here/common.sh" ]; then echo "realdos.sh: common.sh is missing beside the script" >&2; exit 3; fi
+# shellcheck source=common.sh
+. "$here/common.sh"
+need_builds "$build"
+if [ ! -f "$image" ]; then fail_usage "not a disk image: $image"; fi
+case "$what" in
+    id) programs="" ;;
+    findlife) programs=FINDLIFE ;;
+    exact) programs=EXACT ;;
+    enumstat) programs=ENUMSTAT ;;
+    drift) programs=DRIFT ;;
+    dtadump) programs=DTADUMP ;;
+    patlist) programs=PATLIST ;;
+    template) programs=TEMPLATE ;;
+    findpos|findpos-labelled) programs=FINDPOS ;;
+    memprobe) programs=MEMPROBE ;;
+    fc|xcopy) programs="" ;;
+    *) fail_usage "the program is id, findlife, exact, enumstat, drift, dtadump, patlist, template, findpos, findpos-labelled, memprobe, fc or xcopy, not: $what" ;;
+esac
+need_tools
+
+run_begin realdos
+stage=$tmp/stage boot=$tmp/boot collect=$tmp/collect
+mkdir -p "$stage/RD" "$stage/BOOT" "$stage/D" "$boot" "$collect" || invalid "could not make the run's directories"
+# A clone where the file system has them, a copy elsewhere.
+cp -c "$image" "$boot/c.img" 2> /dev/null || cp "$image" "$boot/c.img" || invalid "could not copy the image"
+
+for p in DOSID $programs; do
+    guest_build "$p" "$stage/RD" || invalid "$p did not build"
+done
+
+# The batch files are DOS's: CR LF.
+dos_lines() { printf '%s\r\n' "$@"; }
+
+# Connects to the BIOS's power management and turns the machine off: how the run ends once the
+# DOS is the image's and no shell of the emulator is left to say exit.
+#   mov ax,5301h / xor bx,bx / int 15h              connect, real mode
+#   mov ax,530Eh / xor bx,bx / mov cx,0102h / int 15h   version 1.2
+#   mov ax,5307h / mov bx,1 / mov cx,3 / int 15h    all devices: off
+#   mov ax,4C01h / int 21h                          still here
+printf '\xB8\x01\x53\x31\xDB\xCD\x15\xB8\x0E\x53\x31\xDB\xB9\x02\x01\xCD\x15\xB8\x07\x53\xBB\x01\x00\xB9\x03\x00\xCD\x15\xB8\x01\x4C\xCD\x21' \
+    > "$stage/RD/APMOFF.COM" || invalid "could not write APMOFF.COM"
+
+# One result file, a section per answer. Each program writes OUT.TXT, removed before the next:
+# a program that left nothing leaves its section empty, never the one before it. Every path is
+# whole: a program may leave another current directory behind.
+result='C:\RD\RESULT.TXT' out='C:\RD\OUT.TXT'
+batch=("@ECHO OFF" "PATH C:\\RD;C:\\WINDOWS;C:\\WINDOWS\\COMMAND" "C:" "CD \\RD" "ECHO section ver> $result" "VER >> $result")
+report() {
+    batch+=("ECHO section $1>> $result" "$2" "TYPE $out >> $result" "DEL $out")
+}
+report dos "DOSID.EXE $out"
+case "$what" in
+    findlife)
+        findlife_tree "$stage/D" || invalid "could not make the folders"
+        # FINDLIFE reads the host path of its remount case here: there is none under this DOS.
+        dos_lines "D:\\" > "$stage/RD/ROOT.TXT"
+        report findlife "FINDLIFE.EXE D:\\A D:\\B $out C:\\RD\\ROOT.TXT"
+        ;;
+    exact|drift|dtadump|patlist|findpos|findpos-labelled)
+        exact_tree "$stage/D" || invalid "could not make the folder"
+        # The label is the image's DOS's own work: an entry as that DOS writes one.
+        if [ "$what" = findpos-labelled ]; then batch+=("LABEL D:$FINDPOS_LABEL"); fi
+        report "$what" "$programs.EXE D:\\X $out"
+        ;;
+    enumstat)
+        folder_make "$stage/D/DIR" "$ENUM_FILES" 83 || invalid "could not make the folder"
+        for mode in $ENUM_MODES; do report "enumstat-$mode" "ENUMSTAT.EXE $mode D:\\DIR $out"; done
+        ;;
+    template)
+        template_tree "$stage/D" || invalid "could not make the volume's files"
+        report template "TEMPLATE.EXE D $out"
+        ;;
+    memprobe)
+        folder_make "$stage/D/DIR" "$EACH_FILES" 83 || invalid "could not make the folder"
+        synth_name 83 0
+        report memprobe "MEMPROBE.EXE e D:\\DIR\\$synth_name_out $EACH_FILES - - > $out"
+        ;;
+    fc)
+        fc_folder "$stage/D/DIR" "$FC_FILES" "$FC_RUNS" "$out" || invalid "could not make the folder"
+        batch+=("ECHO section fc>> $result" "D:" "CD \\DIR" "CALL RUNS.BAT" "C:" "CD \\RD" "TYPE $out >> $result" "DEL $out")
+        ;;
+    xcopy)
+        xcopy_tree "$stage/D/TREE" || invalid "could not make the tree"
+        # What arrived is listed by the DOS itself, not taken from XCOPY's own count.
+        batch+=("ECHO section xcopy>> $result" "MD D:\\COPY" "XCOPY D:\\TREE\\*.* D:\\COPY /S /E /Y > $out"
+            "ECHO files>> $out" "DIR D:\\COPY /S /B /A-D >> $out" "ECHO folders>> $out" "DIR D:\\COPY /S /B /AD >> $out"
+            "TYPE $out >> $result" "DEL $out")
+        ;;
+esac
+# The loop holds the machine if the power-off is refused: AUTOEXEC.BAT must not return, or the
+# image goes on to start its Windows.
+batch+=("ECHO section done>> $result" "APMOFF.COM" ":HOLD" "GOTO HOLD")
+dos_lines "${batch[@]}" > "$stage/BOOT/AUTOEXEC.BAT"
+dos_lines "FILES=40" > "$stage/BOOT/CONFIG.SYS"
+host_files=$(find "$stage/D" -type f | wc -l | tr -d ' ')
+host_dirs=$(find "$stage/D" -mindepth 2 -type d | wc -l | tr -d ' ')
+
+# conf <run dir> <core> <autoexec line>...
+# ver=7.1 on every conf that mounts the image: under a lower reported version DOSBox-X answers a
+# FAT32 volume with a native dialog and waits for a click, headless too. No line may end in a
+# backslash: the conf reader joins it with the next one.
+conf() {
+    local run=$1 core=$2
+    shift 2
+    {
+        printf '[dosbox]\nmemsize=64\n\n[cpu]\ncore=%s\ncycles=max\n\n[dos]\nver=7.1\nlfn=false\n\n[autoexec]\n' "$core"
+        printf '%s\n' "$@"
+    } > "$run/run.conf"
+}
+c_img=$(host_path "$boot/c.img") d_img=$(host_path "$boot/d.img")
+
+# The emulator's own shell puts everything on the two disks, long names off: the folders reach D:
+# under the 8.3 names a program sees through the emulator's host-folder drive.
+# A large folder goes through the shell's own COPY, a folder at a time: XCOPY looks every file up
+# while it lists the folder, and the emulator's search table gives out before the listing ends.
+# FC.EXE and XCOPY.EXE are the emulator's own, taken from its Z: drive like the DPMI host.
+case "$what" in
+    id) folders=("echo 0 file(s) copied > e:\\STAGED.TXT") ;;
+    enumstat|memprobe) folders=("md d:\\DIR" "copy /y e:\\D\\DIR\\*.* d:\\DIR > e:\\STAGED.TXT") ;;
+    fc) folders=("copy /y z:\\dos\\fc.exe c:\\RD > nul" "md d:\\DIR" "copy /y e:\\D\\DIR\\*.* d:\\DIR > e:\\STAGED.TXT") ;;
+    xcopy)
+        folders=("copy /y z:\\dos\\xcopy.exe c:\\RD > nul" "echo the tree, a folder at a time > e:\\STAGED.TXT")
+        while IFS= read -r dir; do
+            dir=${dir//\//\\}
+            folders+=("md d:\\$dir" "copy /y e:\\D\\$dir\\*.* d:\\$dir >> e:\\STAGED.TXT")
+        done < <(cd "$stage/D" && find TREE -type d | LC_ALL=C sort)
+        ;;
+    template) folders=("label d: $TEMPLATE_LABEL" "xcopy e:\\D\\*.* d:\\ /s /e /y > e:\\STAGED.TXT" "vol d: >> e:\\STAGED.TXT") ;;
+    *) folders=("xcopy e:\\D\\*.* d:\\ /s /e /y > e:\\STAGED.TXT") ;;
+esac
+conf "$stage" dynamic \
+    "mount e \"$(host_path "$stage")\"" \
+    "imgmount c \"$c_img\"" \
+    "imgmake \"$d_img\" -t hd -size $DISK_MB" \
+    "imgmount d \"$d_img\"" \
+    "md c:\\RD" \
+    "if exist c:\\RD\\RESULT.TXT del c:\\RD\\RESULT.TXT" \
+    "copy /y e:\\RD\\*.* c:\\RD > nul" \
+    "copy /y z:\\bin\\cwsdpmi.exe c:\\RD > nul" \
+    "copy /y e:\\BOOT\\*.* c:\\ > nul" \
+    "${folders[@]}" \
+    "exit"
+emu_run stage "$build" "$stage" STAGED.TXT "$STAGE_SECONDS" || invalid "the disks could not be made"
+# One count per COPY, or XCOPY's one count: their sum.
+staged=$(LC_ALL=C tr -d '\r' < "$stage/STAGED.TXT" | sed -n 's/^ *\([0-9][0-9]*\) [Ff]ile(s) copied.*/\1/p' | awk '{ n += $1 } END { if (NR) print n }')
+if [ "$staged" != "$host_files" ]; then
+    invalid "the folders did not reach the disk whole: $host_files files made, ${staged:-no count} copied"
+fi
+if [ "$what" = template ] && ! LC_ALL=C tr -d '\r' < "$stage/STAGED.TXT" | command grep -a -q "^ *Volume in drive D is $TEMPLATE_LABEL *\$"; then
+    invalid "the emulator's shell does not say the disk is labelled $TEMPLATE_LABEL"
+fi
+
+# The image's own DOS. What the guest must leave is the image itself, written.
+conf "$boot" normal "imgmount c \"$c_img\"" "imgmount d \"$d_img\"" "boot c:"
+emu_run boot "$build" "$boot" c.img "$BOOT_SECONDS" || invalid "the image did not boot, or its DOS wrote nothing"
+machine=$emu_version
+booted=$(log_count 'DOS kernel shutdown, booting a guest OS') || invalid "the emulator's log could not be read"
+if [ "$booted" -ne 1 ]; then invalid "the emulator's log does not say it shut its own DOS down to boot the image"; fi
+
+conf "$collect" dynamic \
+    "mount e \"$(host_path "$collect")\"" \
+    "imgmount c \"$c_img\"" \
+    "copy /y c:\\RD\\RESULT.TXT e:\\RESULT.TXT > nul" \
+    "exit"
+emu_run collect "$build" "$collect" RESULT.TXT 300 || invalid "the image's DOS left no result file"
+LC_ALL=C tr -d '\r' < "$collect/RESULT.TXT" > "$tmp/result.txt" || invalid "the result file could not be read"
+
+section() {
+    awk -v s="section $1" '$0 == s { on = 1; next } /^section / { on = 0 } on' "$tmp/result.txt"
+}
+if [ "$(tail -n 1 "$tmp/result.txt")" != "section done" ]; then invalid "the image's DOS did not reach the end of its batch"; fi
+
+# Whose DOS: the emulator's own answers INT 21h from its ROM segment and has its Z: drive.
+section dos > "$tmp/dos.txt"
+if [ "$(tail -n 1 "$tmp/dos.txt")" != "end" ]; then invalid "DOSID left no report"; fi
+if command grep -q -E '^dos\|(int21=F000:|drive_z=0$)' "$tmp/dos.txt"; then
+    invalid "the emulator's own DOS answered, not the image's"
+fi
+ver=$(section ver | command grep -a . | head -n 1)
+if [ -z "$ver" ]; then invalid "the DOS printed no VER line"; fi
+
+echo "realdos.sh: machine: $build ($machine)"
+echo "realdos.sh: image: $image"
+echo "realdos.sh: ver: $ver"
+command grep -a '^dos|' "$tmp/dos.txt" | sed 's/^/realdos.sh: /'
+case "$what" in
+    findlife)
+        section findlife > "$tmp/report.txt"
+        findlife_whole "$tmp/report.txt" || invalid "FINDLIFE's report has no case or no trailer"
+        cat "$tmp/report.txt"
+        ;;
+    exact|drift|dtadump|patlist|template|findpos|findpos-labelled)
+        section "$what" > "$tmp/report.txt"
+        exact_whole "$tmp/report.txt" || invalid "$programs's report has no trailer or its count disagrees"
+        if [ "$what" = findpos-labelled ] && ! command grep -a -q "^pos|label-alone|first=0 entry=$FINDPOS_LABEL:" "$tmp/report.txt"; then
+            invalid "the image's DOS did not label the disk $FINDPOS_LABEL"
+        fi
+        if [ "$what" = dtadump ]; then
+            figures=$(dtadump_figures "$tmp/report.txt") || invalid "DTADUMP's report lacks the lines its figures are read from"
+            echo "realdos.sh: figures: $figures"
+        fi
+        cat "$tmp/report.txt"
+        ;;
+    enumstat)
+        for mode in $ENUM_MODES; do
+            line=$(section "enumstat-$mode" | command grep -a '^enumstat|')
+            case "$line" in "enumstat|mode=$mode|listed="*) ;; *) invalid "not ENUMSTAT's line for mode $mode: $line" ;; esac
+            echo "realdos.sh: names=83 files=$ENUM_FILES $line"
+        done
+        ;;
+    memprobe)
+        line=$(section memprobe | sed -n 's/^\(mode=e k=[0-9]* ok=[0-9]*\) .*/\1/p')
+        case "$line" in "mode=e k=$EACH_FILES ok="*) ;; *) invalid "not MEMPROBE's line for $EACH_FILES calls in mode e: $line" ;; esac
+        echo "realdos.sh: names=83 files=$EACH_FILES $line"
+        ;;
+    fc)
+        section fc > "$tmp/report.txt"
+        compared=$(fc_compared "$tmp/report.txt")
+        if [ "$compared" != "$FC_RUNS" ]; then invalid "FC compared the two files ${compared:-0} times of $FC_RUNS"; fi
+        echo "realdos.sh: files=$FC_FILES runs=$FC_RUNS compared=$compared"
+        ;;
+    xcopy)
+        section xcopy > "$tmp/report.txt"
+        if [ "$(command grep -a -c -E '^(files|folders)$' "$tmp/report.txt")" != 2 ]; then invalid "the batch did not list what XCOPY left"; fi
+        said=$(xcopy_said "$tmp/report.txt")
+        # shellcheck disable=SC2046  # two counts, split on purpose
+        set -- $(awk '$0 == "files" || $0 == "folders" { kind = $0; next } index($0, "D:\\COPY\\") == 1 { n[kind]++ } END { print n["files"] + 0, n["folders"] + 0 }' "$tmp/report.txt")
+        echo "realdos.sh: made=$host_files copied=$1 dirs_made=$host_dirs dirs_copied=$2 said=${said:--}"
+        ;;
+esac
+exit 0

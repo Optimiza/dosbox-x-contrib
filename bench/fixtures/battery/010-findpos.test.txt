@@ -1,0 +1,13 @@
+exit=0 :: findpos.test.sh 
+ok   two reports that differ in a label case
+ok   the lines that differ, counted
+ok   each report printed whole
+ok   the same report twice
+ok   a report cut before its trailer
+ok   a case fewer than the trailer says
+ok   a report with no case
+ok   the launcher refuses the run
+ok   a drive that is neither
+ok   neither on nor off
+ok   three arguments
+11 cases, 0 failed

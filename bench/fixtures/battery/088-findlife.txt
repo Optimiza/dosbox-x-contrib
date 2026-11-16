@@ -1,0 +1,61 @@
+exit=1 :: findlife.sh /builds/base/dosbox-x /builds/retention/dosbox-x off
+findlife.sh: long names off
+findlife.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+folders|a=42 b=32 foreign=0
+case|remount|mount_rc=0 before=3 search_on_new_drive=32 of 32 foreign=0|ok
+case|lfn-next-after-its-end|714Eh failed, error 7100|not judged
+case|nested-same-dta|outer=42 of 42 inner=32 of 32 foreign=0|ok
+case|nested-other-dta|outer=42 of 42 inner=32 of 32 foreign=0|ok
+case|failed-findfirst|error=18 outer=42 of 42 foreign=0|ok
+case|lfn-writes-current-dta|714Eh failed, error 7100|not judged
+case|nested-lfn|714Eh failed, error 7100|not judged
+case|lfn-inside-4e|714Eh failed, error 7100|not judged
+case|slot-reused-live|old_slot_held_by_a_live_search=1 shortest_live_search=32 of 32 foreign=0|ok
+case|stale-dta-after-reuse|its_slot_held_by_a_search_of_the_other_folder=0 next=entry name=A0001.TXT from_other_folder=0|ok
+case|child-ends-mid-search|child_rc=0 parent_4e=42 of 42 parent_lfn=not run, 714Eh failed foreign=0|ok
+case|child-continues-parent|child_rc=0 child_got=2 total=42 of 42 foreign=0|ok
+case|child-starts-parent-continues|child_rc=0 total=32 of 32 foreign=0|ok
+case|rescan-mid-search|rescan_rc=0 created=1 live=42 of 42 after=42 of 42 foreign=0|ok
+case|libc-two-searches|first=42 of 42 second=32 of 32|ok
+case|libc-two-searches-other-length|first=42 of 42 second=32 of 32|ok
+case|fcb|files=40 of 40 again=40|ok
+case|fcb-around-4e|files=40 of 40 inner=32 of 32|ok
+case|fcb-around-lfn|files=40 of 40 inner=0 of 32|not judged
+case|fcb-around-lfn-of-a-device|files=40 of 40, 714Eh failed, error 7100|not judged
+case|listed-again-after-a-new-file|created=1 first_listing=42 of 42 second_listing=43 of 43 new_file_in_second=1 foreign=0|ok
+case|lfn-first-with-no-handle-left|714Eh was not turned away for want of a handle: error 7100 after 0 calls|not judged
+case|left-open-past-the-slots|left_open=2100 outer=34 of 42 foreign=30|DIFFERS
+case|turn-about-past-the-slots|lookups=2030 found=2030 first=29 of 42 second=29 of 32 foreign=0|DIFFERS
+end|cases=24
+findlife.sh: build B: /builds/retention/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+folders|a=42 b=32 foreign=0
+case|remount|mount_rc=0 before=3 search_on_new_drive=32 of 32 foreign=0|ok
+case|lfn-next-after-its-end|714Eh failed, error 7100|not judged
+case|nested-same-dta|outer=42 of 42 inner=32 of 32 foreign=0|ok
+case|nested-other-dta|outer=42 of 42 inner=32 of 32 foreign=0|ok
+case|failed-findfirst|error=18 outer=42 of 42 foreign=0|ok
+case|lfn-writes-current-dta|714Eh failed, error 7100|not judged
+case|nested-lfn|714Eh failed, error 7100|not judged
+case|lfn-inside-4e|714Eh failed, error 7100|not judged
+case|slot-reused-live|old_slot_held_by_a_live_search=1 shortest_live_search=32 of 32 foreign=0|ok
+case|stale-dta-after-reuse|its_slot_held_by_a_search_of_the_other_folder=0 next=entry name=A0001.TXT from_other_folder=0|ok
+case|child-ends-mid-search|child_rc=0 parent_4e=42 of 42 parent_lfn=not run, 714Eh failed foreign=0|ok
+case|child-continues-parent|child_rc=0 child_got=2 total=42 of 42 foreign=0|ok
+case|child-starts-parent-continues|child_rc=0 total=32 of 32 foreign=0|ok
+case|rescan-mid-search|rescan_rc=0 created=1 live=42 of 42 after=42 of 42 foreign=0|ok
+case|libc-two-searches|first=42 of 42 second=32 of 32|ok
+case|libc-two-searches-other-length|first=42 of 42 second=32 of 32|ok
+case|fcb|files=40 of 40 again=40|ok
+case|fcb-around-4e|files=40 of 40 inner=32 of 32|ok
+case|fcb-around-lfn|files=40 of 40 inner=0 of 32|not judged
+case|fcb-around-lfn-of-a-device|files=40 of 40, 714Eh failed, error 7100|not judged
+case|listed-again-after-a-new-file|created=1 first_listing=42 of 42 second_listing=43 of 43 new_file_in_second=1 foreign=0|ok
+case|lfn-first-with-no-handle-left|714Eh was not turned away for want of a handle: error 7100 after 0 calls|not judged
+case|left-open-past-the-slots|left_open=2100 outer=42 of 42 foreign=0|ok
+case|turn-about-past-the-slots|lookups=2940 found=2940 first=42 of 42 second=32 of 32 foreign=0|ok
+end|cases=24
+findlife.sh: DIFFERENT, the lines that differ (A then B):
+< case|left-open-past-the-slots|left_open=2100 outer=34 of 42 foreign=30|DIFFERS
+< case|turn-about-past-the-slots|lookups=2030 found=2030 first=29 of 42 second=29 of 32 foreign=0|DIFFERS
+> case|left-open-past-the-slots|left_open=2100 outer=42 of 42 foreign=0|ok
+> case|turn-about-past-the-slots|lookups=2940 found=2940 first=42 of 42 second=32 of 32 foreign=0|ok

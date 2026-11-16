@@ -1,0 +1,15 @@
+section ver
+
+Windows 98 [Version 4.10.2222]
+
+section dos
+dos|version=7.10 oem=FF
+dos|true_version=7.10 flags=10
+dos|int21=030F:04A0 code=EAB20FC9002EF606
+dos|lfn_714e=7100
+dos|windows_1600=00
+dos|drive_z=3
+end
+section memprobe
+mode=e k=1835 ok=1835 released=1 guest_us=9003111
+section done

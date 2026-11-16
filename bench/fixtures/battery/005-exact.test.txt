@@ -1,0 +1,12 @@
+exit=0 :: exact.test.sh 
+ok   a difference in drift alone does not decide
+ok   the judged sections alike
+ok   a basic line that differs
+ok   a shell line that differs
+ok   a report cut before its trailer
+ok   a shell test that did not reach its end
+ok   the launcher refuses the run
+ok   two arguments
+ok   the folder, whole
+ok   a folder with another count of entries
+10 cases, 0 failed

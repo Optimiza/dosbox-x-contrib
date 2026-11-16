@@ -1,0 +1,26 @@
+exit=0 :: ties.sh /builds/base/dosbox-x /builds/retention/dosbox-x
+ties.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+ties.sh: build B: /builds/retention/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+tie|AAAAAA~1.TXT|lfn|AAAAAA~1.TXT:1,aaa aaa.txt:1
+tie|AAAAAA~1.TXT|4e|AAAAAA~1.TXT:1,AAAAAA~1.TXT:1
+tie|BBBBBB~1.TXT|lfn|bbb bbb.txt:21,BBBBBB~1.TXT:21
+tie|BBBBBB~1.TXT|4e|BBBBBB~1.TXT:21,BBBBBB~1.TXT:21
+tie|CCCCCC~1.TXT|lfn|ccc ccc.txt:22,CCCCCC~1.TXT:22
+tie|CCCCCC~1.TXT|4e|CCCCCC~1.TXT:22,CCCCCC~1.TXT:22
+tie|DDDDDD~1.TXT|lfn|DDDDDD~1.TXT:23,ddd ddd.txt:23
+tie|DDDDDD~1.TXT|4e|DDDDDD~1.TXT:23,DDDDDD~1.TXT:23
+tie|EEEEEE~1.TXT|lfn|EEEEEE~1.TXT:5,eee eee.txt:5
+tie|EEEEEE~1.TXT|4e|EEEEEE~1.TXT:5,EEEEEE~1.TXT:5
+tie|FFFFFF~1.TXT|lfn|FFFFFF~1.TXT:25,fff fff.txt:25
+tie|FFFFFF~1.TXT|4e|FFFFFF~1.TXT:25,FFFFFF~1.TXT:25
+tie|GGGGGG~1.TXT|lfn|GGGGGG~1.TXT:26,ggg ggg.txt:26
+tie|GGGGGG~1.TXT|4e|GGGGGG~1.TXT:26,GGGGGG~1.TXT:26
+tie|HHHHHH~1.TXT|lfn|hhh hhh.txt:8,HHHHHH~1.TXT:8
+tie|HHHHHH~1.TXT|4e|HHHHHH~1.TXT:8,HHHHHH~1.TXT:8
+tie|KKKKKK~1.TXT|lfn|KKKKKK~1.TXT:29,kkk kkk.txt:29
+tie|KKKKKK~1.TXT|4e|KKKKKK~1.TXT:29,KKKKKK~1.TXT:29
+tie|MMMMMM~1.TXT|lfn|MMMMMM~1.TXT:30,mmm mmm.txt:30
+tie|MMMMMM~1.TXT|4e|MMMMMM~1.TXT:30,MMMMMM~1.TXT:30
+tie|NNNNNN~1.TXT|lfn|NNNNNN~1.TXT:31,nnn nnn.txt:31
+tie|NNNNNN~1.TXT|4e|NNNNNN~1.TXT:31,NNNNNN~1.TXT:31
+ties.sh: ALIKE (11 ties)

@@ -1,0 +1,5 @@
+first check PASS
+second check FAIL
+third check FAIL
+lower case pass
+lower case fail

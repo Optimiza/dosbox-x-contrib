@@ -1,0 +1,25 @@
+exit=0 :: template.test.sh 
+ok   two reports that differ
+ok   each report printed whole
+ok   a line that differs, of the second build
+ok   of what the shell said, the report takes the free space alone
+ok   a DIR that gives another drive's free space
+ok   a DIR that printed no free space
+ok   two reports alike
+ok   an image that did not get every file
+ok   a copy that printed no count
+ok   a volume the shell does not call DISK1
+ok   a report cut before its trailer
+ok   a report whose count disagrees
+ok   the host folder: the line that differs
+ok   the host folder: counted
+ok   a host folder mounted with no label
+ok   the launcher refuses the run
+ok   a folder mounted with no label named gets an empty one
+ok   and so does the run's own drive
+ok   the host volume is mounted with its label, and only that one
+ok   the image is mounted under the version it asks for
+ok   neither fat nor host
+ok   neither on nor off
+ok   three arguments
+23 cases, 0 failed

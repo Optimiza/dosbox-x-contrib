@@ -1,0 +1,14 @@
+exit=0 :: fc.test.sh 
+ok   runs of FC that compared, read while held
+ok   the line carries the folder and the figures
+ok   another run count than FC's output
+ok   a run of FC that did not compare
+ok   no run of FC at all
+ok   a guest that never held
+ok   a hold that gave up waiting
+ok   the launcher refuses the run
+ok   no run
+ok   a file count that is no number
+ok   neither on nor off
+ok   three arguments
+12 cases, 0 failed

@@ -1,0 +1,38 @@
+exit=0 :: realdos.test.sh 
+ok   the report of the image's DOS
+ok   which DOS answered
+ok   a folder that reached the disk short
+ok   a log that does not say the image booted
+ok   a batch that did not reach its end
+ok   a DOS that has the emulator's Z: drive
+ok   a DOS that answers from the emulator's ROM
+ok   an identification cut short
+ok   a report cut before its trailer
+ok   a DOS that left no result file
+ok   DRIFT's report of the image's DOS
+ok   DRIFT's report cut before its trailer
+ok   DTADUMP's report of the image's DOS
+ok   DTADUMP's figures of it
+ok   DTADUMP's report with lines missing
+ok   PATLIST's report of the image's DOS
+ok   PATLIST's report cut before its trailer
+ok   TEMPLATE's report of the image's DOS
+ok   a disk the shell does not call DISK1
+ok   TEMPLATE's report cut before its trailer
+ok   FINDPOS's report of the image's DOS, on the disk that DOS labelled
+ok   a disk the image's DOS did not label
+ok   FINDPOS's report cut before its trailer
+ok   a lookup for each file on the image's DOS
+ok   a MEMPROBE that made another count of calls
+ok   FC's runs on the image's DOS
+ok   a folder copied by COPY that reached the disk short
+ok   a run of FC that did not compare
+ok   XCOPY's tree on the image's DOS, listed by that DOS
+ok   a tree staged a folder at a time, one folder short
+ok   a file that DOS does not list under the copy
+ok   a batch that did not list the folders
+ok   the launcher refuses the run
+ok   a program it does not have
+ok   an image that is not there
+ok   two arguments
+36 cases, 0 failed

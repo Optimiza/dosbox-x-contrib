@@ -1,0 +1,11 @@
+exit=0 :: unit.test.sh 
+ok   the counts of a run
+ok   a failed test is an answer
+ok   an emulator that failed with no test failed
+ok   a result file cut short
+ok   a result file that counts no test
+ok   a result file with no line of counts
+ok   an emulator that left no result file
+ok   a build that is not there
+ok   no argument
+9 cases, 0 failed

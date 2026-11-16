@@ -1,0 +1,9 @@
+exit=0 :: xcopy.test.sh 
+ok   what XCOPY said, and the log's counts
+ok   the tree it made
+ok   an XCOPY that printed no count
+ok   an XCOPY that printed nothing
+ok   the launcher refuses the run
+ok   neither on nor off
+ok   one argument
+7 cases, 0 failed

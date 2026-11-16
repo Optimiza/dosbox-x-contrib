@@ -1,0 +1,13 @@
+exit=0 :: memory.test.sh 
+ok   calls that reached the file, read while held
+ok   the line names the file and both figures
+ok   another call count than the guest's line
+ok   calls that did not reach the file
+ok   a guest that never held
+ok   a guest that gave up waiting
+ok   a lookup for each file in turn, past the folder's size
+ok   the launcher refuses the run
+ok   no such mode
+ok   a host folder without --file
+ok   an unknown option
+11 cases, 0 failed

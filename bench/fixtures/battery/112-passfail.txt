@@ -1,0 +1,14 @@
+exit=0 :: passfail.sh /builds/retention/dosbox-x synthetic:40:long on /programs/FINDTEST.EXE
+Baseline entries: 42
+Baseline nonempty                  PASS
+Two independent FindFirst calls    PASS
+First DTA full enumeration         PASS
+Second DTA full enumeration        PASS
+Restart two searches               PASS
+Replace first DTA search           PASS
+Other DTA survives replacement     PASS
+300 abandoned/replaced searches    PASS
+Enumeration after replacements     PASS
+Active search before normal exit   PASS
+Failures: 0
+passfail.sh: program=FINDTEST.EXE sha256=e71fa0ffd452 lfn=on folder=synthetic:40:long entries=40 pass=10 fail=0 exit=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/retention/dosbox-x

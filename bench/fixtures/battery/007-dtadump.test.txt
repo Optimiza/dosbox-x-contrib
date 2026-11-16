@@ -1,0 +1,13 @@
+exit=0 :: dtadump.test.sh 
+ok   two reports that differ, the lines counted
+ok   a build that rewrites the DTA
+ok   a build that leaves it alone
+ok   each report printed whole
+ok   the same report twice
+ok   a report cut before its trailer
+ok   a report with no template dumped
+ok   a report that says of no DTA whether it changed
+ok   the launcher refuses the run
+ok   neither on nor off
+ok   two arguments
+11 cases, 0 failed

@@ -1,0 +1,72 @@
+--dir
+FOO.TXT
+FOO.TXT
+INNER.TXT
+Alpha track 000000.mid
+Alpha tr.mid
+ALPHAT~1.MID
+NOEXT
+NOEXT
+BAR.TXT
+FOO.TXT
+MixCase.Txt
+Two.dots.name.txt
+ZED.TXT
+FOO.TXT
+--exist
+foo yes
+subdir yes
+long yes
+alias yes
+wild yes
+--type
+foo
+space
+File not found - NOSUCH.TXT
+--copy
+ BAR.TXT
+   1 File(s) copied.
+ BAR.TXT
+   1 File(s) copied.
+ FOO.TXT
+   1 File(s) copied.
+ FOO.TXT
+ BAR.TXT
+   1 File(s) copied.
+File not found - NOSUCH.TXT
+--ren
+Unable to rename - NOSUCH.TXT
+RENAMED.TXT
+--del
+Unable to delete - NOSUCH.TXT
+--attrib
+  A     	D:\X\FOO.TXT
+File not found - NOSUCH.TXT
+--for
+FOO.TXT
+BAR.TXT
+NOSUCH.TXT
+D:\X\Alpha tr.mid
+D:\X\Alpha track 000001.mid
+D:\X\ALPHAT~1.MID
+D:\X\Alpha track 000000.mid
+--dirs
+Invalid path, not directory, or directory not empty - SUBDIR
+INNER.TXT
+--final
+A.B
+Alpha tr.mid
+Alpha track 000001.mid
+ALPHAT~1.MID
+Alpha track 000000.mid
+BAR.TXT
+FOO.TXT
+JOINED.TXT
+Long Sub Directory
+MixCase.Txt
+NOEXT
+No extension long name
+SUBDIR
+Two.dots.name.txt
+ZED.TXT
+END
