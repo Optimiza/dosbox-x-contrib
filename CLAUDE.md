@@ -1,6 +1,6 @@
 # dosbox-x-dircache
 
-The bench and the account of ten fixes to DOSBox-X's directory cache, offered upstream one
+The bench and the account of the fixes to DOSBox-X's directory cache, offered upstream one
 subject per pull request. No emulator source lives here.
 
 **`.claude/rules/writing.md` binds every text a person reads here**: `README.md`, every page
@@ -18,12 +18,12 @@ drafted here for a pull request or a comment.
 ## Where the rest lives
 
 - The emulator branches belong to the fork `Optimiza/dosbox-x` and are not pushed there yet.
-  The table at the top of `README.md` names the ten.
+  The table at the top of `README.md` names them.
 - Each branch is cut from upstream `joncampbell123/dosbox-x` `main-ai` at `4e0b6adcf`, or from
   the branch it needs. Every figure is compared with that base, whatever `main-ai` is today.
 - The instruments are developed in the private repository `scry-dosbox-x`, branch `dircache`,
   folder `tests/dircache`. `bench/` is that folder as committed there, last taken at
-  `a25e403`, with the changes listed below.
+  `07b429e`, with the changes listed below.
 - The record of which subjects are delivered, and with what figures, is kept in that
   repository.
 - The raw lines of every run are filed outside both repositories, by the work's own record.
@@ -44,6 +44,15 @@ from a working tree. Then apply these changes, each of which must match:
 6. `README.md` is this repository's own, written to the writing rules: keep it. A fact the
    private folder's page gained goes into the entry of its script.
 7. `fixtures/battery`: the one file name of the large folder is `SONG.MID`.
+8. `battery.sh` and `battery.test.sh`: the lock's folder is `dosbox-x-dircache`, never the
+   private repository's name.
+9. The reporters' archives are named by their issue, never by their file name, and their run is
+   a run, not a session: `JUNKTEST_RUNS` in `battery.sh`, and the reporters' folder
+   `junktest` in its tests and recordings.
+10. The first comment lines of `p5probe.c`, `p5rep.c` and `attrcost.test.sh` say what the program
+    does, never how the work was organised.
+11. `fixtures/judge/load.txt`: every process outside the run is named `app`.
+12. `batch.sh` and the tests that start `judge.py` or `analyze.py` call `python3 -I`.
 
 Then check it, from a fresh clone:
 

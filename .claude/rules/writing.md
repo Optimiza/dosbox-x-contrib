@@ -36,23 +36,26 @@ comment.
 - Words are counted outside tables and code blocks. A link counts as its text.
 - A table cell is a phrase. Prose moved into a cell to pass the count breaks rule 2.
 - A number that names a thing is not a figure: a DOS version, a call such as 4Eh, an issue.
+- A table column headed `#` or `Exit code` holds names, so its numbers are not figures.
 
 ## The front page
 
 `README.md` holds these and nothing else, in at most 700 words outside tables and code blocks:
 
 - what this is, in three sentences;
-- the table of the ten subjects, each with its state and a link to its page;
+- the table of the subjects, each with its state and a link to its page;
 - the problem and the case that showed it, with one small table;
 - how it is measured, in five lines with a link;
 - how to run the bench, in a short block with a link;
 - the sentence on AI assistance, once and as it is;
 - the credits line, last and as it is.
 
+The four sections after the opening are headed, in order: "The subjects", "The problem, and the
+case that showed it", "How it is measured" and "Running it".
+
 ## A subject page
 
-Each of `docs/01-exact-name.md` to `docs/10-dyncore-cache-reset.md` has these headings and no
-others, in this order. An empty one says "Nothing."
+Each subject page, `docs/NN-*.md`, has these headings and no others, in this order. An empty one says "Nothing."
 
 1. What was wrong
 2. What the fix changes
