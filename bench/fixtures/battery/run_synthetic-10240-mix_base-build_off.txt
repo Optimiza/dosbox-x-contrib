@@ -1,0 +1,7 @@
+exit=0 :: run.sh /builds/base/dosbox-x /builds/first-read/dosbox-x synthetic:10240:mix off
+run.sh: folder synthetic:10240:mix (10240 entries on the host), long names off
+run.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+run.sh: build A: 4e=10242 lfn=0 look=5
+run.sh: build B: /builds/first-read/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+run.sh: build B: 4e=10242 lfn=0 look=5
+run.sh: IDENTICAL

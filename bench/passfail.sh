@@ -9,7 +9,8 @@ usage: passfail.sh <build> <folder> <on|off> <program>
 
   <build>     a DOSBox-X executable
   <folder>    a host directory, mounted read-only and reached through its parent, or
-              synthetic:<count>:<83|long>, a folder of <count> empty files made for this run
+              synthetic:<count>:<style>, a folder of <count> empty files made for this run,
+              in one of run.sh's styles
   <on|off>    the guest's long file names ([dos] lfn)
   <program>   a DOS executable that takes no arguments, searches its current directory and
               prints one line ending in PASS or FAIL per check

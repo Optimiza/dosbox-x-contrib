@@ -8,6 +8,7 @@ usage() {
     cat <<'EOT'
 usage: realdos.sh <build> <boot image> <id|findlife|exact|enumstat|drift|dtadump|patlist|template|
                                         findpos|findpos-labelled|memprobe|fc|xcopy>
+       realdos.sh <build> <boot image> <junktest|dirtest> <folder>
 
   <build>       a DOSBox-X executable. It is only the machine here: its own DOS is shut down
                 when the image boots
@@ -30,16 +31,30 @@ usage: realdos.sh <build> <boot image> <id|findlife|exact|enumstat|drift|dtadump
   fc            the emulator's FC.EXE run 300 times from a batch file, as fc.sh runs it, in a
                 folder of 700 files
   xcopy         the emulator's XCOPY.EXE over the tree xcopy.sh makes
+  junktest      the batch files of the archive of upstream issue 6827, unpacked in <folder>,
+                in the run the issue describes: 300.BAT, JUNK.BAT, 300.BAT, each through
+                COMMAND /C so that what it prints is kept, with the emulator's FC.EXE as
+                junktest.sh runs them
+  dirtest       DIRTEST.EXE of the archive of upstream issue 2485, unpacked in <folder>, as
+                dirtest.sh runs it: the emulator, which is the machine, types Enter every few
+                seconds from before the image boots, and the first one after the program's
+                closing dialog ends it
 
 the guest: C: is the copy of the image, with the programs in C:\RD and an AUTOEXEC.BAT that runs
 them, never returns and turns the machine off, so no Windows starts; D: is a FAT16 image made
-for the run that holds the folders under the names the emulator shows with long names off.
+for the run that holds the folders under the names the emulator shows with long names off. For
+junktest D:\JUNK holds the reporter's folder (a FAT16 root holds 512 entries, which JUNK.BAT
+passes), for dirtest D:'s root; the program runs there.
 
 prints the machine's path and version line, the image, the DOS's own VER line, what DOSID read of
 the DOS that answered, then the program's report whole (for enumstat, one line per mode; for
 dtadump, the figures dtadump.sh prints come first; for memprobe, the guest's line; for fc, how
 many runs said the two files do not differ; for xcopy, how many files and folders the tree
-holds, how many of each that DOS's own DIR lists under the copy, and the count XCOPY printed).
+holds, how many of each that DOS's own DIR lists under the copy, and the count XCOPY printed; for
+junktest, the entries that DOS's DIR lists in D:\JUNK at the end, how many of them are .TMP
+files, and the lines the batch files printed, counted as junktest.sh counts them; for dirtest,
+the files that DOS's DIR lists in D:\DATA and that the program returned: it draws on the
+screen and leaves nothing a batch file can read).
 
 environment:
   DJDIR                 the DJGPP cross toolchain (default: $HOME/djgpp)
@@ -48,7 +63,9 @@ environment:
 exit: 0 the report is the image's DOS's | 2 usage
       3 INVALID: the folders did not reach the disk whole, the image did not boot or its DOS
         did not reach the end of the batch, the emulator's own DOS answered, or the report is
-        cut short; the run's directory is kept and named
+        cut short; for junktest and dirtest also a folder of the reporter's files that is absent
+        or lacks one of them, and an FC that did not compare them; the run's directory is kept
+        and named
 EOT
 }
 
@@ -59,11 +76,17 @@ ENUM_MODES="s x n"
 EACH_FILES=1835
 FC_FILES=700
 FC_RUNS=300
+JUNKTEST_BATCHES="300 JUNK 300"
+# DIRTEST's FILE() reads the FAT folder from its start for every file, so on this DOS the loop
+# grows with the square of the folder, each read paid at the emulated disk's rate: Enter for 100
+# minutes, and the boot bounded by the same.
+DIRTEST_KEYS=600
+DIRTEST_BOOT_SECONDS=6000
 DISK_MB=64
 
 if [ $# -eq 1 ] && [ "$1" = "--help" ]; then usage; exit 0; fi
-if [ $# -ne 3 ]; then usage >&2; exit 2; fi
-build=$1 image=$2 what=$3
+if [ $# -ne 3 ] && [ $# -ne 4 ]; then usage >&2; exit 2; fi
+build=$1 image=$2 what=$3 folder=${4:-}
 
 tool=realdos.sh
 here=$(cd "$(dirname "$0")" && pwd) || exit 2
@@ -83,10 +106,19 @@ case "$what" in
     template) programs=TEMPLATE ;;
     findpos|findpos-labelled) programs=FINDPOS ;;
     memprobe) programs=MEMPROBE ;;
-    fc|xcopy) programs="" ;;
-    *) fail_usage "the program is id, findlife, exact, enumstat, drift, dtadump, patlist, template, findpos, findpos-labelled, memprobe, fc or xcopy, not: $what" ;;
+    fc|xcopy|junktest|dirtest) programs="" ;;
+    *) fail_usage "the program is id, findlife, exact, enumstat, drift, dtadump, patlist, template, findpos, findpos-labelled, memprobe, fc, xcopy, junktest or dirtest, not: $what" ;;
+esac
+case "$what" in
+    junktest|dirtest) if [ $# -ne 4 ]; then fail_usage "$what takes the folder of the reporter's files"; fi ;;
+    *) if [ $# -ne 3 ]; then fail_usage "$what takes no folder"; fi ;;
 esac
 need_tools
+# shellcheck disable=SC2086  # the names, split on purpose
+case "$what" in
+    junktest) reporter_folder "$folder" $JUNKTEST_FILES ;;
+    dirtest) reporter_folder "$folder" $DIRTEST_FILES ;;
+esac
 
 run_begin realdos
 stage=$tmp/stage boot=$tmp/boot collect=$tmp/collect
@@ -156,6 +188,20 @@ case "$what" in
             "ECHO files>> $out" "DIR D:\\COPY /S /B /A-D >> $out" "ECHO folders>> $out" "DIR D:\\COPY /S /B /AD >> $out"
             "TYPE $out >> $result" "DEL $out")
         ;;
+    junktest)
+        # In a folder of D:, not its root: a FAT16 root holds 512 entries, and the folder the
+        # reporter mounted as a drive has no such limit. A batch file prints through a COMMAND /C
+        # of its own, because CALL keeps no redirection.
+        if ! mkdir "$stage/D/JUNK" || ! cp -R "$folder/." "$stage/D/JUNK/"; then invalid "could not copy the reporter's folder"; fi
+        batch+=("ECHO section junktest>> $result" "D:" "CD \\JUNK" "FC /B E001.EXP RESULT.TXT >> $result")
+        for b in $JUNKTEST_BATCHES; do batch+=("COMMAND /C $b.BAT >> $result"); done
+        batch+=("ECHO section entries>> $result" "DIR D:\\JUNK /B >> $result" "C:" "CD \\RD")
+        ;;
+    dirtest)
+        cp -R "$folder/." "$stage/D/" || invalid "could not copy the reporter's folder"
+        batch+=("ECHO section dirtest>> $result" "D:" "CD \\" "DIRTEST.EXE"
+            "ECHO section entries>> $result" "DIR D:\\DATA /B /A-D >> $result" "C:" "CD \\RD")
+        ;;
 esac
 # The loop holds the machine if the power-off is refused: AUTOEXEC.BAT must not return, or the
 # image goes on to start its Windows.
@@ -196,6 +242,8 @@ case "$what" in
         done < <(cd "$stage/D" && find TREE -type d | LC_ALL=C sort)
         ;;
     template) folders=("label d: $TEMPLATE_LABEL" "xcopy e:\\D\\*.* d:\\ /s /e /y > e:\\STAGED.TXT" "vol d: >> e:\\STAGED.TXT") ;;
+    junktest) folders=("copy /y z:\\dos\\fc.exe c:\\RD > nul" "md d:\\JUNK" "copy /y e:\\D\\JUNK\\*.* d:\\JUNK > e:\\STAGED.TXT") ;;
+    dirtest) folders=("copy /y e:\\D\\*.* d:\\ > e:\\STAGED.TXT" "md d:\\DATA" "copy /y e:\\D\\DATA\\*.* d:\\DATA >> e:\\STAGED.TXT") ;;
     *) folders=("xcopy e:\\D\\*.* d:\\ /s /e /y > e:\\STAGED.TXT") ;;
 esac
 conf "$stage" dynamic \
@@ -221,8 +269,10 @@ if [ "$what" = template ] && ! LC_ALL=C tr -d '\r' < "$stage/STAGED.TXT" | comma
 fi
 
 # The image's own DOS. What the guest must leave is the image itself, written.
-conf "$boot" normal "imgmount c \"$c_img\"" "imgmount d \"$d_img\"" "boot c:"
-emu_run boot "$build" "$boot" c.img "$BOOT_SECONDS" || invalid "the image did not boot, or its DOS wrote nothing"
+keys=() bound=$BOOT_SECONDS
+if [ "$what" = dirtest ]; then keys=("$(dirtest_autotype "$DIRTEST_KEYS")") bound=$DIRTEST_BOOT_SECONDS; fi
+conf "$boot" normal "imgmount c \"$c_img\"" "imgmount d \"$d_img\"" ${keys[@]+"${keys[@]}"} "boot c:"
+emu_run boot "$build" "$boot" c.img "$bound" || invalid "the image did not boot, or its DOS wrote nothing"
 machine=$emu_version
 booted=$(log_count 'DOS kernel shutdown, booting a guest OS') || invalid "the emulator's log could not be read"
 if [ "$booted" -ne 1 ]; then invalid "the emulator's log does not say it shut its own DOS down to boot the image"; fi
@@ -236,7 +286,7 @@ emu_run collect "$build" "$collect" RESULT.TXT 300 || invalid "the image's DOS l
 LC_ALL=C tr -d '\r' < "$collect/RESULT.TXT" > "$tmp/result.txt" || invalid "the result file could not be read"
 
 section() {
-    awk -v s="section $1" '$0 == s { on = 1; next } /^section / { on = 0 } on' "$tmp/result.txt"
+    LC_ALL=C awk -v s="section $1" '$0 == s { on = 1; next } /^section / { on = 0 } on' "$tmp/result.txt"
 }
 if [ "$(tail -n 1 "$tmp/result.txt")" != "section done" ]; then invalid "the image's DOS did not reach the end of its batch"; fi
 
@@ -296,6 +346,29 @@ case "$what" in
         # shellcheck disable=SC2046  # two counts, split on purpose
         set -- $(awk '$0 == "files" || $0 == "folders" { kind = $0; next } index($0, "D:\\COPY\\") == 1 { n[kind]++ } END { print n["files"] + 0, n["folders"] + 0 }' "$tmp/report.txt")
         echo "realdos.sh: made=$host_files copied=$1 dirs_made=$host_dirs dirs_copied=$2 said=${said:--}"
+        ;;
+    junktest)
+        section junktest > "$tmp/report.txt"
+        fc_answered "$tmp/report.txt" || invalid "FC did not compare the reporter's two files"
+        said=$(junktest_said "$tmp/report.txt")
+        # shellcheck disable=SC2086  # the batch files, split on purpose
+        junktest_batches $JUNKTEST_BATCHES
+        # shellcheck disable=SC2086
+        set -- $JUNKTEST_BATCHES
+        if [ "$said" != "counted=$((junktest_runs * 300)) done=$#" ]; then
+            invalid "the batch files did not reach their end: $said for $JUNKTEST_BATCHES"
+        fi
+        section entries > "$tmp/entries.txt"
+        entries=$(command grep -a -c . "$tmp/entries.txt")
+        junk=$(command grep -a -c -i '\.TMP$' "$tmp/entries.txt")
+        batches=$JUNKTEST_BATCHES
+        echo "realdos.sh: batches=${batches// /,} entries=$entries junk=$junk $said"
+        ;;
+    dirtest)
+        files=$(section entries | command grep -a -c .)
+        staged_data=$(find "$stage/D/DATA" -type f | wc -l | tr -d ' ')
+        if [ "$files" != "$staged_data" ]; then invalid "that DOS lists $files files in D:\\DATA, of $staged_data staged"; fi
+        echo "realdos.sh: files=$files returned=1"
         ;;
 esac
 exit 0

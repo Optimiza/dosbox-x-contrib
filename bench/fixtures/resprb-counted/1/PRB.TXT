@@ -1,0 +1,1 @@
+mode=c k=20 ok=20 released=1 guest_us=1098932

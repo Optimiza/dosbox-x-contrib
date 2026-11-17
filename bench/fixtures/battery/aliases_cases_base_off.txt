@@ -1,0 +1,67 @@
+exit=0 :: aliases.sh cases off /builds/base/dosbox-x
+aliases.sh: cases, long names off, 87 entries
+aliases.sh: cases lfn=off entries=87 host=87 names_shared=17 exact_search_not_one=17 real_name_not_its_own=11 files_no_short_name_opens=19 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/base/dosbox-x
+  exact_search_not_one|AAAAAA~1.TXT|n=2
+  exact_search_not_one|AMERI~10.MID|n=5
+  exact_search_not_one|BBBBBB~1.TXT|n=2
+  exact_search_not_one|CCCCCC~1.TXT|n=2
+  exact_search_not_one|DDDDDD~1.TXT|n=2
+  exact_search_not_one|DIRLON~1|n=2
+  exact_search_not_one|EEEEEE~1.TXT|n=2
+  exact_search_not_one|FFFFFF~1.TXT|n=2
+  exact_search_not_one|GGGGGG~1.TXT|n=2
+  exact_search_not_one|HHHHHH~1.TXT|n=2
+  exact_search_not_one|JJJJJJ~1.TXT|n=2
+  exact_search_not_one|KKKKKK~1.TXT|n=2
+  exact_search_not_one|LOWERC~1.TXT|n=2
+  exact_search_not_one|MMMMMM~1.TXT|n=2
+  exact_search_not_one|SIBLIN~2.DAT|n=2
+  exact_search_not_one|TENTH~10.DAT|n=2
+  exact_search_not_one|WINELO~2.TXT|n=2
+  no_short_name_opens|CCCCCC~1.TXT
+  no_short_name_opens|EEEEEE~1.TXT
+  no_short_name_opens|FFFFFF~1.TXT
+  no_short_name_opens|HHHHHH~1.TXT
+  no_short_name_opens|KKKKKK~1.TXT
+  no_short_name_opens|SIBLIN~2.DAT
+  no_short_name_opens|aaa aaa.txt
+  no_short_name_opens|americ tune 04.mid
+  no_short_name_opens|americ tune 05.mid
+  no_short_name_opens|americ tune 07.mid
+  no_short_name_opens|americ tune 10.mid
+  no_short_name_opens|bbb bbb.txt
+  no_short_name_opens|ddd ddd.txt
+  no_short_name_opens|ggg ggg.txt
+  no_short_name_opens|jjj jjj.txt
+  no_short_name_opens|lowerc~1.txt
+  no_short_name_opens|mmm mmm.txt
+  no_short_name_opens|tenth file 09.dat
+  no_short_name_opens|wine long name 0.txt
+  real_name_not_its_own|CCCCCC~1.TXT|opens 6
+  real_name_not_its_own|EEEEEE~1.TXT|opens 10
+  real_name_not_its_own|FFFFFF~1.TXT|opens 12
+  real_name_not_its_own|HHHHHH~1.TXT|opens 16
+  real_name_not_its_own|KKKKKK~1.TXT|opens 20
+  real_name_not_its_own|NNNNNN~1.TXT|opens 24
+  real_name_not_its_own|NOEXTL~1|opens 42
+  real_name_not_its_own|SIBLIN~2.DAT|opens 28
+  real_name_not_its_own|WINE~3OM.TXT|opens 
+  real_name_not_its_own|WINE~ZOM.TXT|opens 
+  real_name_not_its_own|lowerc~1.txt|opens 44
+  shared|AAAAAA~1.TXT
+  shared|AMERI~10.MID
+  shared|BBBBBB~1.TXT
+  shared|CCCCCC~1.TXT
+  shared|DDDDDD~1.TXT
+  shared|DIRLON~1
+  shared|EEEEEE~1.TXT
+  shared|FFFFFF~1.TXT
+  shared|GGGGGG~1.TXT
+  shared|HHHHHH~1.TXT
+  shared|JJJJJJ~1.TXT
+  shared|KKKKKK~1.TXT
+  shared|LOWERC~1.TXT
+  shared|MMMMMM~1.TXT
+  shared|SIBLIN~2.DAT
+  shared|TENTH~10.DAT
+  shared|WINELO~2.TXT

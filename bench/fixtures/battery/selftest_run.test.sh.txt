@@ -12,10 +12,17 @@ ok   long-name entries with long names off
 ok   an empty folder
 ok   the launcher refuses the run
 ok   a report that names no build
+ok   a folder that puts the list of aliases out of order, every name made
+ok   and listed alike
 ok   a count past the shell's arithmetic
+ok   a style it does not know
+ok   a dots folder that is not twelve names a character
+ok   a dots folder past its characters
+ok   a mix folder no larger than its short stems
+ok   a wine folder of an odd count
 ok   a folder the guest cannot name with long names off
 ok   neither on nor off
 ok   three arguments
 ok   a build that is not there
 ok   no launcher on the PATH
-19 cases, 0 failed
+26 cases, 0 failed

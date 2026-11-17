@@ -1,0 +1,3 @@
+mode=d k=1 ok=1 released=1 guest_us=62
+mode=d k=1 ok=1 released=1 guest_us=54
+mode=c k=2 ok=2 released=1 guest_us=111145

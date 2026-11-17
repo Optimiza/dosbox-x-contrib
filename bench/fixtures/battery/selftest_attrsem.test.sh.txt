@@ -1,0 +1,15 @@
+exit=0 :: attrsem.test.sh
+ok   two reports alike
+ok   a file hidden mid-search is not returned
+ok   the shell's lines follow the program's
+ok   a build that returns a file hidden mid-search
+ok   the lines that differ, counted
+ok   a shell whose ATTRIB lost the hidden bit
+ok   a report cut before its trailer
+ok   a line fewer than the trailer says
+ok   a shell that left nothing
+ok   the launcher refuses the run
+ok   neither on nor off
+ok   two arguments
+ok   its own help
+13 cases, 0 failed

@@ -1,0 +1,9 @@
+exit=0 :: judge.test.sh 
+ok   a process outside the run that held a core for two samples
+ok   the same cell run again on a quiet host
+ok   one sample of it alone is a spike, named, not a busy host
+ok   a sample with under a tenth of the CPU idle
+ok   no sample of the host in the cell's window
+ok   a cell with no timed line
+ok   one argument
+7 cases, 0 failed

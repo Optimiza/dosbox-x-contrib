@@ -1,0 +1,18 @@
+exit=0 :: attrcost.test.sh
+ok   every read of a folder counted, and those of the folder itself
+ok   the probe's own lines
+ok   the host folder's names, made in the run
+ok   a folder of another name is not this one
+ok   without the emptying, one read of the folder
+ok   a build with no counter
+ok   a report cut before its trailer
+ok   the launcher refuses the run
+ok   no such mode
+ok   K of none
+ok   K past the probe's room
+ok   long names in a synthetic folder
+ok   a folder whose name has a space
+ok   a folder whose name is not 8.3
+ok   three arguments
+ok   its own help
+16 cases, 0 failed

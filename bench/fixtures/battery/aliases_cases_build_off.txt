@@ -1,0 +1,3 @@
+exit=0 :: aliases.sh cases off /builds/alias/dosbox-x
+aliases.sh: cases, long names off, 87 entries
+aliases.sh: cases lfn=off entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=0 files_no_short_name_opens=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/alias/dosbox-x

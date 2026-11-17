@@ -1,0 +1,14 @@
+exit=0 :: p5time.test.sh 
+ok   a round timed, the two builds' guest lines alike
+ok   each run's guest line
+ok   each build's times
+ok   a build whose guest answers otherwise
+ok   a guest that never made its ready file
+ok   an emulator that ended before the guest's last line
+ok   the launcher refuses the run
+ok   the guest's clock is fixed
+ok   no round
+ok   five arguments
+ok   neither on nor off
+ok   its own help
+12 cases, 0 failed

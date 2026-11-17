@@ -1,0 +1,726 @@
+DOS CON: 
+DOS CON: [44;1mษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+DOS CON: [0m
+DOS CON: [44;1mบ 
+DOS CON: [32mWelcome to DOSBox-X !          
+DOS CON: [33m           v2026.10.01, macOS ARM SDL2 64-bit
+DOS CON: [37m บ
+DOS CON: [0m
+DOS CON: [44;1mบ                                                                              บ
+DOS CON: [0m
+DOS CON: [44;1mบ 
+DOS CON: [36mGetting started with DOSBox-X:                                              
+DOS CON: [37m บ
+DOS CON: [0m
+DOS CON: [44;1mบ                                                                              บ
+DOS CON: [0m
+DOS CON: [44;1mบ Type 
+DOS CON: [32mHELP
+DOS CON: [37m to see the list of shell commands, 
+DOS CON: [32mINTRO
+DOS CON: [37m for a brief introduction. บ
+DOS CON: [0m
+DOS CON: [44;1mบ You can also complete various tasks in DOSBox-X through the 
+DOS CON: [33mdrop-down menus
+DOS CON: [37m. บ
+DOS CON: [0m
+DOS CON: [44;1mบ 
+DOS CON: [32mExample
+DOS CON: [37m: Try select the 
+DOS CON: [33mTrueType font
+DOS CON: [37m or 
+DOS CON: [33mOpenGL pixel-perfect
+DOS CON: [37m output option. บ
+DOS CON: [0m
+DOS CON: [44;1mบ                                                                              บ
+DOS CON: [0m
+DOS CON: [44;1mบ 
+DOS CON: [36mUseful default shortcuts:                                                   
+DOS CON: [37m บ
+DOS CON: [0m
+DOS CON: [44;1mบ                                                                              บ
+DOS CON: [0m
+DOS CON: [44;1mบ - switch between windowed and full-screen mode with key combination 
+DOS CON: [31mF12 
+DOS CON: [37m+ 
+DOS CON: [31mF
+DOS CON: [37m 
+DOS CON: [37m บ
+DOS CON: [0m
+DOS CON: [44;1mบ - launch 
+DOS CON: [33mConfiguration Tool
+DOS CON: [37m using 
+DOS CON: [31mF12 
+DOS CON: [37m+ 
+DOS CON: [31mC
+DOS CON: [37m
+DOS CON: [37m, and 
+DOS CON: [33mMapper Editor
+DOS CON: [37m using 
+DOS CON: [31mF12 
+DOS CON: [37m+ 
+DOS CON: [31mM
+DOS CON: [37m  
+DOS CON: [37m บ
+DOS CON: [0m
+DOS CON: [44;1mบ - increase or decrease the emulation speed with 
+DOS CON: [31mF12 
+DOS CON: [37m+ 
+DOS CON: [31mPlus
+DOS CON: [37m
+DOS CON: [37m or 
+DOS CON: [31mF12 
+DOS CON: [37m+ 
+DOS CON: [31mMinus
+DOS CON: [37m   
+DOS CON: [37m บ
+DOS CON: [0m
+DOS CON: [44;1mบ                                                                              บ
+DOS CON: [0m
+DOS CON: [44;1mบ 
+DOS CON: [36mDOSBox-X project on the web:                                                
+DOS CON: [37m บ
+DOS CON: [0m
+DOS CON: [44;1mบ                                                                              บ
+DOS CON: [0m
+DOS CON: [44;1mบ 
+DOS CON: [32mHomepage of project
+DOS CON: [37m: 
+DOS CON: [33mhttps://dosbox-x.com/           
+DOS CON: [36mComplete DOS emulations
+DOS CON: [37m บ
+DOS CON: [0m
+DOS CON: [44;1mบ 
+DOS CON: [32mUser guides on Wiki
+DOS CON: [37m: 
+DOS CON: [33mhttps://dosbox-x.com/wiki
+DOS CON: [32m       
+DOS CON: [36mDOS, Windows 3.x and 9x
+DOS CON: [37m บ
+DOS CON: [0m
+DOS CON: [44;1mบ 
+DOS CON: [32mIssue or suggestion
+DOS CON: [37m: 
+DOS CON: [33mhttps://github.com/joncampbell123/dosbox-x/issues      
+DOS CON: [37m บ
+DOS CON: [0m
+DOS CON: [44;1mศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+DOS CON: [0m
+DOS CON: [32mHAVE FUN WITH DOSBox-X !                                                       
+DOS CON: [0m
+DOS CON: Z:\>mount c "/RUN/run" -label ""
+DOS CON: Drive C is mounted as local directory /RUN/run/
+DOS CON: Z:\>mount d "/RUN/tree" -label ""
+DOS CON: Drive D is mounted as local directory /RUN/tree/
+DOS CON: Z:\>d:
+DOS CON: D:\>FC /B E001.EXP RESULT.TXT > C:\FC.TXT
+DOS CON: D:\>CALL 300.BAT
+DOS CON: Count: 001 of 300
+DOS CON: Count: 002 of 300
+DOS CON: Count: 003 of 300
+DOS CON: Count: 004 of 300
+DOS CON: Count: 005 of 300
+DOS CON: Count: 006 of 300
+DOS CON: Count: 007 of 300
+DOS CON: Count: 008 of 300
+DOS CON: Count: 009 of 300
+DOS CON: Count: 010 of 300
+DOS CON: Count: 011 of 300
+DOS CON: Count: 012 of 300
+DOS CON: Count: 013 of 300
+DOS CON: Count: 014 of 300
+DOS CON: Count: 015 of 300
+DOS CON: Count: 016 of 300
+DOS CON: Count: 017 of 300
+DOS CON: Count: 018 of 300
+DOS CON: Count: 019 of 300
+DOS CON: Count: 020 of 300
+DOS CON: Count: 021 of 300
+DOS CON: Count: 022 of 300
+DOS CON: Count: 023 of 300
+DOS CON: Count: 024 of 300
+DOS CON: Count: 025 of 300
+DOS CON: Count: 026 of 300
+DOS CON: Count: 027 of 300
+DOS CON: Count: 028 of 300
+DOS CON: Count: 029 of 300
+DOS CON: Count: 030 of 300
+DOS CON: Count: 031 of 300
+DOS CON: Count: 032 of 300
+DOS CON: Count: 033 of 300
+DOS CON: Count: 034 of 300
+DOS CON: Count: 035 of 300
+DOS CON: Count: 036 of 300
+DOS CON: Count: 037 of 300
+DOS CON: Count: 038 of 300
+DOS CON: Count: 039 of 300
+DOS CON: Count: 040 of 300
+DOS CON: Count: 041 of 300
+DOS CON: Count: 042 of 300
+DOS CON: Count: 043 of 300
+DOS CON: Count: 044 of 300
+DOS CON: Count: 045 of 300
+DOS CON: Count: 046 of 300
+DOS CON: Count: 047 of 300
+DOS CON: Count: 048 of 300
+DOS CON: Count: 049 of 300
+DOS CON: Count: 050 of 300
+DOS CON: Count: 051 of 300
+DOS CON: Count: 052 of 300
+DOS CON: Count: 053 of 300
+DOS CON: Count: 054 of 300
+DOS CON: Count: 055 of 300
+DOS CON: Count: 056 of 300
+DOS CON: Count: 057 of 300
+DOS CON: Count: 058 of 300
+DOS CON: Count: 059 of 300
+DOS CON: Count: 060 of 300
+DOS CON: Count: 061 of 300
+DOS CON: Count: 062 of 300
+DOS CON: Count: 063 of 300
+DOS CON: Count: 064 of 300
+DOS CON: Count: 065 of 300
+DOS CON: Count: 066 of 300
+DOS CON: Count: 067 of 300
+DOS CON: Count: 068 of 300
+DOS CON: Count: 069 of 300
+DOS CON: Count: 070 of 300
+DOS CON: Count: 071 of 300
+DOS CON: Count: 072 of 300
+DOS CON: Count: 073 of 300
+DOS CON: Count: 074 of 300
+DOS CON: Count: 075 of 300
+DOS CON: Count: 076 of 300
+DOS CON: Count: 077 of 300
+DOS CON: Count: 078 of 300
+DOS CON: Count: 079 of 300
+DOS CON: Count: 080 of 300
+DOS CON: Count: 081 of 300
+DOS CON: Count: 082 of 300
+DOS CON: Count: 083 of 300
+DOS CON: Count: 084 of 300
+DOS CON: Count: 085 of 300
+DOS CON: Count: 086 of 300
+DOS CON: Count: 087 of 300
+DOS CON: Count: 088 of 300
+DOS CON: Count: 089 of 300
+DOS CON: Count: 090 of 300
+DOS CON: Count: 091 of 300
+DOS CON: Count: 092 of 300
+DOS CON: Count: 093 of 300
+DOS CON: Count: 094 of 300
+DOS CON: Count: 095 of 300
+DOS CON: Count: 096 of 300
+DOS CON: Count: 097 of 300
+DOS CON: Count: 098 of 300
+DOS CON: Count: 099 of 300
+DOS CON: Count: 100 of 300
+DOS CON: Count: 101 of 300
+DOS CON: Count: 102 of 300
+DOS CON: Count: 103 of 300
+DOS CON: Count: 104 of 300
+DOS CON: Count: 105 of 300
+DOS CON: Count: 106 of 300
+DOS CON: Count: 107 of 300
+DOS CON: Count: 108 of 300
+DOS CON: Count: 109 of 300
+DOS CON: Count: 110 of 300
+DOS CON: Count: 111 of 300
+DOS CON: Count: 112 of 300
+DOS CON: Count: 113 of 300
+DOS CON: Count: 114 of 300
+DOS CON: Count: 115 of 300
+DOS CON: Count: 116 of 300
+DOS CON: Count: 117 of 300
+DOS CON: Count: 118 of 300
+DOS CON: Count: 119 of 300
+DOS CON: Count: 120 of 300
+DOS CON: Count: 121 of 300
+DOS CON: Count: 122 of 300
+DOS CON: Count: 123 of 300
+DOS CON: Count: 124 of 300
+DOS CON: Count: 125 of 300
+DOS CON: Count: 126 of 300
+DOS CON: Count: 127 of 300
+DOS CON: Count: 128 of 300
+DOS CON: Count: 129 of 300
+DOS CON: Count: 130 of 300
+DOS CON: Count: 131 of 300
+DOS CON: Count: 132 of 300
+DOS CON: Count: 133 of 300
+DOS CON: Count: 134 of 300
+DOS CON: Count: 135 of 300
+DOS CON: Count: 136 of 300
+DOS CON: Count: 137 of 300
+DOS CON: Count: 138 of 300
+DOS CON: Count: 139 of 300
+DOS CON: Count: 140 of 300
+DOS CON: Count: 141 of 300
+DOS CON: Count: 142 of 300
+DOS CON: Count: 143 of 300
+DOS CON: Count: 144 of 300
+DOS CON: Count: 145 of 300
+DOS CON: Count: 146 of 300
+DOS CON: Count: 147 of 300
+DOS CON: Count: 148 of 300
+DOS CON: Count: 149 of 300
+DOS CON: Count: 150 of 300
+DOS CON: Count: 151 of 300
+DOS CON: Count: 152 of 300
+DOS CON: Count: 153 of 300
+DOS CON: Count: 154 of 300
+DOS CON: Count: 155 of 300
+DOS CON: Count: 156 of 300
+DOS CON: Count: 157 of 300
+DOS CON: Count: 158 of 300
+DOS CON: Count: 159 of 300
+DOS CON: Count: 160 of 300
+DOS CON: Count: 161 of 300
+DOS CON: Count: 162 of 300
+DOS CON: Count: 163 of 300
+DOS CON: Count: 164 of 300
+DOS CON: Count: 165 of 300
+DOS CON: Count: 166 of 300
+DOS CON: Count: 167 of 300
+DOS CON: Count: 168 of 300
+DOS CON: Count: 169 of 300
+DOS CON: Count: 170 of 300
+DOS CON: Count: 171 of 300
+DOS CON: Count: 172 of 300
+DOS CON: Count: 173 of 300
+DOS CON: Count: 174 of 300
+DOS CON: Count: 175 of 300
+DOS CON: Count: 176 of 300
+DOS CON: Count: 177 of 300
+DOS CON: Count: 178 of 300
+DOS CON: Count: 179 of 300
+DOS CON: Count: 180 of 300
+DOS CON: Count: 181 of 300
+DOS CON: Count: 182 of 300
+DOS CON: Count: 183 of 300
+DOS CON: Count: 184 of 300
+DOS CON: Count: 185 of 300
+DOS CON: Count: 186 of 300
+DOS CON: Count: 187 of 300
+DOS CON: Count: 188 of 300
+DOS CON: Count: 189 of 300
+DOS CON: Count: 190 of 300
+DOS CON: Count: 191 of 300
+DOS CON: Count: 192 of 300
+DOS CON: Count: 193 of 300
+DOS CON: Count: 194 of 300
+DOS CON: Count: 195 of 300
+DOS CON: Count: 196 of 300
+DOS CON: Count: 197 of 300
+DOS CON: Count: 198 of 300
+DOS CON: Count: 199 of 300
+DOS CON: Count: 200 of 300
+DOS CON: Count: 201 of 300
+DOS CON: Count: 202 of 300
+DOS CON: Count: 203 of 300
+DOS CON: Count: 204 of 300
+DOS CON: Count: 205 of 300
+DOS CON: Count: 206 of 300
+DOS CON: Count: 207 of 300
+DOS CON: Count: 208 of 300
+DOS CON: Count: 209 of 300
+DOS CON: Count: 210 of 300
+DOS CON: Count: 211 of 300
+DOS CON: Count: 212 of 300
+DOS CON: Count: 213 of 300
+DOS CON: Count: 214 of 300
+DOS CON: Count: 215 of 300
+DOS CON: Count: 216 of 300
+DOS CON: Count: 217 of 300
+DOS CON: Count: 218 of 300
+DOS CON: Count: 219 of 300
+DOS CON: Count: 220 of 300
+DOS CON: Count: 221 of 300
+DOS CON: Count: 222 of 300
+DOS CON: Count: 223 of 300
+DOS CON: Count: 224 of 300
+DOS CON: Count: 225 of 300
+DOS CON: Count: 226 of 300
+DOS CON: Count: 227 of 300
+DOS CON: Count: 228 of 300
+DOS CON: Count: 229 of 300
+DOS CON: Count: 230 of 300
+DOS CON: Count: 231 of 300
+DOS CON: Count: 232 of 300
+DOS CON: Count: 233 of 300
+DOS CON: Count: 234 of 300
+DOS CON: Count: 235 of 300
+DOS CON: Count: 236 of 300
+DOS CON: Count: 237 of 300
+DOS CON: Count: 238 of 300
+DOS CON: Count: 239 of 300
+DOS CON: Count: 240 of 300
+DOS CON: Count: 241 of 300
+DOS CON: Count: 242 of 300
+DOS CON: Count: 243 of 300
+DOS CON: Count: 244 of 300
+DOS CON: Count: 245 of 300
+DOS CON: Count: 246 of 300
+DOS CON: Count: 247 of 300
+DOS CON: Count: 248 of 300
+DOS CON: Count: 249 of 300
+DOS CON: Count: 250 of 300
+DOS CON: Count: 251 of 300
+DOS CON: Count: 252 of 300
+DOS CON: Count: 253 of 300
+DOS CON: Count: 254 of 300
+DOS CON: Count: 255 of 300
+DOS CON: Count: 256 of 300
+DOS CON: Count: 257 of 300
+DOS CON: Count: 258 of 300
+DOS CON: Count: 259 of 300
+DOS CON: Count: 260 of 300
+DOS CON: Count: 261 of 300
+DOS CON: Count: 262 of 300
+DOS CON: Count: 263 of 300
+DOS CON: Count: 264 of 300
+DOS CON: Count: 265 of 300
+DOS CON: Count: 266 of 300
+DOS CON: Count: 267 of 300
+DOS CON: Count: 268 of 300
+DOS CON: Count: 269 of 300
+DOS CON: Count: 270 of 300
+DOS CON: Count: 271 of 300
+DOS CON: Count: 272 of 300
+DOS CON: Count: 273 of 300
+DOS CON: Count: 274 of 300
+DOS CON: Count: 275 of 300
+DOS CON: Count: 276 of 300
+DOS CON: Count: 277 of 300
+DOS CON: Count: 278 of 300
+DOS CON: Count: 279 of 300
+DOS CON: Count: 280 of 300
+DOS CON: Count: 281 of 300
+DOS CON: Count: 282 of 300
+DOS CON: Count: 283 of 300
+DOS CON: Count: 284 of 300
+DOS CON: Count: 285 of 300
+DOS CON: Count: 286 of 300
+DOS CON: Count: 287 of 300
+DOS CON: Count: 288 of 300
+DOS CON: Count: 289 of 300
+DOS CON: Count: 290 of 300
+DOS CON: Count: 291 of 300
+DOS CON: Count: 292 of 300
+DOS CON: Count: 293 of 300
+DOS CON: Count: 294 of 300
+DOS CON: Count: 295 of 300
+DOS CON: Count: 296 of 300
+DOS CON: Count: 297 of 300
+DOS CON: Count: 298 of 300
+DOS CON: Count: 299 of 300
+DOS CON: Count: 300 of 300
+DOS CON: Done!
+DOS CON: D:\>CALL JUNK.BAT
+DOS CON: Creating 700 junk files (JUNK001.TMP - JUNK700.TMP)...
+DOS CON: Done! 700 junk files created.
+DOS CON: D:\>CALL 300.BAT
+DOS CON: Count: 001 of 300
+DOS CON: Count: 002 of 300
+DOS CON: Count: 003 of 300
+DOS CON: Count: 004 of 300
+DOS CON: Count: 005 of 300
+DOS CON: Count: 006 of 300
+DOS CON: Count: 007 of 300
+DOS CON: Count: 008 of 300
+DOS CON: Count: 009 of 300
+DOS CON: Count: 010 of 300
+DOS CON: Count: 011 of 300
+DOS CON: Count: 012 of 300
+DOS CON: Count: 013 of 300
+DOS CON: Count: 014 of 300
+DOS CON: Count: 015 of 300
+DOS CON: Count: 016 of 300
+DOS CON: Count: 017 of 300
+DOS CON: Count: 018 of 300
+DOS CON: Count: 019 of 300
+DOS CON: Count: 020 of 300
+DOS CON: Count: 021 of 300
+DOS CON: Count: 022 of 300
+DOS CON: Count: 023 of 300
+DOS CON: Count: 024 of 300
+DOS CON: Count: 025 of 300
+DOS CON: Count: 026 of 300
+DOS CON: Count: 027 of 300
+DOS CON: Count: 028 of 300
+DOS CON: Count: 029 of 300
+DOS CON: Count: 030 of 300
+DOS CON: Count: 031 of 300
+DOS CON: Count: 032 of 300
+DOS CON: Count: 033 of 300
+DOS CON: Count: 034 of 300
+DOS CON: Count: 035 of 300
+DOS CON: Count: 036 of 300
+DOS CON: Count: 037 of 300
+DOS CON: Count: 038 of 300
+DOS CON: Count: 039 of 300
+DOS CON: Count: 040 of 300
+DOS CON: Count: 041 of 300
+DOS CON: Count: 042 of 300
+DOS CON: Count: 043 of 300
+DOS CON: Count: 044 of 300
+DOS CON: Count: 045 of 300
+DOS CON: Count: 046 of 300
+DOS CON: Count: 047 of 300
+DOS CON: Count: 048 of 300
+DOS CON: Count: 049 of 300
+DOS CON: Count: 050 of 300
+DOS CON: Count: 051 of 300
+DOS CON: Count: 052 of 300
+DOS CON: Count: 053 of 300
+DOS CON: Count: 054 of 300
+DOS CON: Count: 055 of 300
+DOS CON: Count: 056 of 300
+DOS CON: Count: 057 of 300
+DOS CON: Count: 058 of 300
+DOS CON: Count: 059 of 300
+DOS CON: Count: 060 of 300
+DOS CON: Count: 061 of 300
+DOS CON: Count: 062 of 300
+DOS CON: Count: 063 of 300
+DOS CON: Count: 064 of 300
+DOS CON: Count: 065 of 300
+DOS CON: Count: 066 of 300
+DOS CON: Count: 067 of 300
+DOS CON: Count: 068 of 300
+DOS CON: Count: 069 of 300
+DOS CON: Count: 070 of 300
+DOS CON: Count: 071 of 300
+DOS CON: Count: 072 of 300
+DOS CON: Count: 073 of 300
+DOS CON: Count: 074 of 300
+DOS CON: Count: 075 of 300
+DOS CON: Count: 076 of 300
+DOS CON: Count: 077 of 300
+DOS CON: Count: 078 of 300
+DOS CON: Count: 079 of 300
+DOS CON: Count: 080 of 300
+DOS CON: Count: 081 of 300
+DOS CON: Count: 082 of 300
+DOS CON: Count: 083 of 300
+DOS CON: Count: 084 of 300
+DOS CON: Count: 085 of 300
+DOS CON: Count: 086 of 300
+DOS CON: Count: 087 of 300
+DOS CON: Count: 088 of 300
+DOS CON: Count: 089 of 300
+DOS CON: Count: 090 of 300
+DOS CON: Count: 091 of 300
+DOS CON: Count: 092 of 300
+DOS CON: Count: 093 of 300
+DOS CON: Count: 094 of 300
+DOS CON: Count: 095 of 300
+DOS CON: Count: 096 of 300
+DOS CON: Count: 097 of 300
+DOS CON: Count: 098 of 300
+DOS CON: Count: 099 of 300
+DOS CON: Count: 100 of 300
+DOS CON: Count: 101 of 300
+DOS CON: Count: 102 of 300
+DOS CON: Count: 103 of 300
+DOS CON: Count: 104 of 300
+DOS CON: Count: 105 of 300
+DOS CON: Count: 106 of 300
+DOS CON: Count: 107 of 300
+DOS CON: Count: 108 of 300
+DOS CON: Count: 109 of 300
+DOS CON: Count: 110 of 300
+DOS CON: Count: 111 of 300
+DOS CON: Count: 112 of 300
+DOS CON: Count: 113 of 300
+DOS CON: Count: 114 of 300
+DOS CON: Count: 115 of 300
+DOS CON: Count: 116 of 300
+DOS CON: Count: 117 of 300
+DOS CON: Count: 118 of 300
+DOS CON: Count: 119 of 300
+DOS CON: Count: 120 of 300
+DOS CON: Count: 121 of 300
+DOS CON: Count: 122 of 300
+DOS CON: Count: 123 of 300
+DOS CON: Count: 124 of 300
+DOS CON: Count: 125 of 300
+DOS CON: Count: 126 of 300
+DOS CON: Count: 127 of 300
+DOS CON: Count: 128 of 300
+DOS CON: Count: 129 of 300
+DOS CON: Count: 130 of 300
+DOS CON: Count: 131 of 300
+DOS CON: Count: 132 of 300
+DOS CON: Count: 133 of 300
+DOS CON: Count: 134 of 300
+DOS CON: Count: 135 of 300
+DOS CON: Count: 136 of 300
+DOS CON: Count: 137 of 300
+DOS CON: Count: 138 of 300
+DOS CON: Count: 139 of 300
+DOS CON: Count: 140 of 300
+DOS CON: Count: 141 of 300
+DOS CON: Count: 142 of 300
+DOS CON: Count: 143 of 300
+DOS CON: Count: 144 of 300
+DOS CON: Count: 145 of 300
+DOS CON: Count: 146 of 300
+DOS CON: Count: 147 of 300
+DOS CON: Count: 148 of 300
+DOS CON: Count: 149 of 300
+DOS CON: Count: 150 of 300
+DOS CON: Count: 151 of 300
+DOS CON: Count: 152 of 300
+DOS CON: Count: 153 of 300
+DOS CON: Count: 154 of 300
+DOS CON: Count: 155 of 300
+DOS CON: Count: 156 of 300
+DOS CON: Count: 157 of 300
+DOS CON: Count: 158 of 300
+DOS CON: Count: 159 of 300
+DOS CON: Count: 160 of 300
+DOS CON: Count: 161 of 300
+DOS CON: Count: 162 of 300
+DOS CON: Count: 163 of 300
+DOS CON: Count: 164 of 300
+DOS CON: Count: 165 of 300
+DOS CON: Count: 166 of 300
+DOS CON: Count: 167 of 300
+DOS CON: Count: 168 of 300
+DOS CON: Count: 169 of 300
+DOS CON: Count: 170 of 300
+DOS CON: Count: 171 of 300
+DOS CON: Count: 172 of 300
+DOS CON: Count: 173 of 300
+DOS CON: Count: 174 of 300
+DOS CON: Count: 175 of 300
+DOS CON: Count: 176 of 300
+DOS CON: Count: 177 of 300
+DOS CON: Count: 178 of 300
+DOS CON: Count: 179 of 300
+DOS CON: Count: 180 of 300
+DOS CON: Count: 181 of 300
+DOS CON: Count: 182 of 300
+DOS CON: Count: 183 of 300
+DOS CON: Count: 184 of 300
+DOS CON: Count: 185 of 300
+DOS CON: Count: 186 of 300
+DOS CON: Count: 187 of 300
+DOS CON: Count: 188 of 300
+DOS CON: Count: 189 of 300
+DOS CON: Count: 190 of 300
+DOS CON: Count: 191 of 300
+DOS CON: Count: 192 of 300
+DOS CON: Count: 193 of 300
+DOS CON: Count: 194 of 300
+DOS CON: Count: 195 of 300
+DOS CON: Count: 196 of 300
+DOS CON: Count: 197 of 300
+DOS CON: Count: 198 of 300
+DOS CON: Count: 199 of 300
+DOS CON: Count: 200 of 300
+DOS CON: Count: 201 of 300
+DOS CON: Count: 202 of 300
+DOS CON: Count: 203 of 300
+DOS CON: Count: 204 of 300
+DOS CON: Count: 205 of 300
+DOS CON: Count: 206 of 300
+DOS CON: Count: 207 of 300
+DOS CON: Count: 208 of 300
+DOS CON: Count: 209 of 300
+DOS CON: Count: 210 of 300
+DOS CON: Count: 211 of 300
+DOS CON: Count: 212 of 300
+DOS CON: Count: 213 of 300
+DOS CON: Count: 214 of 300
+DOS CON: Count: 215 of 300
+DOS CON: Count: 216 of 300
+DOS CON: Count: 217 of 300
+DOS CON: Count: 218 of 300
+DOS CON: Count: 219 of 300
+DOS CON: Count: 220 of 300
+DOS CON: Count: 221 of 300
+DOS CON: Count: 222 of 300
+DOS CON: Count: 223 of 300
+DOS CON: Count: 224 of 300
+DOS CON: Count: 225 of 300
+DOS CON: Count: 226 of 300
+DOS CON: Count: 227 of 300
+DOS CON: Count: 228 of 300
+DOS CON: Count: 229 of 300
+DOS CON: Count: 230 of 300
+DOS CON: Count: 231 of 300
+DOS CON: Count: 232 of 300
+DOS CON: Count: 233 of 300
+DOS CON: Count: 234 of 300
+DOS CON: Count: 235 of 300
+DOS CON: Count: 236 of 300
+DOS CON: Count: 237 of 300
+DOS CON: Count: 238 of 300
+DOS CON: Count: 239 of 300
+DOS CON: Count: 240 of 300
+DOS CON: Count: 241 of 300
+DOS CON: Count: 242 of 300
+DOS CON: Count: 243 of 300
+DOS CON: Count: 244 of 300
+DOS CON: Count: 245 of 300
+DOS CON: Count: 246 of 300
+DOS CON: Count: 247 of 300
+DOS CON: Count: 248 of 300
+DOS CON: Count: 249 of 300
+DOS CON: Count: 250 of 300
+DOS CON: Count: 251 of 300
+DOS CON: Count: 252 of 300
+DOS CON: Count: 253 of 300
+DOS CON: Count: 254 of 300
+DOS CON: Count: 255 of 300
+DOS CON: Count: 256 of 300
+DOS CON: Count: 257 of 300
+DOS CON: Count: 258 of 300
+DOS CON: Count: 259 of 300
+DOS CON: Count: 260 of 300
+DOS CON: Count: 261 of 300
+DOS CON: Count: 262 of 300
+DOS CON: Count: 263 of 300
+DOS CON: Count: 264 of 300
+DOS CON: Count: 265 of 300
+DOS CON: Count: 266 of 300
+DOS CON: Count: 267 of 300
+DOS CON: Count: 268 of 300
+DOS CON: Count: 269 of 300
+DOS CON: Count: 270 of 300
+DOS CON: Count: 271 of 300
+DOS CON: Count: 272 of 300
+DOS CON: Count: 273 of 300
+DOS CON: Count: 274 of 300
+DOS CON: Count: 275 of 300
+DOS CON: Count: 276 of 300
+DOS CON: Count: 277 of 300
+DOS CON: Count: 278 of 300
+DOS CON: Count: 279 of 300
+DOS CON: Count: 280 of 300
+DOS CON: Count: 281 of 300
+DOS CON: Count: 282 of 300
+DOS CON: Count: 283 of 300
+DOS CON: Count: 284 of 300
+DOS CON: Count: 285 of 300
+DOS CON: Count: 286 of 300
+DOS CON: Count: 287 of 300
+DOS CON: Count: 288 of 300
+DOS CON: Count: 289 of 300
+DOS CON: Count: 290 of 300
+DOS CON: Count: 291 of 300
+DOS CON: Count: 292 of 300
+DOS CON: Count: 293 of 300
+DOS CON: Count: 294 of 300
+DOS CON: Count: 295 of 300
+DOS CON: Count: 296 of 300
+DOS CON: Count: 297 of 300
+DOS CON: Count: 298 of 300
+DOS CON: Count: 299 of 300
+DOS CON: Count: 300 of 300
+DOS CON: Done!
+DOS CON: D:\>c:
+DOS CON: C:\>MEMPROBE.EXE a C:\HELD.TXT 0 C:\HELD.TXT C:\GO.TXT > C:\PRB.TXT
+DOS CON: C:\>exit

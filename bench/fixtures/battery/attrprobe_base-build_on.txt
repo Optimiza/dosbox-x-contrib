@@ -1,0 +1,23 @@
+exit=0 :: attrprobe.sh /builds/base/dosbox-x /builds/retention/dosbox-x on
+attrprobe.sh: long names on
+attrprobe.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+attr|nothing-in-between|total=42 of 42 foreign=0 gone=0
+attr|remove-a-later-file|total=41 of 42 foreign=0 gone=0
+attr|delete-41h-a-later-file|rc=0 total=41 of 42 foreign=0 gone=0
+attr|setattr-another-file|rc=0 total=42 of 42 foreign=0
+attr|setattr-in-another-folder|rc=0 total=22 of 22 foreign=0
+attr|two-searches-one-setattr|x=42 of 42 y=22 of 22 foreign=0
+attr|saved-dta-after-setattr|more=0 of 39 foreign=0 y=22 of 22
+attr|saved-dta-no-setattr|more=0 of 39 foreign=0 y=22 of 22
+end|lines=8
+attrprobe.sh: build B: /builds/retention/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+attr|nothing-in-between|total=42 of 42 foreign=0 gone=0
+attr|remove-a-later-file|total=41 of 42 foreign=0 gone=0
+attr|delete-41h-a-later-file|rc=0 total=41 of 42 foreign=0 gone=0
+attr|setattr-another-file|rc=0 total=42 of 42 foreign=0
+attr|setattr-in-another-folder|rc=0 total=22 of 22 foreign=0
+attr|two-searches-one-setattr|x=42 of 42 y=22 of 22 foreign=0
+attr|saved-dta-after-setattr|more=0 of 39 foreign=0 y=22 of 22
+attr|saved-dta-no-setattr|more=0 of 39 foreign=0 y=22 of 22
+end|lines=8
+attrprobe.sh: ALIKE

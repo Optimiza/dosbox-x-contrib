@@ -9,7 +9,8 @@ usage: memory.sh <build> <folder> <on|off> <mode> <calls> [--file <name>]
 
   <build>     a DOSBox-X executable
   <folder>    a host directory, mounted read-only and reached through its parent, or
-              synthetic:<count>:<83|long>, a folder of <count> empty files made for this run
+              synthetic:<count>:<style>, a folder of <count> empty files made for this run,
+              in one of run.sh's styles
   <on|off>    the guest's long file names ([dos] lfn)
   <mode>      the call the guest repeats on one file of the folder:
                 a access   s stat   d findfirst, never continued   o open+read+close

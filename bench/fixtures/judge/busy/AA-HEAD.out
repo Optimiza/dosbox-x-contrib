@@ -1,0 +1,24 @@
+p5time|1|A|seconds=0.033|t0=1794848951|t1=1794848951|pid=29643|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|1|B|seconds=0.019|t0=1794848953|t1=1794848953|pid=29755|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|1|B|seconds=0.023|t0=1794848955|t1=1794848955|pid=29863|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|1|A|seconds=0.027|t0=1794848956|t1=1794848957|pid=29967|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|2|A|seconds=0.028|t0=1794848958|t1=1794848958|pid=30075|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|2|B|seconds=0.033|t0=1794848960|t1=1794848960|pid=30183|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|2|B|seconds=0.036|t0=1794848962|t1=1794848962|pid=30289|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|2|A|seconds=0.028|t0=1794848963|t1=1794848963|pid=30394|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|3|A|seconds=0.018|t0=1794848965|t1=1794848965|pid=30507|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|3|B|seconds=0.030|t0=1794848966|t1=1794848967|pid=30614|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|3|B|seconds=0.018|t0=1794848968|t1=1794848968|pid=30723|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|3|A|seconds=0.024|t0=1794848970|t1=1794848970|pid=30835|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|4|A|seconds=0.015|t0=1794848972|t1=1794848972|pid=30941|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|4|B|seconds=0.035|t0=1794848973|t1=1794848973|pid=31047|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|4|B|seconds=0.018|t0=1794848975|t1=1794848975|pid=31154|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|4|A|seconds=0.020|t0=1794848977|t1=1794848977|pid=31275|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|5|A|seconds=0.020|t0=1794848978|t1=1794848978|pid=31383|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|5|B|seconds=0.036|t0=1794848980|t1=1794848980|pid=31501|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|5|B|seconds=0.017|t0=1794848981|t1=1794848982|pid=31606|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time|5|A|seconds=0.024|t0=1794848983|t1=1794848983|pid=31712|guest=p5|mode=f k=0 first=0 done=0 found=0
+p5time: A fastest=0.015 median=0.024 slowest=0.033 runs=10
+p5time: B fastest=0.017 median=0.023 slowest=0.036 runs=10
+p5time: A=/builds/first-read/dosbox-x B=/builds/first-read/dosbox-x folder=synthetic:10000:83 lfn=on
+rc=0

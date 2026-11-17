@@ -22,10 +22,24 @@ program sees when it does anything but run one search to its end. The code under
 | [`dtadump.sh`](#dtadumpsh) | `dtadump.c` | whether two builds leave the same bytes in a DTA and in an FCB around the find calls |
 | [`patlist.sh`](#patlistsh) | `patlist.c` | whether two builds return the same entries for patterns that hold a `*` before more characters |
 | [`template.sh`](#templatesh) | `template.c` | whether two builds answer alike where the answer hangs on how the search template is padded |
+| [`attrprobe.sh`](#attrprobesh) | `attrprb.c` | whether two builds answer alike when a file is deleted or has its attribute changed while searches are open |
+| [`delete.sh`](#deletesh) | `delprb.c` | whether two builds delete the same files of a folder of long names, and keep the short names of the files left |
+| [`attrsem.sh`](#attrsemsh) | `attrsem.c`, then the shell's `ATTRIB` and `DIR` | whether two builds answer alike around a change of the hidden, system and read-only attributes |
+| [`attrcost.sh`](#attrcostsh) | `attrcost.c` | how many times a build reads a folder from the host while a program changes attributes, deletes or creates files in it |
+| [`resprb.sh`](#resprbsh) | `resprb.c` | how much host memory a build keeps after a program repeats a child process, a change of the FPU's control word, or a search |
+| [`aliases.sh`](#aliasessh) | `aliases.c` | whether two entries of a folder share a short name, and whether each short name opens its own file |
 | [`unit.sh`](#unitsh) | none: the emulator's own unit tests | how many of a build's unit tests ran and failed |
 | [`passfail.sh`](#passfailsh) | a program you hand it | how many checks of a self-testing DOS program pass on a build |
+| [`junktest.sh`](#junktestsh) | the batch files a reporter attached to an upstream issue, then `memprobe.c` to hold | how much host memory a build keeps after the reporter's own run |
+| [`dirtest.sh`](#dirtestsh) | the program a reporter attached to an upstream issue, then `memprobe.c` to hold | how much host memory a build keeps after that program looked up every file of its folder |
 | [`realdos.sh`](#realdossh) | `dosid.c` and one of the programs above | what the DOS of a disk image answers to the same programs, the emulator being only the machine |
-| [`battery.sh`](#batterysh) | every one above | all of it on two or three builds, one line per cell |
+| [`p5time.sh`](#p5timesh) | `p5probe.c` | how long the first read of a folder takes on two builds, timed from the host |
+| [`p5rep.sh`](#p5repsh) | `p5rep.c`, then the shell's `DIR` | how long the shell's `DIR`, or one open of a file, takes in a folder the emulator has not read |
+| [`batch.sh`](#batchsh) | the two above | a list of timed cells, each run against itself too, on a host that is watched |
+| [`loadwatch.sh`](#loadwatchsh) | none | nothing by itself: it samples the host while `batch.sh` runs |
+| [`judge.py`](#judgepy) | none | whether one cell of `batch.sh` ran on a quiet host |
+| [`analyze.py`](#analyzepy) | none | the tables of what `batch.sh` left |
+| [`battery.sh`](#batterysh) | every one above; the timers, `attrcost.sh` and `resprb.sh` by their tests only | all of it on two or three builds, one line per cell |
 | [`launch.sh`](#launchsh) | none | nothing by itself: it is the launcher the scripts call on macOS |
 | [`windows.ps1`](#windowsps1) | none | nothing by itself: it is the launcher the scripts call on Windows |
 
@@ -66,6 +80,12 @@ opens on either host.
 - On Windows the scripts run under Git Bash and the launcher is `windows.ps1`, beside them.
 - `realdos.sh` needs a hard disk image whose DOS it can boot, and `passfail.sh` a program to
   run. Neither is kept here: their entries say what each must be.
+- `junktest.sh` and `dirtest.sh` need the files two reporters attached to their upstream
+  issues. They are not kept here: their entries say where each comes from.
+- `attrcost.sh`, and the `resets=` figure of `resprb.sh`, need a build with a counter: the
+  source with a diff of `counters/` applied.
+- The timers run on macOS only. They need `python3`, version 3.10 or later, with its standard
+  library alone, and the host's `top` and `sysctl`.
 - Nothing is written outside a directory made for the run, under `TMPDIR`.
 
 ## What the scripts share
@@ -81,18 +101,30 @@ opens on either host.
 
 ## The `<folder>` argument
 
-`run.sh`, `memory.sh` and `passfail.sh` take a folder of yours or make one for the run.
+`run.sh`, `memory.sh`, `passfail.sh` and `aliases.sh` take a folder of yours or make one for
+the run.
 
 | Form | The folder |
 | --- | --- |
 | a host directory | mounted read-only and reached through its parent |
 | `synthetic:<count>:83` | `<count>` empty files with plain names, such as `F0000000.TXT` |
 | `synthetic:<count>:long` | `<count>` empty files with long names: `Alpha track 000000.mid` and seven other words |
+| `synthetic:<count>:dots` | names that end in `" ."` beside names whose alias starts with the same letters and then a character below `.` |
+| `synthetic:<count>:mix` | short stems such as `"A  l.mid"`, whose aliases share a prefix with the long style's, then the long style's names |
+| `synthetic:<count>:wine` | long names such as `wine long name 000.txt`, each beside a real file named as the Wine-style short name the emulator gives it |
 
 - The long names collide in their first six letters, so the emulator has to number their 8.3
   aliases.
 - A host directory's name goes on a DOS command line: no spaces, and an 8.3 name when long
   names are off.
+- The last three styles are what a change to the alias code has to meet. `dots` is a folder
+  where the order of the emulator's list of aliases decides an alias, and `mix` one where the
+  jump to the next free number fails throughout.
+- `wine` is a folder where the emulator's Wine-style lookup finds entries.
+- A count a style's names cannot fill is refused as usage, with the reason. `dots` takes
+  twelve names a character, `mix` more names than its short stems, and `wine` pairs of names.
+- A folder that does not come out with every name is INVALID. Windows' file system takes off
+  the `" ."` that ends some `dots` names, so the battery does not run that folder there.
 
 ## run.sh
 
@@ -112,6 +144,8 @@ The file holds:
 ```sh
 run.sh <build A> <build B> <folder> <on|off>
 ```
+
+`<folder>` takes every style of [the `<folder>` argument](#the-folder-argument).
 
 **What it prints.** Each build's path, version line and counts, then `IDENTICAL` or
 `DIFFERENT` with the first differing lines.
@@ -142,6 +176,9 @@ for the host to create another.
   alive. No guest clock is trusted for it.
 - Run it at two call counts on one build and read the difference. A number from one run says
   little.
+- MEMPROBE turns off the `glob()` DJGPP's start-up runs on every argument. That `glob()` asks
+  the attributes of the file a path names, and so reads its folder before the mode's first
+  call.
 
 **How it is called.**
 
@@ -564,7 +601,7 @@ build, then the verdict and the lines that differ.
 | Figure | What it counts |
 | --- | --- |
 | `template=<digest>` | the template and attribute bytes of every FindFirst dumped; two reports with one digest hold the same bytes there |
-| `untouched=<n>/<m>` | of the calls that must leave a DTA alone, how many left its 43 bytes unchanged |
+| `untouched=<n>/<m>` | of the calls that must leave a DTA alone, how many left all of its bytes unchanged |
 | `resumed=<n>/<m>` | of the searches such a call interrupted, how many returned the rest of the folder |
 | `fcb=<digest>` | what the FCB searches returned |
 
@@ -665,6 +702,327 @@ the volume did not come out labelled or whole, or a report has no line or no tra
   error.
 - `realdos.sh` runs it whole, on a disk it labels.
 
+## attrprobe.sh
+
+**What it shows.** Whether two builds answer alike when a file is deleted, or has its
+attribute changed, while searches are open. Either call drives the emulator to drop what it
+cached of a folder, and on some hosts all of the drive's.
+
+`ATTRPRB.EXE` runs searches of a whole folder, three entries read first, across these calls:
+
+- nothing in between, as the control;
+- libc's `remove()` of a file the search has not reached, which makes a 4301h before it
+  deletes;
+- 41h alone on such a file;
+- 4301h on another file of the folder;
+- 4301h in one folder while a search of another is open;
+- a search of each folder open across one 4301h.
+
+Last, it saves the DTA of a search of `X` that then runs to its end. After a 4301h and a search
+of `Y`, it puts the saved bytes back and asks FindNext through them. The same with no 4301h is
+the control.
+
+**How it is called.** Each build's drive holds `X`, with 40 files, and `Y`, with 20. Each build
+gets its own copy, because the program removes and makes files in `X`.
+
+```sh
+attrprobe.sh <build A> <build B> <on|off>
+```
+
+**What it prints.** Each build's path, version line and report whole, then the verdict and
+the lines that differ. A line carries how many entries the search returned of what it held,
+how many were the other folder's, and whether the removed file came back.
+
+**Exit codes.** `0` alike, `1` different, `2` usage, `3` INVALID: a run collected nothing, a
+folder listed nothing, or a report has no line or no trailer.
+
+**What it does not show.**
+
+- The answer depends on the host. Where the emulator keeps the drive's cache across an
+  attribute change, every build reads alike and the cell shows nothing.
+- Its test plays the line a build answers differently with, which proves the comparison bites
+  on such a host.
+- Long names are on or off for the guest, but ATTRPRB itself makes no long-name call.
+
+## delete.sh
+
+**What it shows.** Whether two builds delete the same files of a folder of long names, and keep
+the short names of the files left. A program that deletes the files a search returns deletes
+each by the short name the search gave it, and goes on with the search.
+
+That only works while the files left keep their short names. So `delete.sh` makes, for each
+build, folders of the same eight long names, `Alpha track 000000.mid` to `...000007.mid`.
+
+- Every file holds its own name, so reading a file opened by a short name says which file that
+  name reached.
+- After the run the script counts the files the host still holds in each folder, and the
+  directories left in `R`.
+
+| Folder | What happens there |
+| --- | --- |
+| `S` | the shell's `DEL D:\S\*.MID` |
+| `L` | `DELPRB.EXE` deletes each name a search returns through 41h, as a program does |
+| `W` | DELPRB deletes it through 7141h with a wildcard |
+| `A` | listed, with what each short name opens, before and after one 41h and after a 3Ch of an 8.3 name |
+| `A`, then | renamed: the first long name to `RENAMED.TXT` (56h), one long name to itself in capitals (7156h), then the old long name made again (716Ch) |
+| `P` | a search kept open across a delete of the entry it just returned and of a later one |
+| `C` | a search kept open across a 3Ch and a 716Ch, with `C` listed before and after |
+| `R` | eight directories of the same names without the extension, each with an `ID.TXT` naming it |
+
+In `R`, DELPRB does these, reading `R` after each step and searching inside each directory:
+
+- it reads which directory each short name reaches, empties and removes `ALPHAT~1` with `RD`
+  while a search is open inside it, and reads the seven left again;
+- it makes `NEWDIR` (39h) and `Alpha track new` (7139h), and removes `NEWDIR` again;
+- it renames the first directory with an `ID.TXT` to `RENAMED` (56h), and makes its old long
+  name again (7139h).
+
+**How it is called.**
+
+```sh
+delete.sh <build A> <build B> <on|off>
+```
+
+**What it prints.** Each build's path, version line and report whole, and the files the host
+holds in each folder at the end. Then each build's counts, each step read against the listing
+just before it, and last the verdict and the lines that differ.
+
+| Step | What is counted |
+| --- | --- |
+| one delete in `A` | the short names that open another file |
+| `C`'s search across the creates | the short names it returned that open another file |
+| `C` after the creates | how many listed, of how many, creates answered, names listed twice, earlier names opening another file |
+| the `RD` in `R` | the short names that reach another directory; how many `R` lists |
+| one rename in `A` | listed, of how many, renamed, listed twice, earlier names opening another file, whether `RENAMED.TXT` opens the renamed file |
+| a case-only rename in `A` | the short names that moved |
+| the renamed file's old long name made again | earlier names opening another file; the short name it takes beside the renamed file's old one |
+| the MD in `R` | listed, of how many, made, listed twice, earlier names reaching another directory |
+| `NEWDIR` removed again | listed, of how many, earlier names reaching another directory |
+| a search inside each directory of `R` | the directories that list other entries than their own, after the MD and after the rename |
+| one rename in `R` | as for `A`, with whether `RENAMED` reaches the renamed directory |
+| the renamed directory's old long name made again | as for the file |
+
+- A build that keeps every short name reads zero in each "another" count. It gives a name made
+  again a free short name, never the renamed one's.
+- A search inside a renamed directory misses its `ID.TXT` when the cache holds the directory
+  as a file.
+- With long names off, an MD the cache holds as a file shows when `NEWDIR` is removed again.
+
+**Exit codes.** `0` alike, `1` different, `2` usage, `3` INVALID: a run collected nothing, a
+folder did not list its eight files before the deletes or is gone after them, or a report has
+no line or no trailer.
+
+**What it does not show.**
+
+- With long names off, 7141h, 716Ch, 7139h and 7156h are not offered, and their lines say so
+  on every build. The case-only rename and the old long names made again then count nothing.
+- The short names are the emulator's own where it makes them. Where the host's file system
+  gives each long name its short name, as Windows does with short names on, the deletes do not
+  move them.
+- There every build reads alike and the cell shows nothing: its test plays the lines that
+  differ.
+- No real DOS in reach has long names, so nothing referees the folders of long names. A search
+  across a delete of an 8.3 name is FINDLIFE's and DRIFT's, which a real DOS referees.
+
+## attrsem.sh
+
+**What it shows.** Whether anything a program reads changes when a build stops emptying its
+directory cache after an attribute change.
+
+`ATTRSEM.EXE` works on the folder `X`, which holds ten files and the directory `SUB`:
+
+- it makes a file hidden, system, both, read-only, archive off and back;
+- after each it asks 4300h, a 4Eh for its name with and without the hidden bits in the mask,
+  an open for writing, and the listing;
+- it hides and shows `SUB`, and hides a file a search in progress has not reached.
+
+Then the shell's own `ATTRIB +H`, `ATTRIB +S`, `DIR /B`, `DIR /B /A` and `ATTRIB` run, and the
+same undone.
+
+**How it is called.**
+
+```sh
+attrsem.sh <build A> <build B> <on|off>
+```
+
+**What it prints.** Each build's path, version line and report whole, ATTRSEM's lines first
+and the shell's after them as `shell|<line>`. Then the verdict and the lines that differ.
+
+**Exit codes.** `0` alike, `1` different, `2` usage, `3` INVALID: a run collected nothing, a
+report has no line or no trailer, or the shell left nothing.
+
+**What it does not show.** Its red is on Windows, where the cache is emptied at every
+attribute change. On macOS every build reads alike, and its test plays the lines that differ.
+
+## attrcost.sh
+
+**What it shows.** How many times a build reads a folder from the host while a program changes
+attributes, deletes or creates files in it. It counts what emptying the cache at every
+attribute change costs.
+
+`ATTRCOST.EXE` searches the folder twice, then repeats one call `<K>` times, each followed by a
+4Eh for another file's name. The script reads the build's log for each read of a folder from
+the host.
+
+**How it is called.**
+
+```sh
+attrcost.sh <build> <folder> <mode> <K>
+```
+
+| Mode | The call repeated |
+| --- | --- |
+| `b` | none: the baseline |
+| `s` | 4301h on a file |
+| `m` | libc's `remove()` of a file made for it: 4301h, then 41h |
+| `u` | 41h alone on a file made for it |
+| `c` | a file created and closed: 3Ch, then 3Eh |
+
+- `<build>` is the source with `counters/count-dir.diff` applied. The diff applies to unpatched
+  upstream and to the branches cut from it.
+- `<folder>` is `synthetic:<count>:83` or a host directory. A host folder's names are made as
+  empty files in the run's own folder, because the program deletes and makes files.
+- `<K>` runs from `1` to `2000`, and the folder holds at least `<K>` plus two plain files.
+- Long names are off.
+
+**What it prints.** One line: the mode, `<K>`, the folder and its entries before and after,
+then these counts, ATTRCOST's own lines, the emulator's version line and its path.
+
+| Figure | What it counts |
+| --- | --- |
+| `host_reads=` | every read of a folder the build logged |
+| `reads_of_the_folder=` | those of the folder itself |
+| `entries_read=` | the entries those reads brought |
+| `done=`, `found=` | the calls that answered, and the 4Eh that did |
+| `guest_us=` | the loop's time on the guest's clock |
+
+**Exit codes.** `0` measured, `2` usage, `3` INVALID: the build logged no read of a folder,
+ATTRCOST did not reach its trailer, or the emulator failed. The baseline always reads the
+folder once, so a log with no read is a build that does not count.
+
+**What it does not show.**
+
+- The count of reads does not depend on the host's load. `guest_us=` does.
+- Its red is on Windows. On macOS every build reads alike, and its test plays the lines that
+  differ.
+- The counter's log lines carry the tag the diff writes, `4R-DIR`. A build counted by another
+  diff is not read.
+
+## resprb.sh
+
+**What it shows.** How much host memory a build keeps after a program repeats one thing, read as
+`memory.sh` reads it. It shows the memory each protected-mode program the guest starts leaves
+behind.
+
+**How it is called.** `RESPRB.EXE` works over a folder of 100 empty files with 8.3 names, long
+names off.
+
+```sh
+resprb.sh <build> <mode> <calls> [--core <dynamic|normal>]
+```
+
+| Mode | What RESPRB repeats |
+| --- | --- |
+| `c` | a protected-mode child that starts a search and ends: `memory.sh`'s mode `c` |
+| `n` | a protected-mode child that returns at once, with no search |
+| `w` | a protected-mode child that runs a search of the folder to its end |
+| `r` | a real-mode child that starts a search and ends: no DPMI, no FPU |
+| `q` | a real-mode child that ends at once |
+| `p` | no child and no search: FNINIT, then FLDCW with three exceptions unmasked |
+| `d` | no child: a search started and never continued |
+
+- Mode `p` makes the two control words a protected-mode child's start-up goes through.
+- `--core` is the emulator's CPU core. It defaults to `dynamic`, as every script here runs.
+
+**What it prints.** One line: the mode, the calls, the core, then the three memory figures
+`memory.sh` prints. Then `resets=`, the guest's own line, the emulator's version line and its
+path.
+
+- `resets=` is how many times the x86 dynamic core reset its code cache. It needs a build of
+  the source with `counters/count-dyn.diff` applied.
+- It reads `none` when the log holds no reset: a build without that counter, or the normal
+  core. The memory figures need no counter.
+
+**Exit codes.** `0` measured, `2` usage, `3` INVALID: a repetition did not answer, the guest
+was not read while it held, or the emulator failed or passed the memory limit.
+
+**What it does not show.**
+
+- macOS's build compiles no x86 dynamic core, so there `resets=` is always `none`.
+- Its red is on Windows. On macOS every build reads alike, and its test plays the lines that
+  differ.
+- The counter's log lines carry the tag the diff writes, `4R-DYN`. A build counted by another
+  diff is not read.
+
+## aliases.sh
+
+**What it shows.** Whether two entries of a folder share a short name, and whether each short
+name opens the file it was listed for. A short name is how a DOS program reaches a file.
+
+- `run.sh` cannot see a name listed twice: both builds list it twice the same way.
+- `aliases.sh` judges one build against the host, which knows each file's size.
+
+**How it is called.**
+
+```sh
+aliases.sh cases <on|off> [--parent <dir>] <build>...
+aliases.sh folder <on|off> <folder> <build>...
+```
+
+- `cases` makes a folder in which every file has a size of its own. It holds real files named
+  like aliases beside the long names whose alias the emulator could make the same.
+- Those real files are `AAAAAA~1.TXT`, `SIBLIN~2.DAT`, `TENTH~10.DAT`, a name with no
+  extension, one in lower case, and a file named like a directory's alias.
+- It also holds two families of long names alone whose numbering loses count, eight real files
+  named as the Wine-style short names of eight long names, and controls.
+- `ALIASES.EXE` lists the folder through 4Eh and through 714Eh, searches for and opens every
+  short name it saw, and opens every long name.
+- `--parent <dir>` makes the folder there. On a volume that tells case apart, the folder also
+  gets names that differ only in case.
+- `folder` lists a host folder, mounted read-only, or a synthetic one of any style.
+
+**What it prints.** For `cases`, one line of figures per build, and below it the names behind
+each figure.
+
+| Figure | What it counts |
+| --- | --- |
+| `entries`, `host` | the entries 4Eh listed; the entries the host holds |
+| `names_shared` | short names more than one entry is listed under |
+| `exact_search_not_one` | short names whose search returns other than one entry |
+| `real_name_not_its_own` | files whose own name is 8.3 and does not open them |
+| `files_no_short_name_opens` | files no listed short name opens |
+| `listed_with_another_size` | with long names on, entries listed with another file's size, or a directory listed as a file |
+| `name_opens_another_file` | with long names on, aliases that open another file than the one listed |
+| `long_name_opens_another_file` | with long names on, long names that open another file through 716Ch |
+
+- Every figure `0`, with `entries` equal to `host`, says that no two entries share a short
+  name, and that each short name opens its own file.
+- For `folder`: `entries`, `host`, `names_shared` and `entries_sharing`. With long names on,
+  also `matched`, the entries whose long name the host holds, and `listed_with_another_size`.
+- `folder` prints no file name of the folder.
+
+**Exit codes.** `0` every build measured, and the figures alike where several were given, `1`
+two builds' figures differ, `2` usage, `3` INVALID.
+
+- A run is INVALID when it collected nothing, or its report has no trailer or not the lines it
+  counts.
+- It is also INVALID when a listing came back empty, or the folder did not come out whole.
+
+**What it does not show.**
+
+- Where the host's file system gives each long name its short name, as Windows does with short
+  names on, the aliases are the file system's. The folder comes out with no shared name on
+  every build.
+- The real files named like aliases are written before the long names, so the folder is whole
+  there too.
+- On a volume that tells case apart, with long names on, a long-name call finds a name without
+  case. `readme.txt` opens `README.TXT`, and a search for `MIXED.DAT` returns its two
+  look-alikes.
+- `exact_search_not_one` and `long_name_opens_another_file` count those on every build. Each
+  file stays reachable by its own short name.
+- The Wine-style names are written in the script, as the emulator computes them for the eight
+  long names. A change to that hash is a change to the script.
+
 ## unit.sh
 
 **What it shows.** How many of a build's own unit tests ran and failed. DOSBox-X carries unit
@@ -726,6 +1084,114 @@ program printed no `PASS` or `FAIL` line, or the run collected nothing.
 **What it does not show.** Exit `0` is not a pass: read `fail=` and `exit=`. The script
 counts `PASS` and `FAIL` in upper case only.
 
+## junktest.sh
+
+**What it shows.** How much host memory a build keeps after the run a reporter attached to
+[upstream issue 6827, memory taken by programs run in folders with many files](https://github.com/joncampbell123/dosbox-x/issues/6827).
+Its batch files run FC again and again, and fill the folder with empty files to run it among.
+
+- The files are the reporter's, with no licence stated, so they are not kept here. Download the
+  archive from the issue into a folder of its own, unpack it there, and hand the script that
+  folder.
+- A folder that is absent, or lacks one of the files, is INVALID. Nothing in it runs on the
+  host: the script copies the folder into its run directory, and the emulator runs it.
+
+**How it is called.**
+
+```sh
+junktest.sh <build> <folder> <on|off> <batch>...
+```
+
+- The batch files are `300`, `JUNK` or `DJUNK`, called in the order given from the root of the
+  drive the folder is, as the issue mounts it.
+- `300 JUNK 300` is the run the issue describes, and its first steps alone say what each adds.
+- FC is the one on the emulator's `Z:` drive, as in the report. `300.BAT` sends FC's answers to
+  `NUL`, so the script first asks FC once to show it compares the reporter's two files there.
+- The runs are counted from what the batch files print to the console, which the emulator logs.
+  Then MEMPROBE, which searches nothing, holds while the host reads the emulator.
+
+**What it prints.** One line:
+
+- the batch files, the folder's entries at the end, and how many of them are `.TMP` files;
+- how many lines `300.BAT` counted its runs with, and how many batch files said they were done;
+- the three memory figures `memory.sh` prints, the first being the peak while the batch files
+  ran;
+- the samples, how many "All slots full" and "ID out of range" lines the emulator logged, its
+  version line and its path.
+
+**Exit codes.** `0` measured, `2` usage, `3` INVALID.
+
+- A run is INVALID when the folder is absent or lacks one of the reporter's files, or FC did
+  not compare them.
+- It is also INVALID when a batch file did not reach its end, the guest was not read while it
+  held, or the emulator failed or passed the memory limit.
+
+**What it does not show.**
+
+- What the reporter saw on another host is not what this run measures: the figures are this
+  host's.
+- The reporter's conf leaves long names off, which is what the battery runs.
+- The counts come from the emulator's log and its console logging, `[dos] log console`, which
+  every run of it turns on.
+
+## dirtest.sh
+
+**What it shows.** How much host memory a build keeps after the program a reporter attached to
+[upstream issue 2485, a test that each of 1,835 files exists crashes](https://github.com/joncampbell123/dosbox-x/issues/2485)
+has looked up every file of its folder.
+
+- The archive holds a FoxPro program, with its runtime and DOS extender inside, and the folder
+  `DATA` of files it lists and looks up one by one.
+- The files are the reporter's, with no licence stated, so they are not kept here. Download the
+  archive from the issue into a folder of its own, unpack it there, and hand the script that
+  folder.
+- A folder that is absent, or lacks `DIRTEST.EXE` or `DATA`, is INVALID. The script copies the
+  folder into its run directory, and the emulator runs it.
+
+**How it is called.** `DIRTEST.EXE` runs from the root of the drive the folder is.
+
+```sh
+dirtest.sh <build> <folder> <on|off>
+```
+
+- The program ends on an error dialog its runtime raises after the loop: the program's own
+  `SET STEP ON`, which the reporter explains in the issue.
+- The dialog waits for a key. So the emulator types Enter every few seconds from before the
+  program starts (`AUTOTYPE`), and the first one after the dialog is up cancels it.
+- The program draws on the screen, so its work is counted from the INT 21h calls the emulator
+  logs between the shell starting it and the shell's next prompt.
+- Then MEMPROBE, which searches nothing, holds while the host reads the emulator.
+
+**What it prints.** One line:
+
+- the files in `DATA`;
+- the 4Fh calls of the program's listing, and the 4Eh calls: the listing's first, one per
+  lookup, and the few its runtime makes for itself;
+- the three memory figures `memory.sh` prints, the first being the peak while it ran;
+- the samples, how many "All slots full" and "ID out of range" lines the emulator logged, its
+  version line and its path.
+
+**Exit codes.** `0` measured, `2` usage, `3` INVALID.
+
+- A run is INVALID when the folder is absent or incomplete, or the program did not start, did
+  not return or did not look every file of `DATA` up.
+- It is also INVALID when the guest was not read while it held, or the emulator failed or
+  passed the memory limit.
+
+**What it does not show.**
+
+- `AUTOTYPE` keeps time on the host's clock, not the guest's, and presses Enter for a bounded
+  time. A program that has not reached its dialog by then holds the run to its bound, which is
+  INVALID.
+- A key typed before the dialog is up is lost to it. So the keys cannot be counted to end with
+  the program, and some are still pending when the run ends.
+- On Windows the emulator exits with 0xC0000409 when keys are still pending, on every build.
+  The script takes that exit as the run's end once it has read MEMPROBE's line, and says so in
+  a line of its own.
+- What the reporter saw on another host is not what this run measures: the figures are this
+  host's.
+- The counts come from the emulator's log, `[log] int21`, which every run of it turns on.
+
 ## realdos.sh
 
 **What it shows.** What the DOS of a disk image answers to the same programs. What a search
@@ -741,6 +1207,7 @@ ought to answer is decided by a DOS, and the emulator's own DOS is the thing und
 
 ```sh
 realdos.sh <build> <boot image> <program>
+realdos.sh <build> <boot image> junktest|dirtest <folder>
 ```
 
 | `<program>` | What runs on the image's DOS |
@@ -748,14 +1215,19 @@ realdos.sh <build> <boot image> <program>
 | `id` | which DOS answers, and nothing else |
 | `findlife` | FINDLIFE over the two folders `findlife.sh` makes |
 | `exact` | EXACT over the folder `exact.sh` makes |
-| `enumstat` | ENUMSTAT in its modes `s`, `x` and `n` over 3,000 files with 8.3 names |
+| `enumstat` | ENUMSTAT in its modes `s`, `x` and `n` over a folder of files with 8.3 names |
 | `drift`, `dtadump`, `patlist` | that program over the folder `exact.sh` makes |
 | `template` | TEMPLATE over the files `template.sh` makes, in the root of the run's disk, which is then labelled `DISK1` |
 | `findpos` | FINDPOS over the folder `exact.sh` makes, on the run's disk as it is made: with no label |
 | `findpos-labelled` | the same once the image's own `LABEL` has named the disk `FPLABEL` |
-| `memprobe` | MEMPROBE in its mode `e` over 1,835 files with 8.3 names |
-| `fc` | the emulator's `FC.EXE` run 300 times from a batch file, as `fc.sh` runs it, in a folder of 700 files |
+| `memprobe` | MEMPROBE in its mode `e` over a folder of files with 8.3 names |
+| `fc` | the emulator's `FC.EXE` run again and again from a batch file, as `fc.sh` runs it, in a folder of files |
 | `xcopy` | the emulator's `XCOPY.EXE` over the tree `xcopy.sh` makes |
+| `junktest` | the reporter's batch files of `junktest.sh`, unpacked in `<folder>`, in the run the issue describes, with the emulator's `FC.EXE` |
+| `dirtest` | the reporter's program of `dirtest.sh`, unpacked in `<folder>`, with Enter typed as `dirtest.sh` types it |
+
+- The folder of `enumstat` holds 3,000 files, and that of `memprobe` 1,835.
+- `fc` runs FC 300 times, in a folder of 700 files.
 
 A run launches the emulator three times: to stage, to boot and to collect.
 
@@ -780,6 +1252,8 @@ the program's report whole.
   not differ.
 - For `xcopy` it is how many files and folders the tree holds, how many of each that DOS's
   own `DIR` lists under the copy, and the count XCOPY printed.
+- For `junktest` it is the counts `junktest.sh` prints, but memory. For `dirtest` it is how
+  many files `DATA` holds, whether the program returned, and what that DOS's `DIR` lists.
 
 **Exit codes.** `0` the report is the image's DOS's, `2` usage, `3` INVALID.
 
@@ -809,8 +1283,214 @@ the program's report whole.
   memory to read.
 - The FC and the XCOPY are the emulator's, run by the image's DOS, so the two DOSes are asked
   by one program. What the copy left is listed by that DOS's own `DIR`.
+- `junktest` and `dirtest` say only whether the reporter's files run there to their end.
+- `junktest` runs in a folder of the disk, not its root, because a FAT16 root holds fewer
+  entries than `JUNK.BAT` makes. Each batch file runs through a `COMMAND /C` of its own, so
+  that what it prints can be counted.
+- `dirtest` cannot count the program's calls there, since that DOS's INT 21h is not the
+  emulator's. Its loop reads the FAT folder from its start for every file, so it is the
+  longest run of the script.
 - It has been run on macOS only. The copy of the image is a clone where the file system has
   them and a whole copy elsewhere.
+
+## p5time.sh
+
+**What it shows.** How long the first read of a folder takes on two builds, timed from the
+host. `P5PROBE.EXE` makes one 4Eh for `<folder>\*.*` on a folder the emulator has not read.
+
+- A first read is a wall time, so it is never a battery cell. It is taken through `batch.sh`,
+  detached, on a host nobody else is loading.
+- Each run is a fresh emulator. The guest makes a ready file and waits.
+- The clock is the host's monotonic one. It starts when the host makes the go file and stops at
+  the guest's last line.
+- The two builds run interleaved, A B B A in each round, so that a drift of the host's speed
+  falls on both alike.
+
+**How it is called.**
+
+```sh
+p5time.sh <build A> <build B> <folder> <on|off> <pairs> <out dir>
+```
+
+- `<folder>` is a synthetic folder, made once under `P5_FOLDERS`, or a host directory mounted
+  read-only. The same build twice is the A/A pair.
+- `<pairs>` is how many A B B A rounds. `<out dir>` keeps each run's guest line, the
+  launcher's report and the emulator's pid.
+
+**What it prints.** A line naming the two builds, one line per run, and one per build with its
+fastest, median and slowest time.
+
+```
+p5time|<round>|<A|B>|seconds=<s>|t0=<epoch>|t1=<epoch>|pid=<emulator>|guest=<line>
+```
+
+**Exit codes.** `0` timed, the two builds' guest lines alike, `1` the guest lines differ, `2`
+usage, `3` INVALID: a run did not reach its last line, or the emulator failed.
+
+**What it does not show.**
+
+- The guest runs at a fixed clock, `TIMER_CYCLES` in `common.sh`. What is timed is host code
+  inside one call, so the guest's speed barely enters it.
+- A factor between two builds measured at the fixed clock holds at `cycles=max`, within the
+  spread of one build against itself.
+- One run's time says little. Read it beside each build's spread against itself, which
+  `batch.sh` gives.
+
+## p5rep.sh
+
+**What it shows.** How long the shell's `DIR`, or one open of a file, takes in a folder the
+emulator has not read, on two builds. It works as `p5time.sh` does, with a step chosen by
+`<case>`.
+
+**How it is called.**
+
+```sh
+p5rep.sh <build A> <build B> <folder> <on|off> <case> <pairs> <out dir>
+```
+
+| `<case>` | The step timed |
+| --- | --- |
+| `dir` | the shell's `DIR` of the folder |
+| `dir:<name>` | the shell's `DIR` of one file of the folder |
+| `open:<name>` | one 716Ch open of one file, with long names on |
+| `fopen:<name>` | the C library's `fopen` of one file |
+
+- The clock stops at a stop file. The shell makes it right after its `DIR`, and `P5REP.EXE` as
+  soon as its open returns.
+- `DIR`'s count is read after the clock stopped.
+- P5REP turns off DJGPP's `glob()` of its arguments. Run before `main`, it would make the first
+  read of the folder a path names before the timed step.
+
+**What it prints.** As `p5time.sh` prints, with a line naming the case, and `p5rep` at the head
+of each run's line.
+
+**Exit codes.** `0` timed, the two builds' guest lines alike, `1` the guest lines differ, `2`
+usage, `3` INVALID.
+
+- A run is INVALID when the step did not run: no ready or stop file, no guest line, a `DIR`
+  that counted no file, or an open that failed.
+- It is also INVALID when the emulator failed.
+
+**What it does not show.** One run's time says little. Read it beside each build's spread
+against itself, which `batch.sh` gives.
+
+## batch.sh
+
+**What it shows.** A list of timed cells, run detached, each judged quiet or busy. Each cell is
+three calls of its timer: the two builds against each other, and each against itself, which
+gives the spread a difference has to exceed.
+
+**How it is called.**
+
+```sh
+batch.sh <jobs file> <out dir>
+```
+
+Each line of the jobs file is one cell, and `#` starts a comment:
+
+```
+<label>|<p5time|p5rep>|<key A>|<key B>|<folder>|<on|off>|<case or ->|<pairs>
+```
+
+| Variable | What it names |
+| --- | --- |
+| `P5_BUILD_<KEY>` | the DOSBox-X executable a key of the jobs file names: `BASE` is `P5_BUILD_BASE` |
+| `P5_SCRIPTS` | the folder the timers, `loadwatch.sh` and `judge.py` are run from, by default this one: the seam of `batch.test.sh` |
+
+- The synthetic folders are made once, before anything is timed.
+- `loadwatch.sh` samples the host every ten seconds throughout. After a cell's three calls,
+  `judge.py` says whether it ran on a quiet host.
+- A BUSY cell is run again, whole, until the host has been busy for an hour. A cell with no
+  timed line is not judged, and the batch goes on.
+
+**What it prints.** Nothing on the terminal but a refusal. `<out dir>` gets `batch.log`, `load.txt`,
+`pids.txt`, `jobs.txt`, and `<label>/try<n>/` for each cell and try.
+
+- `<label>/try<n>/` holds each call's output, its runs' files and `judge.txt`.
+- `jobs.txt` is the jobs file, which `analyze.py` reads.
+
+**Exit codes.** `0` every cell ran quiet, `2` usage or a key no build is named for, `3` a timer
+call was INVALID, a cell held no timed line or a folder could not be made, `4` BUSY: the host
+was not quiet for over an hour.
+
+**What it does not show.** It ranks nothing: `analyze.py` makes the tables.
+
+## loadwatch.sh
+
+**What it shows.** Nothing by itself: it samples the host while `batch.sh` runs. It reads
+macOS's `top` and `sysctl`.
+
+**How it is called.**
+
+```sh
+loadwatch.sh <out file> <seconds>
+```
+
+**What it prints.** Every `<seconds>` it appends to `<out file>` the load average, the CPU's
+user, system and idle shares, and the ten processes using the most CPU. They come from `top`'s
+second sample, because the first has no interval to measure a share over.
+
+```
+load|<epoch>|<1 5 15 min>
+cpu|<epoch>|<user>|<sys>|<idle>
+top|<epoch>|<pid>|<ppid>|<cpu %>|<command>
+```
+
+**Exit codes.** `2` usage. Otherwise it runs until it is killed.
+
+**What it does not show.** Only the ten busiest processes are named. A burst of short
+processes shows only in the idle share.
+
+## judge.py
+
+**What it shows.** Whether one cell of `batch.sh` ran on a quiet host, from the samples
+`loadwatch.sh` took in the cell's window. Either of its two rules makes the cell BUSY.
+
+- A process outside the run used 80 % of a core or more in two consecutive samples: a core
+  taken. One sample alone is a spike, named and let pass.
+- The run's emulators are known by the pids the timers recorded.
+- Any sample of the cell's window had under 10 % of the whole CPU idle: a burst of short
+  processes that no list of processes shows.
+
+**How it is called.**
+
+```sh
+python3 -I judge.py <load.txt> <cell try dir>
+```
+
+**What it prints.** `QUIET` or `BUSY`, then the samples, the lowest and mean idle share, and
+the spikes. A BUSY cell also has `sustained=`, naming what made it so.
+
+**Exit codes.** `0` judged, `2` usage, `3` INVALID: the cell holds no timed line. A cell with
+no sample of the host in its window is BUSY.
+
+**What it does not show.** It judges the host, never the builds.
+
+## analyze.py
+
+**What it shows.** The tables of the timers' batch, from the out dirs `batch.sh` left.
+
+**How it is called.** Each `<raw dir>/<batch>` is an out dir of `batch.sh`.
+
+```sh
+python3 -I analyze.py <raw dir> <batch>...
+```
+
+**What it prints.** A table, one row per cell, from its last try:
+
+- each build's median, with its fastest and slowest, and the factor between the two;
+- each build's spread against itself, and the gap between the two arms of that A/A call;
+- the verdict, the runs per build, and the tries.
+
+Then it lists the runs whose window holds a host sample under 10 % idle.
+
+- The verdict is `ranked` when the difference of the medians exceeds both builds' spread
+  against themselves. It is `within noise` otherwise.
+
+**Exit codes.** `0` the tables, `2` usage, `3` INVALID: an argument is not an out dir of
+`batch.sh`, a cell has no try or misses a call, or no cell was found.
+
+**What it does not show.** Only the last try of each cell is read.
 
 ## battery.sh
 
@@ -822,7 +1502,7 @@ It judges nothing. Each line is one script's own verdict and what it counted.
 **How it is called.**
 
 ```sh
-battery.sh [--real-dos] [--raw <directory>] <base> <build> [<third build>]
+battery.sh [--real-dos] [--raw <directory>] [--only <group>]... <base> <build> [<third build>]
 ```
 
 | Argument | What it is |
@@ -831,7 +1511,11 @@ battery.sh [--real-dos] [--raw <directory>] <base> <build> [<third build>]
 | `<build>` | the one under test |
 | `<third build>` | another one `<build>` is compared with as well, and measured beside the two: what a branch stacked on another needs |
 | `--real-dos` | adds the cells on the DOS of a disk image, with `<build>` as the machine |
-| `--raw <directory>` | keeps there what every script printed, one file per call; the directory is empty or absent |
+| `--raw <directory>` | keeps there what every script printed, one file per call, and `schedule.txt`; the directory is empty or absent |
+| `--only <group>` | runs one group of cells and prints every other cell as `not run`; given again, one more group |
+
+The groups are `selftest`, `answers`, `folders`, `attrsem`, `delete`, `aliases`, `memory`,
+`realdos` and `reporters`. Its `--help` names the cells of each.
 
 Beyond what the scripts need, it takes these from the environment:
 
@@ -841,10 +1525,20 @@ Beyond what the scripts need, it takes these from the environment:
 | `DIRCACHE_REAL_FILE` | a file of it, as the guest names it |
 | `DIRCACHE_REGRESSION` | the folder holding `FINDTEST.EXE` and `LFNTEST.EXE` |
 | `DIRCACHE_BOOT_IMAGE` | with `--real-dos`, the disk image `realdos.sh` boots |
+| `DIRCACHE_JUNKTEST` | the reporter's files of `junktest.sh`, unpacked |
+| `DIRCACHE_DIRTEST` | the reporter's files of `dirtest.sh`, unpacked |
+| `XDG_STATE_HOME` | where the lock is kept, in `dosbox-x-dircache/` under it; by default `~/.local/state` |
 | `DIRCACHE_SCRIPTS` | the folder the scripts are run from, by default this one: the seam of `battery.test.sh` |
+| `DIRCACHE_MEMORY_KB` | the host's memory in kB, by default what the host says: a seam of `battery.test.sh` |
 
-**What it prints.** The builds with their sha256, one line per cell, and a last line with how
-many cells it printed, how many INVALID and how many not run.
+- The cells of the reporters' files come last. Without their variable, each prints one `not
+  run` cell that says so.
+- `attrcost.sh`, `resprb.sh` and the timers run by their tests only. Their own figures are
+  read on their own.
+
+**What it prints.** The builds with their sha256, how many calls run at once and in how much
+memory, then one line per cell. A last line says how many cells it printed, how many INVALID
+and how many not run.
 
 ```
 cell|<name>|<long names: on, off or ->|<verdict>|<figures>
@@ -859,6 +1553,10 @@ cell|<name>|<long names: on, off or ->|<verdict>|<figures>
   `not run` they say why.
 - With `--raw`, the lines that differ are in the kept files, and the directory an INVALID run
   kept is named there.
+- A kept file is named by its call: the cell's name and its long-name field. The cell `memory
+  synthetic:50000:83 *.* d 20 base` with `off` is `memory_synthetic-50000-83_@.@_d_20_base_off.txt`.
+- `schedule.txt` says when each call started and ended, in which lane, and beside how many
+  others.
 
 Two runs on the same builds print the same lines apart from the memory figures. To compare
 two outputs:
@@ -867,8 +1565,12 @@ two outputs:
 sed -E 's/((held|peak)_[a-z]+_kb)=[0-9]+/\1=N/' <output>
 ```
 
-**Exit codes.** `0` every cell ran, `2` usage, `3` at least one cell is INVALID. What the
-scripts printed is then kept and named, unless `--raw` already keeps it.
+**Exit codes.** `0` every cell ran, `2` usage, `3` at least one cell is INVALID or `--only`
+left cells out. What the scripts printed is then kept and named, unless `--raw` already keeps
+it.
+
+- A run with `--only` exits `3`, as every incomplete battery does. It is what a change is
+  checked with while it is made, and the whole battery is what closes it.
 
 **What it does not show.**
 
@@ -883,6 +1585,33 @@ scripts printed is then kept and named, unless `--raw` already keeps it.
   entries share a name.
 - `--real-dos` condenses each report of the image's DOS to its counts and a digest. Which
   lines of a build's report differ from it is read from the two reports, under `--raw`.
+- The memory each cell is planned for is what a macOS run recorded, on Windows too. There,
+  what bounds a cell that holds more is the limit past which `memory.sh` kills a run.
+
+### How the calls run
+
+The lines come out in one fixed order whatever order the calls ran in: the battery first runs
+every call, then reads what each printed. Two lanes run at once.
+
+- The scripts' tests and the answers run one after another.
+- The memory cells, the reporters' runs and the arms of the image's DOS run several at a time,
+  within half the host's cores and half its memory. The image's arms start first, being the
+  longest runs and holding no folder.
+- A memory cell counts for the most memory its recording in `fixtures/battery` shows on any
+  build, so a build is planned for as the unpatched base's worst.
+- A cell that needs over half of that memory runs with no other memory cell beside it. A cell
+  nobody has recorded counts for all of it.
+
+A cell is a footprint read from outside the emulator, not a time: a neighbour slows a run, it
+does not change what the run holds. The resident sizes, `peak_rss_kb`, are the exception.
+
+- The system compresses memory nobody touches, and it compresses more when the host is full.
+  So a peak is read with the host's load in mind; the footprint counts compressed memory too.
+- A run that holds a `memory`, `realdos` or `reporters` group first takes a lock: a directory
+  in `dosbox-x-dircache/` under `XDG_STATE_HOME` that holds its pid.
+- A second such run on the host waits for the first to end, because two at once can exhaust
+  the host's memory. A lock whose pid is gone was left by a battery that did not end cleanly,
+  and is taken.
 
 ### The cells
 
@@ -895,7 +1624,7 @@ off, or both, as the field says.
 | Cell | What it runs | Its figures |
 | --- | --- | --- |
 | `selftest <name>.test.sh` | that script's own tests, no emulator | `cases=`, `failed=` |
-| `run <folder> <pair>` | `run.sh` on a synthetic folder at each size and in each name style, then on the large real folder (`real`) | `entries=`, `4e=`, `lfn=`, `look=`, `differing_lines=` |
+| `run <folder> <pair>` | `run.sh` on a synthetic folder at each size in the styles `83` and `long`, then on the large real folder (`real`), then on a folder of each of the styles `dots`, `mix` and `wine` | `entries=`, `4e=`, `lfn=`, `look=`, `differing_lines=` |
 | `memory <folder> <mode> <calls> <who>` | `memory.sh`, the mode's call made that many times, on the folders listed below | `entries=`, `ok=`, `slots_full=`, `held_footprint_kb=` or `held_private_kb=` |
 | `fc <files> <runs> <who>` | `fc.sh` in a folder of that many files, FC run that many times | `entries=`, `compared=`, `slots_full=`, `peak_rss_kb=` or `peak_ws_kb=`, the held figure |
 | `findlife <pair>` | `findlife.sh` | `cases=`, `ok=`, `differs=`, `not judged`, `differ=` |
@@ -905,12 +1634,19 @@ off, or both, as the field says.
 | `patlist <pair>` | `patlist.sh` | `patterns=`, `sha256=`, `differ=` |
 | `template <fat or host> <pair>` | `template.sh` on a FAT image, then on a host folder | `lines=`, `sha256=`, `differing_lines=` |
 | `findpos <labelled or unlabelled> <pair>` | `findpos.sh` on a drive with a label, then with none | `cases=`, `sha256=`, `differ=` |
+| `attrprobe <pair>` | `attrprobe.sh` | `cases=`, `sha256=`, `differ=` |
+| `attrsem <pair>` | `attrsem.sh` | `lines=`, `shell=`, `sha256=`, `differ=` |
+| `delete <pair>` | `delete.sh` | `lines=`, `sha256=`, the files and directories each build left, `differ=` |
 | `ties <pair>` | `ties.sh` | `ties=`, `differ=` |
+| `aliases cases <who>` | `aliases.sh cases` on one build, long names on and off | the figures of `aliases.sh` |
+| `aliases real <who>` | `aliases.sh folder on` on the large real folder, one build | `entries=`, `host=`, `names_shared=`, `entries_sharing=`, `matched=`, `listed_with_another_size=` |
 | `enumstat <mode> <names> <who>` | one row of `enumstat.sh` | `listed=`, `looked_up_ok=`, `last=`, `slots_full=`, `out_of_range=` |
 | `xcopy <who>` | `xcopy.sh` | `made=`, `dirs_made=`, `copied=`, `dirs_copied=`, `said=`, `slots_full=`, `out_of_range=` |
 | `passfail <program> <folder> <who>` | `passfail.sh` with each regression program in a small and in a large folder | `sha256=`, `entries=`, `pass=`, `fail=`, `exit=` |
 | `unit <who>` | `unit.sh` | `tests=`, `failures=`, `errors=`, `disabled=` |
 | `realdos <program>` | with `--real-dos`, `realdos.sh` with `<build>` as the machine | `dos=`, the counts the build's own cell carries, `sha256=` |
+| `junktest <batch files> <who>` | `junktest.sh` with the reporter's run and its first steps | `entries=`, `junk=`, `counted=`, `done=`, `slots_full=`, `out_of_range=`, the peak, the held figure |
+| `dirtest <who>` | `dirtest.sh` | `files=`, `calls_4f=`, `calls_4e=`, `slots_full=`, `out_of_range=`, the peak, the held figure |
 
 What each figure counts:
 
@@ -928,7 +1664,7 @@ What each figure counts:
 | `slots_full=` | how many times the emulator logged its search table full |
 | `out_of_range=` | how many times the emulator logged a slot number out of range |
 | `held_footprint_kb=`, `held_private_kb=` | the memory figure the host reads once the calls or the runs are over |
-| `peak_rss_kb=`, `peak_ws_kb=` | the peak while FC ran |
+| `peak_rss_kb=`, `peak_ws_kb=` | the peak while FC, the reporter's batch files or the reporter's program ran |
 | `compared=` | the runs that said the files do not differ |
 | `<name>=ALIKE:<lines>` | a section of `exact` that is alike |
 | `<name>=DIFFERENT:<lines of A>/<lines of B>` | a section of `exact` that differs |
@@ -945,6 +1681,13 @@ What each figure counts:
 | `pass=`, `fail=`, `exit=` | the lines that end in `PASS` and in `FAIL`, and the program's exit code |
 | `tests=`, `failures=`, `errors=`, `disabled=` | the unit tests that ran, failed, erred and are disabled |
 | `dos=` | the version of the DOS that answered |
+| `shell=` | in `attrsem`, the shell's lines after ATTRSEM's |
+| `entries_sharing=`, `matched=` | the figures of `aliases.sh folder`: its entry says what each counts |
+| `junk=` | the folder's `.TMP` files at the end |
+| `counted=`, `done=` | the lines `300.BAT` counted its runs with, and the batch files that ended |
+| `files=` | the files in the reporter's `DATA` |
+| `calls_4f=`, `calls_4e=` | the program's find calls |
+| `returned=` | in `realdos dirtest`, whether the program returned |
 
 The `memory` cells run on these folders:
 
@@ -965,15 +1708,23 @@ How to read some figures:
 - `realdos enumstat <mode> <names>` is one row.
 - `realdos memprobe`, `realdos fc` and `realdos xcopy` carry the counts of their one line and
   no digest.
+- `realdos junktest` and `realdos dirtest` do the same. They run last, and only where the
+  reporters' files are named.
+- In `delete`, the files and directories each build left read `A(S=<n> ...)` for one build
+  and `B(...)` for the other. `differ=` names each step whose lines differ as `<kind>:<step>`.
 
 ### The lines to expect
 
 The lines of one whole run are kept with the tests, under `fixtures/battery`.
 
-- It is that run as `--raw` keeps it, with `--real-dos`: unpatched upstream as base, and a
-  patched build.
-- Each call has one file: its exit code and arguments on the first line, and what the script
-  printed below.
+- It is that run as `--raw` keeps it, with `--real-dos` and the reporters' files named:
+  unpatched upstream as base, and a patched build.
+- Each call has one file, named by the call: its exit code and arguments on the first line,
+  and what the script printed below.
+- A cell added on two branches of these instruments adds a file of its own name on each, so
+  the two merge without renaming the others.
+- The calls added after that run were recorded on their own, with the builds they need. The
+  header of `battery.test.sh` names each.
 - `battery.test.sh` plays it back and names, case by case, the line each kind of cell must
   print from it.
 - The other fixtures hold, in the same way, what one run of each script left. Each
@@ -1049,6 +1800,11 @@ bash <name>.test.sh
   stands in for a build.
 - `battery.test.sh` plays one level up. `fixtures/stub-script.sh` stands in for every script
   and plays what each printed in one real run of the battery.
+- `fixtures/stub-powershell.sh` stands in for PowerShell running `windows.ps1`, for the cases
+  of `dirtest.test.sh` that play a Windows run.
+- `batch.test.sh` plays the timers, the sampler and the judge through stand-ins of its own.
+  `judge.test.sh` plays one cell of a real batch and the host's samples around it.
 - `battery.sh` runs them as its first cells, all but its own.
-- They play through the macOS launcher, so they run on macOS only. `memory.test.sh` also
-  needs its `ps` and `footprint`.
+- They play through the macOS launcher, so they run on macOS only. `memory.test.sh` and the
+  tests of the other scripts that read memory also need its `ps` and `footprint`.
+- `batch.test.sh` and `judge.test.sh` run `judge.py` and `analyze.py` with `python3 -I`.

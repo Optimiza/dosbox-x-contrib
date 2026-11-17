@@ -1,0 +1,181 @@
+exit=0 :: attrsem.sh /builds/base/dosbox-x /builds/setattr/dosbox-x on
+attrsem.sh: long names on
+attrsem.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+sem|before list mask=20|n=10 F0003.TXT=32
+sem|before list mask=37|n=13 F0003.TXT=32
+sem|hidden|set=0 get=0 attr=22 exact20=18 exact27=0 openrw=0
+sem|hidden list mask=20|n=9 F0003.TXT=-1
+sem|hidden list mask=37|n=13 F0003.TXT=34
+sem|system|set=0 get=0 attr=24 exact20=18 exact27=0 openrw=0
+sem|system list mask=20|n=9 F0003.TXT=-1
+sem|system list mask=37|n=13 F0003.TXT=36
+sem|hidden-system|set=0 get=0 attr=26 exact20=18 exact27=0 openrw=0
+sem|hidden-system list mask=20|n=9 F0003.TXT=-1
+sem|hidden-system list mask=37|n=13 F0003.TXT=38
+sem|read-only|set=0 get=0 attr=21 exact20=0 exact27=0 openrw=5
+sem|read-only list mask=20|n=10 F0003.TXT=33
+sem|read-only list mask=37|n=13 F0003.TXT=33
+sem|archive-again|set=0 get=0 attr=20 exact20=0 exact27=0 openrw=0
+sem|archive-again list mask=20|n=10 F0003.TXT=32
+sem|archive-again list mask=37|n=13 F0003.TXT=32
+sem|no-archive|set=0 get=0 attr=00 exact20=0 exact27=0 openrw=0
+sem|no-archive list mask=20|n=10 F0003.TXT=0
+sem|no-archive list mask=37|n=13 F0003.TXT=0
+sem|archive-back|set=0 get=0 attr=20 exact20=0 exact27=0 openrw=0
+sem|archive-back list mask=20|n=10 F0003.TXT=32
+sem|archive-back list mask=37|n=13 F0003.TXT=32
+sem|dir-hidden|set=0
+sem|dir-hidden list mask=10|n=12 SUB=-1
+sem|dir-hidden list mask=12|n=13 SUB=18
+sem|dir-shown|set=0
+sem|dir-shown list mask=10|n=13 SUB=16
+sem|hidden-mid-search|set=0 n=9 returned=0
+sem|after-mid-search list mask=20|n=9 F0007.TXT=-1
+sem|shown-again|set=0
+sem|shown-again list mask=20|n=10 F0007.TXT=32
+end|lines=32
+shell|  A   H 	D:\X\F0001.TXT
+shell|  A  S  	D:\X\F0002.TXT
+shell|SUB
+shell|F0000.TXT
+shell|F0003.TXT
+shell|F0004.TXT
+shell|F0005.TXT
+shell|F0006.TXT
+shell|F0007.TXT
+shell|F0008.TXT
+shell|F0009.TXT
+shell|SUB
+shell|F0000.TXT
+shell|F0001.TXT
+shell|F0002.TXT
+shell|F0003.TXT
+shell|F0004.TXT
+shell|F0005.TXT
+shell|F0006.TXT
+shell|F0007.TXT
+shell|F0008.TXT
+shell|F0009.TXT
+shell|  A     	D:\X\F0000.TXT
+shell|  A   H 	D:\X\F0001.TXT
+shell|  A  S  	D:\X\F0002.TXT
+shell|  A     	D:\X\F0003.TXT
+shell|  A     	D:\X\F0004.TXT
+shell|  A     	D:\X\F0005.TXT
+shell|  A     	D:\X\F0006.TXT
+shell|  A     	D:\X\F0007.TXT
+shell|  A     	D:\X\F0008.TXT
+shell|  A     	D:\X\F0009.TXT
+shell|  A     	D:\X\F0001.TXT
+shell|  A     	D:\X\F0002.TXT
+shell|SUB
+shell|F0000.TXT
+shell|F0001.TXT
+shell|F0002.TXT
+shell|F0003.TXT
+shell|F0004.TXT
+shell|F0005.TXT
+shell|F0006.TXT
+shell|F0007.TXT
+shell|F0008.TXT
+shell|F0009.TXT
+shell|  A     	D:\X\F0000.TXT
+shell|  A     	D:\X\F0001.TXT
+shell|  A     	D:\X\F0002.TXT
+shell|  A     	D:\X\F0003.TXT
+shell|  A     	D:\X\F0004.TXT
+shell|  A     	D:\X\F0005.TXT
+shell|  A     	D:\X\F0006.TXT
+shell|  A     	D:\X\F0007.TXT
+shell|  A     	D:\X\F0008.TXT
+shell|  A     	D:\X\F0009.TXT
+attrsem.sh: build B: /builds/setattr/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+sem|before list mask=20|n=10 F0003.TXT=32
+sem|before list mask=37|n=13 F0003.TXT=32
+sem|hidden|set=0 get=0 attr=22 exact20=18 exact27=0 openrw=0
+sem|hidden list mask=20|n=9 F0003.TXT=-1
+sem|hidden list mask=37|n=13 F0003.TXT=34
+sem|system|set=0 get=0 attr=24 exact20=18 exact27=0 openrw=0
+sem|system list mask=20|n=9 F0003.TXT=-1
+sem|system list mask=37|n=13 F0003.TXT=36
+sem|hidden-system|set=0 get=0 attr=26 exact20=18 exact27=0 openrw=0
+sem|hidden-system list mask=20|n=9 F0003.TXT=-1
+sem|hidden-system list mask=37|n=13 F0003.TXT=38
+sem|read-only|set=0 get=0 attr=21 exact20=0 exact27=0 openrw=5
+sem|read-only list mask=20|n=10 F0003.TXT=33
+sem|read-only list mask=37|n=13 F0003.TXT=33
+sem|archive-again|set=0 get=0 attr=20 exact20=0 exact27=0 openrw=0
+sem|archive-again list mask=20|n=10 F0003.TXT=32
+sem|archive-again list mask=37|n=13 F0003.TXT=32
+sem|no-archive|set=0 get=0 attr=00 exact20=0 exact27=0 openrw=0
+sem|no-archive list mask=20|n=10 F0003.TXT=0
+sem|no-archive list mask=37|n=13 F0003.TXT=0
+sem|archive-back|set=0 get=0 attr=20 exact20=0 exact27=0 openrw=0
+sem|archive-back list mask=20|n=10 F0003.TXT=32
+sem|archive-back list mask=37|n=13 F0003.TXT=32
+sem|dir-hidden|set=0
+sem|dir-hidden list mask=10|n=12 SUB=-1
+sem|dir-hidden list mask=12|n=13 SUB=18
+sem|dir-shown|set=0
+sem|dir-shown list mask=10|n=13 SUB=16
+sem|hidden-mid-search|set=0 n=9 returned=0
+sem|after-mid-search list mask=20|n=9 F0007.TXT=-1
+sem|shown-again|set=0
+sem|shown-again list mask=20|n=10 F0007.TXT=32
+end|lines=32
+shell|  A   H 	D:\X\F0001.TXT
+shell|  A  S  	D:\X\F0002.TXT
+shell|SUB
+shell|F0000.TXT
+shell|F0003.TXT
+shell|F0004.TXT
+shell|F0005.TXT
+shell|F0006.TXT
+shell|F0007.TXT
+shell|F0008.TXT
+shell|F0009.TXT
+shell|SUB
+shell|F0000.TXT
+shell|F0001.TXT
+shell|F0002.TXT
+shell|F0003.TXT
+shell|F0004.TXT
+shell|F0005.TXT
+shell|F0006.TXT
+shell|F0007.TXT
+shell|F0008.TXT
+shell|F0009.TXT
+shell|  A     	D:\X\F0000.TXT
+shell|  A   H 	D:\X\F0001.TXT
+shell|  A  S  	D:\X\F0002.TXT
+shell|  A     	D:\X\F0003.TXT
+shell|  A     	D:\X\F0004.TXT
+shell|  A     	D:\X\F0005.TXT
+shell|  A     	D:\X\F0006.TXT
+shell|  A     	D:\X\F0007.TXT
+shell|  A     	D:\X\F0008.TXT
+shell|  A     	D:\X\F0009.TXT
+shell|  A     	D:\X\F0001.TXT
+shell|  A     	D:\X\F0002.TXT
+shell|SUB
+shell|F0000.TXT
+shell|F0001.TXT
+shell|F0002.TXT
+shell|F0003.TXT
+shell|F0004.TXT
+shell|F0005.TXT
+shell|F0006.TXT
+shell|F0007.TXT
+shell|F0008.TXT
+shell|F0009.TXT
+shell|  A     	D:\X\F0000.TXT
+shell|  A     	D:\X\F0001.TXT
+shell|  A     	D:\X\F0002.TXT
+shell|  A     	D:\X\F0003.TXT
+shell|  A     	D:\X\F0004.TXT
+shell|  A     	D:\X\F0005.TXT
+shell|  A     	D:\X\F0006.TXT
+shell|  A     	D:\X\F0007.TXT
+shell|  A     	D:\X\F0008.TXT
+shell|  A     	D:\X\F0009.TXT
+attrsem.sh: ALIKE

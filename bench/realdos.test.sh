@@ -4,7 +4,9 @@
 # (1), the line of the emulator's log that says the image booted (2) and the result file of the
 # image's DOS (3). fixtures/realdos-drift, -dtadump, -patlist, -template, -findpos, -memprobe,
 # -fc and -xcopy hold the same of a drift, a dtadump, a patlist, a template, a findpos-labelled,
-# a memprobe, an fc and an xcopy run.
+# a memprobe, an fc and an xcopy run, and -junktest and -dirtest of a run of each reporter's files.
+# Those files are not in this repository: the folders handed to the script hold empty files under
+# their names, as many as the reporters'.
 set -u
 # shellcheck source=testlib.sh
 . "$(dirname "$0")/testlib.sh"
@@ -75,9 +77,30 @@ t_derive "$f/realdos-xcopy"; awk '/^D:\\COPY\\T5\\S1\\F0000199\.TXT/ && !cut { c
 t_case "a file that DOS does not list under the copy" 0 "copied=2519 dirs_made=18 dirs_copied=18 said=2520" run xcopy
 t_derive "$f/realdos-xcopy"; sed -i '' '/^folders/d' "$derived/3/RESULT.TXT"; t_play "$derived"
 t_case "a batch that did not list the folders" 3 "did not list what XCOPY left" run xcopy
+junk=$work/junktest
+mkdir "$junk" || exit 3
+for name in 300.BAT JUNK.BAT DJUNK.BAT e001.exp RESULT.TXT; do : > "$junk/$name"; done
+t_play "$f/realdos-junktest"
+t_case "the reporter's run on the image's DOS" 0 "realdos.sh: batches=300,JUNK,300 entries=705 junk=700 counted=600 done=3" run junktest "$junk"
+t_derive "$f/realdos-junktest"; LC_ALL=C awk '/^Count: 300 of 300/ && !cut { cut = 1; next } { print }' "$f/realdos-junktest/3/RESULT.TXT" > "$derived/3/RESULT.TXT"; t_play "$derived"
+t_case "a 300.BAT that did not reach its end there" 3 "did not reach their end: counted=599 done=3" run junktest "$junk"
+t_derive "$f/realdos-junktest"; LC_ALL=C sed -i '' '/^Comparing /d' "$derived/3/RESULT.TXT"; t_play "$derived"
+t_case "an FC that did not compare the reporter's files there" 3 "FC did not compare the reporter's two files" run junktest "$junk"
+t_case "no folder of the reporter's files" 3 "INVALID: no folder of the reporter's files" run junktest "$work/none"
+t_case "a reporter's program with no folder" 2 "junktest takes the folder of the reporter's files" run junktest
+t_case "a folder beside a program of this folder" 2 "findlife takes no folder" run findlife "$junk"
+dirtest=$work/DIRTEST
+mkdir -p "$dirtest/DATA" || exit 3
+for name in DIRTEST.EXE DIRTEST.FXP DIRTEST.PJT DIRTEST.PJX DIRTEST.PRG; do : > "$dirtest/$name"; done
+i=0
+while [ "$i" -lt 1835 ]; do printf -v name 'F%04d.FRX' "$i"; : > "$dirtest/DATA/$name"; i=$((i + 1)); done
+t_play "$f/realdos-dirtest"
+t_case "the reporter's program on the image's DOS, and that DOS's listing of its folder" 0 "realdos.sh: files=1835 returned=1" run dirtest "$dirtest"
+t_derive "$f/realdos-dirtest"; LC_ALL=C awk '/^F0000\.FRX/ && !cut { cut = 1; next } { print }' "$f/realdos-dirtest/3/RESULT.TXT" > "$derived/3/RESULT.TXT"; t_play "$derived"
+t_case "a folder that DOS lists a file short" 3 "that DOS lists 1834 files in D:\\DATA, of 1835 staged" run dirtest "$dirtest"
 t_play "$f/realdos"
 STUB_RC=3 t_case "the launcher refuses the run" 3 "the disks could not be made" run findlife
-t_case "a program it does not have" 2 "findpos, findpos-labelled, memprobe, fc or xcopy, not: shell" run shell
+t_case "a program it does not have" 2 "memprobe, fc, xcopy, junktest or dirtest, not: shell" run shell
 t_case "an image that is not there" 2 "not a disk image" "$here/realdos.sh" "$build_a" "$work/none.img" id
 t_case "two arguments" 2 "usage:" "$here/realdos.sh" "$build_a" "$work/boot.img"
 t_end

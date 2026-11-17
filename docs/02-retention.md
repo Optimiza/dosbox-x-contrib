@@ -54,8 +54,8 @@ referees.
 Source: `battery.sh --real-dos`, cells `memory synthetic:100:long <a|v> 20000`, `memory synthetic:50000:83 *.* d`, `enumstat s`, `xcopy`, `findlife` and `realdos`, in [results/macos/battery-base-retention-exact-name.txt](../results/macos/battery-base-retention-exact-name.txt) and [its Windows twin](../results/windows/battery-base-retention-exact-name.txt).
 
 - The two FINDLIFE rows are its cases `turn-about-past-the-slots` and
-  `left-open-past-the-slots`, in [087-findlife.txt](../bench/fixtures/battery/087-findlife.txt).
-  MS-DOS's lines are in [121-realdos.txt](../bench/fixtures/battery/121-realdos.txt).
+  `left-open-past-the-slots`, in [findlife_base-build_on.txt](../bench/fixtures/battery/findlife_base-build_on.txt).
+  MS-DOS's lines are in [realdos_findlife_off.txt](../bench/fixtures/battery/realdos_findlife_off.txt).
 - Those two rows are read with long names on. MS-DOS has no long names, so its column is the
   same cases with long names off.
 - The listing and table rows read the same on Windows.
@@ -97,7 +97,7 @@ DOS referees.
 | A 714Fh asked again after its search ended: entries a search then returns, of 32 | 1 | 32 | no long names there |
 | A 714Eh turned away for want of a handle: entries its search then returns, of 42 | 3 | 42 | no long names there |
 
-Source: `battery.sh --real-dos --raw`, calls `findpos.sh`, `drift.sh`, `findlife.sh` and `realdos.sh`, in [104-findpos.txt](../bench/fixtures/battery/104-findpos.txt), [092-drift.txt](../bench/fixtures/battery/092-drift.txt), [087-findlife.txt](../bench/fixtures/battery/087-findlife.txt), [124-realdos.txt](../bench/fixtures/battery/124-realdos.txt) and [128-realdos.txt](../bench/fixtures/battery/128-realdos.txt).
+Source: `battery.sh --real-dos --raw`, calls `findpos.sh`, `drift.sh`, `findlife.sh` and `realdos.sh`, in [findpos_unlabelled_base-build_off.txt](../bench/fixtures/battery/findpos_unlabelled_base-build_off.txt), [drift_base-build_off.txt](../bench/fixtures/battery/drift_base-build_off.txt), [findlife_base-build_on.txt](../bench/fixtures/battery/findlife_base-build_on.txt), [realdos_drift_off.txt](../bench/fixtures/battery/realdos_drift_off.txt) and [realdos_findpos_off.txt](../bench/fixtures/battery/realdos_findpos_off.txt).
 
 On Windows, with long names on, one more line differs: `fcb-wildcard-around-lfn-exact`, an FCB
 search around a long-name call. It is in the section of EXACT that is printed and not judged.
@@ -142,7 +142,7 @@ emulator keeps the place in its own table, before and after this branch.
 | Reads two copies of one DTA side by side | 6 and 6 | 12 and 12 |
 | Puts a DTA back after its search ended | nothing | 15 |
 
-Source: `battery.sh --real-dos --raw`, calls `findpos.sh` and `realdos.sh findpos`, in [104-findpos.txt](../bench/fixtures/battery/104-findpos.txt) and [128-realdos.txt](../bench/fixtures/battery/128-realdos.txt).
+Source: `battery.sh --real-dos --raw`, calls `findpos.sh` and `realdos.sh findpos`, in [findpos_unlabelled_base-build_off.txt](../bench/fixtures/battery/findpos_unlabelled_base-build_off.txt) and [realdos_findpos_off.txt](../bench/fixtures/battery/realdos_findpos_off.txt).
 
 Moving the place into the DTA is another design, and no program is known to need it. It is in
 code where upstream already reverted a fix:

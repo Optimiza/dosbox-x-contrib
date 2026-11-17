@@ -1,0 +1,19 @@
+--- a/src/cpu/core_dyn_x86/cache.h
++++ b/src/cpu/core_dyn_x86/cache.h
+@@ -590,6 +590,16 @@
+ 
+ static void cache_reset(void) {
+ 	if (cache_initialized) {
++		{
++			static unsigned long resets = 0, pages_total = 0, maps_total = 0;
++			unsigned long free_n = 0, used_n = 0, maps_n = 0;
++			for (CodePageHandler * p=cache.free_pages;p;p=p->next) free_n++;
++			for (CodePageHandler * p=cache.used_pages;p;p=p->next) { used_n++; if (p->invalidation_map) maps_n++; }
++			resets++; pages_total += free_n; maps_total += maps_n;
++			LOG_MSG("4R-DYN reset=%lu free_dropped=%lu used_deleted=%lu maps_dropped=%lu page_bytes=%lu total_bytes=%lu",
++				resets, free_n, used_n, maps_n, (unsigned long)sizeof(CodePageHandler),
++				pages_total * (unsigned long)sizeof(CodePageHandler) + maps_total * 4096ul);
++		}
+ 		for (;;) {
+ 			if (cache.used_pages) {
+ 				CodePageHandler * cpage=cache.used_pages;

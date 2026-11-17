@@ -1,0 +1,7 @@
+ DIRTEST.EXE
+ DIRTEST.FXP
+ DIRTEST.PJT
+ DIRTEST.PJX
+ DIRTEST.PRG
+   5 File(s) copied.
+   1835 File(s) copied.

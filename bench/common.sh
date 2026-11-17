@@ -105,8 +105,8 @@ guest_build() {
         -o "$dir/$name.EXE" "$source"
 }
 
-# folder_parse <folder>: a host directory, or synthetic:<count>:<83|long>. Sets synth_count and
-# synth_style, both empty for a host directory.
+# folder_parse <folder>: a host directory, or synthetic:<count>:<style>, the styles of
+# synth_name. Sets synth_count and synth_style, both empty for a host directory.
 folder_parse() {
     local spec
     synth_count="" synth_style=""
@@ -118,7 +118,13 @@ folder_parse() {
             # Seven digits at most: a longer count is past what the shell's arithmetic holds.
             case "$synth_count" in ''|*[!0-9]*|????????*) fail_usage "bad count in $1" ;; esac
             if [ "$synth_count" -lt 1 ]; then fail_usage "bad count in $1"; fi
-            case "$synth_style" in 83|long) ;; *) fail_usage "style is 83 or long: $1" ;; esac
+            case "$synth_style" in
+                83|long) ;;
+                dots) if [ $((synth_count % 12)) -ne 0 ] || [ "$synth_count" -gt "$DOTS_MAX" ]; then fail_usage "a dots folder is twelve names a character, $DOTS_MAX at most: $1"; fi ;;
+                mix) if [ "$synth_count" -le "${#MIX_STEMS[@]}" ]; then fail_usage "a mix folder holds its ${#MIX_STEMS[@]} short stems and long names: more than ${#MIX_STEMS[@]}: $1"; fi ;;
+                wine) if [ $((synth_count % 2)) -ne 0 ] || [ "$synth_count" -gt 2000 ]; then fail_usage "a wine folder is pairs of names, 2000 at most: $1"; fi ;;
+                *) fail_usage "style is 83, long, dots, mix or wine: $1" ;;
+            esac
             ;;
         *)
             if [ ! -d "$1" ]; then fail_usage "not a directory: $1"; fi
@@ -126,23 +132,89 @@ folder_parse() {
     esac
 }
 
-# synth_name <83|long> <i>: sets synth_name_out to the i-th name of a synthetic folder.
-synth_name() {
-    if [ "$1" = 83 ]; then
-        printf -v synth_name_out 'F%07d.TXT' "$2"
-    else
-        printf -v synth_name_out '%s track %06d.mid' "${LONG_WORDS[$(($2 % ${#LONG_WORDS[@]}))]}" "$2"
-    fi
+# The three styles that exercise how the emulator numbers aliases.
+#   dots  for each of 36 characters, names ending in " ." beside names whose alias starts with
+#         the same letters and then a character below '.': the list of aliases goes out of order
+#   mix   the long style's names after 240 short stems ("A  l.mid") whose aliases share a prefix
+#         with them but not their number of digits
+#   wine  each long name beside a real file named as its Wine-style short name, which the
+#         emulator then finds by that name
+DOTS_CHARS=abcdefghijklmnopqrstuvwxyz0123456789
+DOTS_MAX=$((${#DOTS_CHARS} * 12))
+MIX_STEMS=()
+for mix_word in "${LONG_WORDS[@]}"; do
+    for mix_len in 2 3 4 5; do
+        # A word shorter than the stem gives the stem before it again.
+        if [ "$mix_len" -gt "${#mix_word}" ]; then continue; fi
+        for mix_pad in 1 2 3 4 5 6 7 8; do
+            printf -v mix_stem '%s%*s%s.mid' "${mix_word:0:1}" "$mix_pad" '' "${mix_word:1:mix_len-1}"
+            MIX_STEMS+=("$mix_stem")
+        done
+    done
+done
+unset mix_word mix_len mix_pad mix_stem
+WINE_HASH_CHARS=ABCDEFGHIJKLMNOPQRSTUVWXYZ012345
+
+# wine_short <name>: sets wine_short_out to the short name the emulator's Wine-style lookup
+# gives "wine long name <n>.txt" (wine_hash_short_file_name, drive_cache.cpp): its first four
+# letters, a ~, three characters of a hash of the whole name, and its extension.
+wine_short() {
+    local n=$1 h=48879 i c d last=$((${#1} - 1))
+    for ((i = 0; i < last; i++)); do
+        printf -v c '%d' "'${n:i:1}"
+        printf -v d '%d' "'${n:i+1:1}"
+        h=$(( ((h << 3) ^ (h >> 5) ^ c ^ (d << 8)) & 0xFFFF ))
+    done
+    printf -v c '%d' "'${n:last:1}"
+    h=$(( ((h << 3) ^ (h >> 5) ^ c) & 0xFFFF ))
+    wine_short_out=WINE~${WINE_HASH_CHARS:(h >> 10) & 31:1}${WINE_HASH_CHARS:(h >> 5) & 31:1}${WINE_HASH_CHARS:h & 31:1}.TXT
 }
 
+# synth_name <style> <i>: sets synth_name_out to the i-th name of a synthetic folder.
+synth_name() {
+    local c
+    case "$1" in
+        83) printf -v synth_name_out 'F%07d.TXT' "$2" ;;
+        long) printf -v synth_name_out '%s track %06d.mid' "${LONG_WORDS[$(($2 % ${#LONG_WORDS[@]}))]}" "$2" ;;
+        dots)
+            c=${DOTS_CHARS:$2 / 12:1}
+            case $(($2 % 12)) in
+                0) synth_name_out="$c~2!xy long.txt" ;;
+                1) synth_name_out="$c ." ;;
+                2) synth_name_out="$c~2!aa long.txt" ;;
+                3) synth_name_out="$c~2!zz long.txt" ;;
+                4) synth_name_out="$c~2#q long.txt" ;;
+                5) synth_name_out="$c~2(r long.txt" ;;
+                6|7|8) synth_name_out="${c}more long name $(($2 % 12 - 6)).txt" ;;
+                9) synth_name_out="$c other.dat" ;;
+                10) synth_name_out="$c  ." ;;
+                11) synth_name_out="$c x ." ;;
+            esac
+            ;;
+        mix)
+            if [ "$2" -lt "${#MIX_STEMS[@]}" ]; then synth_name_out=${MIX_STEMS[$2]}; else synth_name long $(($2 - ${#MIX_STEMS[@]})); fi
+            ;;
+        wine)
+            # The real short name first: where the file system names the aliases, a long name
+            # made first could take it.
+            printf -v synth_name_out 'wine long name %03d.txt' $(($2 / 2))
+            if [ $(($2 % 2)) -eq 0 ]; then wine_short "$synth_name_out"; synth_name_out=$wine_short_out; fi
+            ;;
+    esac
+}
+
+# folder_make <dir> <count> <style>: fails when the folder did not come out with every name, as
+# where a file system cannot hold one of them.
 folder_make() {
-    local dir=$1 n=$2 style=$3 i=0
+    local dir=$1 n=$2 style=$3 i=0 made
     mkdir -p "$dir" || return
     while [ "$i" -lt "$n" ]; do
         synth_name "$style" "$i"
         : > "$dir/$synth_name_out" || return
         i=$((i + 1))
     done
+    made=$(find "$dir" -mindepth 1 -maxdepth 1 | wc -l | tr -d ' ')
+    if [ "$made" != "$n" ]; then echo "$tool: the folder came out with $made entries, not $n: $dir" >&2; return 1; fi
 }
 
 # findlife_tree <dir>: the two folders FINDLIFE searches. A's files start with A and B's with B,
@@ -266,6 +338,62 @@ xcopy_said() {
     LC_ALL=C tr -d '\r' < "$1" | sed -n 's/^ *\([0-9][0-9]*\) [Ff]ile(s) copied.*/\1/p' | tail -n 1
 }
 
+# reporter_folder <folder> <name>...: the files a reporter attached to an upstream issue,
+# unpacked. This repository does not hold them, so a folder that is absent or lacks one of them
+# is INVALID before any run is made.
+reporter_folder() {
+    local folder=$1 name
+    shift
+    if [ ! -d "$folder" ]; then echo "$tool: INVALID: no folder of the reporter's files: $folder" >&2; exit 3; fi
+    for name in "$@"; do
+        if [ ! -e "$folder/$name" ]; then echo "$tool: INVALID: the reporter's folder holds no $name: $folder" >&2; exit 3; fi
+    done
+}
+
+# What the archive attached to upstream issue 6827 holds, as the archive names it.
+# shellcheck disable=SC2034  # read by the scripts
+JUNKTEST_FILES="300.BAT JUNK.BAT DJUNK.BAT e001.exp RESULT.TXT"
+
+# junktest_batches <batch>...: checks each is one of the reporter's batch files and sets
+# junktest_runs, how many of them are 300.BAT.
+junktest_batches() {
+    local b
+    junktest_runs=0
+    if [ $# -eq 0 ]; then fail_usage "no batch file to call"; fi
+    for b in "$@"; do
+        case "$b" in
+            300) junktest_runs=$((junktest_runs + 1)) ;;
+            JUNK|DJUNK) ;;
+            *) fail_usage "the batch files are 300, JUNK and DJUNK, not: $b" ;;
+        esac
+    done
+}
+
+# junktest_said <text>: what the reporter's batch files printed, counted: the lines 300.BAT
+# counts its runs with, and the lines each batch file ends on ("Done!", "Done! 700 junk ...").
+junktest_said() {
+    LC_ALL=C tr -d '\r' < "$1" | LC_ALL=C awk '/^Count: [0-9][0-9][0-9] of 300$/ { c++ } /^Done!/ { d++ } END { printf "counted=%d done=%d\n", c, d }'
+}
+
+# fc_answered <what FC printed>: FC compared the reporter's two files.
+fc_answered() {
+    LC_ALL=C tr -d '\r' < "$1" 2> /dev/null | command grep -a -q -i '^Comparing .*E001\.EXP and .*RESULT\.TXT'
+}
+
+# The program the archive attached to upstream issue 2485 holds, and the folder it lists.
+# shellcheck disable=SC2034  # read by the scripts
+DIRTEST_FILES="DIRTEST.EXE DATA"
+# dirtest_autotype <keys>: DIRTEST ends on an error dialog that waits for a key, so the emulator
+# types Enter that many times, this many seconds apart (AUTOTYPE allows ten at most), from before
+# the program starts. The first one after the dialog is up cancels it. AUTOTYPE keeps time on the
+# host's clock, and its line is one of the shell's, 4,096 characters at most.
+DIRTEST_KEY_SECONDS=10
+dirtest_autotype() {
+    local i=0 keys=""
+    while [ "$i" -lt "$1" ]; do keys="$keys enter"; i=$((i + 1)); done
+    echo "AUTOTYPE -w 1 -p $DIRTEST_KEY_SECONDS$keys"
+}
+
 # The label FINDPOS's labelled drive carries, on a build and on the DOS of an image.
 # shellcheck disable=SC2034  # read by the scripts
 FINDPOS_LABEL=FPLABEL
@@ -354,8 +482,8 @@ folder_resolve() {
 
 # conf_write <run dir, C:> <host dir for D:> <D:'s mount options> <autoexec line>...
 # One machine for every script. cycles=max and the dynamic core because an answer here is the
-# same at any guest speed and nothing is timed. conf_dos, when a script sets it, is one more
-# line of [dos].
+# same at any guest speed; a script that times sets conf_cycles to a fixed clock. conf_dos, when
+# a script sets it, is one more line of [dos].
 # A mount that names no label asks for an empty one: left alone, a Windows build labels the
 # drive itself and a search for the label answers there what it does not answer elsewhere.
 conf_write() {
@@ -363,7 +491,7 @@ conf_write() {
     shift 3
     case "$options" in *-label*) ;; *) options="$options$no_label" ;; esac
     {
-        printf '[dosbox]\nmemsize=64\n\n[cpu]\ncore=dynamic\ncycles=max\n\n[dos]\n%slfn=%s\n\n[autoexec]\n' "${conf_dos:+$conf_dos$'\n'}" "$lfn_conf"
+        printf '[dosbox]\nmemsize=64\n\n[cpu]\ncore=dynamic\ncycles=%s\n\n[dos]\n%slfn=%s\n\n[autoexec]\n' "${conf_cycles:-max}" "${conf_dos:+$conf_dos$'\n'}" "$lfn_conf"
         printf 'mount c "%s"%s\nmount d "%s"%s\n' "$(host_path "$run")" "$no_label" "$(host_path "$d")" "$options"
         printf '%s\n' "$@" exit
     } > "$run/run.conf"
@@ -391,13 +519,24 @@ emu_start() {
 
 # emu_finish <label>: waits, sets emu_version. Non-zero, with the launcher's own words, when
 # the emulator failed or was cut off, the guest left no output, or the report names no build.
+# accept_exit, where a script sets it, is an exit code taken on Windows as the emulator's end
+# when it is all the launcher had against the run (emu_exit_accepted then holds it): the script
+# reads the guest's last line before it trusts the run.
 emu_finish() {
-    local rc
+    local rc code
     wait "$emu_job"
     rc=$?
-    emu_job=""
+    emu_job="" emu_exit_accepted=""
     emu_version=$(sed -n 's/^[^ ]*: version: //p' "$emu_dir/report.txt" 2> /dev/null)
     if [ "$rc" -eq 0 ] && [ -n "$emu_version" ]; then return 0; fi
+    if [ "$HOST_KIND" = windows ] && [ -n "${accept_exit:-}" ] && [ -n "$emu_version" ]; then
+        code=$(sed -n 's/^windows\.ps1: exit code: //p' "$emu_dir/report.txt" | tr -d '\r')
+        if [ "$code" = "$accept_exit" ] && [ "$(tr -d '\r' < "$emu_dir/launcher.txt")" = "windows.ps1: INVALID: the emulator exited $accept_exit" ]; then
+            # shellcheck disable=SC2034  # read by the scripts
+            emu_exit_accepted=$code
+            return 0
+        fi
+    fi
     echo "$tool: $1: the launcher exit $rc, version line \"$emu_version\"; what it said:" >&2
     cat "$emu_dir/launcher.txt" >&2
     return 3
@@ -512,4 +651,98 @@ log_count() {
     n=$(command grep -c -- "$1" "$emu_dir/dosbox.log")
     case "$n" in ''|*[!0-9]*) return 1 ;; esac
     echo "$n"
+}
+
+# The timers, p5time.sh and p5rep.sh: the wall time of one step of a guest, from the host's
+# monotonic clock, two builds interleaved A B B A per round so that a drift of the host's speed
+# falls on both alike. The guest's clock is fixed: what is timed is host code inside one call,
+# and a factor between two builds measured at this clock holds at cycles=max within the spread
+# of a build against itself (README.md, "The timers").
+# shellcheck disable=SC2034  # read by the timers
+TIMER_CYCLES='fixed 50000'
+TIMER_SECONDS_BOUND=3600
+
+# timer_folder <folder>, after folder_parse and run_begin: sets parent and base. A synthetic
+# folder is made once under P5_FOLDERS, so that the runs of a batch read the same folder; by
+# default under the run's own directory.
+timer_folder() {
+    if [ -n "$synth_count" ]; then
+        parent=${P5_FOLDERS:-$tmp/folders}/$synth_count-$synth_style base=DIR
+        [ -d "$parent/$base" ] || folder_make "$parent/$base" "$synth_count" "$synth_style" || invalid "could not make the folder"
+    else
+        parent=$(cd "$(dirname "$1")" && pwd) || fail_usage "cannot reach the folder's parent: $1"
+        base=$(basename "$1")
+    fi
+}
+
+# timer_start <label> <build> <run dir> <output>, after conf_write: starts the emulator, waits
+# for the guest's READY.TXT and sets pid, the emulator's.
+timer_start() {
+    emu_start "$2" "$3" "$4" "$TIMER_SECONDS_BOUND"
+    while kill -0 "$emu_job" 2>/dev/null && [ ! -f "$3/READY.TXT" ]; do sleep 0.05; done
+    [ -f "$3/READY.TXT" ] || invalid "$1: the guest never made its ready file"
+    pid=$(emulator_pid "$2" "$3") || pid=none
+}
+
+# timer_clock <label> <run dir> <stop file> [<line>]: makes GO.TXT, which starts the guest's
+# step, and sets seconds when <stop file> is there (holding a line that starts with <line>,
+# when one is given); t0 and t1 are the epoch seconds around it. INVALID when the emulator ends
+# first.
+timer_clock() {
+    t0=$(date +%s)
+    seconds=$(python3 - "$2" "$3" "${4:-}" "$emu_job" <<'PYEND'
+import os, sys, time
+run, stop, line = sys.argv[1], os.path.join(sys.argv[1], sys.argv[2]), sys.argv[3].encode()
+launcher = int(sys.argv[4])
+def stopped():
+    try:
+        with open(stop, "rb") as f:
+            return not line or b"\n" + line in b"\n" + f.read()
+    except OSError:
+        return False
+start = time.monotonic()
+open(os.path.join(run, "GO.TXT"), "w").close()
+while time.monotonic() - start < 3600:
+    try:
+        os.kill(launcher, 0)
+        gone = False
+    except OSError:
+        gone = True
+    if stopped():
+        print("%.3f" % (time.monotonic() - start))
+        sys.exit(0)
+    if gone:
+        sys.exit(3)
+    time.sleep(0.002)
+sys.exit(3)
+PYEND
+    ) || invalid "$1: the guest's step never ended"
+    t1=$(date +%s)
+}
+
+# timer_rounds <tool's tag> <pairs> <out dir> <build A> <build B>, with time_one <label> <build>
+# defined: the rounds, a line per run and per build, then the verdict: exit 0 when every run of
+# both builds left one guest line, the same, and 1 when they differ.
+timer_rounds() {
+    local tag=$1 pairs=$2 out=$3 build_a=$4 build_b=$5 round=1 who b n a_lines b_lines
+    : > "$tmp/times"
+    while [ "$round" -le "$pairs" ]; do
+        for who in A B B A; do
+            if [ "$who" = A ]; then b=$build_a; else b=$build_b; fi
+            n=$(command grep -c "^$who " "$tmp/times")
+            time_one "$who-$round-$n" "$b"
+            echo "$who $seconds" >> "$tmp/times"
+            echo "$tag|$round|$who|seconds=$seconds|t0=$t0|t1=$t1|pid=$pid|guest=$(cat "$out/$who-$round-$n.guest")"
+        done
+        round=$((round + 1))
+    done
+    for who in A B; do
+        awk -v w="$who" '$1 == w { print $2 }' "$tmp/times" | sort -n | awk -v w="$who" -v t="$tag" '{ v[NR] = $1 } END { printf "%s: %s fastest=%s median=%s slowest=%s runs=%d\n", t, w, v[1], v[int((NR + 1) / 2)], v[NR], NR }'
+    done
+    a_lines=$(cat "$out"/A-*.guest | sort -u) b_lines=$(cat "$out"/B-*.guest | sort -u)
+    if [ "$(printf '%s\n' "$a_lines" | wc -l | tr -d ' ')" -ne 1 ] || [ "$a_lines" != "$b_lines" ]; then
+        echo "$tag: the guest lines differ" >&2
+        exit 1
+    fi
+    exit 0
 }

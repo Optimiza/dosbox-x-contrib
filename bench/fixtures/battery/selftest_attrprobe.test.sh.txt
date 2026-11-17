@@ -1,0 +1,13 @@
+exit=0 :: attrprobe.test.sh 
+ok   two reports alike
+ok   each report printed whole
+ok   a saved DTA that reads the other folder
+ok   the lines that differ, counted
+ok   a report cut before its trailer
+ok   a case fewer than the trailer says
+ok   a folder that listed nothing: no line, no trailer
+ok   the launcher refuses the run
+ok   neither on nor off
+ok   two arguments
+ok   its own help
+11 cases, 0 failed

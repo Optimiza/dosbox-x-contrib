@@ -1,0 +1,116 @@
+exit=0 :: aliases.sh cases on /builds/base/dosbox-x
+aliases.sh: cases, long names on, 87 entries
+aliases.sh: cases lfn=on entries=87 host=87 names_shared=17 exact_search_not_one=19 real_name_not_its_own=11 files_no_short_name_opens=19 listed_with_another_size=20 name_opens_another_file=19 long_name_opens_another_file=8 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/base/dosbox-x
+  exact_search_not_one|AAAAAA~1.TXT|n=2
+  exact_search_not_one|AMERI~10.MID|n=5
+  exact_search_not_one|BBBBBB~1.TXT|n=2
+  exact_search_not_one|CCCCCC~1.TXT|n=2
+  exact_search_not_one|DDDDDD~1.TXT|n=2
+  exact_search_not_one|DIRLON~1|n=2
+  exact_search_not_one|EEEEEE~1.TXT|n=2
+  exact_search_not_one|FFFFFF~1.TXT|n=2
+  exact_search_not_one|GGGGGG~1.TXT|n=2
+  exact_search_not_one|HHHHHH~1.TXT|n=2
+  exact_search_not_one|JJJJJJ~1.TXT|n=2
+  exact_search_not_one|KKKKKK~1.TXT|n=2
+  exact_search_not_one|LOWERC~1.TXT|n=2
+  exact_search_not_one|MMMMMM~1.TXT|n=2
+  exact_search_not_one|NNNNNN~1.TXT|n=2
+  exact_search_not_one|NOEXTL~1|n=2
+  exact_search_not_one|SIBLIN~2.DAT|n=2
+  exact_search_not_one|TENTH~10.DAT|n=2
+  exact_search_not_one|WINELO~2.TXT|n=2
+  listed_with_another_size|CCCCCC~1.TXT|6, is 5
+  listed_with_another_size|EEEEEE~1.TXT|10, is 9
+  listed_with_another_size|FFFFFF~1.TXT|12, is 11
+  listed_with_another_size|HHHHHH~1.TXT|16, is 15
+  listed_with_another_size|KKKKKK~1.TXT|20, is 19
+  listed_with_another_size|SIBLIN~2.DAT|28, is 25
+  listed_with_another_size|aaa aaa.txt|1, is 2
+  listed_with_another_size|americ tune 04.mid|65, is 58
+  listed_with_another_size|americ tune 05.mid|65, is 59
+  listed_with_another_size|americ tune 07.mid|65, is 61
+  listed_with_another_size|americ tune 10.mid|65, is 64
+  listed_with_another_size|bbb bbb.txt|3, is 4
+  listed_with_another_size|ddd ddd.txt|7, is 8
+  listed_with_another_size|dirlong name|a directory listed as a file
+  listed_with_another_size|ggg ggg.txt|13, is 14
+  listed_with_another_size|jjj jjj.txt|17, is 18
+  listed_with_another_size|lowerc~1.txt|44, is 43
+  listed_with_another_size|mmm mmm.txt|21, is 22
+  listed_with_another_size|tenth file 09.dat|29, is 38
+  listed_with_another_size|wine long name 0.txt|80, is 70
+  long_name_opens_another_file|CCCCCC~1.TXT|opens 6, is 5
+  long_name_opens_another_file|EEEEEE~1.TXT|opens 10, is 9
+  long_name_opens_another_file|FFFFFF~1.TXT|opens 12, is 11
+  long_name_opens_another_file|HHHHHH~1.TXT|opens 16, is 15
+  long_name_opens_another_file|KKKKKK~1.TXT|opens 20, is 19
+  long_name_opens_another_file|NNNNNN~1.TXT|opens 24, is 23
+  long_name_opens_another_file|NOEXTL~1|opens 42, is 41
+  long_name_opens_another_file|SIBLIN~2.DAT|opens 28, is 25
+  name_opens_another_file|AAAAAA~1.TXT|of aaa aaa.txt, opens 1
+  name_opens_another_file|AMERI~10.MID|of americ tune 04.mid, opens 65
+  name_opens_another_file|AMERI~10.MID|of americ tune 05.mid, opens 65
+  name_opens_another_file|AMERI~10.MID|of americ tune 07.mid, opens 65
+  name_opens_another_file|AMERI~10.MID|of americ tune 10.mid, opens 65
+  name_opens_another_file|BBBBBB~1.TXT|of bbb bbb.txt, opens 3
+  name_opens_another_file|CCCCCC~1.TXT|of CCCCCC~1.TXT, opens 6
+  name_opens_another_file|DDDDDD~1.TXT|of ddd ddd.txt, opens 7
+  name_opens_another_file|EEEEEE~1.TXT|of EEEEEE~1.TXT, opens 10
+  name_opens_another_file|FFFFFF~1.TXT|of FFFFFF~1.TXT, opens 12
+  name_opens_another_file|GGGGGG~1.TXT|of ggg ggg.txt, opens 13
+  name_opens_another_file|HHHHHH~1.TXT|of HHHHHH~1.TXT, opens 16
+  name_opens_another_file|JJJJJJ~1.TXT|of jjj jjj.txt, opens 17
+  name_opens_another_file|KKKKKK~1.TXT|of KKKKKK~1.TXT, opens 20
+  name_opens_another_file|LOWERC~1.TXT|of lowerc~1.txt, opens 44
+  name_opens_another_file|MMMMMM~1.TXT|of mmm mmm.txt, opens 21
+  name_opens_another_file|SIBLIN~2.DAT|of SIBLIN~2.DAT, opens 28
+  name_opens_another_file|TENTH~10.DAT|of tenth file 09.dat, opens 29
+  name_opens_another_file|WINELO~2.TXT|of wine long name 0.txt, opens 80
+  no_short_name_opens|CCCCCC~1.TXT
+  no_short_name_opens|EEEEEE~1.TXT
+  no_short_name_opens|FFFFFF~1.TXT
+  no_short_name_opens|HHHHHH~1.TXT
+  no_short_name_opens|KKKKKK~1.TXT
+  no_short_name_opens|SIBLIN~2.DAT
+  no_short_name_opens|aaa aaa.txt
+  no_short_name_opens|americ tune 04.mid
+  no_short_name_opens|americ tune 05.mid
+  no_short_name_opens|americ tune 07.mid
+  no_short_name_opens|americ tune 10.mid
+  no_short_name_opens|bbb bbb.txt
+  no_short_name_opens|ddd ddd.txt
+  no_short_name_opens|ggg ggg.txt
+  no_short_name_opens|jjj jjj.txt
+  no_short_name_opens|lowerc~1.txt
+  no_short_name_opens|mmm mmm.txt
+  no_short_name_opens|tenth file 09.dat
+  no_short_name_opens|wine long name 0.txt
+  real_name_not_its_own|CCCCCC~1.TXT|opens 6
+  real_name_not_its_own|EEEEEE~1.TXT|opens 10
+  real_name_not_its_own|FFFFFF~1.TXT|opens 12
+  real_name_not_its_own|HHHHHH~1.TXT|opens 16
+  real_name_not_its_own|KKKKKK~1.TXT|opens 20
+  real_name_not_its_own|NNNNNN~1.TXT|opens 24
+  real_name_not_its_own|NOEXTL~1|opens 42
+  real_name_not_its_own|SIBLIN~2.DAT|opens 28
+  real_name_not_its_own|WINE~3OM.TXT|opens 
+  real_name_not_its_own|WINE~ZOM.TXT|opens 
+  real_name_not_its_own|lowerc~1.txt|opens 44
+  shared|AAAAAA~1.TXT
+  shared|AMERI~10.MID
+  shared|BBBBBB~1.TXT
+  shared|CCCCCC~1.TXT
+  shared|DDDDDD~1.TXT
+  shared|DIRLON~1
+  shared|EEEEEE~1.TXT
+  shared|FFFFFF~1.TXT
+  shared|GGGGGG~1.TXT
+  shared|HHHHHH~1.TXT
+  shared|JJJJJJ~1.TXT
+  shared|KKKKKK~1.TXT
+  shared|LOWERC~1.TXT
+  shared|MMMMMM~1.TXT
+  shared|SIBLIN~2.DAT
+  shared|TENTH~10.DAT
+  shared|WINELO~2.TXT

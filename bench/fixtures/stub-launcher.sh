@@ -41,11 +41,15 @@ if [ -n "${STUB_RECORD:-}" ]; then
     "$STUB_REAL" "${args[@]}"
     rc=$?
     mkdir -p "$STUB_RECORD/$n" || exit 3
-    for f in "$name" CWD.TXT RC.TXT FC.TXT; do
+    for f in "$name" CWD.TXT RC.TXT FC.TXT SHELL.TXT READY.TXT STOP.TXT; do
         case "$f" in *.img) continue ;; esac     # a disk image is the run's machine, not its answer
         if [ -f "$run/$f" ]; then cp "$run/$f" "$STUB_RECORD/$n/" || exit 3; fi
     done
-    command grep -a -E 'All slots full|ID out of range|booting a guest OS' "$log" > "$STUB_RECORD/$n/dosbox.log"
+    # The console as the emulator logs it, and its find calls, are what junktest.sh and dirtest.sh
+    # read; the counters' lines are what attrcost.sh and resprb.sh read. The console echoes the
+    # mounts, so the run's own directory becomes /RUN.
+    LC_ALL=C command grep -a -E 'All slots full|ID out of range|booting a guest OS|^DOS CON: | ah=4[ef], |4R-DIR read=|4R-DYN reset=' "$log" |
+        LC_ALL=C sed "s#$(dirname "$run")#/RUN#g" > "$STUB_RECORD/$n/dosbox.log"
     exit "$rc"
 fi
 

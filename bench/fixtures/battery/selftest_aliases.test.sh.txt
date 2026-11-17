@@ -1,0 +1,28 @@
+exit=0 :: aliases.test.sh 
+ok   a build that shares short names against one that does not
+ok   upstream's figures
+ok   a shared name, named
+ok   a real file whose own name opens another
+ok   a directory listed as a file
+ok   the other build's figures, every one zero
+ok   one build: its figures, no verdict
+ok   two builds alike
+ok   a report cut before its trailer
+ok   a line fewer than the trailer says
+ok   no entry listed
+ok   long names on and no long-name listing
+ok   upstream's figures with long names off, from 4Eh alone
+ok   the other build's, long names off
+ok   a folder listed by two builds
+ok   upstream's figures on the folder
+ok   the other build's
+ok   long names on and the long-name listing refused
+ok   the launcher refuses the run
+ok   neither on nor off
+ok   neither cases nor folder
+ok   an option it does not know
+ok   a parent that is not a directory
+ok   a folder that is not a directory
+ok   no build
+ok   its own help
+26 cases, 0 failed

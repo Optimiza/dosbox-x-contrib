@@ -1,0 +1,13 @@
+exit=0 :: batch.test.sh 
+ok   a cell that ran quiet
+ok   its three calls
+ok   the tables, the base ranked slower
+ok   a cell that ran busy is run again
+ok   a cell with no timed line is not run again
+ok   and has no second try
+ok   a timer call that was INVALID
+ok   a key no build is named for
+ok   the tables of what is not a batch
+ok   one argument
+ok   no jobs file
+11 cases, 0 failed

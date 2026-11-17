@@ -1,0 +1,2 @@
+p5|mode=f k=0 first=0 done=0 found=0
+end|lines=1

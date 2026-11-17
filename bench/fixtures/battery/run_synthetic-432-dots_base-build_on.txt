@@ -1,0 +1,7 @@
+exit=0 :: run.sh /builds/base/dosbox-x /builds/first-read/dosbox-x synthetic:432:dots on
+run.sh: folder synthetic:432:dots (432 entries on the host), long names on
+run.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+run.sh: build A: 4e=434 lfn=434 look=10
+run.sh: build B: /builds/first-read/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+run.sh: build B: 4e=434 lfn=434 look=10
+run.sh: IDENTICAL

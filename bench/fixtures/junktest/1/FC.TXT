@@ -1,0 +1,2 @@
+Comparing D:\E001.EXP and D:\RESULT.TXT
+Warning: the files are of different size!

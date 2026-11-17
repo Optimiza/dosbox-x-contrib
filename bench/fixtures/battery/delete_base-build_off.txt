@@ -1,0 +1,511 @@
+exit=1 :: delete.sh /builds/base/dosbox-x /builds/create-delete/dosbox-x off
+delete.sh: long names off
+delete.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+del|shell|listed_after=4
+del|loop41|found=4 deleted=4 failed=0 listed_after=4
+del|wild7141|ax=7100 listed_after=8
+alias|before|ALPHAT~1.MID=Alpha track 000001.mid
+alias|before|ALPHAT~2.MID=Alpha track 000000.mid
+alias|before|ALPHAT~3.MID=Alpha track 000002.mid
+alias|before|ALPHAT~4.MID=Alpha track 000003.mid
+alias|before|ALPHAT~5.MID=Alpha track 000007.mid
+alias|before|ALPHAT~6.MID=Alpha track 000006.mid
+alias|before|ALPHAT~7.MID=Alpha track 000004.mid
+alias|before|ALPHAT~8.MID=Alpha track 000005.mid
+alias|before|PLAIN.TXT=PLAIN.TXT
+alias|after-delete|ALPHAT~1.MID=Alpha track 000000.mid
+alias|after-delete|ALPHAT~2.MID=Alpha track 000002.mid
+alias|after-delete|ALPHAT~3.MID=Alpha track 000003.mid
+alias|after-delete|ALPHAT~4.MID=Alpha track 000007.mid
+alias|after-delete|ALPHAT~5.MID=Alpha track 000006.mid
+alias|after-delete|ALPHAT~6.MID=Alpha track 000004.mid
+alias|after-delete|ALPHAT~7.MID=Alpha track 000005.mid
+alias|after-delete|PLAIN.TXT=PLAIN.TXT
+alias|after-create|ALPHAT~1.MID=Alpha track 000000.mid
+alias|after-create|ALPHAT~2.MID=Alpha track 000002.mid
+alias|after-create|ALPHAT~3.MID=Alpha track 000003.mid
+alias|after-create|ALPHAT~4.MID=Alpha track 000007.mid
+alias|after-create|ALPHAT~5.MID=Alpha track 000006.mid
+alias|after-create|ALPHAT~6.MID=Alpha track 000004.mid
+alias|after-create|ALPHAT~7.MID=Alpha track 000005.mid
+alias|after-create|NEW.TXT=
+alias|after-create|PLAIN.TXT=PLAIN.TXT
+rename|file|from=ALPHAT~1.MID 56h=0000
+alias|after-ren|ALPHAT~1.MID=Alpha track 000002.mid
+alias|after-ren|ALPHAT~2.MID=Alpha track 000003.mid
+alias|after-ren|ALPHAT~3.MID=Alpha track 000007.mid
+alias|after-ren|ALPHAT~4.MID=Alpha track 000006.mid
+alias|after-ren|ALPHAT~5.MID=Alpha track 000004.mid
+alias|after-ren|ALPHAT~6.MID=Alpha track 000005.mid
+alias|after-ren|NEW.TXT=
+alias|after-ren|PLAIN.TXT=PLAIN.TXT
+alias|after-ren|RENAMED.TXT=Alpha track 000000.mid
+rename|case|name=Alpha track 000007.mid 7156h=7100
+alias|after-case|ALPHAT~1.MID=Alpha track 000002.mid
+alias|after-case|ALPHAT~2.MID=Alpha track 000003.mid
+alias|after-case|ALPHAT~3.MID=Alpha track 000007.mid
+alias|after-case|ALPHAT~4.MID=Alpha track 000006.mid
+alias|after-case|ALPHAT~5.MID=Alpha track 000004.mid
+alias|after-case|ALPHAT~6.MID=Alpha track 000005.mid
+alias|after-case|NEW.TXT=
+alias|after-case|PLAIN.TXT=PLAIN.TXT
+alias|after-case|RENAMED.TXT=Alpha track 000000.mid
+rename|remake|716ch=7100
+alias|after-remake|ALPHAT~1.MID=Alpha track 000002.mid
+alias|after-remake|ALPHAT~2.MID=Alpha track 000003.mid
+alias|after-remake|ALPHAT~3.MID=Alpha track 000007.mid
+alias|after-remake|ALPHAT~4.MID=Alpha track 000006.mid
+alias|after-remake|ALPHAT~5.MID=Alpha track 000004.mid
+alias|after-remake|ALPHAT~6.MID=Alpha track 000005.mid
+alias|after-remake|NEW.TXT=
+alias|after-remake|PLAIN.TXT=PLAIN.TXT
+alias|after-remake|RENAMED.TXT=Alpha track 000000.mid
+search|delete|1|ALPHAT~1.MID=Alpha track 000001.mid
+search|delete|2|ALPHAT~2.MID=Alpha track 000000.mid
+search|delete|3|ALPHAT~3.MID=Alpha track 000003.mid
+search|delete|4|ALPHAT~4.MID=Alpha track 000007.mid
+search|delete|5|ALPHAT~5.MID=Alpha track 000006.mid
+search|delete|6|ALPHAT~6.MID=Alpha track 000005.mid
+search|delete|listed_after=6
+search|create|before|ALPHAT~1.MID=Alpha track 000001.mid
+search|create|before|ALPHAT~2.MID=Alpha track 000000.mid
+search|create|before|ALPHAT~3.MID=Alpha track 000002.mid
+search|create|before|ALPHAT~4.MID=Alpha track 000003.mid
+search|create|before|ALPHAT~5.MID=Alpha track 000007.mid
+search|create|before|ALPHAT~6.MID=Alpha track 000006.mid
+search|create|before|ALPHAT~7.MID=Alpha track 000004.mid
+search|create|before|ALPHAT~8.MID=Alpha track 000005.mid
+search|create|1|ALPHAT~1.MID=Alpha track 000001.mid
+search|create|2|ALPHAT~2.MID=Alpha track 000000.mid
+search|create|3|ALPHAT~3.MID=Alpha track 000002.mid
+search|create|4|ALPHAT~4.MID=Alpha track 000003.mid
+search|create|5|ALPHAT~5.MID=Alpha track 000007.mid
+search|create|6|ALPHAT~6.MID=Alpha track 000006.mid
+search|create|7|ALPHAT~7.MID=Alpha track 000004.mid
+search|create|8|ALPHAT~8.MID=Alpha track 000005.mid
+search|create|3ch=0000 716ch=7100 listed_after=9
+search|create|after|ALPHAT~1.MID=Alpha track 000001.mid
+search|create|after|ALPHAT~2.MID=Alpha track 000000.mid
+search|create|after|ALPHAT~3.MID=Alpha track 000002.mid
+search|create|after|ALPHAT~4.MID=Alpha track 000003.mid
+search|create|after|ALPHAT~5.MID=Alpha track 000007.mid
+search|create|after|ALPHAT~6.MID=Alpha track 000006.mid
+search|create|after|ALPHAT~7.MID=Alpha track 000004.mid
+search|create|after|ALPHAT~8.MID=Alpha track 000005.mid
+search|create|after|NEW.TXT=
+rmdir|before|ALPHAT~1=Alpha track 000005
+rmdir|before|ALPHAT~2=Alpha track 000002
+rmdir|before|ALPHAT~3=Alpha track 000003
+rmdir|before|ALPHAT~4=Alpha track 000004
+rmdir|before|ALPHAT~5=Alpha track 000001
+rmdir|before|ALPHAT~6=Alpha track 000006
+rmdir|before|ALPHAT~7=Alpha track 000007
+rmdir|before|ALPHAT~8=Alpha track 000000
+rmdir|open-search|first=0000 next=0000
+rmdir|removed|41h=0000 3ah=0000 listed_after=7
+rmdir|after-rd|ALPHAT~1=Alpha track 000002
+rmdir|after-rd|ALPHAT~2=Alpha track 000003
+rmdir|after-rd|ALPHAT~3=Alpha track 000004
+rmdir|after-rd|ALPHAT~4=Alpha track 000001
+rmdir|after-rd|ALPHAT~5=Alpha track 000006
+rmdir|after-rd|ALPHAT~6=Alpha track 000007
+rmdir|after-rd|ALPHAT~7=Alpha track 000000
+mkdir|made|39h=0000 7139h=7100 listed_after=8
+mkdir|after-md|ALPHAT~1=Alpha track 000002
+mkdir|after-md|ALPHAT~2=Alpha track 000003
+mkdir|after-md|ALPHAT~3=Alpha track 000004
+mkdir|after-md|ALPHAT~4=Alpha track 000001
+mkdir|after-md|ALPHAT~5=Alpha track 000006
+mkdir|after-md|ALPHAT~6=Alpha track 000007
+mkdir|after-md|ALPHAT~7=Alpha track 000000
+mkdir|after-md|NEWDIR=none
+mkdir|inside|ALPHAT~1=1
+mkdir|inside|ALPHAT~2=1
+mkdir|inside|ALPHAT~3=1
+mkdir|inside|ALPHAT~4=1
+mkdir|inside|ALPHAT~5=1
+mkdir|inside|ALPHAT~6=1
+mkdir|inside|ALPHAT~7=1
+mkdir|inside|NEWDIR=0
+mkdir|rd-new|3ah=0000
+mkdir|after-rd-new|ALPHAT~1=Alpha track 000002
+mkdir|after-rd-new|ALPHAT~2=Alpha track 000003
+mkdir|after-rd-new|ALPHAT~3=Alpha track 000004
+mkdir|after-rd-new|ALPHAT~4=Alpha track 000001
+mkdir|after-rd-new|ALPHAT~5=Alpha track 000006
+mkdir|after-rd-new|ALPHAT~6=Alpha track 000007
+mkdir|after-rd-new|ALPHAT~7=Alpha track 000000
+rename|dir|from=ALPHAT~1 56h=0000 listed_after=7
+rename|after-ren|ALPHAT~1=Alpha track 000003
+rename|after-ren|ALPHAT~2=Alpha track 000004
+rename|after-ren|ALPHAT~3=Alpha track 000001
+rename|after-ren|ALPHAT~4=Alpha track 000006
+rename|after-ren|ALPHAT~5=Alpha track 000007
+rename|after-ren|ALPHAT~6=Alpha track 000000
+rename|after-ren|RENAMED=Alpha track 000002
+rename|inside|ALPHAT~1=1
+rename|inside|ALPHAT~2=1
+rename|inside|ALPHAT~3=1
+rename|inside|ALPHAT~4=1
+rename|inside|ALPHAT~5=1
+rename|inside|ALPHAT~6=1
+rename|inside|RENAMED=1
+rename|remake|7139h=7100
+rename|after-remake|ALPHAT~1=Alpha track 000003
+rename|after-remake|ALPHAT~2=Alpha track 000004
+rename|after-remake|ALPHAT~3=Alpha track 000001
+rename|after-remake|ALPHAT~4=Alpha track 000006
+rename|after-remake|ALPHAT~5=Alpha track 000007
+rename|after-remake|ALPHAT~6=Alpha track 000000
+rename|after-remake|RENAMED=Alpha track 000002
+end|lines=157
+delete.sh: build A: files the host holds at the end: S=4 L=4 W=8 A=9 P=6 C=9 R=7 directories
+delete.sh: build A: short names moved by one delete: 7 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build A: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build A: short names of directories moved by one RD: 7 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=6 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=- the old short name of the renamed file=ALPHAT~1.MID
+delete.sh: build A: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build A: R after NEWDIR is removed again: listed=7 before=8 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=- the old short name of the renamed directory=ALPHAT~1
+delete.sh: build A: R after one rename: listed=7 before=7 renamed=1 listed twice=0 earlier short names reaching another directory=6 RENAMED reaches the renamed directory=yes
+delete.sh: build B: /builds/create-delete/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+del|shell|listed_after=0
+del|loop41|found=8 deleted=8 failed=0 listed_after=0
+del|wild7141|ax=7100 listed_after=8
+alias|before|ALPHAT~1.MID=Alpha track 000001.mid
+alias|before|ALPHAT~2.MID=Alpha track 000000.mid
+alias|before|ALPHAT~3.MID=Alpha track 000002.mid
+alias|before|ALPHAT~4.MID=Alpha track 000003.mid
+alias|before|ALPHAT~5.MID=Alpha track 000007.mid
+alias|before|ALPHAT~6.MID=Alpha track 000006.mid
+alias|before|ALPHAT~7.MID=Alpha track 000004.mid
+alias|before|ALPHAT~8.MID=Alpha track 000005.mid
+alias|before|PLAIN.TXT=PLAIN.TXT
+alias|after-delete|ALPHAT~2.MID=Alpha track 000000.mid
+alias|after-delete|ALPHAT~3.MID=Alpha track 000002.mid
+alias|after-delete|ALPHAT~4.MID=Alpha track 000003.mid
+alias|after-delete|ALPHAT~5.MID=Alpha track 000007.mid
+alias|after-delete|ALPHAT~6.MID=Alpha track 000006.mid
+alias|after-delete|ALPHAT~7.MID=Alpha track 000004.mid
+alias|after-delete|ALPHAT~8.MID=Alpha track 000005.mid
+alias|after-delete|PLAIN.TXT=PLAIN.TXT
+alias|after-create|ALPHAT~2.MID=Alpha track 000000.mid
+alias|after-create|ALPHAT~3.MID=Alpha track 000002.mid
+alias|after-create|ALPHAT~4.MID=Alpha track 000003.mid
+alias|after-create|ALPHAT~5.MID=Alpha track 000007.mid
+alias|after-create|ALPHAT~6.MID=Alpha track 000006.mid
+alias|after-create|ALPHAT~7.MID=Alpha track 000004.mid
+alias|after-create|ALPHAT~8.MID=Alpha track 000005.mid
+alias|after-create|NEW.TXT=
+alias|after-create|PLAIN.TXT=PLAIN.TXT
+rename|file|from=ALPHAT~2.MID 56h=0000
+alias|after-ren|ALPHAT~3.MID=Alpha track 000002.mid
+alias|after-ren|ALPHAT~4.MID=Alpha track 000003.mid
+alias|after-ren|ALPHAT~5.MID=Alpha track 000007.mid
+alias|after-ren|ALPHAT~6.MID=Alpha track 000006.mid
+alias|after-ren|ALPHAT~7.MID=Alpha track 000004.mid
+alias|after-ren|ALPHAT~8.MID=Alpha track 000005.mid
+alias|after-ren|NEW.TXT=
+alias|after-ren|PLAIN.TXT=PLAIN.TXT
+alias|after-ren|RENAMED.TXT=Alpha track 000000.mid
+rename|case|name=Alpha track 000007.mid 7156h=7100
+alias|after-case|ALPHAT~3.MID=Alpha track 000002.mid
+alias|after-case|ALPHAT~4.MID=Alpha track 000003.mid
+alias|after-case|ALPHAT~5.MID=Alpha track 000007.mid
+alias|after-case|ALPHAT~6.MID=Alpha track 000006.mid
+alias|after-case|ALPHAT~7.MID=Alpha track 000004.mid
+alias|after-case|ALPHAT~8.MID=Alpha track 000005.mid
+alias|after-case|NEW.TXT=
+alias|after-case|PLAIN.TXT=PLAIN.TXT
+alias|after-case|RENAMED.TXT=Alpha track 000000.mid
+rename|remake|716ch=7100
+alias|after-remake|ALPHAT~3.MID=Alpha track 000002.mid
+alias|after-remake|ALPHAT~4.MID=Alpha track 000003.mid
+alias|after-remake|ALPHAT~5.MID=Alpha track 000007.mid
+alias|after-remake|ALPHAT~6.MID=Alpha track 000006.mid
+alias|after-remake|ALPHAT~7.MID=Alpha track 000004.mid
+alias|after-remake|ALPHAT~8.MID=Alpha track 000005.mid
+alias|after-remake|NEW.TXT=
+alias|after-remake|PLAIN.TXT=PLAIN.TXT
+alias|after-remake|RENAMED.TXT=Alpha track 000000.mid
+search|delete|1|ALPHAT~1.MID=Alpha track 000001.mid
+search|delete|2|ALPHAT~2.MID=Alpha track 000000.mid
+search|delete|3|ALPHAT~3.MID=Alpha track 000002.mid
+search|delete|4|ALPHAT~4.MID=Alpha track 000003.mid
+search|delete|5|ALPHAT~5.MID=Alpha track 000007.mid
+search|delete|6|ALPHAT~7.MID=Alpha track 000004.mid
+search|delete|7|ALPHAT~8.MID=Alpha track 000005.mid
+search|delete|listed_after=6
+search|create|before|ALPHAT~1.MID=Alpha track 000001.mid
+search|create|before|ALPHAT~2.MID=Alpha track 000000.mid
+search|create|before|ALPHAT~3.MID=Alpha track 000002.mid
+search|create|before|ALPHAT~4.MID=Alpha track 000003.mid
+search|create|before|ALPHAT~5.MID=Alpha track 000007.mid
+search|create|before|ALPHAT~6.MID=Alpha track 000006.mid
+search|create|before|ALPHAT~7.MID=Alpha track 000004.mid
+search|create|before|ALPHAT~8.MID=Alpha track 000005.mid
+search|create|1|ALPHAT~1.MID=Alpha track 000001.mid
+search|create|2|ALPHAT~2.MID=Alpha track 000000.mid
+search|create|3|ALPHAT~3.MID=Alpha track 000002.mid
+search|create|4|ALPHAT~4.MID=Alpha track 000003.mid
+search|create|5|ALPHAT~5.MID=Alpha track 000007.mid
+search|create|6|ALPHAT~6.MID=Alpha track 000006.mid
+search|create|7|ALPHAT~7.MID=Alpha track 000004.mid
+search|create|8|ALPHAT~8.MID=Alpha track 000005.mid
+search|create|3ch=0000 716ch=7100 listed_after=9
+search|create|after|ALPHAT~1.MID=Alpha track 000001.mid
+search|create|after|ALPHAT~2.MID=Alpha track 000000.mid
+search|create|after|ALPHAT~3.MID=Alpha track 000002.mid
+search|create|after|ALPHAT~4.MID=Alpha track 000003.mid
+search|create|after|ALPHAT~5.MID=Alpha track 000007.mid
+search|create|after|ALPHAT~6.MID=Alpha track 000006.mid
+search|create|after|ALPHAT~7.MID=Alpha track 000004.mid
+search|create|after|ALPHAT~8.MID=Alpha track 000005.mid
+search|create|after|NEW.TXT=
+rmdir|before|ALPHAT~1=Alpha track 000005
+rmdir|before|ALPHAT~2=Alpha track 000002
+rmdir|before|ALPHAT~3=Alpha track 000003
+rmdir|before|ALPHAT~4=Alpha track 000004
+rmdir|before|ALPHAT~5=Alpha track 000001
+rmdir|before|ALPHAT~6=Alpha track 000006
+rmdir|before|ALPHAT~7=Alpha track 000007
+rmdir|before|ALPHAT~8=Alpha track 000000
+rmdir|open-search|first=0000 next=0012
+rmdir|removed|41h=0000 3ah=0000 listed_after=7
+rmdir|after-rd|ALPHAT~2=Alpha track 000002
+rmdir|after-rd|ALPHAT~3=Alpha track 000003
+rmdir|after-rd|ALPHAT~4=Alpha track 000004
+rmdir|after-rd|ALPHAT~5=Alpha track 000001
+rmdir|after-rd|ALPHAT~6=Alpha track 000006
+rmdir|after-rd|ALPHAT~7=Alpha track 000007
+rmdir|after-rd|ALPHAT~8=Alpha track 000000
+mkdir|made|39h=0000 7139h=7100 listed_after=8
+mkdir|after-md|ALPHAT~2=Alpha track 000002
+mkdir|after-md|ALPHAT~3=Alpha track 000003
+mkdir|after-md|ALPHAT~4=Alpha track 000004
+mkdir|after-md|ALPHAT~5=Alpha track 000001
+mkdir|after-md|ALPHAT~6=Alpha track 000006
+mkdir|after-md|ALPHAT~7=Alpha track 000007
+mkdir|after-md|ALPHAT~8=Alpha track 000000
+mkdir|after-md|NEWDIR=none
+mkdir|inside|ALPHAT~2=1
+mkdir|inside|ALPHAT~3=1
+mkdir|inside|ALPHAT~4=1
+mkdir|inside|ALPHAT~5=1
+mkdir|inside|ALPHAT~6=1
+mkdir|inside|ALPHAT~7=1
+mkdir|inside|ALPHAT~8=1
+mkdir|inside|NEWDIR=0
+mkdir|rd-new|3ah=0000
+mkdir|after-rd-new|ALPHAT~2=Alpha track 000002
+mkdir|after-rd-new|ALPHAT~3=Alpha track 000003
+mkdir|after-rd-new|ALPHAT~4=Alpha track 000004
+mkdir|after-rd-new|ALPHAT~5=Alpha track 000001
+mkdir|after-rd-new|ALPHAT~6=Alpha track 000006
+mkdir|after-rd-new|ALPHAT~7=Alpha track 000007
+mkdir|after-rd-new|ALPHAT~8=Alpha track 000000
+rename|dir|from=ALPHAT~2 56h=0000 listed_after=7
+rename|after-ren|ALPHAT~3=Alpha track 000003
+rename|after-ren|ALPHAT~4=Alpha track 000004
+rename|after-ren|ALPHAT~5=Alpha track 000001
+rename|after-ren|ALPHAT~6=Alpha track 000006
+rename|after-ren|ALPHAT~7=Alpha track 000007
+rename|after-ren|ALPHAT~8=Alpha track 000000
+rename|after-ren|RENAMED=Alpha track 000002
+rename|inside|ALPHAT~3=1
+rename|inside|ALPHAT~4=1
+rename|inside|ALPHAT~5=1
+rename|inside|ALPHAT~6=1
+rename|inside|ALPHAT~7=1
+rename|inside|ALPHAT~8=1
+rename|inside|RENAMED=1
+rename|remake|7139h=7100
+rename|after-remake|ALPHAT~3=Alpha track 000003
+rename|after-remake|ALPHAT~4=Alpha track 000004
+rename|after-remake|ALPHAT~5=Alpha track 000001
+rename|after-remake|ALPHAT~6=Alpha track 000006
+rename|after-remake|ALPHAT~7=Alpha track 000007
+rename|after-remake|ALPHAT~8=Alpha track 000000
+rename|after-remake|RENAMED=Alpha track 000002
+end|lines=158
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=8 A=9 P=6 C=9 R=7 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=- the old short name of the renamed file=ALPHAT~2.MID
+delete.sh: build B: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=7 before=8 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=- the old short name of the renamed directory=ALPHAT~2
+delete.sh: build B: R after one rename: listed=7 before=7 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: DIFFERENT, 80 lines differ (A then B):
+< del|shell|listed_after=4
+< del|loop41|found=4 deleted=4 failed=0 listed_after=4
+> del|shell|listed_after=0
+> del|loop41|found=8 deleted=8 failed=0 listed_after=0
+< alias|after-delete|ALPHAT~1.MID=Alpha track 000000.mid
+< alias|after-delete|ALPHAT~2.MID=Alpha track 000002.mid
+< alias|after-delete|ALPHAT~3.MID=Alpha track 000003.mid
+< alias|after-delete|ALPHAT~4.MID=Alpha track 000007.mid
+< alias|after-delete|ALPHAT~5.MID=Alpha track 000006.mid
+< alias|after-delete|ALPHAT~6.MID=Alpha track 000004.mid
+< alias|after-delete|ALPHAT~7.MID=Alpha track 000005.mid
+> alias|after-delete|ALPHAT~2.MID=Alpha track 000000.mid
+> alias|after-delete|ALPHAT~3.MID=Alpha track 000002.mid
+> alias|after-delete|ALPHAT~4.MID=Alpha track 000003.mid
+> alias|after-delete|ALPHAT~5.MID=Alpha track 000007.mid
+> alias|after-delete|ALPHAT~6.MID=Alpha track 000006.mid
+> alias|after-delete|ALPHAT~7.MID=Alpha track 000004.mid
+> alias|after-delete|ALPHAT~8.MID=Alpha track 000005.mid
+< alias|after-create|ALPHAT~1.MID=Alpha track 000000.mid
+< alias|after-create|ALPHAT~2.MID=Alpha track 000002.mid
+< alias|after-create|ALPHAT~3.MID=Alpha track 000003.mid
+< alias|after-create|ALPHAT~4.MID=Alpha track 000007.mid
+< alias|after-create|ALPHAT~5.MID=Alpha track 000006.mid
+< alias|after-create|ALPHAT~6.MID=Alpha track 000004.mid
+< alias|after-create|ALPHAT~7.MID=Alpha track 000005.mid
+> alias|after-create|ALPHAT~2.MID=Alpha track 000000.mid
+> alias|after-create|ALPHAT~3.MID=Alpha track 000002.mid
+> alias|after-create|ALPHAT~4.MID=Alpha track 000003.mid
+> alias|after-create|ALPHAT~5.MID=Alpha track 000007.mid
+> alias|after-create|ALPHAT~6.MID=Alpha track 000006.mid
+> alias|after-create|ALPHAT~7.MID=Alpha track 000004.mid
+> alias|after-create|ALPHAT~8.MID=Alpha track 000005.mid
+< rename|file|from=ALPHAT~1.MID 56h=0000
+< alias|after-ren|ALPHAT~1.MID=Alpha track 000002.mid
+< alias|after-ren|ALPHAT~2.MID=Alpha track 000003.mid
+< alias|after-ren|ALPHAT~3.MID=Alpha track 000007.mid
+< alias|after-ren|ALPHAT~4.MID=Alpha track 000006.mid
+< alias|after-ren|ALPHAT~5.MID=Alpha track 000004.mid
+< alias|after-ren|ALPHAT~6.MID=Alpha track 000005.mid
+> rename|file|from=ALPHAT~2.MID 56h=0000
+> alias|after-ren|ALPHAT~3.MID=Alpha track 000002.mid
+> alias|after-ren|ALPHAT~4.MID=Alpha track 000003.mid
+> alias|after-ren|ALPHAT~5.MID=Alpha track 000007.mid
+> alias|after-ren|ALPHAT~6.MID=Alpha track 000006.mid
+> alias|after-ren|ALPHAT~7.MID=Alpha track 000004.mid
+> alias|after-ren|ALPHAT~8.MID=Alpha track 000005.mid
+< alias|after-case|ALPHAT~1.MID=Alpha track 000002.mid
+< alias|after-case|ALPHAT~2.MID=Alpha track 000003.mid
+< alias|after-case|ALPHAT~3.MID=Alpha track 000007.mid
+< alias|after-case|ALPHAT~4.MID=Alpha track 000006.mid
+< alias|after-case|ALPHAT~5.MID=Alpha track 000004.mid
+< alias|after-case|ALPHAT~6.MID=Alpha track 000005.mid
+> alias|after-case|ALPHAT~3.MID=Alpha track 000002.mid
+> alias|after-case|ALPHAT~4.MID=Alpha track 000003.mid
+> alias|after-case|ALPHAT~5.MID=Alpha track 000007.mid
+> alias|after-case|ALPHAT~6.MID=Alpha track 000006.mid
+> alias|after-case|ALPHAT~7.MID=Alpha track 000004.mid
+> alias|after-case|ALPHAT~8.MID=Alpha track 000005.mid
+< alias|after-remake|ALPHAT~1.MID=Alpha track 000002.mid
+< alias|after-remake|ALPHAT~2.MID=Alpha track 000003.mid
+< alias|after-remake|ALPHAT~3.MID=Alpha track 000007.mid
+< alias|after-remake|ALPHAT~4.MID=Alpha track 000006.mid
+< alias|after-remake|ALPHAT~5.MID=Alpha track 000004.mid
+< alias|after-remake|ALPHAT~6.MID=Alpha track 000005.mid
+> alias|after-remake|ALPHAT~3.MID=Alpha track 000002.mid
+> alias|after-remake|ALPHAT~4.MID=Alpha track 000003.mid
+> alias|after-remake|ALPHAT~5.MID=Alpha track 000007.mid
+> alias|after-remake|ALPHAT~6.MID=Alpha track 000006.mid
+> alias|after-remake|ALPHAT~7.MID=Alpha track 000004.mid
+> alias|after-remake|ALPHAT~8.MID=Alpha track 000005.mid
+< search|delete|3|ALPHAT~3.MID=Alpha track 000003.mid
+< search|delete|4|ALPHAT~4.MID=Alpha track 000007.mid
+< search|delete|5|ALPHAT~5.MID=Alpha track 000006.mid
+< search|delete|6|ALPHAT~6.MID=Alpha track 000005.mid
+> search|delete|3|ALPHAT~3.MID=Alpha track 000002.mid
+> search|delete|4|ALPHAT~4.MID=Alpha track 000003.mid
+> search|delete|5|ALPHAT~5.MID=Alpha track 000007.mid
+> search|delete|6|ALPHAT~7.MID=Alpha track 000004.mid
+> search|delete|7|ALPHAT~8.MID=Alpha track 000005.mid
+< rmdir|open-search|first=0000 next=0000
+> rmdir|open-search|first=0000 next=0012
+< rmdir|after-rd|ALPHAT~1=Alpha track 000002
+< rmdir|after-rd|ALPHAT~2=Alpha track 000003
+< rmdir|after-rd|ALPHAT~3=Alpha track 000004
+< rmdir|after-rd|ALPHAT~4=Alpha track 000001
+< rmdir|after-rd|ALPHAT~5=Alpha track 000006
+< rmdir|after-rd|ALPHAT~6=Alpha track 000007
+< rmdir|after-rd|ALPHAT~7=Alpha track 000000
+> rmdir|after-rd|ALPHAT~2=Alpha track 000002
+> rmdir|after-rd|ALPHAT~3=Alpha track 000003
+> rmdir|after-rd|ALPHAT~4=Alpha track 000004
+> rmdir|after-rd|ALPHAT~5=Alpha track 000001
+> rmdir|after-rd|ALPHAT~6=Alpha track 000006
+> rmdir|after-rd|ALPHAT~7=Alpha track 000007
+> rmdir|after-rd|ALPHAT~8=Alpha track 000000
+< mkdir|after-md|ALPHAT~1=Alpha track 000002
+< mkdir|after-md|ALPHAT~2=Alpha track 000003
+< mkdir|after-md|ALPHAT~3=Alpha track 000004
+< mkdir|after-md|ALPHAT~4=Alpha track 000001
+< mkdir|after-md|ALPHAT~5=Alpha track 000006
+< mkdir|after-md|ALPHAT~6=Alpha track 000007
+< mkdir|after-md|ALPHAT~7=Alpha track 000000
+> mkdir|after-md|ALPHAT~2=Alpha track 000002
+> mkdir|after-md|ALPHAT~3=Alpha track 000003
+> mkdir|after-md|ALPHAT~4=Alpha track 000004
+> mkdir|after-md|ALPHAT~5=Alpha track 000001
+> mkdir|after-md|ALPHAT~6=Alpha track 000006
+> mkdir|after-md|ALPHAT~7=Alpha track 000007
+> mkdir|after-md|ALPHAT~8=Alpha track 000000
+< mkdir|inside|ALPHAT~1=1
+> mkdir|inside|ALPHAT~8=1
+< mkdir|after-rd-new|ALPHAT~1=Alpha track 000002
+< mkdir|after-rd-new|ALPHAT~2=Alpha track 000003
+< mkdir|after-rd-new|ALPHAT~3=Alpha track 000004
+< mkdir|after-rd-new|ALPHAT~4=Alpha track 000001
+< mkdir|after-rd-new|ALPHAT~5=Alpha track 000006
+< mkdir|after-rd-new|ALPHAT~6=Alpha track 000007
+< mkdir|after-rd-new|ALPHAT~7=Alpha track 000000
+< rename|dir|from=ALPHAT~1 56h=0000 listed_after=7
+< rename|after-ren|ALPHAT~1=Alpha track 000003
+< rename|after-ren|ALPHAT~2=Alpha track 000004
+< rename|after-ren|ALPHAT~3=Alpha track 000001
+< rename|after-ren|ALPHAT~4=Alpha track 000006
+< rename|after-ren|ALPHAT~5=Alpha track 000007
+< rename|after-ren|ALPHAT~6=Alpha track 000000
+> mkdir|after-rd-new|ALPHAT~2=Alpha track 000002
+> mkdir|after-rd-new|ALPHAT~3=Alpha track 000003
+> mkdir|after-rd-new|ALPHAT~4=Alpha track 000004
+> mkdir|after-rd-new|ALPHAT~5=Alpha track 000001
+> mkdir|after-rd-new|ALPHAT~6=Alpha track 000006
+> mkdir|after-rd-new|ALPHAT~7=Alpha track 000007
+> mkdir|after-rd-new|ALPHAT~8=Alpha track 000000
+> rename|dir|from=ALPHAT~2 56h=0000 listed_after=7
+> rename|after-ren|ALPHAT~3=Alpha track 000003
+> rename|after-ren|ALPHAT~4=Alpha track 000004
+> rename|after-ren|ALPHAT~5=Alpha track 000001
+> rename|after-ren|ALPHAT~6=Alpha track 000006
+> rename|after-ren|ALPHAT~7=Alpha track 000007
+> rename|after-ren|ALPHAT~8=Alpha track 000000
+< rename|inside|ALPHAT~1=1
+< rename|inside|ALPHAT~2=1
+> rename|inside|ALPHAT~7=1
+> rename|inside|ALPHAT~8=1
+< rename|after-remake|ALPHAT~1=Alpha track 000003
+< rename|after-remake|ALPHAT~2=Alpha track 000004
+< rename|after-remake|ALPHAT~3=Alpha track 000001
+< rename|after-remake|ALPHAT~4=Alpha track 000006
+< rename|after-remake|ALPHAT~5=Alpha track 000007
+< rename|after-remake|ALPHAT~6=Alpha track 000000
+> rename|after-remake|ALPHAT~3=Alpha track 000003
+> rename|after-remake|ALPHAT~4=Alpha track 000004
+> rename|after-remake|ALPHAT~5=Alpha track 000001
+> rename|after-remake|ALPHAT~6=Alpha track 000006
+> rename|after-remake|ALPHAT~7=Alpha track 000007
+> rename|after-remake|ALPHAT~8=Alpha track 000000
+< end|lines=157
+< host|S|files=4
+< host|L|files=4
+> end|lines=158
+> host|S|files=0
+> host|L|files=0

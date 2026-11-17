@@ -1,0 +1,15 @@
+exit=0 :: junktest.test.sh 
+ok   the run's batch files reached their end, read while held
+ok   the line carries the batch files and the figures
+ok   other batch files than the console shows
+ok   a 300.BAT cut before its last run
+ok   a JUNK.BAT that did not end
+ok   an FC that did not compare the two files
+ok   a guest that never held
+ok   the launcher refuses the run
+ok   no folder of the reporter's files
+ok   a folder that lacks one of them
+ok   a batch file the reporter did not send
+ok   neither on nor off
+ok   no batch file
+13 cases, 0 failed

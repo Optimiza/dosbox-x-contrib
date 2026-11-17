@@ -49,10 +49,10 @@ MS-DOS's.
 Source: `battery.sh --real-dos`, cells `findlife`, `dtadump`, `exact` and `drift`, in [results/macos/battery-base-dta.txt](../results/macos/battery-base-dta.txt); the patched build's own lines are in [results/macos/dta-cases.txt](../results/macos/dta-cases.txt).
 
 - Unpatched upstream's and MS-DOS's reports are in `bench/fixtures/battery`:
-  [087-findlife.txt](../bench/fixtures/battery/087-findlife.txt),
-  [092-drift.txt](../bench/fixtures/battery/092-drift.txt),
-  [122-realdos.txt](../bench/fixtures/battery/122-realdos.txt) and
-  [124-realdos.txt](../bench/fixtures/battery/124-realdos.txt).
+  [findlife_base-build_on.txt](../bench/fixtures/battery/findlife_base-build_on.txt),
+  [drift_base-build_off.txt](../bench/fixtures/battery/drift_base-build_off.txt),
+  [realdos_exact_off.txt](../bench/fixtures/battery/realdos_exact_off.txt) and
+  [realdos_drift_off.txt](../bench/fixtures/battery/realdos_drift_off.txt).
 - On Windows the cells read the same but for one DRIFT case, told under "What it needs". They
   are in [results/windows/battery-base-dta.txt](../results/windows/battery-base-dta.txt).
 - The FCB digest differs there only by the alias names NTFS gives.

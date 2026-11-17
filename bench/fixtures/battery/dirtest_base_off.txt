@@ -1,0 +1,2 @@
+exit=0 :: dirtest.sh /builds/base/dosbox-x /reporters/DIRTEST off
+dirtest.sh: lfn=off files=1835 calls_4f=1835 calls_4e=1865 peak_rss_kb=2248688 held_rss_kb=113328 held_footprint_kb=2371746 samples=105 slots_full=0 out_of_range=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/base/dosbox-x

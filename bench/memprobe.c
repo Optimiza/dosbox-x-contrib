@@ -19,8 +19,13 @@
  * It prints how many calls reached the file (ok=) and exits 1 when one did not: a failed call
  * costs the emulator nothing. Before that it creates <held file> and waits for <go file>, so
  * the host reads the emulator with the process alive; "-" skips the hold.
+ *
+ * DJGPP's start-up passes every argument through glob() before main, and for a path that asks
+ * the file's attributes: the first read of a folder the emulator has not read, before the
+ * first call the mode makes. The program turns it off, so its own calls are the ones measured.
  */
 
+#include <crt0.h>
 #include <dir.h>
 #include <dos.h>
 #include <dpmi.h>
@@ -42,6 +47,12 @@
 #define FOLDER_SIZE 300
 #define LABEL_ATTR 0x08
 #define FILES_ATTR 0x27     /* every file, no directory: no "." and no ".." */
+
+char **__crt0_glob_function(char *arg)
+{
+    (void)arg;
+    return 0;
+}
 
 static int raw_open(const char *path)
 {

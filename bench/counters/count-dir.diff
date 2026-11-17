@@ -1,0 +1,21 @@
+--- a/src/dos/drive_cache.cpp
++++ b/src/dos/drive_cache.cpp
+@@ -890,12 +890,18 @@
+         // Read complete directory
+         char dir_name[CROSS_LEN], dir_sname[DOS_NAMELENGTH+1];
+         bool is_directory;
++        static unsigned long host_reads = 0, host_entries = 0;
++        unsigned long entries_now = 0;
+         if (drive->read_directory_first(dirp, dir_name, dir_sname, is_directory)) {
+             CreateEntry(dirSearch[id], dir_name, dir_sname, is_directory, /*skip search*/true);
++            entries_now++;
+             while (drive->read_directory_next(dirp, dir_name, dir_sname, is_directory)) {
+                 CreateEntry(dirSearch[id], dir_name, dir_sname, is_directory, /*skip search*/true);
++                entries_now++;
+             }
+         }
++        host_reads++; host_entries += entries_now;
++        LOG_MSG("4R-DIR read=%lu entries=%lu total_entries=%lu dir=%s", host_reads, entries_now, host_entries, dirPath);
+ 
+         // Insertion skipped sorting, now sort in one go, which should be faster when faced with many files
+         std::sort(dirSearch[id]->fileList.begin(), dirSearch[id]->fileList.end(), SortByName);

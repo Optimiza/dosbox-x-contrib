@@ -1,0 +1,6 @@
+ 300.BAT
+ DJUNK.BAT
+ E001.EXP
+ JUNK.BAT
+ RESULT.TXT
+   5 File(s) copied.

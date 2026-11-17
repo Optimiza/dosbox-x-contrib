@@ -1,0 +1,34 @@
+exit=0 :: delete.test.sh 
+ok   a build that leaves half the files against one that leaves none
+ok   each report printed whole
+ok   the other build's line
+ok   upstream's short names move after one delete
+ok   the other build's stay
+ok   upstream's long-name create moves a short name a search returned
+ok   the other build's search keeps its short names
+ok   upstream's RD moves the other directories' short names
+ok   the other build's directories keep theirs
+ok   upstream lists the two new files, one earlier short name now opening another
+ok   the other build lists them with every earlier short name kept
+ok   the other build lists the seven directories left
+ok   upstream's rename moves the other files' short names
+ok   the other build's rename keeps them
+ok   a case-only rename moves no short name
+ok   the renamed file's old long name made again takes a free short name
+ok   upstream's MD moves the other directories' short names
+ok   the other build's MD keeps them
+ok   removing the new directory again moves none
+ok   each directory's search lists its own entries
+ok   upstream's directory rename moves the others
+ok   the other build's directory rename keeps them
+ok   the renamed directory's old long name made again takes a free short name
+ok   two reports alike
+ok   a report cut before its trailer
+ok   a line fewer than the trailer says
+ok   a folder that did not list its files: no line, no trailer
+ok   the launcher refuses the run
+ok   the counts' program fails
+ok   neither on nor off
+ok   two arguments
+ok   its own help
+32 cases, 0 failed

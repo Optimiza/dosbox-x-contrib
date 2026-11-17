@@ -1,0 +1,23 @@
+exit=0 :: dirtest.test.sh 
+ok   the program's lookups, read while held
+ok   the line carries the figures
+ok   a listing one call short
+ok   lookups that stop part way
+ok   no more 4Eh calls than files: the listing's own first is missing
+ok   a program that never returned to the shell
+ok   a shell that never started it
+ok   a guest that never held
+ok   a DATA with a file more than the program looked up
+ok   the launcher refuses the run
+ok   no folder of the reporter's files
+ok   a DATA with no file
+ok   a folder with no DATA
+ok   Windows: the exit with keys pending, after the guest's last line
+ok   Windows: the figures the launcher read
+ok   Windows: that exit with no last line of the guest
+ok   Windows: another exit code
+ok   Windows: a run cut at its bound
+ok   Windows: a clean exit says nothing of it
+ok   neither on nor off
+ok   two arguments
+21 cases, 0 failed

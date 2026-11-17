@@ -1,0 +1,14 @@
+exit=0 :: p5rep.test.sh 
+ok   a round timed, the two builds' guest lines alike
+ok   each run's guest line: DIR's count
+ok   a DIR that counted no file
+ok   an open that failed
+ok   a build whose guest answers otherwise
+ok   an emulator that ended before the stop file
+ok   a guest that wrote no line
+ok   a case it does not know
+ok   a 716Ch open with long names off
+ok   a name with a backslash
+ok   six arguments
+ok   its own help
+12 cases, 0 failed

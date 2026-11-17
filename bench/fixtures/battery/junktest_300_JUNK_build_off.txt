@@ -1,0 +1,2 @@
+exit=0 :: junktest.sh /builds/retention/dosbox-x /reporters/junktest off 300 JUNK
+junktest.sh: batches=300,JUNK lfn=off entries=705 junk=700 counted=300 done=2 peak_rss_kb=221008 held_rss_kb=221008 held_footprint_kb=181504 samples=14 slots_full=0 out_of_range=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/retention/dosbox-x

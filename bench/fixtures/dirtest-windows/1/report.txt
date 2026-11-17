@@ -1,0 +1,4 @@
+windows.ps1: binary: C:\BUILDS\base\dosbox-x.exe
+windows.ps1: version: DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)
+windows.ps1: exit code: -1073740791
+windows.ps1: memory: peak_ws_kb=2221708 held_ws_kb=2221684 held_private_kb=2274052 samples=199

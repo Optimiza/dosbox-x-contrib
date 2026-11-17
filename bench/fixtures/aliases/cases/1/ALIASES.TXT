@@ -1,0 +1,400 @@
+lfn|.|.|10|0
+lfn|..|..|10|0
+lfn|dirlong name|DIRLON~1|20|86
+lfn|01aaaa long.mid|01AAAA~1.MID|20|54
+lfn|01.fifth song.mid|01~1.MID|20|52
+lfn|01.sixth song.mid|01~2.MID|20|53
+lfn|01.first song.mid|01~3.MID|20|48
+lfn|01.second song.mid|01~4.MID|20|49
+lfn|01.fourth song.mid|01~5.MID|20|51
+lfn|01.third song.mid|01~6.MID|20|50
+lfn|aaa aaa.txt|AAAAAA~1.TXT|20|1
+lfn|AAAAAA~1.TXT|AAAAAA~1.TXT|20|1
+lfn|americ tune 09.mid|AMERIC~1.MID|20|63
+lfn|americ tune 08.mid|AMERIC~2.MID|20|62
+lfn|americ tune 14.mid|AMERIC~3.MID|20|68
+lfn|americ tune 01.mid|AMERIC~4.MID|20|55
+lfn|americ tune 03.mid|AMERIC~5.MID|20|57
+lfn|americ tune 02.mid|AMERIC~6.MID|20|56
+lfn|americ tune 06.mid|AMERIC~7.MID|20|60
+lfn|americ tune 12.mid|AMERIC~8.MID|20|66
+lfn|americ tune 13.mid|AMERIC~9.MID|20|67
+lfn|amerik tune.mid|AMERIK~1.MID|20|69
+lfn|americ tune 11.mid|AMERI~10.MID|20|65
+lfn|americ tune 05.mid|AMERI~10.MID|20|65
+lfn|americ tune 04.mid|AMERI~10.MID|20|65
+lfn|americ tune 10.mid|AMERI~10.MID|20|65
+lfn|americ tune 07.mid|AMERI~10.MID|20|65
+lfn|BBBBBB~1.TXT|BBBBBB~1.TXT|20|3
+lfn|bbb bbb.txt|BBBBBB~1.TXT|20|3
+lfn|CCCCCC~1.TXT|CCCCCC~1.TXT|20|6
+lfn|ccc ccc.txt|CCCCCC~1.TXT|20|6
+lfn|DDDDDD~1.TXT|DDDDDD~1.TXT|20|7
+lfn|ddd ddd.txt|DDDDDD~1.TXT|20|7
+lfn|DIRLON~1|DIRLON~1|20|86
+lfn|EEEEEE~1.TXT|EEEEEE~1.TXT|20|10
+lfn|eee eee.txt|EEEEEE~1.TXT|20|10
+lfn|fff fff.txt|FFFFFF~1.TXT|20|12
+lfn|FFFFFF~1.TXT|FFFFFF~1.TXT|20|12
+lfn|GGGGGG~1.TXT|GGGGGG~1.TXT|20|13
+lfn|ggg ggg.txt|GGGGGG~1.TXT|20|13
+lfn|HHHHHH~1.TXT|HHHHHH~1.TXT|20|16
+lfn|hhh hhh.txt|HHHHHH~1.TXT|20|16
+lfn|JJJJJJ~1.TXT|JJJJJJ~1.TXT|20|17
+lfn|jjj jjj.txt|JJJJJJ~1.TXT|20|17
+lfn|kkk kkk.txt|KKKKKK~1.TXT|20|20
+lfn|KKKKKK~1.TXT|KKKKKK~1.TXT|20|20
+lfn|lowercase name.txt|LOWERC~1.TXT|20|44
+lfn|lowerc~1.txt|LOWERC~1.TXT|20|44
+lfn|mmm mmm.txt|MMMMMM~1.TXT|20|21
+lfn|MMMMMM~1.TXT|MMMMMM~1.TXT|20|21
+lfn|nnn nnn.txt|NNNNNN~1.TXT|20|24
+lfn|NNNNNN~1.TXT|NNNNNN~2.TXT|20|23
+lfn|noext long name|NOEXTL~1|20|42
+lfn|NOEXTL~1|NOEXTL~2|20|41
+lfn|PLAIN.TXT|PLAIN.TXT|20|45
+lfn|sibling two.dat|SIBLIN~1.DAT|20|27
+lfn|SIBLIN~2.DAT|SIBLIN~2.DAT|20|28
+lfn|sibling six.dat|SIBLIN~2.DAT|20|28
+lfn|sibling one.dat|SIBLIN~3.DAT|20|26
+lfn|tenth file 03.dat|TENTHF~1.DAT|20|32
+lfn|tenth file 02.dat|TENTHF~2.DAT|20|31
+lfn|tenth file 01.dat|TENTHF~3.DAT|20|30
+lfn|tenth file 05.dat|TENTHF~4.DAT|20|34
+lfn|tenth file 11.dat|TENTHF~5.DAT|20|40
+lfn|tenth file 10.dat|TENTHF~6.DAT|20|39
+lfn|tenth file 04.dat|TENTHF~7.DAT|20|33
+lfn|tenth file 06.dat|TENTHF~8.DAT|20|35
+lfn|tenth file 07.dat|TENTHF~9.DAT|20|36
+lfn|TENTH~10.DAT|TENTH~10.DAT|20|29
+lfn|tenth file 09.dat|TENTH~10.DAT|20|29
+lfn|tenth file 08.dat|TENTH~11.DAT|20|37
+lfn|TILDE~9.TXT|TILDE~9.TXT|20|47
+lfn|unique long name.txt|UNIQUE~1.TXT|20|46
+lfn|wine long name 4.txt|WINELO~1.TXT|20|78
+lfn|wine long name 5.txt|WINELO~2.TXT|20|80
+lfn|wine long name 0.txt|WINELO~2.TXT|20|80
+lfn|wine long name 7.txt|WINELO~3.TXT|20|84
+lfn|wine long name 6.txt|WINELO~4.TXT|20|82
+lfn|wine long name 2.txt|WINELO~5.TXT|20|74
+lfn|wine long name 3.txt|WINELO~6.TXT|20|76
+lfn|wine long name 1.txt|WINELO~7.TXT|20|72
+lfn|WINE~3OM.TXT|WINE~3~1.TXT|20|85
+lfn|WINE~B2P.TXT|WINE~B2P.TXT|20|71
+lfn|WINE~F2P.TXT|WINE~F2P.TXT|20|73
+lfn|WINE~J2O.TXT|WINE~J2O.TXT|20|75
+lfn|WINE~N2O.TXT|WINE~N2O.TXT|20|77
+lfn|WINE~RON.TXT|WINE~RON.TXT|20|79
+lfn|WINE~VON.TXT|WINE~VON.TXT|20|81
+lfn|WINE~ZOM.TXT|WINE~Z~2.TXT|20|83
+sfn|.|10|0
+sfn|..|10|0
+sfn|DIRLON~1|20|86
+sfn|01AAAA~1.MID|20|54
+sfn|01~1.MID|20|52
+sfn|01~2.MID|20|53
+sfn|01~3.MID|20|48
+sfn|01~4.MID|20|49
+sfn|01~5.MID|20|51
+sfn|01~6.MID|20|50
+sfn|AAAAAA~1.TXT|20|1
+sfn|AAAAAA~1.TXT|20|1
+sfn|AMERIC~1.MID|20|63
+sfn|AMERIC~2.MID|20|62
+sfn|AMERIC~3.MID|20|68
+sfn|AMERIC~4.MID|20|55
+sfn|AMERIC~5.MID|20|57
+sfn|AMERIC~6.MID|20|56
+sfn|AMERIC~7.MID|20|60
+sfn|AMERIC~8.MID|20|66
+sfn|AMERIC~9.MID|20|67
+sfn|AMERIK~1.MID|20|69
+sfn|AMERI~10.MID|20|65
+sfn|AMERI~10.MID|20|65
+sfn|AMERI~10.MID|20|65
+sfn|AMERI~10.MID|20|65
+sfn|AMERI~10.MID|20|65
+sfn|BBBBBB~1.TXT|20|3
+sfn|BBBBBB~1.TXT|20|3
+sfn|CCCCCC~1.TXT|20|6
+sfn|CCCCCC~1.TXT|20|6
+sfn|DDDDDD~1.TXT|20|7
+sfn|DDDDDD~1.TXT|20|7
+sfn|DIRLON~1|20|86
+sfn|EEEEEE~1.TXT|20|10
+sfn|EEEEEE~1.TXT|20|10
+sfn|FFFFFF~1.TXT|20|12
+sfn|FFFFFF~1.TXT|20|12
+sfn|GGGGGG~1.TXT|20|13
+sfn|GGGGGG~1.TXT|20|13
+sfn|HHHHHH~1.TXT|20|16
+sfn|HHHHHH~1.TXT|20|16
+sfn|JJJJJJ~1.TXT|20|17
+sfn|JJJJJJ~1.TXT|20|17
+sfn|KKKKKK~1.TXT|20|20
+sfn|KKKKKK~1.TXT|20|20
+sfn|LOWERC~1.TXT|20|44
+sfn|LOWERC~1.TXT|20|44
+sfn|MMMMMM~1.TXT|20|21
+sfn|MMMMMM~1.TXT|20|21
+sfn|NNNNNN~1.TXT|20|24
+sfn|NNNNNN~2.TXT|20|23
+sfn|NOEXTL~1|20|42
+sfn|NOEXTL~2|20|41
+sfn|PLAIN.TXT|20|45
+sfn|SIBLIN~1.DAT|20|27
+sfn|SIBLIN~2.DAT|20|28
+sfn|SIBLIN~2.DAT|20|28
+sfn|SIBLIN~3.DAT|20|26
+sfn|TENTHF~1.DAT|20|32
+sfn|TENTHF~2.DAT|20|31
+sfn|TENTHF~3.DAT|20|30
+sfn|TENTHF~4.DAT|20|34
+sfn|TENTHF~5.DAT|20|40
+sfn|TENTHF~6.DAT|20|39
+sfn|TENTHF~7.DAT|20|33
+sfn|TENTHF~8.DAT|20|35
+sfn|TENTHF~9.DAT|20|36
+sfn|TENTH~10.DAT|20|29
+sfn|TENTH~10.DAT|20|29
+sfn|TENTH~11.DAT|20|37
+sfn|TILDE~9.TXT|20|47
+sfn|UNIQUE~1.TXT|20|46
+sfn|WINELO~1.TXT|20|78
+sfn|WINELO~2.TXT|20|80
+sfn|WINELO~2.TXT|20|80
+sfn|WINELO~3.TXT|20|84
+sfn|WINELO~4.TXT|20|82
+sfn|WINELO~5.TXT|20|74
+sfn|WINELO~6.TXT|20|76
+sfn|WINELO~7.TXT|20|72
+sfn|WINE~3~1.TXT|20|85
+sfn|WINE~B2P.TXT|20|71
+sfn|WINE~F2P.TXT|20|73
+sfn|WINE~J2O.TXT|20|75
+sfn|WINE~N2O.TXT|20|77
+sfn|WINE~RON.TXT|20|79
+sfn|WINE~VON.TXT|20|81
+sfn|WINE~Z~2.TXT|20|83
+find|DIRLON~1|n=2|DIRLON~1:20:86,DIRLON~1:20:86
+open|DIRLON~1|86
+find|01AAAA~1.MID|n=1|01AAAA~1.MID:20:54
+open|01AAAA~1.MID|54
+find|01~1.MID|n=1|01~1.MID:20:52
+open|01~1.MID|52
+find|01~2.MID|n=1|01~2.MID:20:53
+open|01~2.MID|53
+find|01~3.MID|n=1|01~3.MID:20:48
+open|01~3.MID|48
+find|01~4.MID|n=1|01~4.MID:20:49
+open|01~4.MID|49
+find|01~5.MID|n=1|01~5.MID:20:51
+open|01~5.MID|51
+find|01~6.MID|n=1|01~6.MID:20:50
+open|01~6.MID|50
+find|AAAAAA~1.TXT|n=2|AAAAAA~1.TXT:20:1,AAAAAA~1.TXT:20:1
+open|AAAAAA~1.TXT|1
+find|AMERIC~1.MID|n=1|AMERIC~1.MID:20:63
+open|AMERIC~1.MID|63
+find|AMERIC~2.MID|n=1|AMERIC~2.MID:20:62
+open|AMERIC~2.MID|62
+find|AMERIC~3.MID|n=1|AMERIC~3.MID:20:68
+open|AMERIC~3.MID|68
+find|AMERIC~4.MID|n=1|AMERIC~4.MID:20:55
+open|AMERIC~4.MID|55
+find|AMERIC~5.MID|n=1|AMERIC~5.MID:20:57
+open|AMERIC~5.MID|57
+find|AMERIC~6.MID|n=1|AMERIC~6.MID:20:56
+open|AMERIC~6.MID|56
+find|AMERIC~7.MID|n=1|AMERIC~7.MID:20:60
+open|AMERIC~7.MID|60
+find|AMERIC~8.MID|n=1|AMERIC~8.MID:20:66
+open|AMERIC~8.MID|66
+find|AMERIC~9.MID|n=1|AMERIC~9.MID:20:67
+open|AMERIC~9.MID|67
+find|AMERIK~1.MID|n=1|AMERIK~1.MID:20:69
+open|AMERIK~1.MID|69
+find|AMERI~10.MID|n=5|AMERI~10.MID:20:65,AMERI~10.MID:20:65,AMERI~10.MID:20:65,AMERI~10.MID:20:65,AMERI~10.MID:20:65
+open|AMERI~10.MID|65
+find|BBBBBB~1.TXT|n=2|BBBBBB~1.TXT:20:3,BBBBBB~1.TXT:20:3
+open|BBBBBB~1.TXT|3
+find|CCCCCC~1.TXT|n=2|CCCCCC~1.TXT:20:6,CCCCCC~1.TXT:20:6
+open|CCCCCC~1.TXT|6
+find|DDDDDD~1.TXT|n=2|DDDDDD~1.TXT:20:7,DDDDDD~1.TXT:20:7
+open|DDDDDD~1.TXT|7
+find|EEEEEE~1.TXT|n=2|EEEEEE~1.TXT:20:10,EEEEEE~1.TXT:20:10
+open|EEEEEE~1.TXT|10
+find|FFFFFF~1.TXT|n=2|FFFFFF~1.TXT:20:12,FFFFFF~1.TXT:20:12
+open|FFFFFF~1.TXT|12
+find|GGGGGG~1.TXT|n=2|GGGGGG~1.TXT:20:13,GGGGGG~1.TXT:20:13
+open|GGGGGG~1.TXT|13
+find|HHHHHH~1.TXT|n=2|HHHHHH~1.TXT:20:16,HHHHHH~1.TXT:20:16
+open|HHHHHH~1.TXT|16
+find|JJJJJJ~1.TXT|n=2|JJJJJJ~1.TXT:20:17,JJJJJJ~1.TXT:20:17
+open|JJJJJJ~1.TXT|17
+find|KKKKKK~1.TXT|n=2|KKKKKK~1.TXT:20:20,KKKKKK~1.TXT:20:20
+open|KKKKKK~1.TXT|20
+find|LOWERC~1.TXT|n=2|LOWERC~1.TXT:20:44,LOWERC~1.TXT:20:44
+open|LOWERC~1.TXT|44
+find|MMMMMM~1.TXT|n=2|MMMMMM~1.TXT:20:21,MMMMMM~1.TXT:20:21
+open|MMMMMM~1.TXT|21
+find|NNNNNN~1.TXT|n=2|NNNNNN~1.TXT:20:24,NNNNNN~2.TXT:20:23
+open|NNNNNN~1.TXT|24
+find|NNNNNN~2.TXT|n=1|NNNNNN~2.TXT:20:23
+open|NNNNNN~2.TXT|23
+find|NOEXTL~1|n=2|NOEXTL~1:20:42,NOEXTL~2:20:41
+open|NOEXTL~1|42
+find|NOEXTL~2|n=1|NOEXTL~2:20:41
+open|NOEXTL~2|41
+find|PLAIN.TXT|n=1|PLAIN.TXT:20:45
+open|PLAIN.TXT|45
+find|SIBLIN~1.DAT|n=1|SIBLIN~1.DAT:20:27
+open|SIBLIN~1.DAT|27
+find|SIBLIN~2.DAT|n=2|SIBLIN~2.DAT:20:28,SIBLIN~2.DAT:20:28
+open|SIBLIN~2.DAT|28
+find|SIBLIN~3.DAT|n=1|SIBLIN~3.DAT:20:26
+open|SIBLIN~3.DAT|26
+find|TENTHF~1.DAT|n=1|TENTHF~1.DAT:20:32
+open|TENTHF~1.DAT|32
+find|TENTHF~2.DAT|n=1|TENTHF~2.DAT:20:31
+open|TENTHF~2.DAT|31
+find|TENTHF~3.DAT|n=1|TENTHF~3.DAT:20:30
+open|TENTHF~3.DAT|30
+find|TENTHF~4.DAT|n=1|TENTHF~4.DAT:20:34
+open|TENTHF~4.DAT|34
+find|TENTHF~5.DAT|n=1|TENTHF~5.DAT:20:40
+open|TENTHF~5.DAT|40
+find|TENTHF~6.DAT|n=1|TENTHF~6.DAT:20:39
+open|TENTHF~6.DAT|39
+find|TENTHF~7.DAT|n=1|TENTHF~7.DAT:20:33
+open|TENTHF~7.DAT|33
+find|TENTHF~8.DAT|n=1|TENTHF~8.DAT:20:35
+open|TENTHF~8.DAT|35
+find|TENTHF~9.DAT|n=1|TENTHF~9.DAT:20:36
+open|TENTHF~9.DAT|36
+find|TENTH~10.DAT|n=2|TENTH~10.DAT:20:29,TENTH~10.DAT:20:29
+open|TENTH~10.DAT|29
+find|TENTH~11.DAT|n=1|TENTH~11.DAT:20:37
+open|TENTH~11.DAT|37
+find|TILDE~9.TXT|n=1|TILDE~9.TXT:20:47
+open|TILDE~9.TXT|47
+find|UNIQUE~1.TXT|n=1|UNIQUE~1.TXT:20:46
+open|UNIQUE~1.TXT|46
+find|WINELO~1.TXT|n=1|WINELO~1.TXT:20:78
+open|WINELO~1.TXT|78
+find|WINELO~2.TXT|n=2|WINELO~2.TXT:20:80,WINELO~2.TXT:20:80
+open|WINELO~2.TXT|80
+find|WINELO~3.TXT|n=1|WINELO~3.TXT:20:84
+open|WINELO~3.TXT|84
+find|WINELO~4.TXT|n=1|WINELO~4.TXT:20:82
+open|WINELO~4.TXT|82
+find|WINELO~5.TXT|n=1|WINELO~5.TXT:20:74
+open|WINELO~5.TXT|74
+find|WINELO~6.TXT|n=1|WINELO~6.TXT:20:76
+open|WINELO~6.TXT|76
+find|WINELO~7.TXT|n=1|WINELO~7.TXT:20:72
+open|WINELO~7.TXT|72
+find|WINE~3~1.TXT|n=1|WINE~3~1.TXT:20:85
+open|WINE~3~1.TXT|85
+find|WINE~B2P.TXT|n=1|WINE~B2P.TXT:20:71
+open|WINE~B2P.TXT|71
+find|WINE~F2P.TXT|n=1|WINE~F2P.TXT:20:73
+open|WINE~F2P.TXT|73
+find|WINE~J2O.TXT|n=1|WINE~J2O.TXT:20:75
+open|WINE~J2O.TXT|75
+find|WINE~N2O.TXT|n=1|WINE~N2O.TXT:20:77
+open|WINE~N2O.TXT|77
+find|WINE~RON.TXT|n=1|WINE~RON.TXT:20:79
+open|WINE~RON.TXT|79
+find|WINE~VON.TXT|n=1|WINE~VON.TXT:20:81
+open|WINE~VON.TXT|81
+find|WINE~Z~2.TXT|n=1|WINE~Z~2.TXT:20:83
+open|WINE~Z~2.TXT|83
+lopen|dirlong name|err=5
+lopen|01aaaa long.mid|54
+lopen|01.fifth song.mid|52
+lopen|01.sixth song.mid|53
+lopen|01.first song.mid|48
+lopen|01.second song.mid|49
+lopen|01.fourth song.mid|51
+lopen|01.third song.mid|50
+lopen|aaa aaa.txt|2
+lopen|AAAAAA~1.TXT|1
+lopen|americ tune 09.mid|63
+lopen|americ tune 08.mid|62
+lopen|americ tune 14.mid|68
+lopen|americ tune 01.mid|55
+lopen|americ tune 03.mid|57
+lopen|americ tune 02.mid|56
+lopen|americ tune 06.mid|60
+lopen|americ tune 12.mid|66
+lopen|americ tune 13.mid|67
+lopen|amerik tune.mid|69
+lopen|americ tune 11.mid|65
+lopen|americ tune 05.mid|59
+lopen|americ tune 04.mid|58
+lopen|americ tune 10.mid|64
+lopen|americ tune 07.mid|61
+lopen|BBBBBB~1.TXT|3
+lopen|bbb bbb.txt|4
+lopen|CCCCCC~1.TXT|6
+lopen|ccc ccc.txt|6
+lopen|DDDDDD~1.TXT|7
+lopen|ddd ddd.txt|8
+lopen|DIRLON~1|86
+lopen|EEEEEE~1.TXT|10
+lopen|eee eee.txt|10
+lopen|fff fff.txt|12
+lopen|FFFFFF~1.TXT|12
+lopen|GGGGGG~1.TXT|13
+lopen|ggg ggg.txt|14
+lopen|HHHHHH~1.TXT|16
+lopen|hhh hhh.txt|16
+lopen|JJJJJJ~1.TXT|17
+lopen|jjj jjj.txt|18
+lopen|kkk kkk.txt|20
+lopen|KKKKKK~1.TXT|20
+lopen|lowercase name.txt|44
+lopen|lowerc~1.txt|43
+lopen|mmm mmm.txt|22
+lopen|MMMMMM~1.TXT|21
+lopen|nnn nnn.txt|24
+lopen|NNNNNN~1.TXT|24
+lopen|noext long name|42
+lopen|NOEXTL~1|42
+lopen|PLAIN.TXT|45
+lopen|sibling two.dat|27
+lopen|SIBLIN~2.DAT|28
+lopen|sibling six.dat|28
+lopen|sibling one.dat|26
+lopen|tenth file 03.dat|32
+lopen|tenth file 02.dat|31
+lopen|tenth file 01.dat|30
+lopen|tenth file 05.dat|34
+lopen|tenth file 11.dat|40
+lopen|tenth file 10.dat|39
+lopen|tenth file 04.dat|33
+lopen|tenth file 06.dat|35
+lopen|tenth file 07.dat|36
+lopen|TENTH~10.DAT|29
+lopen|tenth file 09.dat|38
+lopen|tenth file 08.dat|37
+lopen|TILDE~9.TXT|47
+lopen|unique long name.txt|46
+lopen|wine long name 4.txt|78
+lopen|wine long name 5.txt|80
+lopen|wine long name 0.txt|70
+lopen|wine long name 7.txt|84
+lopen|wine long name 6.txt|82
+lopen|wine long name 2.txt|74
+lopen|wine long name 3.txt|76
+lopen|wine long name 1.txt|72
+lopen|WINE~3OM.TXT|85
+lopen|WINE~B2P.TXT|71
+lopen|WINE~F2P.TXT|73
+lopen|WINE~J2O.TXT|75
+lopen|WINE~N2O.TXT|77
+lopen|WINE~RON.TXT|79
+lopen|WINE~VON.TXT|81
+lopen|WINE~ZOM.TXT|83
+end|lines=399

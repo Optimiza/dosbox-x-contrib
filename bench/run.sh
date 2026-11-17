@@ -9,8 +9,10 @@ usage: run.sh <build A> <build B> <folder> <on|off>
 
   <build A>, <build B>  two DOSBox-X executables (the same one twice is the A/A control)
   <folder>              a host directory, mounted read-only and listed through its parent, or
-                        synthetic:<count>:<83|long>, a folder of <count> empty files made for
-                        this run (8.3 names, or long names that need aliases)
+                        synthetic:<count>:<style>, a folder of <count> empty files made for
+                        this run: 83 (8.3 names), long (long names that need aliases), or
+                        dots, mix and wine, three that exercise how aliases are numbered
+                        (README.md, "The <folder> argument")
   <on|off>              the guest's long file names ([dos] lfn)
 
 prints each build's path, version line and counts, then IDENTICAL or DIFFERENT with the first

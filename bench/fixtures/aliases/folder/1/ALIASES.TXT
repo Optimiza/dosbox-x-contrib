@@ -1,0 +1,27 @@
+lfn|.|.|10|0
+lfn|..|..|10|0
+lfn|AAAAAA~1.TXT|AAAAAA~1.TXT|20|1
+lfn|aaa aaa.txt|AAAAAA~1.TXT|20|1
+lfn|BBBBBB~1.TXT|BBBBBB~1.TXT|20|4
+lfn|bbb bbb.txt|BBBBBB~1.TXT|20|4
+lfn|CCCCCC~1.TXT|CCCCCC~1.TXT|20|5
+lfn|ccc ccc.txt|CCCCCC~1.TXT|20|5
+lfn|ddd ddd.txt|DDDDDD~1.TXT|20|8
+lfn|DDDDDD~1.TXT|DDDDDD~1.TXT|20|8
+lfn|eee eee.txt|EEEEEE~1.TXT|20|10
+lfn|EEEEEE~1.TXT|EEEEEE~2.TXT|20|9
+lfn|fff fff.txt|FFFFFF~1.TXT|20|11
+lfn|FFFFFF~1.TXT|FFFFFF~1.TXT|20|11
+lfn|GGGGGG~1.TXT|GGGGGG~1.TXT|20|14
+lfn|ggg ggg.txt|GGGGGG~1.TXT|20|14
+lfn|HHHHHH~1.TXT|HHHHHH~1.TXT|20|16
+lfn|hhh hhh.txt|HHHHHH~1.TXT|20|16
+lfn|jjj jjj.txt|JJJJJJ~1.TXT|20|18
+lfn|JJJJJJ~1.TXT|JJJJJJ~2.TXT|20|17
+lfn|kkk kkk.txt|KKKKKK~1.TXT|20|20
+lfn|KKKKKK~1.TXT|KKKKKK~1.TXT|20|20
+lfn|MMMMMM~1.TXT|MMMMMM~1.TXT|20|21
+lfn|mmm mmm.txt|MMMMMM~1.TXT|20|21
+lfn|nnn nnn.txt|NNNNNN~1.TXT|20|24
+lfn|NNNNNN~1.TXT|NNNNNN~2.TXT|20|23
+end|lines=26

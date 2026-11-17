@@ -1,0 +1,16 @@
+exit=0 :: resprb.test.sh
+ok   children that each started a search, read while held
+ok   the line names the mode, the core and the figures
+ok   a build that logs no reset
+ok   the normal core
+ok   another count than the guest's line
+ok   the dynamic core's resets, counted
+ok   a guest that never held
+ok   a guest that gave up waiting
+ok   the launcher refuses the run
+ok   no such mode
+ok   no such core
+ok   an unknown option
+ok   two arguments
+ok   its own help
+14 cases, 0 failed
