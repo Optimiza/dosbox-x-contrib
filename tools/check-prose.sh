@@ -110,7 +110,7 @@ function columns(s,   n, f) {
 
 # The numbers of a sentence that measure something. One names a thing and is no figure when it
 # is a DOS or Windows version, 8.3, INT 21, or follows "issue", "pull request", "subject" or
-# "rule", alone or in a list joined by "and", "or" or "to".
+# "rule", alone or in a list joined by commas, "and", "or" or "to".
 function figures(s,   n, off, st, m, len, p, ok, nx, before, refend) {
     n = 0; off = 0; refend = 0
     while (match(substr(s, off + 1), /[0-9][0-9,]*(\.[0-9]+)?/)) {
@@ -134,12 +134,12 @@ function figures(s,   n, off, st, m, len, p, ok, nx, before, refend) {
         sub(/,+$/, "", p)
         len = length(p)
         if (p == "8.3") continue
-        if (before ~ /MS-DOS $/ && (p == "7" || p == "7.10")) continue
+        if (before ~ /(MS-DOS|FreeDOS) $/) continue
         if (before ~ /Windows $/ && (p == "98" || p == "11")) continue
         if (before ~ /(INT|int) $/ && p == "21") continue
         if (p ~ /^[0-9]+$/) {
-            if (before ~ /(pull requests?|issues?|subjects?|rules?) $/ ||
-                (refend > 0 && substr(s, refend, st - refend) ~ /^,? (and|or|to) $/)) {
+            if (before ~ /([Pp]ull requests?|[Ii]ssues?|[Ss]ubjects?|[Rr]ules?) $/ ||
+                (refend > 0 && substr(s, refend, st - refend) ~ /^(, |,? (and|or|to) )$/)) {
                 refend = st + len
                 continue
             }
@@ -199,7 +199,7 @@ function collect_named(body,   m, label, target, t) {
 function references(at, s,   m, n) {
     s = unlink(s)
     gsub(/`[^`]*`/, " ", s)
-    while (match(s, /(issues?|pull requests?) [0-9][0-9][0-9][0-9]((, | and | or )[0-9][0-9][0-9][0-9])*/)) {
+    while (match(s, /([Ii]ssues?|[Pp]ull requests?) [0-9][0-9][0-9][0-9]((, | and | or )[0-9][0-9][0-9][0-9])*/)) {
         m = substr(s, RSTART, RLENGTH)
         s = substr(s, RSTART + RLENGTH)
         while (match(m, /[0-9][0-9][0-9][0-9]/)) {

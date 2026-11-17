@@ -21,8 +21,9 @@ One sentence. A second sentence. A third one ends the paragraph.
 | --- | --- | --- | --- | --- |
 | a | b | c | d | `e|f` |
 
-The emulator held 498,305 kB after 20 calls, on MS-DOS 7.10 under Windows 98 with 8.3 names
-and INT 21, as subjects 1 and 2 and issue 6823 say: the rest name things.
+The emulator held 498,305 kB after 20 calls, on MS-DOS 7.10, MS-DOS 6.22 and FreeDOS 1.3 under Windows 98 with 8.3 names
+and INT 21, as subjects 1, 2 and 3 and issue 6823 say: the rest name things.
+Issue 6823, Subject 2 and Rule 5 open this sentence, and they name things too.
 
 ## What a program can notice
 

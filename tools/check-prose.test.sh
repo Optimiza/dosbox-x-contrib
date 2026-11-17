@@ -45,6 +45,8 @@ refused "no third-level heading on a subject page" 03-heading-level.md \
     "03-heading-level.md:7: subject page heading level: 3 (limit 2)"
 refused "an upstream number no link names" upstream-number.md \
     "upstream-number.md:3: bare upstream number: 6827 (limit none outside a link that names it)"
+refused "an upstream number that opens a sentence" upstream-number-capital.md \
+    "upstream-number-capital.md:3: bare upstream number: 6827 (limit none outside a link that names it)"
 refused "a bare #number" hash-number.md \
     "hash-number.md:3: bare upstream number: #6822 (limit none outside a link that names it)"
 
