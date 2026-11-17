@@ -1,7 +1,7 @@
 # The related upstream issues
 
 Eight upstream issues touch this work. The first table says what the work does for each, and
-the second which pull request covers which.
+the second which subject covers which.
 
 | Upstream issue | State upstream | What the work does for it |
 | --- | --- | --- |
@@ -18,7 +18,7 @@ the second which pull request covers which.
 
 Source: each issue's page upstream, read when this page last changed; the figures are on each subject's page and on [the page of the reporters' cases](reporters.md).
 
-| # | Pull request | Upstream issues it covers |
+| # | Subject | Upstream issues it covers |
 | --- | --- | --- |
 | 1 | [A search for one exact name does not copy the whole directory](01-exact-name.md) | issues 6823, 6827 and 2485 |
 | 2 | [A search's copy is released without ending a live search](02-retention.md) | issues 6823 and 4904 |

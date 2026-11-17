@@ -45,7 +45,7 @@ Source: `battery.sh --real-dos`, cells `realdos fc` and `realdos memprobe`, in t
 
 ## What arrives: the XCOPY and turn-about cases
 
-Their issue takes the retention. The run is on macOS: XCOPY with long names off, the turn
+Their issue needs the retention branch. The run is on macOS: XCOPY with long names off, the turn
 about with long names on.
 
 | Build | XCOPY: files that arrived, of 2,520 | Turn about: entries each search returned, of 42 and 32 |

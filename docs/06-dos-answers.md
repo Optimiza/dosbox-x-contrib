@@ -5,7 +5,7 @@ Not delivered: two more real DOS referees, MS-DOS 6.22 and FreeDOS, are being ad
 ## What was wrong
 
 Unpatched upstream answers a program otherwise than MS-DOS does in a few lines outside every
-other subject here. The contrast with MS-DOS found them:
+other subject here:
 
 - an error code;
 - a leading space accepted in a name;

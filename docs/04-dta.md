@@ -6,7 +6,7 @@ gets every entry of both. It is proved on macOS and Windows.
 ## What was wrong
 
 A search in progress lost its place when another find call wrote over its state. Unpatched
-upstream has four such defects, and one unchecked index was met on the way.
+upstream has four such defects and one unchecked index.
 
 - A FindFirst that fails after the search was set up has already overwritten the DTA's
   pattern. MS-DOS leaves the DTA as it was.

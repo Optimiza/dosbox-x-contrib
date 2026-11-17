@@ -66,9 +66,8 @@ Three things hold for every file here.
 - **The builds.** Every build is upstream `main-ai` at `4e0b6adcf`, or a branch cut from it,
   plus two lines without which that revision does not compile. The patched builds are named
   by their branch and commit; the branches are not published yet.
-- **The large folder.** It is a music library of 169,457 files with long names, read-only. On
-  Windows it is the same names as empty files, of which 169,452 could be made.
-- Neither folder is kept here.
+- **The large folder.** A music library of 169,457 files with long names, read-only and not
+  kept here. On Windows it is the same names as empty files, of which 169,452 could be made.
 - **The MS-DOS cells.** They boot the DOS of a Windows 98 SE hard disk image (MS-DOS 7.10)
   inside the emulator, on macOS only. The image is not kept here either.
 

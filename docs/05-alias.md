@@ -57,9 +57,9 @@ that do:
 
 Source: `aliases.sh cases on` and `aliases.sh folder on` on that folder, in [results/windows/alias.txt](../results/windows/alias.txt).
 
-Timed against subject 3 alone, its first reads of long names are within the noise. Two cells
-crossed the noise once and fell back inside it when run again: the `alias-*` cells of
-[results/macos/first-read-wall.txt](../results/macos/first-read-wall.txt).
+Timed against subject 3 alone, its first reads of long names are within the noise: the
+`alias-*` cells of [results/macos/first-read-wall.txt](../results/macos/first-read-wall.txt),
+read from the later table where a cell was timed twice.
 
 ## What a program can notice
 
@@ -71,7 +71,7 @@ A folder with no shared name lists byte for byte as before.
 | Short names that differ from unpatched upstream | 16,500 |
 | Of those, outside a family that shared a name upstream | none |
 
-Source: the two builds' listings compared, derived in the last line of [results/macos/alias.txt](../results/macos/alias.txt).
+Source: the listings `aliases.sh folder on` reads on both builds, compared entry by entry, derived in the last line of [results/macos/alias.txt](../results/macos/alias.txt).
 
 ## How to check it
 

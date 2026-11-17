@@ -58,7 +58,7 @@ changes is the cost, which falls as on macOS, row for row:
 | Deletes: reads of the folder | 11 | 1 |
 | Deletes: entries read | 110,077 | 10,012 |
 
-Source: counter builds of both, in [results/windows/create-delete.txt](../results/windows/create-delete.txt).
+Source: ten creates and ten deletes on counter builds of both, in [results/windows/create-delete.txt](../results/windows/create-delete.txt).
 
 ## What a program can notice
 
@@ -79,8 +79,8 @@ bench/delete.sh <unpatched> <patched> on
 bench/delete.sh <unpatched> <patched> off
 ```
 
-The `files the host holds at the end` line counts what each build left. `bench/counters/`
-makes the counter builds. [bench/README.md](../bench/README.md) says what each script needs.
+The `files the host holds at the end` line counts what each build left. The counts of the
+Windows table come from counter builds the bench does not carry. [bench/README.md](../bench/README.md) says what each script needs.
 
 ## What it needs
 

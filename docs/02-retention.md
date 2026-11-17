@@ -57,8 +57,9 @@ Source: `battery.sh --real-dos`, cells `memory synthetic:100:long <a|v> 20000`, 
   MS-DOS's lines are in [realdos_findlife_off.txt](../bench/fixtures/battery/realdos_findlife_off.txt).
 - Those two rows are read with long names on. MS-DOS has no long names, so its column is the
   same cases with long names off.
-- The listing and table rows read the same on Windows. So do the XCOPY and turn-about rows, in
-  [results/windows/reporters.txt](../results/windows/reporters.txt), with long names off.
+- The listing and table rows read the same on Windows. With long names off there, the
+  retention build copies the whole tree and returns 42 and 32 in the turn-about case, in
+  [results/windows/reporters.txt](../results/windows/reporters.txt).
 - "none" in the first two rows is not evidence by itself: the retention build no longer has
   the log line they count. The evidence is that every one of the 20,000 calls found its file
   and every listing came out whole.

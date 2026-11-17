@@ -55,7 +55,7 @@ code never emptied the cache:
 | A file the host added, in the next listing | listed | listed after `RESCAN` |
 | The label of `C:` after the guest named it `GUEST` | the host's label | `GUEST` |
 
-Source: the probe's `rescan` and `label` lines, in [results/windows/setattr.txt](../results/windows/setattr.txt).
+Source: a probe outside the bench, its `rescan` and `label` cases on both builds, in [results/windows/setattr.txt](../results/windows/setattr.txt).
 
 ## How to check it
 
@@ -66,8 +66,8 @@ bench/attrprobe.sh <unpatched> <patched> on
 bench/attrcost.sh <counter build> <a large folder> s 10
 ```
 
-`bench/counters/count-dir.diff` makes a counter build of either branch.
-[bench/README.md](../bench/README.md) says what each script needs.
+`bench/counters/count-dir.diff` makes a counter build of either branch. The two side effects
+were shown by a probe the bench does not carry. [bench/README.md](../bench/README.md) says what each script needs.
 
 ## What it needs
 
@@ -76,6 +76,6 @@ Nothing. On Windows it also closes the case of [subject 4](04-dta.md) that other
 
 ## What is left
 
-**The overlay drive.** `Overlay_Drive::SetFileAttr` empties and rebuilds its cache on every host,
-and leaves out of the cache the file it copies into the overlay. There is no measure of either,
+**The overlay drive.** An attribute change on an overlay drive empties and rebuilds its cache on
+every host, and leaves out the file it copies into the overlay (`Overlay_Drive::SetFileAttr`). There is no measure of either,
 so both are named and not changed.

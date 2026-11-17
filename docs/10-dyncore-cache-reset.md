@@ -38,8 +38,8 @@ Source: `memory.sh <build> synthetic:100:83 off c <1|20>`, in [results/windows/d
 Each further child leaves 6,401 kB on unpatched upstream and 87 kB on the patched build. Each
 figure is the growth between the two rows divided by the children between them.
 
-With [subject 2](02-retention.md) merged, its proof line that a process end holds flat holds on
-Windows too:
+Merged with [subject 2](02-retention.md), memory after children that end with a search open
+stays flat on Windows too:
 
 | Memory held, Windows, 50,000 files | Retention (kB) | Retention and this branch (kB) |
 | --- | --- | --- |
@@ -70,9 +70,9 @@ Nothing: it is cut from upstream `main-ai` at `4e0b6adcf`.
 
 ## What is left
 
-**The other dynamic core.** `cache_reset` in `src/cpu/core_dynrec/cache.h` has the same shape. It
-is reached only through the KVM core, which neither host here can run, so it is named and not
-changed.
+**The other dynamic core.** It has the same leak by reading, in `cache_reset` of
+`src/cpu/core_dynrec/cache.h`. It is reached only through the KVM core, which neither host here
+can run, so it is named and not changed.
 
 **The link stubs.** By reading, `cache_reset` writes its link stubs without `cache_remap_rw()`
 where the code cache is kept read and execute. That is the same before and after this branch.

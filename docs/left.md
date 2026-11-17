@@ -5,14 +5,14 @@ says what was seen, how and what becomes of it. What is left of one subject is o
 
 ## FC leaves memory behind whatever the folder holds
 
-300 runs of the emulator's FC leave about 15 MB on every build. It is not the directory
-cache's, and it was not looked for.
+Runs of the emulator's FC leave memory behind even where the directory costs nothing. Unpatched
+upstream holds as much in a folder with no other file, so it is not the directory cache's.
 
-| Build and folder | Memory held after 300 runs (kB) |
-| --- | --- |
-| Unpatched upstream, a folder with no other file | 182,128 |
-| Exact-name, the folder of 700 files | 181,008 |
-| Retention, the folder of 700 files | 181,216 |
+| Build and folder | Held after 1 run (kB) | Held after 300 runs (kB) |
+| --- | --- | --- |
+| Exact-name, the folder of 700 files | 165,904 | 181,008 |
+| Retention, the folder of 700 files | 165,968 | 181,216 |
+| Unpatched upstream, a folder with no other file | not run | 182,128 |
 
 Source: `fc.sh <base> 0 off 300`, in [results/macos/pr6831-reporters-cases.txt](../results/macos/pr6831-reporters-cases.txt); cells `fc 700 300`, in [results/macos/battery-base-retention-exact-name.txt](../results/macos/battery-base-retention-exact-name.txt).
 
@@ -79,13 +79,13 @@ subject 7 is no pull request of its own.
 
 ## Subject 8 is withdrawn: the defect was not there
 
-`CommandLine::FindString` checks the end of the command line before it reads the word after an
-option. So an option given as the last word, as in `MOUNT D C:\X -label`, reads nothing past
-the end, and there is nothing to fix.
+An option given as the last word, as in `MOUNT D C:\X -label`, reads nothing past the end of
+the command line. `CommandLine::FindString` checks the end before it reads the word after an
+option, so there is nothing to fix.
 
-## `CommandLine::GetOpt` erases a position past the end
+## A command line ending in `--` erases a position past its end
 
-On `dosbox-x --` it erases an iterator that no longer names an element, in
+On `dosbox-x --`, `CommandLine::GetOpt` erases an iterator that no longer names an element, in
 `src/misc/setup.cpp`. It was read and not run, and it is named to the maintainer.
 
 ## The shell's `LS` and `TREE` leave its DTA switched

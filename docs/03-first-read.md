@@ -47,12 +47,12 @@ within the noise.
 | The large folder, long names off | 1.04 | 22 |
 | 8.3 names with long names off, 10,000 to 169,000 files | 0.021 to 0.352 | within the noise |
 
-Source: `p5time.sh`, cells `169000-83-on`, `169000-long-on`, `real-on`, `real-off` and the `83-off` cells, in [results/macos/first-read-wall.txt](../results/macos/first-read-wall.txt).
+Source: `p5time.sh`, cells `169000-83-on`, `169000-long-on`, `real-on`, `real-off` and the `83-off` cells, in [results/macos/first-read-wall.txt](../results/macos/first-read-wall.txt); a cell timed twice is read from its later table.
 
 - Each time is the median of runs interleaved with unpatched upstream's.
 - A cell counts only when the two builds differ by more than each build's spread against itself.
-- Unpatched upstream's own seconds moved by up to 27 % between batches an hour apart, so the
-  page gives the factor, which held.
+- Unpatched upstream's own seconds moved by up to 27 % between two batches of one evening, and
+  the factor by less. So the page gives the factor.
 
 The reporters' cases, timed the same way:
 
@@ -77,7 +77,7 @@ other two do, and the counts fall as on macOS:
 | Compares for the duplicate check, the large folder | 4,791,379,669 | 61,109 lookups |
 | Hashes for the Wine-style lookup, the large folder | 55,558,527 | 169,108 |
 
-Source: counter builds of both, in [results/windows/first-read-counts.txt](../results/windows/first-read-counts.txt).
+Source: a first read of each folder on counter builds of both, in [results/windows/first-read-counts.txt](../results/windows/first-read-counts.txt).
 
 The read keeps more memory while it runs, and part of it stays:
 
@@ -107,7 +107,8 @@ bench/p5rep.sh <unpatched> <patched> synthetic:50000:83 on dir 3 <out dir>
 bench/run.sh <unpatched> <patched> synthetic:50000:long on
 ```
 
-Run each pair a second time with one build against itself: that spread is the noise.
+Run each pair a second time with one build against itself: that spread is the noise. The
+counts of the Windows table come from counter builds the bench does not carry.
 [bench/README.md](../bench/README.md) says what each script needs.
 
 ## What it needs

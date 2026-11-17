@@ -99,7 +99,8 @@ is "as MS-DOS"; where they differ, the pages will say which DOS answers what.
 
 ## Both hosts
 
-Every fix that is done is built and run on both hosts, with the same scripts.
+Every fix that is done is built on both hosts and proved, with the same scripts, on each host
+whose code it changes.
 
 | Host | Build |
 | --- | --- |
@@ -144,7 +145,7 @@ The guest waits for a file the host makes, and the clock stops when the guest's 
 - The timers in [bench/](../bench/README.md) run the guest at a fixed clock. The figures of
   [subject 3](03-first-read.md) were taken with the guest's clock at its maximum.
 
-A time differs between hours on one host more than the factor between two builds does. So a
+A time on one host moves more between hours than the factor between two builds moves. So a
 page gives the factor, or unpatched upstream's seconds as the range of two batches.
 
 ## Counting
