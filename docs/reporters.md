@@ -12,11 +12,13 @@ comes out whole on the patched builds.
 | XCOPY | [issue 4904, a FindFirst can invalidate the searches of other DTAs](https://github.com/joncampbell123/dosbox-x/issues/4904), after the maintainer's reproduction | copies a tree of 2,520 files |
 | Turn about | issue 4904, as its reporter describes it | reads two DTA searches turn about, of 42 and 32 entries |
 
+Source: the cases as `fc.sh`, `memory.sh` mode `e`, `xcopy.sh` and `findlife.sh` run them, whose lines are in [results/macos/battery-base-retention-exact-name.txt](../results/macos/battery-base-retention-exact-name.txt).
+
 These are stand-ins written from the reports: the emulator's own FC from a batch file, a
 program that looks each file up by name, a tree made for the run.
 
-The reporters' own attached files are run separately, and that result is not in this account
-yet.
+The reporters' own attached files run too, through `junktest.sh` and `dirtest.sh`, and show what
+the stand-ins show. They are not kept here: a clone brings its own copy from the issues.
 
 ## Memory held: the FC and lookup cases
 
@@ -57,5 +59,20 @@ about with long names on.
 Source: `battery.sh --real-dos`, cells `xcopy`, `findlife` and `realdos`, in the same battery file; pull request 6831's row in [results/macos/pr6831-reporters-cases.txt](../results/macos/pr6831-reporters-cases.txt) and [results/macos/pr6831-findlife.txt](../results/macos/pr6831-findlife.txt).
 
 MS-DOS has no long names, so its turn-about figure is the same case with long names off.
+
+## On Windows
+
+The same cases read as on macOS, with long names off:
+
+| Build, Windows | XCOPY: files that arrived, of 2,520 | FC: held after 300 runs (kB) | Lookups: held after 1,835 (kB) |
+| --- | --- | --- | --- |
+| Exact-name | 2,065 | 195,916 | 198,152 |
+| Retention | 2,520 | 196,040 | 198,356 |
+
+Source: `xcopy.sh`, `fc.sh` and `memory.sh <build> synthetic:1835:83 off e 1835`, in [results/windows/reporters.txt](../results/windows/reporters.txt).
+
+- The turn-about case returns 42 and 32 on the retention build. Unpatched upstream returns 29
+  of each, in the same file.
+- The reporter's own batch file of issue 6827 runs its 300 batches whole on both builds.
 
 [Another author's pull request for the same cost (6831)](pr6831.md) has its own page.

@@ -59,6 +59,12 @@ Each guest program asks the emulator one kind of question. The pages name them i
 | DTADUMP | prints the bytes a find call leaves in a DTA or an FCB |
 | FINDPOS | moves a search by its saved DTA and asks for the volume label alone |
 | PATLIST | lists what patterns with a `*` before more characters return |
+| ALIASES | judges every short name a build lists against the files the host holds |
+| DELPRB | deletes, creates, renames and removes entries, and says which short names moved |
+| ATTRPRB | keeps a search in a saved DTA across an attribute change |
+| P5PROBE | makes the first search of a folder the emulator never read, for a timer |
+| P5REP | waits for the host's go, then makes one reporter's call, for a timer |
+| RESPRB | starts child programs one after another, so the memory each leaves can be read |
 
 ## The base
 
@@ -87,6 +93,9 @@ The answers are read by these rules:
   upstream's. It is listed, not hidden.
 - With long names on there is no referee: MS-DOS 7 without its Windows has no long-name calls.
   The reference is then the documented call.
+
+Two more referees, MS-DOS 6.22 and FreeDOS, are being added. Where the three agree, an answer
+is "as MS-DOS"; where they differ, the pages will say which DOS answers what.
 
 ## Both hosts
 
@@ -121,3 +130,26 @@ touches, which is what an abandoned search is.
 
 A figure from one run says little. A cell is read at two call counts, and the growth per call
 is the difference divided by the calls between them.
+
+## Time
+
+A time is taken by the host's clock around one step of the guest, never by the guest's clock.
+The guest waits for a file the host makes, and the clock stops when the guest's answer appears.
+
+- Each run is a fresh emulator, and the two builds take turns: A, B, B, A.
+- Each build is also run against itself. The spread of those runs is the noise, and a
+  difference counts only when it is larger than both builds' noise.
+- The host is sampled while the runs last. A cell run while another program was busy is run
+  again whole.
+- The timers in [bench/](../bench/README.md) run the guest at a fixed clock. The figures of
+  [subject 3](03-first-read.md) were taken with the guest's clock at its maximum.
+
+A time differs between hours on one host more than the factor between two builds does. So a
+page gives the factor, or unpatched upstream's seconds as the range of two batches.
+
+## Counting
+
+Some costs are counted rather than timed: how often the emulator reads a folder, or resets the
+code cache. A counter build is a build with one of the diffs of `bench/counters/` applied, which
+logs each such event under a tag, `4R-DIR` or `4R-DYN`. `attrcost.sh` and `resprb.sh` read
+those lines.

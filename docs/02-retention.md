@@ -1,8 +1,7 @@
 # 2. A search's copy is released without ending a live search
 
 A program that looks thousands of files up while it lists a folder now gets the whole listing,
-and the emulator's memory stays flat. It is proved on macOS and Windows. Two cells are not
-run on Windows yet, and one Windows line waits for subject 10.
+and the emulator's memory stays flat. It is proved on macOS and Windows.
 
 ## What was wrong
 
@@ -58,7 +57,8 @@ Source: `battery.sh --real-dos`, cells `memory synthetic:100:long <a|v> 20000`, 
   MS-DOS's lines are in [realdos_findlife_off.txt](../bench/fixtures/battery/realdos_findlife_off.txt).
 - Those two rows are read with long names on. MS-DOS has no long names, so its column is the
   same cases with long names off.
-- The listing and table rows read the same on Windows.
+- The listing and table rows read the same on Windows. So do the XCOPY and turn-about rows, in
+  [results/windows/reporters.txt](../results/windows/reporters.txt), with long names off.
 - "none" in the first two rows is not evidence by itself: the retention build no longer has
   the log line they count. The evidence is that every one of the 20,000 calls found its file
   and every listing came out whole.
@@ -80,9 +80,13 @@ That one Windows cell is children that end with a search open:
 | --- | --- |
 | Windows, unpatched upstream | 264,088 → 980,000 |
 | Windows, retention | 232,744 → 354,260 |
+| Windows, retention with subject 10 merged | 220,168 → 220,180 |
 | macOS, retention | 198,304 → 198,432 |
 
-Source: `battery.sh`, cells `memory synthetic:50000:83 c <1|20>`, in the same two files.
+Source: `battery.sh`, cells `memory synthetic:50000:83 c <1|20>`, in the same two files; the merged build's `memory.sh` lines are in [results/windows/dyncore.txt](../results/windows/dyncore.txt).
+
+The rise on Windows is not the directory cache's. It is a leak of the x86 dynamic core, which
+[subject 10](10-dyncore-cache-reset.md) fixes, and with it merged the line holds flat.
 
 ## What a program can notice
 
@@ -130,7 +134,7 @@ search that is never continued. Without that patch each one would still hold a w
 
 ## What is left
 
-Three things are left, each declared.
+One thing is left, and it is declared.
 
 **A search rewound by its saved DTA.** MS-DOS keeps the place of a search in the 21 bytes of
 the DTA it reserves, so a program can rewind a search by putting saved bytes back. The
@@ -147,10 +151,3 @@ Source: `battery.sh --real-dos --raw`, calls `findpos.sh` and `realdos.sh findpo
 Moving the place into the DTA is another design, and no program is known to need it. It is in
 code where upstream already reverted a fix:
 [pull request 5712, "Fix potential memory leaks in drive_cache.cpp"](https://github.com/joncampbell123/dosbox-x/pull/5712).
-
-**On Windows, one line of the proof does not hold yet.** Children that end with a search open
-leave memory behind, on unpatched upstream and on the retention build alike: the figures are
-in the last table of "The figures". It is not the directory cache's: its cause is
-[subject 10](10-dyncore-cache-reset.md).
-
-**Two cells are not run on Windows yet.** They are the XCOPY and the turn-about cells.

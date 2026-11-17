@@ -18,6 +18,10 @@ upstream has four such defects, and one unchecked index was met on the way.
   a program writes the MS-DOS way matches nothing.
 - `isoDrive::FindNext` indexes its table with a number read from the guest.
 
+Once a failed FindFirst leaves the DTA alone, one more defect shows. The shell's `DIR` takes the
+drive of its free-space line from the DTA after its search. So a `DIR` that lists nothing prints
+the free space of the drive an earlier search used.
+
 ## What the fix changes
 
 Each find call writes only where its own search keeps its state.
@@ -27,8 +31,10 @@ Each find call writes only where its own search keeps its state.
 - The state of an FCB search lives in the program's FCB, as MS-DOS keeps it.
 - The template is padded with spaces.
 - The index `isoDrive::FindNext` reads from the guest is checked.
+- `DIR` takes the drive of its free-space line from the path it listed.
 
-The branch is `dircache-dta`, five commits ending at `29879873b`.
+The branch is `dircache-dta`, six commits ending at `8e5e74905`. The sixth fixes `DIR` and
+removes the exception the second made for the shell's temporary DTA, which no longer needs one.
 
 ## The figures
 
@@ -67,6 +73,21 @@ Everything else answers as unpatched upstream:
 
 Source: `battery.sh`, cells `run`, `exact` and `memory`, in the same two battery files.
 
+These figures are the fifth commit's. The sixth moves none of them: the fifth and sixth heads
+read alike on every instrument that judges an answer, on both hosts. What it changes is the line
+`DIR` prints:
+
+| `DIR` of an empty volume after a `DIR` of another drive, macOS | Free space printed (bytes) |
+| --- | --- |
+| Unpatched upstream | 66,781,184 |
+| The fifth commit without its exception, `DIR` not fixed | 2,013,265,920 |
+| Patched, six commits | 66,781,184 |
+
+Source: `template.sh <A> <B> fat on`, line `shell`, in [results/macos/dta-dir.txt](../results/macos/dta-dir.txt); the two heads' verdicts there and in [results/windows/dta-dir.txt](../results/windows/dta-dir.txt).
+
+The empty volume has 66,781,184 bytes free. The larger figure is the free space of the host
+drive mounted as `C:`.
+
 ## What a program can notice
 
 A program sees the defects gone and nothing else. With long names on, a line of the patched
@@ -89,19 +110,21 @@ In the `dtadump` lines, `untouched=` and `resumed=` are the two counts of the ta
 
 ## What it needs
 
-Nothing on macOS. On Windows one case also needs [subject 2](02-retention.md): DRIFT's
-`label-search-then-edited`, which this branch closes alone on macOS.
+Nothing on macOS. On Windows one case also needs [subject 2](02-retention.md) or
+[subject 9](09-setattr.md): DRIFT's `label-search-then-edited`, which this branch closes alone on
+macOS.
 
 | Build, on Windows | Entries returned after the label search |
 | --- | --- |
 | Unpatched upstream | 4 |
 | The DTA build alone | 4 |
 | The DTA and retention branches merged | none |
+| The DTA and attribute branches merged | none |
 
-Source: `drift.sh <base> <dta>` and `drift.sh <base> <merge>`, in [results/windows/label-search-then-edited.txt](../results/windows/label-search-then-edited.txt).
+Source: `drift.sh`, in [results/windows/label-search-then-edited.txt](../results/windows/label-search-then-edited.txt) and, for the last row, [results/windows/setattr.txt](../results/windows/setattr.txt).
 
-MS-DOS returns none. The reason for the difference by host is
-[subject 9](09-setattr.md).
+MS-DOS returns none. The difference by host is the attribute change that empties the cache on
+Windows only, which [subject 9](09-setattr.md) removes.
 
 ## What is left
 

@@ -1,7 +1,7 @@
 # What was seen and left
 
-Six things showed in the runs that no fix here closes. Each entry says what was seen, its
-measured line and what becomes of it, so that it is known.
+These things showed in the runs or in upstream's code, and no fix here closes them. Each entry
+says what was seen, how and what becomes of it. What is left of one subject is on its own page.
 
 ## FC leaves memory behind whatever the folder holds
 
@@ -70,3 +70,49 @@ Source: `battery.sh`, in [results/windows/battery-base-retention-exact-name.txt]
 
 No two entries share a short name there, because NTFS names the aliases. It is the script's
 answer on such a host, not a failure.
+
+## Subject 7 is a commit of subject 4
+
+The shell's `DIR` printed the free space of another drive only once the DTA branch left a
+failed FindFirst's DTA alone. So the fix is the sixth commit of [subject 4](04-dta.md), and
+subject 7 is no pull request of its own.
+
+## Subject 8 is withdrawn: the defect was not there
+
+`CommandLine::FindString` checks the end of the command line before it reads the word after an
+option. So an option given as the last word, as in `MOUNT D C:\X -label`, reads nothing past
+the end, and there is nothing to fix.
+
+## `CommandLine::GetOpt` erases a position past the end
+
+On `dosbox-x --` it erases an iterator that no longer names an element, in
+`src/misc/setup.cpp`. It was read and not run, and it is named to the maintainer.
+
+## The shell's `LS` and `TREE` leave its DTA switched
+
+`LS Q:\NOSUCH\`, and `TREE Q:` on a drive that is not mounted, return without putting back the
+shell's own DTA, in `src/shell/shell_cmds.cpp`. They were read and not run, and they are named
+to the maintainer.
+
+## Drive Z: keeps one place for all its searches
+
+Two FCB searches of `Z:` read turn about disturb each other, because the virtual drive keeps one
+search place, in `src/dos/drive_virtual.cpp`. It was read and not run, and it is to be
+described upstream as an issue.
+
+## An overlay file named like a base file's alias is not listed
+
+The overlay drive never adds such a file to its listing. It was read and not run: the overlay
+drive needs a design of its own, so it is named to the maintainer.
+
+## On Windows an exit with typed keys pending ends with 0xC0000409
+
+The emulator ends so when it exits with `AUTOTYPE` keys still pending, on every build, and
+macOS exits cleanly. It was measured on Windows, and it is upstream's. The bench's `dirtest.sh`
+types no more keys than it needs.
+
+## One run of the unit tests on Windows ended at its start
+
+Once, on the alias build, the emulator's unit tests ended with 0xC0000409 in their first second,
+with nothing logged. Every other run of them passed, on every build. It is not reproduced, and
+the tests are to be run many times on the merged branches before anything is offered.
