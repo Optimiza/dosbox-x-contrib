@@ -1,0 +1,23 @@
+# What: memory.sh <build> <folder> on f 1: what the emulator holds after one libc fopen, which is
+#       the first read of the folder. One line per run, the name of the run above it.
+# Host: macOS 26 on Apple silicon; builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  03ded6f66a1fcf071b785cf9f0ca8211b2ccb08d11956e6ce1e35e95c57801da
+#   first-read    dircache-first-read f8fca9bd03ccfa3f823f52c4334efec9f07c73e1      9c58e342d01d6980fbe0d4ca0962193c966e6c3fab73d60428d0a2b123818e6e
+# mem-real-on-base-1
+memory.sh: mode=f calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=494160 held_rss_kb=492608 held_footprint_kb=610465 samples=469 slots_full=0 guest="mode=f k=1 ok=1 released=1 guest_us=613" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=base-4e0b6adcf
+# mem-real-on-base-2
+memory.sh: mode=f calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=495792 held_rss_kb=490832 held_footprint_kb=608769 samples=443 slots_full=0 guest="mode=f k=1 ok=1 released=1 guest_us=579" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=base-4e0b6adcf
+# mem-real-on-head-1
+memory.sh: mode=f calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=666960 held_rss_kb=666960 held_footprint_kb=628129 samples=15 slots_full=0 guest="mode=f k=1 ok=1 released=1 guest_us=711" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=first-read-f8fca9bd0
+# mem-real-on-head-2
+memory.sh: mode=f calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=526176 held_rss_kb=524288 held_footprint_kb=625713 samples=15 slots_full=0 guest="mode=f k=1 ok=1 released=1 guest_us=577" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=first-read-f8fca9bd0
+# mem-50000-long-on-base
+memory.sh: mode=f calls=1 lfn=on folder=synthetic:50000:long file=Alpha track 000000.mid entries=50000 peak_rss_kb=334528 held_rss_kb=334528 held_footprint_kb=295537 samples=28 slots_full=0 guest="mode=f k=1 ok=1 released=1 guest_us=339" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=base-4e0b6adcf
+# mem-50000-long-on-head
+memory.sh: mode=f calls=1 lfn=on folder=synthetic:50000:long file=Alpha track 000000.mid entries=50000 peak_rss_kb=336656 held_rss_kb=336656 held_footprint_kb=297281 samples=9 slots_full=0 guest="mode=f k=1 ok=1 released=1 guest_us=1407" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=first-read-f8fca9bd0
+# mem-169000-83-on-base
+memory.sh: mode=f calls=1 lfn=on folder=synthetic:169000:83 file=F0000000.TXT entries=169000 peak_rss_kb=495888 held_rss_kb=490928 held_footprint_kb=608241 samples=1565 slots_full=0 guest="mode=f k=1 ok=1 released=1 guest_us=330" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=base-4e0b6adcf
+# mem-169000-83-on-head
+memory.sh: mode=f calls=1 lfn=on folder=synthetic:169000:83 file=F0000000.TXT entries=169000 peak_rss_kb=523968 held_rss_kb=523968 held_footprint_kb=613841 samples=10 slots_full=0 guest="mode=f k=1 ok=1 released=1 guest_us=25947" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=first-read-f8fca9bd0

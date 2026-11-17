@@ -1,0 +1,113 @@
+# What: attrprobe.sh <A> <B> <on|off>: a search kept in a saved DTA across an attribute change; then
+#       the reads one folder takes, counted by counter builds; then two side effects of the change,
+#       by a probe of that run: a file the host adds (rescan), and the label of an automatic mount of a
+#       whole host drive (label); then DRIFT's label case on the DTA build with this branch merged.
+# Counts: <folder>-<build>-<mode>: b a search alone, s ten attribute changes, c ten creates,
+#       u ten deletes, m ten of each. The large folder is real-*; 10k-* a folder of 10,000 names.
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  12d158e82b3040bb7cc2d3572e265cbd01bef93552f08a0cb62a9d3db3ce6d22
+#   setattr       dircache-setattr 97d438ae9f239b1747e8e414e0fbfe8e8159d6e8         aeff1ec14e40ae06d9b978f373bdd0ba2643856e52faddec1a7f7fc36febc9a7
+#   retention     dircache-retention 527476085df56ec82b654bfa38dd901220c08dd3       7e6bfb3f5380201653d417885ee5b607350a935de84dba2ac12c338c924f9119
+#   dta-29879873b dircache-dta 29879873b21a3c71d7c0b107c70f7539b1fa53e9             d232a93500e999e3ded3a3f0e566abf66073431cae16601a84abc08fb24c0afa
+#   dta-setattr-merge-29879873b  29879873b + 97d438ae9, merged without conflict  1e85754ef3a64cb8b2a8e77a011844b1acc2d7b7bee67a2b5fd51274f7ddd286
+#   counts: scratch counter builds, not kept: base + counters (sha256 8399b0a635b2...),
+#   setattr + counters (sha256 0c10c01570fb...)
+# attrprobe.sh base setattr on
+attrprobe.sh: long names on
+attrprobe.sh: build A: base-4e0b6adcf (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+attr|nothing-in-between|total=42 of 42 foreign=0 gone=0
+attr|remove-a-later-file|total=41 of 42 foreign=0 gone=0
+attr|delete-41h-a-later-file|rc=0 total=41 of 42 foreign=0 gone=0
+attr|setattr-another-file|rc=0 total=42 of 42 foreign=0
+attr|setattr-in-another-folder|rc=0 total=22 of 22 foreign=0
+attr|two-searches-one-setattr|x=42 of 42 y=22 of 22 foreign=0
+attr|saved-dta-after-setattr|more=19 of 39 foreign=19 y=3 of 22
+attr|saved-dta-no-setattr|more=0 of 39 foreign=0 y=22 of 22
+attrprobe.sh: build B: setattr-97d438ae9 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+attr|nothing-in-between|total=42 of 42 foreign=0 gone=0
+attr|remove-a-later-file|total=41 of 42 foreign=0 gone=0
+attr|delete-41h-a-later-file|rc=0 total=41 of 42 foreign=0 gone=0
+attr|setattr-another-file|rc=0 total=42 of 42 foreign=0
+attr|setattr-in-another-folder|rc=0 total=22 of 22 foreign=0
+attr|two-searches-one-setattr|x=42 of 42 y=22 of 22 foreign=0
+attr|saved-dta-after-setattr|more=0 of 39 foreign=0 y=22 of 22
+attr|saved-dta-no-setattr|more=0 of 39 foreign=0 y=22 of 22
+attrprobe.sh: DIFFERENT, 1 lines differ (A then B):
+< attr|saved-dta-after-setattr|more=19 of 39 foreign=19 y=3 of 22
+> attr|saved-dta-after-setattr|more=0 of 39 foreign=0 y=22 of 22
+exit=1 seconds=4 :: <the run's directory>/attrprobe.sh base-4e0b6adcf setattr-97d438ae9 on
+# attrprobe.sh base setattr off
+attrprobe.sh: DIFFERENT, 1 lines differ (A then B):
+< attr|saved-dta-after-setattr|more=19 of 39 foreign=19 y=3 of 22
+> attr|saved-dta-after-setattr|more=0 of 39 foreign=0 y=22 of 22
+exit=1 seconds=5 :: <the run's directory>/attrprobe.sh base-4e0b6adcf setattr-97d438ae9 off
+# attrprobe.sh setattr retention on
+attrprobe.sh: ALIKE
+exit=0 seconds=5 :: <the run's directory>/attrprobe.sh setattr-97d438ae9 retention-527476085 on
+# the counts
+10k-base-b entries_after=10000 host_reads=6 reads_of_the_folder=1 entries_read=10037  exit=0
+10k-base-c entries_after=10000 host_reads=156 reads_of_the_folder=101 entries_read=1012887  exit=0
+10k-base-m entries_after=10000 host_reads=256 reads_of_the_folder=151 entries_read=1514412  exit=0
+10k-base-s entries_after=10000 host_reads=106 reads_of_the_folder=51 entries_read=510287  exit=0
+10k-base-u entries_after=10000 host_reads=156 reads_of_the_folder=101 entries_read=1012887  exit=0
+10k-set-b entries_after=10000 host_reads=6 reads_of_the_folder=1 entries_read=10037  exit=0
+10k-set-c entries_after=10000 host_reads=156 reads_of_the_folder=101 entries_read=1012887  exit=0
+10k-set-m entries_after=10000 host_reads=156 reads_of_the_folder=101 entries_read=1012887  exit=0
+10k-set-s entries_after=10000 host_reads=6 reads_of_the_folder=1 entries_read=10037  exit=0
+10k-set-u entries_after=10000 host_reads=156 reads_of_the_folder=101 entries_read=1012887  exit=0
+real-base-b entries_after=169452 host_reads=6 reads_of_the_folder=1 entries_read=169143  exit=0
+real-base-c entries_after=169452 host_reads=36 reads_of_the_folder=21 entries_read=3551433  exit=0
+real-base-m entries_after=169452 host_reads=56 reads_of_the_folder=31 entries_read=5242598  exit=0
+real-base-s entries_after=169452 host_reads=26 reads_of_the_folder=11 entries_read=1860253  exit=0
+real-base-u entries_after=169452 host_reads=36 reads_of_the_folder=21 entries_read=3551433  exit=0
+real-set-b entries_after=169452 host_reads=6 reads_of_the_folder=1 entries_read=169143  exit=0
+real-set-c entries_after=169452 host_reads=36 reads_of_the_folder=21 entries_read=3551433  exit=0
+real-set-m entries_after=169452 host_reads=36 reads_of_the_folder=21 entries_read=3551433  exit=0
+real-set-s entries_after=169452 host_reads=6 reads_of_the_folder=1 entries_read=169143  exit=0
+real-set-u entries_after=169452 host_reads=36 reads_of_the_folder=21 entries_read=3551433  exit=0
+
+[exited with code 0]
+# rescan, base then setattr
+sidefx|before|listed=10 new=0 label_rc=18 label=
+sidefx|released=1
+sidefx|after-host-create|listed=10 new=0 label_rc=18 label=
+sidefx|setattr|rc=0
+sidefx|after-setattr|listed=11 new=1 label_rc=18 label=
+sidefx|end
+dir-after-rescan|NEW.TXT
+sidefx|before|listed=10 new=0 label_rc=18 label=
+sidefx|released=1
+sidefx|after-host-create|listed=10 new=0 label_rc=18 label=
+sidefx|setattr|rc=0
+sidefx|after-setattr|listed=10 new=0 label_rc=18 label=
+sidefx|end
+dir-after-rescan|NEW.TXT
+# label, base then setattr
+vol|Volume in drive C is OS
+vol|Volume in drive C is GUEST
+vol|Volume in drive C is GUEST
+vol|Volume in drive C is OS
+vol|Volume in drive C is OS
+vol|Volume in drive C is GUEST
+vol|Volume in drive C is GUEST
+vol|Volume in drive C is GUEST
+# drift.sh dta-29879873b dta-setattr-merge-29879873b on: the label case
+drift.sh: build A: dta-29879873b (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+drift.sh: build B: dta-setattr-merge-29879873b (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=0|
+drift.sh: DIFFERENT, the lines that differ (A then B):
+< drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+> drift|label-search-then-edited|first=18 more=0|
+exit=1 seconds=4 :: <the run's directory>/drift.sh dta-29879873b dta-setattr-merge-29879873b on
+# drift.sh dta-29879873b dta-setattr-merge-29879873b off: the label case
+drift.sh: build A: dta-29879873b (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+drift.sh: build B: dta-setattr-merge-29879873b (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+drift|label-search-then-edited|first=18 more=0|
+drift.sh: DIFFERENT, the lines that differ (A then B):
+< drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+> drift|label-search-then-edited|first=18 more=0|
+exit=1 seconds=4 :: <the run's directory>/drift.sh dta-29879873b dta-setattr-merge-29879873b off

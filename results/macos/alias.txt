@@ -1,0 +1,27 @@
+# What: aliases.sh <base> <alias> cases <on|off> and aliases.sh <base> <alias> folder <the large folder> on:
+#       each build's short names judged against the host's files, one line per build.
+#       The last line is derived: the entries whose short name differs between the two builds'
+#       listings of the large folder, long names on, and whether each sits in a family of entries that
+#       share one short name on the base. Counted from the listings, which are not kept here.
+# Host: macOS 26 on Apple silicon; builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  03ded6f66a1fcf071b785cf9f0ca8211b2ccb08d11956e6ce1e35e95c57801da
+#   alias         dircache-alias 55845db57b52283518a237662393e6eeea1cc72b           61ef3a62bdb454fb201ce3ed3b750b6b05946e6b35a91107d5df3cb929b41482
+# cases, long names on
+aliases.sh: cases lfn=on entries=87 host=87 names_shared=17 exact_search_not_one=19 real_name_not_its_own=11 files_no_short_name_opens=19 listed_with_another_size=20 name_opens_another_file=19 long_name_opens_another_file=8 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=base-4e0b6adcf
+aliases.sh: cases lfn=on entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=0 files_no_short_name_opens=0 listed_with_another_size=0 name_opens_another_file=0 long_name_opens_another_file=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=alias-55845db57
+aliases.sh: DIFFERENT
+rc=1
+# cases, long names off
+aliases.sh: cases lfn=off entries=87 host=87 names_shared=17 exact_search_not_one=17 real_name_not_its_own=11 files_no_short_name_opens=19 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=base-4e0b6adcf
+aliases.sh: cases lfn=off entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=0 files_no_short_name_opens=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=alias-55845db57
+aliases.sh: DIFFERENT
+rc=1
+# the large folder, long names on
+aliases.sh: folder lfn=on entries=169111 host=169457 names_shared=1048 entries_sharing=7684 matched=169106 listed_with_another_size=6633 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=base-4e0b6adcf
+aliases.sh: folder lfn=on entries=169111 host=169457 names_shared=0 entries_sharing=0 matched=169106 listed_with_another_size=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=alias-55845db57
+aliases.sh: DIFFERENT
+rc=1
+# derived, long names on: the entries whose short name differs, and how many sit inside a family
+changed|lfn=on|entries_whose_short_name_differs=16500 inside_a_shared_family=16500 outside=0

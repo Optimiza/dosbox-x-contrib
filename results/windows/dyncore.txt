@@ -1,0 +1,30 @@
+# What: memory.sh <build> synthetic:<n>:83 off c <calls>: one child program per call, each ending with
+#       a search open, and what the emulator holds after them. One line per run. Then unit.sh <build>:
+#       the emulator's own unit tests.
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  12d158e82b3040bb7cc2d3572e265cbd01bef93552f08a0cb62a9d3db3ce6d22
+#   dyncore       dyncore-cache-reset e1d62e10da068330e8f6ad9a1532e69974d2d994      94faeb82d2b4c3f374e76f6e41d20965b3bc07f4638d4ce28ac971e249df5659
+#   retention     dircache-retention 527476085df56ec82b654bfa38dd901220c08dd3       7e6bfb3f5380201653d417885ee5b607350a935de84dba2ac12c338c924f9119
+#   ret+dyncore   527476085 + e1d62e10d, merged without conflict                    2d4383c32c87a94d589b9a1e2c17cb494380b2dd18125d58c1ba8f02a0032e1a
+# D-mem-base-100-c-1
+memory.sh: mode=c calls=1 lfn=off folder=synthetic:100:83 file=F0000000.TXT entries=100 peak_ws_kb=179112 held_ws_kb=179088 held_private_kb=201412 samples=14 slots_full=0 guest="mode=c k=1 ok=1 released=1 guest_us=56404" build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=base-4e0b6adcf
+# D-mem-base-100-c-20
+memory.sh: mode=c calls=20 lfn=off folder=synthetic:100:83 file=F0000000.TXT entries=100 peak_ws_kb=297940 held_ws_kb=297916 held_private_kb=323028 samples=28 slots_full=0 guest="mode=c k=20 ok=20 released=1 guest_us=1098850" build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=base-4e0b6adcf
+# D-mem-dyn-100-c-1
+memory.sh: mode=c calls=1 lfn=off folder=synthetic:100:83 file=F0000000.TXT entries=100 peak_ws_kb=166328 held_ws_kb=166308 held_private_kb=188216 samples=14 slots_full=0 guest="mode=c k=1 ok=1 released=1 guest_us=56408" build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=dyncore-cache-reset-e1d62e10d
+# D-mem-dyn-100-c-20
+memory.sh: mode=c calls=20 lfn=off folder=synthetic:100:83 file=F0000000.TXT entries=100 peak_ws_kb=168260 held_ws_kb=168240 held_private_kb=189860 samples=27 slots_full=0 guest="mode=c k=20 ok=20 released=1 guest_us=1098773" build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=dyncore-cache-reset-e1d62e10d
+# D-mem-ret-50000-c-1
+memory.sh: mode=c calls=1 lfn=off folder=synthetic:50000:83 file=F0000000.TXT entries=50000 peak_ws_kb=209740 held_ws_kb=209716 held_private_kb=233048 samples=14 slots_full=0 guest="mode=c k=1 ok=1 released=1 guest_us=56729" build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=retention-527476085
+# D-mem-ret-50000-c-20
+memory.sh: mode=c calls=20 lfn=off folder=synthetic:50000:83 file=F0000000.TXT entries=50000 peak_ws_kb=326976 held_ws_kb=326952 held_private_kb=353860 samples=29 slots_full=0 guest="mode=c k=20 ok=20 released=1 guest_us=1099370" build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=retention-527476085
+# D-mem-retdyn-50000-c-1
+memory.sh: mode=c calls=1 lfn=off folder=synthetic:50000:83 file=F0000000.TXT entries=50000 peak_ws_kb=237288 held_ws_kb=237284 held_private_kb=220168 samples=15 slots_full=0 guest="mode=c k=1 ok=1 released=1 guest_us=56685" build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=retention-dyncore-merge-527476085
+# D-mem-retdyn-50000-c-20
+memory.sh: mode=c calls=20 lfn=off folder=synthetic:50000:83 file=F0000000.TXT entries=50000 peak_ws_kb=197528 held_ws_kb=197504 held_private_kb=220180 samples=29 slots_full=0 guest="mode=c k=20 ok=20 released=1 guest_us=1099286" build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=retention-dyncore-merge-527476085
+# D-unit-dyn
+unit.sh: tests=68 failures=0 errors=0 disabled=0 build="not logged by a -tests run" binary=dyncore-cache-reset-e1d62e10d
+# D-unit-retdyn
+unit.sh: tests=68 failures=0 errors=0 disabled=0 build="not logged by a -tests run" binary=retention-dyncore-merge-527476085

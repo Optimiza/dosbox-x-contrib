@@ -1,0 +1,84 @@
+# What: template.sh <A> <B> fat <on|off>, the shell's DIR free-space line, then the earlier head
+#       against the new one on every answer instrument: each run's verdict and exit code.
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-17
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  12d158e82b3040bb7cc2d3572e265cbd01bef93552f08a0cb62a9d3db3ce6d22
+#   dta-29879873b dircache-dta 29879873b21a3c71d7c0b107c70f7539b1fa53e9             d232a93500e999e3ded3a3f0e566abf66073431cae16601a84abc08fb24c0afa
+#   dta-8e5e74905 dircache-dta 8e5e74905e0836bdfc1ab5ebc79a15afdfd139ec             013ffc97199bca9786e5639bc93c0f48faf8683e7d269a278209ff3e2ae2b7bf
+# D1-template-base-new-fat-on
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+template.sh: DIFFERENT, 1 lines differ (A then B):
+exit=1 seconds=6 :: <the run's directory>/template.sh base-4e0b6adcf dta-8e5e74905 fat on
+# D1-template-base-new-fat-off
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+template.sh: DIFFERENT, 3 lines differ (A then B):
+exit=1 seconds=5 :: <the run's directory>/template.sh base-4e0b6adcf dta-8e5e74905 fat off
+# D2-template-old-new-fat-on
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+template.sh: ALIKE
+exit=0 seconds=5 :: <the run's directory>/template.sh dta-29879873b dta-8e5e74905 fat on
+# D2-template-old-new-fat-off
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+template.sh: ALIKE
+exit=0 seconds=5 :: <the run's directory>/template.sh dta-29879873b dta-8e5e74905 fat off
+# D2-template-old-new-host-on
+template.sh: ALIKE
+exit=0 seconds=5 :: <the run's directory>/template.sh dta-29879873b dta-8e5e74905 host on
+# D2-template-old-new-host-off
+template.sh: ALIKE
+exit=0 seconds=5 :: <the run's directory>/template.sh dta-29879873b dta-8e5e74905 host off
+# D3-dtadump-old-new-on
+dtadump.sh: ALIKE
+exit=0 seconds=5 :: <the run's directory>/dtadump.sh dta-29879873b dta-8e5e74905 on
+# D3-dtadump-old-new-off
+dtadump.sh: ALIKE
+exit=0 seconds=5 :: <the run's directory>/dtadump.sh dta-29879873b dta-8e5e74905 off
+# D3-drift-old-new-on
+drift.sh: ALIKE
+exit=0 seconds=4 :: <the run's directory>/drift.sh dta-29879873b dta-8e5e74905 on
+# D3-drift-old-new-off
+drift.sh: ALIKE
+exit=0 seconds=4 :: <the run's directory>/drift.sh dta-29879873b dta-8e5e74905 off
+# D3-exact-old-new-on
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (71 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+exit=0 seconds=12 :: <the run's directory>/exact.sh dta-29879873b dta-8e5e74905 on
+# D3-exact-old-new-off
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (69 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+exit=0 seconds=12 :: <the run's directory>/exact.sh dta-29879873b dta-8e5e74905 off
+# D3-findlife-old-new-on
+findlife.sh: ALIKE
+exit=0 seconds=35 :: <the run's directory>/findlife.sh dta-29879873b dta-8e5e74905 on
+# D3-findlife-old-new-off
+findlife.sh: ALIKE
+exit=0 seconds=25 :: <the run's directory>/findlife.sh dta-29879873b dta-8e5e74905 off
+# D3-patlist-old-new-on
+patlist.sh: ALIKE
+exit=0 seconds=4 :: <the run's directory>/patlist.sh dta-29879873b dta-8e5e74905 on
+# D3-patlist-old-new-off
+patlist.sh: ALIKE
+exit=0 seconds=5 :: <the run's directory>/patlist.sh dta-29879873b dta-8e5e74905 off
+# D3-findpos-labelled-old-new-on
+findpos.sh: ALIKE
+exit=0 seconds=4 :: <the run's directory>/findpos.sh dta-29879873b dta-8e5e74905 labelled on
+# D3-findpos-labelled-old-new-off
+findpos.sh: ALIKE
+exit=0 seconds=4 :: <the run's directory>/findpos.sh dta-29879873b dta-8e5e74905 labelled off
+# D3-findpos-unlabelled-old-new-on
+findpos.sh: ALIKE
+exit=0 seconds=5 :: <the run's directory>/findpos.sh dta-29879873b dta-8e5e74905 unlabelled on
+# D3-findpos-unlabelled-old-new-off
+findpos.sh: ALIKE
+exit=0 seconds=5 :: <the run's directory>/findpos.sh dta-29879873b dta-8e5e74905 unlabelled off

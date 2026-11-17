@@ -1,0 +1,134 @@
+# What: delete.sh <base> <create-delete> <on|off>, the summary lines; then the reads a folder of 10,000
+#       files takes for ten creates or ten deletes, counted by counter builds (reads of the folder,
+#       the entries read, the whole drive's cache emptied, the folder dropped). The last column says
+#       whether the same row counted the same on macOS.
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-17
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  12d158e82b3040bb7cc2d3572e265cbd01bef93552f08a0cb62a9d3db3ce6d22
+#   create-delete dircache-create-delete ee861536f77463686ad3733fe638dba63c25eaab    3cad4023be75b364915f7618a59a74c819c8f976d1430fd291a515680be72fe7
+#   counts: scratch counter builds, not kept: base + counters (sha256 0c16cda90a5d...),
+#   create-delete + counters (sha256 c822861d94d5...)
+# long names on
+delete.sh: long names on
+delete.sh: build A: base-4e0b6adcf (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+del|shell|listed_after=0
+del|loop41|found=8 deleted=8 failed=0 listed_after=0
+del|wild7141|ax=0000 listed_after=0
+delete.sh: build A: files the host holds at the end: S=0 L=0 W=0 A=10 P=6 C=10 R=9 directories
+delete.sh: build A: short names moved by one delete: 0 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build A: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build A: short names of directories moved by one RD: 0 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=ALPHAT~1.MID the old short name of the renamed file=AL37F2~1.MID
+delete.sh: build A: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build A: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=AL4DCA~1 the old short name of the renamed directory=AL4DCA~1
+delete.sh: build A: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: build B: create-delete-ee861536f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+del|shell|listed_after=0
+del|loop41|found=8 deleted=8 failed=0 listed_after=0
+del|wild7141|ax=0000 listed_after=0
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=0 A=10 P=6 C=10 R=9 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=ALPHAT~1.MID the old short name of the renamed file=AL37F2~1.MID
+delete.sh: build B: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=AL4DCA~1 the old short name of the renamed directory=AL4DCA~1
+delete.sh: build B: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: ALIKE
+exit=0 seconds=6 :: <the run's directory>/delete.sh base-4e0b6adcf create-delete-ee861536f on
+# long names off
+delete.sh: long names off
+delete.sh: build A: base-4e0b6adcf (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+del|shell|listed_after=0
+del|loop41|found=8 deleted=8 failed=0 listed_after=0
+del|wild7141|ax=7100 listed_after=8
+delete.sh: build A: files the host holds at the end: S=0 L=0 W=8 A=9 P=6 C=9 R=7 directories
+delete.sh: build A: short names moved by one delete: 0 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build A: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build A: short names of directories moved by one RD: 0 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=- the old short name of the renamed file=AL37F2~1.MID
+delete.sh: build A: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build A: R after NEWDIR is removed again: listed=7 before=8 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=- the old short name of the renamed directory=AL4DCA~1
+delete.sh: build A: R after one rename: listed=7 before=7 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: build B: create-delete-ee861536f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+del|shell|listed_after=0
+del|loop41|found=8 deleted=8 failed=0 listed_after=0
+del|wild7141|ax=7100 listed_after=8
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=8 A=9 P=6 C=9 R=7 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=- the old short name of the renamed file=AL37F2~1.MID
+delete.sh: build B: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=7 before=8 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=- the old short name of the renamed directory=AL4DCA~1
+delete.sh: build B: R after one rename: listed=7 before=7 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: ALIKE
+exit=0 seconds=6 :: <the run's directory>/delete.sh base-4e0b6adcf create-delete-ee861536f off
+# the counts
+| folder | long names | what | build | reads | entries read | empties | drops | the Mac |
+| 10000 83 | off | searches only | base | 1 | 10002 | 2 | 1 | = |
+| 10000 83 | off | searches only | head | 1 | 10002 | 0 | 0 | = |
+| 10000 83 | off | create, then a search | base | 11 | 110077 | 12 | 1 | = |
+| 10000 83 | off | create, then a search | head | 1 | 10002 | 0 | 0 | = |
+| 10000 83 | off | creates only | base | 11 | 110077 | 12 | 1 | = |
+| 10000 83 | off | creates only | head | 1 | 10002 | 0 | 0 | = |
+| 10000 83 | off | delete, then a search | base | 11 | 110077 | 2 | 11 | = |
+| 10000 83 | off | delete, then a search | head | 1 | 10012 | 0 | 0 | = |
+| 10000 83 | off | deletes only | base | 11 | 110077 | 2 | 11 | = |
+| 10000 83 | off | deletes only | head | 1 | 10012 | 0 | 0 | = |
+| 10000 83 | on | searches only | base | 1 | 10002 | 2 | 1 | = |
+| 10000 83 | on | searches only | head | 1 | 10002 | 0 | 0 | = |
+| 10000 83 | on | create, then a search | base | 11 | 110077 | 12 | 1 | = |
+| 10000 83 | on | create, then a search | head | 1 | 10002 | 0 | 0 | = |
+| 10000 83 | on | creates only | base | 11 | 110077 | 12 | 1 | = |
+| 10000 83 | on | creates only | head | 1 | 10002 | 0 | 0 | = |
+| 10000 83 | on | delete, then a search | base | 11 | 110077 | 2 | 11 | = |
+| 10000 83 | on | delete, then a search | head | 1 | 10012 | 0 | 0 | = |
+| 10000 83 | on | deletes only | base | 11 | 110077 | 2 | 11 | = |
+| 10000 83 | on | deletes only | head | 1 | 10012 | 0 | 0 | = |
+| 10000 long | off | searches only | base | 1 | 10002 | 2 | 1 | = |
+| 10000 long | off | searches only | head | 1 | 10002 | 0 | 0 | = |
+| 10000 long | off | create, then a search | base | 11 | 110077 | 12 | 1 | = |
+| 10000 long | off | create, then a search | head | 1 | 10002 | 0 | 0 | = |
+| 10000 long | off | creates only | base | 11 | 110077 | 12 | 1 | = |
+| 10000 long | off | creates only | head | 1 | 10002 | 0 | 0 | = |
+| 10000 long | off | delete, then a search | base | 11 | 110077 | 2 | 11 | = |
+| 10000 long | off | delete, then a search | head | 1 | 10012 | 0 | 0 | = |
+| 10000 long | off | deletes only | base | 11 | 110077 | 2 | 11 | = |
+| 10000 long | off | deletes only | head | 1 | 10012 | 0 | 0 | = |
+| 10000 long | on | searches only | base | 1 | 10002 | 2 | 1 | = |
+| 10000 long | on | searches only | head | 1 | 10002 | 0 | 0 | = |
+| 10000 long | on | create, then a search | base | 11 | 110077 | 12 | 1 | = |
+| 10000 long | on | create, then a search | head | 1 | 10002 | 0 | 0 | = |
+| 10000 long | on | creates only | base | 11 | 110077 | 12 | 1 | = |
+| 10000 long | on | creates only | head | 1 | 10002 | 0 | 0 | = |
+| 10000 long | on | delete, then a search | base | 11 | 110077 | 2 | 11 | = |
+| 10000 long | on | delete, then a search | head | 1 | 10012 | 0 | 0 | = |
+| 10000 long | on | deletes only | base | 11 | 110077 | 2 | 11 | = |
+| 10000 long | on | deletes only | head | 1 | 10012 | 0 | 0 | = |
+rows differing from the Mac: 0

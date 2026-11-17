@@ -1,0 +1,49 @@
+# What: the shell's DIR free-space line, template.sh <A> <B> fat on. dta-29879873b-no-tempdta is a
+#       scratch build, never offered: the earlier head with its temporary-DTA exception removed and
+#       DIR not fixed. Then the earlier head against the new one on the answer instruments: exit codes.
+# Host: macOS 26 on Apple silicon; builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  03ded6f66a1fcf071b785cf9f0ca8211b2ccb08d11956e6ce1e35e95c57801da
+#   dta-29879873b dircache-dta 29879873b21a3c71d7c0b107c70f7539b1fa53e9             1bd6c7eb5303fbff0440043df36b32999f5aad81577ec8139d23c512f6657f79
+#   dta-8e5e74905 dircache-dta 8e5e74905e0836bdfc1ab5ebc79a15afdfd139ec             85873bfe706b49285d26d0a6a08420ab8386daab8790c0487b07296a2128c733
+#   dta-29879873b-no-tempdta  scratch, 29879873b with the exception removed     8d25946467c2bca1c20949c066546c3978b9bdd052d4c0eff8cbce85f6a4c05a
+# template.sh dta-29879873b dta-29879873b-no-tempdta fat on
+template.sh: build A: dta-29879873b (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+template.sh: build B: dta-29879873b-no-tempdta (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+shell|DIR of the volume while empty, after a DIR of another drive|free=2,013,265,920
+template.sh: DIFFERENT, 1 lines differ (A then B):
+< shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+> shell|DIR of the volume while empty, after a DIR of another drive|free=2,013,265,920
+# template.sh dta-29879873b-no-tempdta dta-8e5e74905 fat on
+template.sh: build A: dta-29879873b-no-tempdta (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+shell|DIR of the volume while empty, after a DIR of another drive|free=2,013,265,920
+template.sh: build B: dta-8e5e74905 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+template.sh: DIFFERENT, 1 lines differ (A then B):
+< shell|DIR of the volume while empty, after a DIR of another drive|free=2,013,265,920
+> shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+# template.sh base dta-8e5e74905 fat on: the shell line
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+# dta-29879873b against dta-8e5e74905: exit code of each instrument
+template-fat-on rc=0
+template-host-on rc=0
+dtadump-on rc=0
+patlist-on rc=0
+drift-on rc=0
+exact-on rc=0
+findlife-on rc=0
+findpos-labelled-on rc=0
+findpos-unlabelled-on rc=0
+template-fat-off rc=0
+template-host-off rc=0
+dtadump-off rc=0
+patlist-off rc=0
+drift-off rc=0
+exact-off rc=0
+findlife-off rc=0
+findpos-labelled-off rc=0
+findpos-unlabelled-off rc=0
+finished

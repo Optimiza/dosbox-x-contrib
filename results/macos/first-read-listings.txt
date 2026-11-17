@@ -1,0 +1,81 @@
+# What: run.sh <base> <first-read> <folder> <on|off>: every field of every entry each build lists,
+#       compared byte for byte. One block per folder: the folder, then the verdict.
+# Folders: synthetic:<count>:<83|long>; real, the large folder; dots, mixed and wine, folders of
+#       names with trailing dots, of mixed shapes under one prefix, and of Wine-style names.
+# Host: macOS 26 on Apple silicon; builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  03ded6f66a1fcf071b785cf9f0ca8211b2ccb08d11956e6ce1e35e95c57801da
+#   first-read    dircache-first-read f8fca9bd03ccfa3f823f52c4334efec9f07c73e1      9c58e342d01d6980fbe0d4ca0962193c966e6c3fab73d60428d0a2b123818e6e
+# run-10000-83-off.out
+run.sh: folder synthetic:10000:83 (10000 entries on the host), long names off
+run.sh: IDENTICAL
+# run-10000-83-on.out
+run.sh: folder synthetic:10000:83 (10000 entries on the host), long names on
+run.sh: IDENTICAL
+# run-10000-long-off.out
+run.sh: folder synthetic:10000:long (10000 entries on the host), long names off
+run.sh: IDENTICAL
+# run-10000-long-on.out
+run.sh: folder synthetic:10000:long (10000 entries on the host), long names on
+run.sh: IDENTICAL
+# run-100000-83-off.out
+run.sh: folder synthetic:100000:83 (100000 entries on the host), long names off
+run.sh: IDENTICAL
+# run-100000-83-on.out
+run.sh: folder synthetic:100000:83 (100000 entries on the host), long names on
+run.sh: IDENTICAL
+# run-100000-long-off.out
+run.sh: folder synthetic:100000:long (100000 entries on the host), long names off
+run.sh: IDENTICAL
+# run-100000-long-on.out
+run.sh: folder synthetic:100000:long (100000 entries on the host), long names on
+run.sh: IDENTICAL
+# run-169000-83-off.out
+run.sh: folder synthetic:169000:83 (169000 entries on the host), long names off
+run.sh: IDENTICAL
+# run-169000-83-on.out
+run.sh: folder synthetic:169000:83 (169000 entries on the host), long names on
+run.sh: IDENTICAL
+# run-169000-long-off.out
+run.sh: folder synthetic:169000:long (169000 entries on the host), long names off
+run.sh: IDENTICAL
+# run-169000-long-on.out
+run.sh: folder synthetic:169000:long (169000 entries on the host), long names on
+run.sh: IDENTICAL
+# run-50000-83-off.out
+run.sh: folder synthetic:50000:83 (50000 entries on the host), long names off
+run.sh: IDENTICAL
+# run-50000-83-on.out
+run.sh: folder synthetic:50000:83 (50000 entries on the host), long names on
+run.sh: IDENTICAL
+# run-50000-long-off.out
+run.sh: folder synthetic:50000:long (50000 entries on the host), long names off
+run.sh: IDENTICAL
+# run-50000-long-on.out
+run.sh: folder synthetic:50000:long (50000 entries on the host), long names on
+run.sh: IDENTICAL
+# run-dots-off.out
+run.sh: folder <the run's directory>/DOTS (432 entries on the host), long names off
+run.sh: IDENTICAL
+# run-dots-on.out
+run.sh: folder <the run's directory>/DOTS (432 entries on the host), long names on
+run.sh: IDENTICAL
+# run-mixed-off.out
+run.sh: folder <the run's directory>/MIX (10240 entries on the host), long names off
+run.sh: IDENTICAL
+# run-mixed-on.out
+run.sh: folder <the run's directory>/MIX (10240 entries on the host), long names on
+run.sh: IDENTICAL
+# run-real-off.out
+run.sh: folder <the large folder> (169457 entries on the host), long names off
+run.sh: IDENTICAL
+# run-real-on.out
+run.sh: folder <the large folder> (169457 entries on the host), long names on
+run.sh: IDENTICAL
+# run-wine-off.out
+run.sh: folder <the run's directory>/WINE (120 entries on the host), long names off
+run.sh: IDENTICAL
+# run-wine-on.out
+run.sh: folder <the run's directory>/WINE (120 entries on the host), long names on
+run.sh: IDENTICAL

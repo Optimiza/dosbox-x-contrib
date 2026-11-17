@@ -1,0 +1,38 @@
+# What: aliases.sh <base> <alias> cases <on|off>, aliases.sh <base> <alias> folder <the large folder> <on|off>,
+#       and the same for a folder of 8 files where the host gave 4 of them a short name by hand
+#       (fsutil file setshortname) and left the other 4 to the emulator (AL-mixed).
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-17
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  12d158e82b3040bb7cc2d3572e265cbd01bef93552f08a0cb62a9d3db3ce6d22
+#   alias         dircache-alias 55845db57b52283518a237662393e6eeea1cc72b           4e020a2c7979473074e0396271cdbd05fffd0ed9f769fa4adaea71e25777d757
+# AL-cases-on
+aliases.sh: cases lfn=on entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=8 files_no_short_name_opens=0 listed_with_another_size=0 name_opens_another_file=0 long_name_opens_another_file=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=base-4e0b6adcf
+aliases.sh: cases lfn=on entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=0 files_no_short_name_opens=0 listed_with_another_size=0 name_opens_another_file=0 long_name_opens_another_file=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=alias-55845db57
+aliases.sh: DIFFERENT
+exit=1 seconds=6 :: <the run's directory>/aliases.sh cases on base-4e0b6adcf alias-55845db57
+# AL-cases-off
+aliases.sh: cases lfn=off entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=8 files_no_short_name_opens=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=base-4e0b6adcf
+aliases.sh: cases lfn=off entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=0 files_no_short_name_opens=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=alias-55845db57
+aliases.sh: DIFFERENT
+exit=1 seconds=7 :: <the run's directory>/aliases.sh cases off base-4e0b6adcf alias-55845db57
+# AL-real-on
+aliases.sh: folder lfn=on entries=169106 host=169452 names_shared=0 entries_sharing=0 matched=169101 listed_with_another_size=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=base-4e0b6adcf
+aliases.sh: folder lfn=on entries=169106 host=169452 names_shared=0 entries_sharing=0 matched=169101 listed_with_another_size=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=alias-55845db57
+aliases.sh: ALIKE
+exit=0 seconds=101 :: <the run's directory>/aliases.sh folder on <the large folder> base-4e0b6adcf alias-55845db57
+# AL-real-off
+aliases.sh: folder lfn=off entries=169106 host=169452 names_shared=0 entries_sharing=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=base-4e0b6adcf
+aliases.sh: folder lfn=off entries=169106 host=169452 names_shared=0 entries_sharing=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=alias-55845db57
+aliases.sh: ALIKE
+exit=0 seconds=71 :: <the run's directory>/aliases.sh folder off <the large folder> base-4e0b6adcf alias-55845db57
+# AL-mixed-on
+aliases.sh: folder lfn=on entries=8 host=8 names_shared=2 entries_sharing=4 matched=8 listed_with_another_size=2 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=base-4e0b6adcf
+aliases.sh: folder lfn=on entries=8 host=8 names_shared=0 entries_sharing=0 matched=8 listed_with_another_size=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=alias-55845db57
+aliases.sh: DIFFERENT
+exit=1 seconds=5 :: <the run's directory>/aliases.sh folder on <the run's directory>/MIX base-4e0b6adcf alias-55845db57
+# AL-mixed-off
+aliases.sh: folder lfn=off entries=8 host=8 names_shared=2 entries_sharing=4 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=base-4e0b6adcf
+aliases.sh: folder lfn=off entries=8 host=8 names_shared=0 entries_sharing=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=alias-55845db57
+aliases.sh: DIFFERENT
+exit=1 seconds=4 :: <the run's directory>/aliases.sh folder off <the run's directory>/MIX base-4e0b6adcf alias-55845db57

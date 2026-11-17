@@ -1,0 +1,38 @@
+# What: the reporters' cells on the exact-name and retention builds: xcopy.sh, fc.sh, memory.sh mode e,
+#       junktest.sh on the reporter's own batch file, and FINDLIFE's turn-about case against unpatched
+#       upstream. One line per run.
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  12d158e82b3040bb7cc2d3572e265cbd01bef93552f08a0cb62a9d3db3ce6d22
+#   exact-name    dircache-exact-name 73e09f70dc480cdc9f24ca42f2eeb5d1bf5e3504      4b394a034420425a781a79b7a7a346f9606ff4ec17db19ba7b6c0651a26a5799
+#   retention     dircache-retention 527476085df56ec82b654bfa38dd901220c08dd3       7e6bfb3f5380201653d417885ee5b607350a935de84dba2ac12c338c924f9119
+# R-xcopy-exn-off
+xcopy.sh: lfn=off made=2520 copied=2065 dirs_made=18 dirs_copied=15 said=2065 slots_full=1 out_of_range=3 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=exact-name-73e09f70d
+exit=0 seconds=9 :: <the run's directory>/xcopy.sh exact-name-73e09f70d off
+# R-xcopy-ret-off
+xcopy.sh: lfn=off made=2520 copied=2520 dirs_made=18 dirs_copied=18 said=2520 slots_full=0 out_of_range=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=retention-527476085
+exit=0 seconds=12 :: <the run's directory>/xcopy.sh retention-527476085 off
+# R-fc-exn-300
+fc.sh: files=700 runs=300 lfn=off entries=703 peak_ws_kb=181112 held_ws_kb=181088 held_private_kb=195916 samples=41 slots_full=0 compared=300 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=exact-name-73e09f70d
+exit=0 seconds=5 :: <the run's directory>/fc.sh exact-name-73e09f70d 700 off 300
+# R-fc-ret-300
+fc.sh: files=700 runs=300 lfn=off entries=703 peak_ws_kb=181184 held_ws_kb=181160 held_private_kb=196040 samples=39 slots_full=0 compared=300 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=retention-527476085
+exit=0 seconds=5 :: <the run's directory>/fc.sh retention-527476085 700 off 300
+# R-memory-e-exn-1835
+memory.sh: mode=e calls=1835 lfn=off folder=synthetic:1835:83 file=F0000000.TXT entries=1835 peak_ws_kb=175868 held_ws_kb=175840 held_private_kb=198152 samples=18 slots_full=0 guest="mode=e k=1835 ok=1835 released=1 guest_us=438916" build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=exact-name-73e09f70d
+exit=0 seconds=3 :: <the run's directory>/memory.sh exact-name-73e09f70d synthetic:1835:83 off e 1835
+# R-memory-e-ret-1835
+memory.sh: mode=e calls=1835 lfn=off folder=synthetic:1835:83 file=F0000000.TXT entries=1835 peak_ws_kb=175968 held_ws_kb=175940 held_private_kb=198356 samples=18 slots_full=0 guest="mode=e k=1835 ok=1835 released=1 guest_us=568469" build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=retention-527476085
+exit=0 seconds=4 :: <the run's directory>/memory.sh retention-527476085 synthetic:1835:83 off e 1835
+# R-junktest-exn-300
+junktest.sh: batches=300 lfn=off entries=5 junk=0 counted=300 done=1 peak_ws_kb=180560 held_ws_kb=180536 held_private_kb=195432 samples=26 slots_full=0 out_of_range=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=exact-name-73e09f70d
+exit=0 seconds=4 :: <the run's directory>/junktest.sh exact-name-73e09f70d <the run's directory>/6827 off 300
+# R-junktest-ret-300
+junktest.sh: batches=300 lfn=off entries=5 junk=0 counted=300 done=1 peak_ws_kb=180608 held_ws_kb=180584 held_private_kb=195540 samples=25 slots_full=0 out_of_range=0 build="DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit)" binary=retention-527476085
+exit=0 seconds=4 :: <the run's directory>/junktest.sh retention-527476085 <the run's directory>/6827 off 300
+# R-findlife-base-ret-off
+case|turn-about-past-the-slots|lookups=2030 found=2030 first=29 of 42 second=29 of 32 foreign=0|DIFFERS
+case|turn-about-past-the-slots|lookups=2940 found=2940 first=42 of 42 second=32 of 32 foreign=0|ok
+findlife.sh: DIFFERENT, the lines that differ (A then B):
+exit=1 seconds=19 :: <the run's directory>/findlife.sh base-4e0b6adcf retention-527476085 off

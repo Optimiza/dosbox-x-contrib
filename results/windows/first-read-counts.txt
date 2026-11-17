@@ -1,0 +1,28 @@
+# What: how many times the first read of a folder runs each of its costly loops, counted by counter
+#       builds: unpatched upstream with counters, and first-read with a shadow that computes upstream's
+#       answer beside each new one. One row per folder, the base's counts then the head's.
+#       'differs' counts the answers where the head and upstream's code disagree.
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)
+# Date: 2026-11-17
+# Builds: scratch counter builds, not kept: base + its counters (sha256 0c16cda90a5d...),
+#       first-read f8fca9bd0 + its shadow (sha256 787112565c80...).
+# the table of the counting run
+| cell | base: entries | aliases made | dup check strcasecmp | Wine: names, hashes | alias scan strcmp | walk steps | head: aliases | C2 lookups | C2w names, hashes | C1/jump | differs |
+| 10000-83-on | 10,002 | 0 | 50,015,001 | 0, 0 | 0 | 0 | 0 | 10,001 | 0, 0 | 0/0 | 0 rc=0 |
+| 10000-83-off | 10,002 | 0 | 0 | 0, 0 | 0 | 0 | 0 | 0 | 0, 0 | 0/0 | 0 rc=0 |
+| 10000-long-on | 10,002 | 0 | 1 | 0, 0 | 0 | 0 | 0 | 1 | 0, 0 | 0/0 | 0 rc=0 |
+| 10000-long-off | 10,002 | 0 | 0 | 0, 0 | 0 | 0 | 0 | 0 | 0, 0 | 0/0 | 0 rc=0 |
+| 50000-83-on | 50,002 | 0 | 1,250,075,001 | 0, 0 | 0 | 0 | 0 | 50,001 | 0, 0 | 0/0 | 0 rc=0 |
+| 50000-83-off | 50,002 | 0 | 0 | 0, 0 | 0 | 0 | 0 | 0 | 0, 0 | 0/0 | 0 rc=0 |
+| 50000-long-on | 50,002 | 0 | 1 | 0, 0 | 0 | 0 | 0 | 1 | 0, 0 | 0/0 | 0 rc=0 |
+| 50000-long-off | 50,002 | 0 | 0 | 0, 0 | 0 | 0 | 0 | 0 | 0, 0 | 0/0 | 0 rc=0 |
+| 100000-83-on | 100,002 | 0 | 5,000,150,001 | 0, 0 | 0 | 0 | 0 | 100,001 | 0, 0 | 0/0 | 0 rc=0 |
+| 100000-83-off | 100,002 | 0 | 0 | 0, 0 | 0 | 0 | 0 | 0 | 0, 0 | 0/0 | 0 rc=0 |
+| 100000-long-on | 100,002 | 0 | 1 | 0, 0 | 0 | 0 | 0 | 1 | 0, 0 | 0/0 | 0 rc=0 |
+| 100000-long-off | 100,002 | 0 | 0 | 0, 0 | 0 | 0 | 0 | 0 | 0, 0 | 0/0 | 0 rc=0 |
+| 169000-83-on | 169,002 | 0 | 14,280,753,501 | 0, 0 | 0 | 0 | 0 | 169,001 | 0, 0 | 0/0 | 0 rc=0 |
+| 169000-83-off | 169,002 | 0 | 0 | 0, 0 | 0 | 0 | 0 | 0 | 0, 0 | 0/0 | 0 rc=0 |
+| 169000-long-on | 169,002 | 0 | 1 | 0, 0 | 0 | 0 | 0 | 1 | 0, 0 | 0/0 | 0 rc=0 |
+| 169000-long-off | 169,002 | 0 | 0 | 0, 0 | 0 | 0 | 0 | 0 | 0, 0 | 0/0 | 0 rc=0 |
+| real-on | 169,108 | 0 | 4,791,379,669 | 467, 55,558,527 | 0 | 0 | 0 | 61,109 | 467, 169,108 | 0/0 | 0 rc=0 |
+| real-off | 169,108 | 0 | 0 | 467, 55,558,527 | 0 | 0 | 0 | 0 | 467, 169,108 | 0/0 | 0 rc=0 |

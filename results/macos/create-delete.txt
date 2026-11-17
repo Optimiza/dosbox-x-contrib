@@ -1,0 +1,66 @@
+# What: delete.sh <base> <create-delete> <on|off>: a delete, a create, an RD, an MD and a rename in a
+#       folder of long names that share their first six letters, with what each build left and how
+#       many short names moved. The summary lines of the report; the alias lines are left out.
+# Host: macOS 26 on Apple silicon; builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-16
+# Builds (source commit, sha256 of the executable):
+#   base          joncampbell123/dosbox-x 4e0b6adcf0349e543ed31a818949a46243ceb4f1  03ded6f66a1fcf071b785cf9f0ca8211b2ccb08d11956e6ce1e35e95c57801da
+#   create-delete dircache-create-delete ee861536f77463686ad3733fe638dba63c25eaab    1cf46aa36ac4cef0195c492ddcfda9152b42850a8c368924be7b80c0e27eb813
+# long names on
+delete.sh: long names on
+delete.sh: build A: base-4e0b6adcf (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+del|shell|listed_after=4
+del|loop41|found=4 deleted=4 failed=0 listed_after=4
+del|wild7141|ax=0000 listed_after=4
+delete.sh: build A: files the host holds at the end: S=4 L=4 W=4 A=9 P=6 C=10 R=9 directories
+delete.sh: build A: short names moved by one delete: 7 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 1 of 8
+delete.sh: build A: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=1
+delete.sh: build A: short names of directories moved by one RD: 7 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=6 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=7
+delete.sh: build A: R after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names reaching another directory=6 RENAMED reaches the renamed directory=yes
+delete.sh: build B: create-delete-ee861536f (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+del|shell|listed_after=0
+del|loop41|found=8 deleted=8 failed=0 listed_after=0
+del|wild7141|ax=0000 listed_after=0
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=0 A=9 P=6 C=10 R=9 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: DIFFERENT, 51 lines differ (A then B):
+# long names off
+delete.sh: long names off
+delete.sh: build A: base-4e0b6adcf (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+del|shell|listed_after=4
+del|loop41|found=4 deleted=4 failed=0 listed_after=4
+del|wild7141|ax=7100 listed_after=8
+delete.sh: build A: files the host holds at the end: S=4 L=4 W=8 A=9 P=6 C=9 R=8 directories
+delete.sh: build A: short names moved by one delete: 7 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build A: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build A: short names of directories moved by one RD: 7 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=6 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build A: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=6 RENAMED reaches the renamed directory=yes
+delete.sh: build B: create-delete-ee861536f (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+del|shell|listed_after=0
+del|loop41|found=8 deleted=8 failed=0 listed_after=0
+del|wild7141|ax=7100 listed_after=8
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=8 A=9 P=6 C=9 R=8 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: DIFFERENT, 52 lines differ (A then B):
