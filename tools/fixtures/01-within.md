@@ -21,6 +21,21 @@ One sentence. A second sentence. A third one ends the paragraph.
 | --- | --- | --- | --- | --- |
 | a | b | c | d | `e|f` |
 
+| # | Build | Memory held (kB) |
+| --- | --- | --- |
+| 1 | Unpatched | 498,305 |
+
+Source: `memory.sh`, in [the fixture of one paragraph](paragraph.md), read beside
+[the first heading](#what-was-wrong) and [the same heading by its page](01-within.md#what-was-wrong).
+
+| # | A table that names things |
+| --- | --- |
+| 2 | needs no source |
+
+| Exit code | Meaning |
+| --- | --- |
+| 3 | names an outcome, so it needs no source either |
+
 The emulator held 498,305 kB after 20 calls, on MS-DOS 7.10, MS-DOS 6.22 and FreeDOS 1.3 under Windows 98 with 8.3 names
 and INT 21, as subjects 1, 2 and 3 and issue 6823 say: the rest name things.
 Issue 6823, Subject 2 and Rule 5 open this sentence, and they name things too.

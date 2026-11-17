@@ -12,6 +12,14 @@ TABLE_COLUMNS=5
 SUBJECT_HEADINGS='What was wrong|What the fix changes|The figures|What a program can notice|How to check it|What it needs|What is left'
 # A link that names an upstream number says what it is in at least this many words.
 LINK_WORDS=3
+# The front page: its sections in order, the most list items in the one on measuring, the words
+# that mark the sentence on AI assistance, and how the credits line, its last, starts.
+# A table column headed so names things: its numbers are no figures.
+NAME_COLUMNS='#|Exit code'
+FRONT_SECTIONS='The subjects|The problem, and the case that showed it|How it is measured|Running it'
+FRONT_MEASURE_LINES=5
+FRONT_AI_MARK='AI assistance'
+FRONT_CREDITS_START='Developed by Optimiza'
 
 usage() {
     cat <<EOT
@@ -34,6 +42,16 @@ The limits:
   bare upstream number            an issue or pull request number no link names in
                                   $LINK_WORDS words or more, or a bare #number
   em dash                         none
+  a table of figures              a line starting Source: under it; a column headed
+                                  $NAME_COLUMNS names things and holds no figure
+  relative link                   a file that exists, and a heading that exists
+                                  when it names one
+  front page contents             its sections, in order: $FRONT_SECTIONS;
+                                  one opening paragraph; a subjects table whose rows link
+                                  to docs/NN-*.md; one table in the problem; at most
+                                  $FRONT_MEASURE_LINES list items and a link in how it is measured;
+                                  one code block and a link in running it; one paragraph
+                                  with "$FRONT_AI_MARK"; the last line starts "$FRONT_CREDITS_START"
 
 exit: 0 every page within the limits | 1 a page over a limit | 2 usage
       3 INVALID: no page was examined, or awk failed on one
@@ -75,6 +93,15 @@ function is_item(s) { return s ~ /^[ \t]*([-*+]|[0-9]+\.)[ \t]+/ }
 function is_row(s) { return s ~ /^[ \t]*\|/ }
 function trim(s) { sub(/^[ \t]+/, "", s); sub(/[ \t]+$/, "", s); return s }
 
+function cells(s, out) {
+    gsub(/\\\|/, "x", s)
+    gsub(/`[^`]*`/, "x", s)
+    s = trim(s)
+    sub(/^\|+/, "", s)
+    sub(/\|+$/, "", s)
+    return split(s, out, /\|/)
+}
+
 function finding(at, what, found, limit) {
     printf "%s:%d: %s: %s (limit %s)\n", page, at, what, found, limit
     over++
@@ -99,14 +126,7 @@ function count_words(s,   n, w, i, c) {
     return c
 }
 
-function columns(s,   n, f) {
-    gsub(/\\\|/, "x", s)
-    gsub(/`[^`]*`/, "x", s)
-    s = trim(s)
-    sub(/^\|+/, "", s)
-    sub(/\|+$/, "", s)
-    return split(s, f, /\|/)
-}
+function columns(s,   f) { return cells(s, f) }
 
 # The numbers of a sentence that measure something. One names a thing and is no figure when it
 # is a DOS or Windows version, 8.3, INT 21, or follows "issue", "pull request", "subject" or
@@ -173,9 +193,103 @@ function measure(kind, at, text,   body, flat, q, parts, i, nparts, sent, held) 
 }
 
 function flush() {
-    if (kind == "table" && cols > TABLE_COLUMNS) finding(start, "columns in a table", cols, TABLE_COLUMNS)
-    if (kind == "paragraph" || kind == "item") measure(kind, start, held)
+    if (kind == "table") {
+        if (cols > TABLE_COLUMNS) finding(start, "columns in a table", cols, TABLE_COLUMNS)
+        if (tfig) source_wanted = start
+        tables[sec]++
+        if (tables[sec] == 2) second_table[sec] = start
+    }
+    if (kind == "paragraph" || kind == "item") {
+        measure(kind, start, held)
+        if (kind == "item") items[sec]++
+        nb++; bsec[nb] = sec; bstart[nb] = start; btext[nb] = trim(held)
+    }
     kind = ""; held = ""
+}
+
+# The figures of a table's body row, leaving out the columns whose numbers name things.
+function row_figures(s,   n, c, r, f) {
+    n = cells(s, r)
+    f = 0
+    for (c = 1; c <= n; c++) if (!(hdr[c] in named_column)) f += figures(trim(unlink(r[c])))
+    return f
+}
+
+# A table of figures is followed by a line starting Source:.
+function source_due(at, s) {
+    if (!source_wanted) return
+    if (s !~ /^Source:/) finding(source_wanted, "source of a table of figures", "none", "a Source: line under it")
+    source_wanted = 0
+}
+
+function read_slugs(file,   l, t, fenced, n) {
+    slugs_read[file] = 1
+    fenced = 0
+    while ((getline l < file) > 0) {
+        sub(/\r$/, "", l)
+        if (is_fence(l)) { fenced = !fenced; continue }
+        if (fenced || l !~ /^#+[ \t]/) continue
+        t = l
+        sub(/^#+[ \t]+/, "", t)
+        t = tolower(trim(t))
+        gsub(/[^a-z0-9 _-]/, "", t)
+        gsub(/ /, "-", t)
+        n = slug_seen[file, t]++
+        slug[file, n ? t "-" n : t] = 1
+    }
+    close(file)
+}
+
+# A relative link names a file that exists, and a heading of it when it names one.
+function check_link(at, target,   k, path, anchor, file) {
+    if (target ~ /^[A-Za-z][A-Za-z0-9+.-]*:/) return
+    sub(/[ \t].*$/, "", target)
+    k = index(target, "#")
+    path = k ? substr(target, 1, k - 1) : target
+    anchor = k ? substr(target, k + 1) : ""
+    file = path == "" ? page : DIR path
+    if (file ~ /'/ || system("test -e '" file "'") != 0) {
+        finding(at, "relative link", target, "a file that exists")
+        return
+    }
+    if (anchor == "" || file !~ /\.md$/) return
+    if (!(file in slugs_read)) read_slugs(file)
+    if (!((file, anchor) in slug)) finding(at, "relative link", target, "a heading that exists")
+}
+
+function check_links(   i, s, target) {
+    for (i = 1; i <= NR; i++) {
+        if (plain[i] == "") continue
+        s = plain[i]
+        gsub(/`[^`]*`/, "", s)
+        while (match(s, /\]\([^)]*\)/)) {
+            target = substr(s, RSTART + 2, RLENGTH - 3)
+            s = substr(s, RSTART + RLENGTH)
+            check_link(i, target)
+        }
+    }
+}
+
+function front_page(   want, nwant, i, n, at, ai, last) {
+    nwant = split(FRONT_SECTIONS, want, "|")
+    for (i = 1; i <= h2 && i <= nwant; i++)
+        if (h2name[i] != want[i]) finding(h2at[i], "front page section " i, "\"" h2name[i] "\"", "\"" want[i] "\"")
+    if (h2 != nwant) finding(h2 ? h2at[h2] : 1, "front page sections", h2, nwant)
+    n = 0
+    for (i = 1; i <= nb; i++) if (bsec[i] == 0) { n++; if (n == 2) at = bstart[i] }
+    if (n != 1) finding(n > 1 ? at : 1, "front page opening paragraphs", n, 1)
+    if (tables[1] < 1) finding(h2at[1] ? h2at[1] : 1, "front page tables in the subjects", 0, 1)
+    if (tables[2] > 1) finding(second_table[2], "front page tables in the problem", tables[2], 1)
+    if (items[3] > FRONT_MEASURE_LINES) finding(h2at[3], "front page lines in how it is measured", items[3], FRONT_MEASURE_LINES)
+    if (!links[3]) finding(h2at[3] ? h2at[3] : 1, "front page links in how it is measured", 0, 1)
+    if (codes[4] != 1) finding(h2at[4] ? h2at[4] : 1, "front page code blocks in running it", codes[4] + 0, 1)
+    if (!links[4]) finding(h2at[4] ? h2at[4] : 1, "front page links in running it", 0, 1)
+    ai = 0
+    for (i = 1; i <= nb; i++) if (index(btext[i], FRONT_AI_MARK)) { ai++; if (ai == 2) at = bstart[i] }
+    if (ai != 1) finding(ai > 1 ? at : 1, "front page AI line", ai, 1)
+    for (last = NR; last > 1 && line[last] !~ /[^ \t]/; last--) ;
+    if (index(line[last], FRONT_CREDITS_START) != 1)
+        finding(last, "front page last line", "not the credits line", "the line starting \"" FRONT_CREDITS_START "\"")
 }
 
 # Upstream numbers a link names: in a label of LINK_WORDS words or more, or in its target.
@@ -238,21 +352,35 @@ function subject_headings(   want, nwant, nh, i, expected) {
 
 END {
     SENTENCE_END = "[.?!][]\"" QUOTE ")*_]*[ \t]+"
-    kind = ""; held = ""; incode = 0; total = 0; over = 0; body = ""
+    n = split(NAME_COLUMNS, hcell, "|"); for (k = 1; k <= n; k++) named_column[hcell[k]] = 1
+    kind = ""; held = ""; incode = 0; total = 0; over = 0; body = ""; sec = 0; h2 = 0; nb = 0; source_wanted = 0
     for (i = 1; i <= NR; i++) {
         s = line[i]
         plain[i] = ""
         if (incode) { if (is_fence(s)) incode = 0; body = body "\n"; continue }
-        if (is_fence(s)) { flush(); incode = 1; body = body "\n"; continue }
+        if (is_fence(s)) { flush(); source_due(i, s); codes[sec]++; incode = 1; body = body "\n"; continue }
         plain[i] = s
         body = body s "\n"
         if (index(s, EMDASH)) { c = s; finding(i, "em dashes", gsub(EMDASH, "", c), 0) }
         if (s !~ /[^ \t]/) { flush(); continue }
-        if (is_heading(s)) { flush(); measure("heading", i, s); continue }
+        if (s ~ /\]\([^)]*\)/) links[sec]++
+        if (!is_row(s)) { if (kind == "table") flush(); source_due(i, s) }
+        if (is_heading(s)) {
+            flush()
+            measure("heading", i, s)
+            if (s ~ /^## /) { h2++; sec = h2; h2name[h2] = trim(substr(s, 4)); h2at[h2] = i }
+            if (FRONT && s ~ /^###/) finding(i, "front page heading level", 3, 2)
+            continue
+        }
         if (is_row(s)) {
-            if (kind != "table") { flush(); kind = "table"; start = i; cols = 0 }
+            if (kind != "table") { flush(); kind = "table"; start = i; cols = 0; trow = 0; tfig = 0; delete hdr }
+            trow++
             c = columns(s)
             if (c > cols) cols = c
+            if (trow == 1) { n = cells(s, hcell); for (k = 1; k <= n; k++) hdr[k] = trim(unlink(hcell[k])) }
+            else if (trow > 2) tfig += row_figures(s)
+            if (FRONT && sec == 1 && trow > 2 && s !~ /\]\(docs\/[0-9][0-9]-[^)]*\.md\)/)
+                finding(i, "front page subject row", "no page link", "a link to docs/NN-*.md")
             continue
         }
         if (is_item(s)) { flush(); kind = "item"; start = i; held = trim(s); continue }
@@ -260,8 +388,11 @@ END {
         if (kind == "") { kind = "paragraph"; start = i; held = trim(s) } else held = held " " trim(s)
     }
     flush()
+    source_due(NR + 1, "")
     if (FRONT && total > FRONT_PAGE_WORDS) finding(1, "words outside tables and code", total, FRONT_PAGE_WORDS)
+    if (FRONT) front_page()
     if (SUBJECT) subject_headings()
+    check_links()
     collect_named(body)
     for (i = 1; i <= NR; i++) if (plain[i] != "") references(i, plain[i])
     exit over ? 1 : 0
@@ -272,14 +403,17 @@ emdash=$(printf '\342\200\224')
 over=0
 for p in "${pages[@]}"; do
     name=${p#./}
-    front=0 subject=0
+    front=0 subject=0 dir=
     [ "$name" = README.md ] && front=1
+    case $name in */*) dir=${name%/*}/ ;; esac
     case "${name##*/}" in [0-9][0-9]-*.md) subject=1 ;; esac
     LC_ALL=C awk -v page="$name" -v FRONT="$front" -v SUBJECT="$subject" -v EMDASH="$emdash" \
         -v QUOTE="'" -v FRONT_PAGE_WORDS="$FRONT_PAGE_WORDS" -v PARAGRAPH_WORDS="$PARAGRAPH_WORDS" \
         -v PARAGRAPH_SENTENCES="$PARAGRAPH_SENTENCES" -v SENTENCE_FIGURES="$SENTENCE_FIGURES" \
         -v TABLE_COLUMNS="$TABLE_COLUMNS" -v SUBJECT_HEADINGS="$SUBJECT_HEADINGS" \
-        -v LINK_WORDS="$LINK_WORDS" "$PROGRAM" "$p"
+        -v LINK_WORDS="$LINK_WORDS" -v DIR="$dir" -v NAME_COLUMNS="$NAME_COLUMNS" -v FRONT_SECTIONS="$FRONT_SECTIONS" \
+        -v FRONT_MEASURE_LINES="$FRONT_MEASURE_LINES" -v FRONT_AI_MARK="$FRONT_AI_MARK" \
+        -v FRONT_CREDITS_START="$FRONT_CREDITS_START" "$PROGRAM" "$p"
     rc=$?
     case $rc in
         0) ;;
