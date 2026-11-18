@@ -30,6 +30,9 @@ STUB_EMU_OUTPUT=$left STUB_EMU_LOG="" t_case "an empty log" 3 "INVALID: the emul
 rm -f "$left"
 STUB_EMU_OUTPUT=$left STUB_EMU_RC=7 t_case "the emulator fails" 7 "launch.sh: | the stand-in's last word" launch
 rm -f "$left"
+# common.sh reads this line when a script takes a crash as the run's end (accept_exit).
+STUB_EMU_OUTPUT=$left STUB_EMU_RC=139 t_case "a crash's exit code, in the report as it came" 0 "launch.sh: exit code: 139" launch_then
+rm -f "$left"
 STUB_EMU_OUTPUT=$left STUB_EMU_SLEEP=30 t_case "the bound reached, the output there" 0 "launch.sh: exit code: 0" launch --seconds 1
 rm -f "$left"
 STUB_EMU_SLEEP=30 t_case "the bound reached, no output" 3 "INVALID: the run left no" launch --seconds 1

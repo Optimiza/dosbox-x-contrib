@@ -50,15 +50,17 @@ from a working tree. Then apply these changes, each of which must match:
    a run, not a session: `JUNKTEST_RUNS` in `battery.sh`, and the reporters' folder
    `junktest` in its tests and recordings.
 10. The first comment lines of `p5probe.c`, `p5rep.c` and `attrcost.test.sh` say what the program
-    does, never how the work was organised.
+    does, never how the work was organised, and no comment names a run by its place in that
+    work (`overlay.sh`'s answer of the three DOS).
 11. `fixtures/judge/load.txt`: every process outside the run is named `app`.
 12. `batch.sh` and the tests that start `judge.py` or `analyze.py` call `python3 -I`.
 13. `common.sh` reads the emulator's exit code from the report line `launch.sh: exit code:`,
-    and `fixtures/stub-launcher.sh` writes it so.
+    and `fixtures/stub-launcher.sh` writes it so. `launch.test.sh` checks that `launch.sh`
+    writes it.
 
 Then check it, from a fresh clone:
 
-- `shellcheck -x -P bench bench/*.sh bench/fixtures/*.sh`;
+- `shellcheck -x -P bench bench/*.sh bench/fixtures/*.sh bench/xcomsim/*.sh`;
 - every `bench/*.test.sh`: they play captured runs, with no emulator;
 - one real cell on unpatched upstream and on a patched build. Its output is compared, byte
   for byte, with what the same commit of the private folder prints.

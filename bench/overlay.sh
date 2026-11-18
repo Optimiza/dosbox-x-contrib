@@ -71,7 +71,7 @@ cat "$out/B-label.txt"
 verdict=0
 if cmp -s "$out/A-label.txt" "$out/B-label.txt"; then echo "overlay.sh: label lines ALIKE"
 else verdict=1; echo "overlay.sh: label lines DIFFERENT"; fi
-# What MS-DOS 6.22, MS-DOS 7.10 and FreeDOS 1.4 answer, labelled or not (8r's runs): a FindNext
+# What MS-DOS 6.22, MS-DOS 7.10 and FreeDOS 1.4 answer, labelled or not: a FindNext
 # after a search for the label alone finds nothing, and the root lists neither "." nor "..".
 alone=$(command grep -a '^pos|label-alone|' "$out/B.txt")
 case "$alone" in

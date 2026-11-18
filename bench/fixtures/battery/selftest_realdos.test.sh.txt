@@ -44,7 +44,7 @@ ok   the same program on FreeDOS, named by it
 ok   FreeDOS's identification
 ok   FINDPOS on the disk FreeDOS's own LABEL named
 ok   a FreeDOS that did not label the disk
-ok   the reporter's session on the image's DOS
+ok   the reporter's run on the image's DOS
 ok   a 300.BAT that did not reach its end there
 ok   an FC that did not compare the reporter's files there
 ok   no folder of the reporter's files

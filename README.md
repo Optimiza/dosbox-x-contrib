@@ -71,7 +71,7 @@ cost as well. The three are described as they stand at `4e0b6adcf`, before it.
   compares what they print.
 - Every figure compares a patched build with unpatched upstream `main-ai` at `4e0b6adcf`.
 - The referee is a real MS-DOS 7.10, booted inside the emulator from a Windows 98 SE disk
-  image. MS-DOS 6.22 and FreeDOS are being added beside it.
+  image. The bench boots MS-DOS 6.22 and FreeDOS beside it.
 - Every fix that is done is built on macOS and on Windows, and proved on each host whose code
   it changes.
 - A run that measured nothing reads INVALID, never as a pass.
