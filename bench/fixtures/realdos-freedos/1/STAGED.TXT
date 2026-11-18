@@ -1,0 +1,11 @@
+Copying e:\D\G\KEEP\ID.TXT
+Copying e:\D\G\KEEP\TWO.TXT
+Copying e:\D\G\RD0\ID.TXT
+Copying e:\D\G\RD0\TWO.TXT
+Copying e:\D\G\RD1\ID.TXT
+Copying e:\D\G\RD1\TWO.TXT
+Copying e:\D\G\REN0\ID.TXT
+Copying e:\D\G\REN0\TWO.TXT
+Copying e:\D\G\REN1\ID.TXT
+Copying e:\D\G\REN1\TWO.TXT
+10 file(s) copied

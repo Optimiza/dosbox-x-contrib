@@ -1,0 +1,66 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x freedos /images/fd.img dtadump
+realdos.sh: freedos: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: freedos: image: /images/fd.img
+realdos.sh: freedos: ver: FreeCom version 0.86 - WATCOMC - XMS_Swap [Dec 30 2024 22:10:51]
+realdos.sh: freedos: dos|version=7.10 oem=FD
+realdos.sh: freedos: dos|true_version=7.10 flags=00
+realdos.sh: freedos: dos|int21=00D9:129A code=EAA5015A06E86E00
+realdos.sh: freedos: dos|lfn_714e=7100
+realdos.sh: freedos: dos|windows_1600=00
+realdos.sh: freedos: dos|drive_z=3
+realdos.sh: freedos: figures: template=8044d2aed1bc untouched=6/6 resumed=6/6 fcb=f9c92156e849
+freedos|list|whole-folder|first=0 n=16|.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|dump|template *.*|after|first=0|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 2E00202020202020EEEEEEEEEE
+freedos|dump|template BAR.TXT|after|first=0|03 4241522020202020545854 37 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+freedos|dump|template bar.txt|after|first=0|03 4241522020202020545854 37 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+freedos|dump|template B*.TXT|after|first=0|03 423F3F3F3F3F3F3F545854 37 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+freedos|dump|template B*R.TXT|after|first=0|03 423F3F3F3F3F3F3F545854 37 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+freedos|dump|template *R.TXT|after|first=0|03 3F3F3F3F3F3F3F3F545854 37 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+freedos|dump|template B*|after|first=18|EE EEEEEEEEEEEEEEEEEEEEEE EE ---------------- EE -------- EEEEEEEE EEEEEEEEEEEEEEEEEEEEEEEEEE
+freedos|dump|template NOEXT|after|first=0|03 4E4F455854202020202020 37 ---------------- 20 -------- 01000000 4E4F455854002020EEEEEEEEEE
+freedos|dump|template *|after|first=0|03 3F3F3F3F3F3F3F3F202020 37 ---------------- 10 -------- 00000000 2E00202020202020EEEEEEEEEE
+freedos|dump|template *.|after|first=0|03 3F3F3F3F3F3F3F3F202020 37 ---------------- 10 -------- 00000000 2E00202020202020EEEEEEEEEE
+freedos|dump|template A.B|after|first=0|03 4120202020202020422020 37 ---------------- 20 -------- 02000000 412E420020202020EEEEEEEEEE
+freedos|dump|template ?OO.T?T|after|first=0|03 3F4F4F2020202020543F54 37 ---------------- 20 -------- 03000000 464F4F2E54585400EEEEEEEEEE
+freedos|dump|template ZED.*|after|first=0|03 5A454420202020203F3F3F 37 ---------------- 20 -------- 07000000 5A45442E54585400EEEEEEEEEE
+freedos|dump|template ZED.T*T|after|first=0|03 5A45442020202020543F3F 37 ---------------- 20 -------- 07000000 5A45442E54585400EEEEEEEEEE
+freedos|dump|template ALPHAT~1.MID|after|first=0|03 414C504841547E314D4944 37 ---------------- 20 -------- 05000000 414C504841547E312E4D494400
+freedos|dump|template NOSUCH.TXT|after|first=18|EE EEEEEEEEEEEEEEEEEEEEEE EE ---------------- EE -------- EEEEEEEE EEEEEEEEEEEEEEEEEEEEEEEEEE
+freedos|dump|next|after-first|first=0|03 423F3F3F3F3F3F3F545854 37 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+freedos|dump|next|after-failed-next|next=18|03 423F3F3F3F3F3F3F545854 37 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+freedos|dump|next|after-second-failed-next|next=18|03 423F3F3F3F3F3F3F545854 37 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+freedos|dump|next|wild-after-first|first=0|03 3F3F3F3F3F3F3F3F545854 37 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+freedos|dump|next|wild-after-next|next=0|03 3F3F3F3F3F3F3F3F545854 37 ---------------- 20 -------- 03000000 464F4F2E54585400EEEEEEEEEE
+freedos|dump|failed-first no-such-file|before|-|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|dump|failed-first no-such-file|after|first=18 dta=unchanged|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|list|failed-first no-such-file|failed=18 then more=13 of 13|,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|dump|failed-first no-such-directory|before|-|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|dump|failed-first no-such-directory|after|first=3 dta=unchanged|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|list|failed-first no-such-directory|failed=3 then more=13 of 13|,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|dump|failed-first trailing-backslash|before|-|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|dump|failed-first trailing-backslash|after|first=3 dta=unchanged|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|list|failed-first trailing-backslash|failed=3 then more=13 of 13|,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|dump|failed-first label-by-name|before|-|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|dump|failed-first label-by-name|after|first=18 dta=unchanged|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|list|failed-first label-by-name|failed=18 then more=13 of 13|,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|dump|failed-first label-any|before|-|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|dump|failed-first label-any|after|first=18 dta=unchanged|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|list|failed-first label-any|failed=18 then more=13 of 13|,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|dump|lfn-first|before|-|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|dump|lfn-first|after|714E=28928 dta=unchanged|03 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 4C4F4E4753557E3100EEEEEEEE
+freedos|list|lfn-first|714E=28928 then more=13 of 13|,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|dump|fcb-plain|fcb-before|-|00 3F3F3F3F3F3F3F3F545854 00000000000000000000 00000000000000000000000000000000000000000000
+freedos|dump|fcb-plain|fcb-after-11h|al=0|00 3F3F3F3F3F3F3F3F545854 00000000000000000000 00000300000A00020000000000000000000000000000
+freedos|dump|fcb-plain|dta-after-11h|-|04 4241522020202020545854 20 00000000000000000000 -------- 0C00 05000000 EEEEEEEEEEEEEEEEEEEE
+freedos|dump|fcb-plain|fcb-after-12h|al=0|00 3F3F3F3F3F3F3F3F545854 00000000000000000000 00000300000B00020000000000000000000000000000
+freedos|dump|fcb-plain|dta-after-12h|-|04 464F4F2020202020545854 20 00000000000000000000 -------- 0D00 03000000 EEEEEEEEEEEEEEEEEEEE
+freedos|dump|fcb-extended|fcb-before|-|FF000000000010 00 3F3F3F3F3F3F3F3F3F3F3F 00000000000000000000 000000000000000000000000000000
+freedos|dump|fcb-extended|fcb-after-11h|al=0|FF000000000010 00 3F3F3F3F3F3F3F3F3F3F3F 00000000000000000000 000003000001000200000000000000
+freedos|dump|fcb-extended|dta-after-11h|-|FF000000000010 04 2E20202020202020202020 10 00000000000000000000 -------- 0200 00000000 EEEEEE
+freedos|dump|fcb-not-found|fcb-after-11h|al=1|00 4E4F53554348202058595A 00000000000000000000 00000000000000000000000000000000000000000000
+freedos|list|fcb-two-searches|TXT and MID turn about|,BAR     TXT,ALPHAT~1MID,FOO     TXT,ALPHAT~2MID,MIXCASE TXT,ALPHAT~3MID,TWO~1   TXT,ALPHAT~4MID
+freedos|list|fcb-around-4e|inner first=0|,BAR     TXT,FOO     TXT,MIXCASE TXT,TWO~1   TXT,ZED     TXT
+freedos|list|fcb-rewritten-then-12h|11h 12h, the FCB rewritten, 12h 12h 12h|,BAR     TXT,FOO     TXT,-,-,-
+freedos|list|fcb-copied-then-12h|11h TXT, copy, 11h MID, 12h on the copy three times|,BAR     TXT,ALPHAT~1MID,FOO     TXT,MIXCASE TXT,TWO~1   TXT
+freedos|list|folder-lost-a-middle-entry|first=0 more=5|,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|end|lines=54

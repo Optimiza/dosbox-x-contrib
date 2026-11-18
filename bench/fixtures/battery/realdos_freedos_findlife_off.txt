@@ -1,0 +1,36 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x freedos /images/fd.img findlife
+realdos.sh: freedos: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: freedos: image: /images/fd.img
+realdos.sh: freedos: ver: FreeCom version 0.86 - WATCOMC - XMS_Swap [Dec 30 2024 22:10:51]
+realdos.sh: freedos: dos|version=7.10 oem=FD
+realdos.sh: freedos: dos|true_version=7.10 flags=00
+realdos.sh: freedos: dos|int21=00D9:129A code=EAA5015A06E86E00
+realdos.sh: freedos: dos|lfn_714e=7100
+realdos.sh: freedos: dos|windows_1600=00
+realdos.sh: freedos: dos|drive_z=3
+freedos|folders|a=42 b=32 foreign=0
+freedos|case|remount|mount_rc=-1 before=3 search_on_new_drive=32 of 32 foreign=0|DIFFERS
+freedos|case|lfn-next-after-its-end|714Eh failed, error 7100|not judged
+freedos|case|nested-same-dta|outer=42 of 42 inner=32 of 32 foreign=0|ok
+freedos|case|nested-other-dta|outer=42 of 42 inner=32 of 32 foreign=0|ok
+freedos|case|failed-findfirst|error=3 outer=42 of 42 foreign=0|ok
+freedos|case|lfn-writes-current-dta|714Eh failed, error 7100|not judged
+freedos|case|nested-lfn|714Eh failed, error 7100|not judged
+freedos|case|lfn-inside-4e|714Eh failed, error 7100|not judged
+freedos|case|slot-reused-live|old_slot_held_by_a_live_search=1 shortest_live_search=32 of 32 foreign=0|ok
+freedos|case|stale-dta-after-reuse|its_slot_held_by_a_search_of_the_other_folder=1 next=entry name=A0001.TXT from_other_folder=0|ok
+freedos|case|child-ends-mid-search|child_rc=0 parent_4e=42 of 42 parent_lfn=not run, 714Eh failed foreign=0|ok
+freedos|case|child-continues-parent|child_rc=0 child_got=2 total=42 of 42 foreign=0|ok
+freedos|case|child-starts-parent-continues|child_rc=0 total=32 of 32 foreign=0|ok
+freedos|case|rescan-mid-search|rescan_rc=-1 created=1 live=42 of 42 after=42 of 42 foreign=0|DIFFERS
+freedos|case|libc-two-searches|first=42 of 42 second=32 of 32|ok
+freedos|case|libc-two-searches-other-length|first=42 of 42 second=32 of 32|ok
+freedos|case|fcb|files=42 of 40 again=42|DIFFERS
+freedos|case|fcb-around-4e|files=42 of 42 inner=32 of 32|ok
+freedos|case|fcb-around-lfn|files=42 of 42 inner=0 of 32|not judged
+freedos|case|fcb-around-lfn-of-a-device|files=42 of 42, 714Eh failed, error 7100|not judged
+freedos|case|listed-again-after-a-new-file|created=1 first_listing=43 of 42 second_listing=43 of 43 new_file_in_second=1 foreign=0|ok
+freedos|case|lfn-first-with-no-handle-left|714Eh was not turned away for want of a handle: error 7100 after 0 calls|not judged
+freedos|case|left-open-past-the-slots|left_open=2100 outer=42 of 42 foreign=0|ok
+freedos|case|turn-about-past-the-slots|lookups=2940 found=2940 first=42 of 42 second=32 of 32 foreign=0|ok
+freedos|end|cases=24

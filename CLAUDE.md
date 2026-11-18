@@ -23,7 +23,7 @@ drafted here for a pull request or a comment.
   the branch it needs. Every figure is compared with that base, whatever `main-ai` is today.
 - The instruments are developed in [`scry-mcp/scry-dosbox-x`](https://github.com/scry-mcp/scry-dosbox-x), branch `dircache`,
   folder `tests/dircache`. `bench/` is that folder as committed there, last taken at
-  `07b429e`, with the changes listed below.
+  `b829ddc`, with the changes listed below.
 - The record of which subjects are delivered, and with what figures, is kept in that
   repository.
 - The raw lines of every run are filed outside both repositories, by the work's own record.
@@ -53,6 +53,8 @@ from a working tree. Then apply these changes, each of which must match:
     does, never how the work was organised.
 11. `fixtures/judge/load.txt`: every process outside the run is named `app`.
 12. `batch.sh` and the tests that start `judge.py` or `analyze.py` call `python3 -I`.
+13. `common.sh` reads the emulator's exit code from the report line `launch.sh: exit code:`,
+    and `fixtures/stub-launcher.sh` writes it so.
 
 Then check it, from a fresh clone:
 

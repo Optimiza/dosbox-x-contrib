@@ -1,0 +1,8 @@
+lfnren|setup|A del=0000
+lfnren|listed|56h=0000
+lfnren|listed|LONGNA~2.TXT=0000:six
+lfnren|listed|LONGNA~3.TXT=0002:-
+lfnren|setup|C del=0000
+lfnren|search|first=0000 56h=0000
+lfnren|search|returned=0
+end|lines=7

@@ -1,0 +1,33 @@
+exit=1 :: lfnren.sh /builds/base/dosbox-x /builds/create-delete/dosbox-x
+lfnren.sh: long names on
+lfnren.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+lfnren|setup|A del=0000
+lfnren|listed|56h=0000
+lfnren|listed|LONGNA~1.TXT=0000:two
+lfnren|listed|LONGNA~2.TXT=0000:six
+lfnren|setup|C del=0000
+lfnren|search|first=0000 56h=0000
+lfnren|search|returned=0
+end|lines=7
+lfnren.sh: build B: /builds/create-delete/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+lfnren|setup|A del=0000
+lfnren|listed|56h=0000
+lfnren|listed|LONGNA~2.TXT=0000:two
+lfnren|listed|LONGNA~3.TXT=0000:six
+lfnren|setup|C del=0000
+lfnren|search|first=0000 56h=0000
+lfnren|search|LONGNA~2.TXT=0000:two
+lfnren|search|LONGNA~3.TXT=0000:six
+lfnren|search|returned=3
+end|lines=9
+lfnren.sh: DIFFERENT, 4 lines differ (A then B):
+< lfnren|listed|LONGNA~1.TXT=0000:two
+< lfnren|listed|LONGNA~2.TXT=0000:six
+> lfnren|listed|LONGNA~2.TXT=0000:two
+> lfnren|listed|LONGNA~3.TXT=0000:six
+< lfnren|search|returned=0
+< end|lines=7
+> lfnren|search|LONGNA~2.TXT=0000:two
+> lfnren|search|LONGNA~3.TXT=0000:six
+> lfnren|search|returned=3
+> end|lines=9

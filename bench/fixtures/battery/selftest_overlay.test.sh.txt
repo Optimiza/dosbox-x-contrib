@@ -1,0 +1,18 @@
+exit=0 :: overlay.test.sh
+ok   the overlay answers as the host folder
+ok   a FindNext after the label alone, as DOS
+ok   no dot entry in the root, as DOS
+ok   the lines left to upstream's overlay, listed
+ok   an overlay that answers otherwise
+ok   a FindNext after the label alone that goes on
+ok   the root's dot entries
+ok   an overlay run with no label-alone line
+ok   an overlay run with no listing of the root
+ok   a host-folder run with no label line
+ok   the launcher refuses the run
+ok   a build that is not there
+ok   neither labelled nor unlabelled
+ok   neither on nor off
+ok   two arguments
+ok   its own help
+16 cases, 0 failed

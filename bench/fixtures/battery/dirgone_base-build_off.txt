@@ -1,0 +1,47 @@
+exit=1 :: dirgone.sh /builds/base/dosbox-x /builds/create-delete/dosbox-x off
+dirgone.sh: long names off
+dirgone.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+gone|kept|first=0000 entry=. op=- made=- next=0012 rest=..,ID.TXT,TWO.TXT
+gone|rd|first=0000 entry=. op=0000 made=- next=0012 rest=-
+gone|rd-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+gone|ren|first=0000 entry=. op=0000 made=- next=0012 rest=-
+gone|ren-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+gone|rd-late-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..,ID.TXT
+gone|rd-parent-ren|first=0000 entry=. op=0000 made=0000 next=0012 rest=-
+gone|rd-parent-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=-
+gone|ren-parent|first=0000 entry=. op=0000 made=- next=0012 rest=-
+gone|ren-twice|first=0000 entry=. op=0000 made=0000 next=0012 rest=-
+gone|ren-then-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=-
+end|lines=11
+dirgone.sh: build B: /builds/create-delete/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+gone|kept|first=0000 entry=. op=- made=- next=0012 rest=..,ID.TXT,TWO.TXT
+gone|rd|first=0000 entry=. op=0000 made=- next=0012 rest=..
+gone|rd-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+gone|ren|first=0000 entry=. op=0000 made=- next=0012 rest=..,ID.TXT,TWO.TXT
+gone|ren-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..,ID.TXT,TWO.TXT
+gone|rd-late-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+gone|rd-parent-ren|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+gone|rd-parent-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+gone|ren-parent|first=0000 entry=. op=0000 made=- next=0012 rest=..,ID.TXT
+gone|ren-twice|first=0000 entry=. op=0000 made=0000 next=0012 rest=..,ID.TXT
+gone|ren-then-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+end|lines=11
+dirgone.sh: DIFFERENT, 9 lines differ (A then B):
+< gone|rd|first=0000 entry=. op=0000 made=- next=0012 rest=-
+> gone|rd|first=0000 entry=. op=0000 made=- next=0012 rest=..
+< gone|ren|first=0000 entry=. op=0000 made=- next=0012 rest=-
+< gone|ren-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+< gone|rd-late-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..,ID.TXT
+< gone|rd-parent-ren|first=0000 entry=. op=0000 made=0000 next=0012 rest=-
+< gone|rd-parent-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=-
+< gone|ren-parent|first=0000 entry=. op=0000 made=- next=0012 rest=-
+< gone|ren-twice|first=0000 entry=. op=0000 made=0000 next=0012 rest=-
+< gone|ren-then-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=-
+> gone|ren|first=0000 entry=. op=0000 made=- next=0012 rest=..,ID.TXT,TWO.TXT
+> gone|ren-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..,ID.TXT,TWO.TXT
+> gone|rd-late-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+> gone|rd-parent-ren|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+> gone|rd-parent-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+> gone|ren-parent|first=0000 entry=. op=0000 made=- next=0012 rest=..,ID.TXT
+> gone|ren-twice|first=0000 entry=. op=0000 made=0000 next=0012 rest=..,ID.TXT
+> gone|ren-then-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=..

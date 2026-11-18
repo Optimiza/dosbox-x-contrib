@@ -1,5 +1,5 @@
-exit=0 :: realdos.test.sh 
-ok   the report of the image's DOS
+exit=0 :: realdos.test.sh
+ok   the report of the image's DOS, each line named by it
 ok   which DOS answered
 ok   a folder that reached the disk short
 ok   a log that does not say the image booted
@@ -31,8 +31,34 @@ ok   XCOPY's tree on the image's DOS, listed by that DOS
 ok   a tree staged a folder at a time, one folder short
 ok   a file that DOS does not list under the copy
 ok   a batch that did not list the folders
+ok   DIRGONE's report of MS-DOS 7.10
+ok   MS-DOS 7.10 reads on in a directory whose parent was renamed
+ok   DIRGONE's report with a case missing
+ok   DOSANS's report of MS-DOS 7.10
+ok   DOSANS's report with a line missing
+ok   DOSANS on the disk MS-DOS 6.22 labelled
+ok   the same program on MS-DOS 6.22, named by it
+ok   MS-DOS 6.22's own VER line
+ok   MS-DOS 6.22 in a removed directory whose parent was removed
+ok   the same program on FreeDOS, named by it
+ok   FreeDOS's identification
+ok   FINDPOS on the disk FreeDOS's own LABEL named
+ok   a FreeDOS that did not label the disk
+ok   the reporter's session on the image's DOS
+ok   a 300.BAT that did not reach its end there
+ok   an FC that did not compare the reporter's files there
+ok   no folder of the reporter's files
+ok   a reporter's program with no folder
+ok   a folder beside a program of this folder
+ok   the reporter's program on the image's DOS, and that DOS's listing of its folder
+ok   a folder that DOS lists a file short
+ok   the emulator's AUTOTYPE crash after the batch's end
+ok   that crash before the batch's end
+ok   another exit of the emulator
+ok   that exit in a run with no keys to type
 ok   the launcher refuses the run
 ok   a program it does not have
 ok   an image that is not there
-ok   two arguments
-36 cases, 0 failed
+ok   a DOS it does not know
+ok   the image and the program with no DOS
+62 cases, 0 failed

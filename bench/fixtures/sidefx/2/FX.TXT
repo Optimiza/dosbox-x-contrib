@@ -1,0 +1,6 @@
+sidefx|before|listed=10 new=0 label_rc=18 label=
+sidefx|released=1
+sidefx|after-host-create|listed=10 new=0 label_rc=18 label=
+sidefx|setattr|rc=0
+sidefx|after-setattr|listed=10 new=0 label_rc=18 label=
+sidefx|end

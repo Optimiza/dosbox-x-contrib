@@ -259,6 +259,18 @@ exact_tree() {
     fi
 }
 
+# dirgone_tree <dir>: the folder DIRGONE searches, <dir>/G, every name 8.3 so that any DOS can
+# hold it: five directories, each with its name in ID.TXT and a TWO.TXT.
+DIRGONE_DIRS="KEEP RD0 RD1 REN0 REN1"
+dirgone_tree() {
+    local d
+    for d in $DIRGONE_DIRS; do
+        mkdir -p "$1/G/$d" || return
+        printf '%s' "$d" > "$1/G/$d/ID.TXT" || return
+        printf 'two' > "$1/G/$d/TWO.TXT" || return
+    done
+}
+
 # exact_whole <report>: EXACT's trailer counts the lines above it.
 exact_whole() {
     awk -F'|' '$1 == "end" { split($2, a, "="); t = a[2] } $1 != "end" { n++ } END { exit !(n > 0 && n == t + 0) }' "$1"
@@ -330,6 +342,25 @@ xcopy_tree() {
             s=$((s + 1))
         done
         t=$((t + 1))
+    done
+}
+
+# xcomsim_tree <dir> <calls file>: the drive XCOMSIM runs on. XCOMA holds every name the game
+# found on C: in the calls file (xcomsim/calls.txt), in capitals as an 8.3 drive shows it, its
+# trailing spaces dropped as DOS drops them, each a small file of its own: none of the game's
+# bytes. LISTA and LISTB hold the two folders of the listing.
+XCOMSIM_LIST_FILES=40
+xcomsim_tree() {
+    local d=$1 name i
+    mkdir -p "$d/XCOMA" "$d/LISTA" "$d/LISTB" || return
+    while IFS= read -r name; do
+        case "$name" in /*|*..*|*\\*|*:*) echo "$tool: a name outside the game's folder: $name" >&2; return 1 ;; esac
+        mkdir -p "$d/XCOMA/$(dirname "$name")" && printf 'x' > "$d/XCOMA/$name" || return
+    done < <(LC_ALL=C awk -F'|' '$1 !~ /^#/ && $4 == "c" && $5 == "found" { n = $0; for (i = 0; i < 5; i++) sub(/^[^|]*\|/, "", n); sub(/ +$/, "", n); print toupper(n) }' "$2" | LC_ALL=C sort -u)
+    i=0
+    while [ "$i" -lt "$XCOMSIM_LIST_FILES" ]; do
+        printf 'a' > "$d/LISTA/$(printf 'A%04d.TXT' "$i")" && printf 'b' > "$d/LISTB/$(printf 'B%04d.DAT' "$i")" || return
+        i=$((i + 1))
     done
 }
 
@@ -486,13 +517,21 @@ folder_resolve() {
 # a script sets it, is one more line of [dos].
 # A mount that names no label asks for an empty one: left alone, a Windows build labels the
 # drive itself and a search for the label answers there what it does not answer elsewhere.
+# DIRCACHE_OVERLAY, a glob matched against the run's name (guest_run's label: A, B, A-exact...),
+# puts an overlay drive on D: in the runs it matches, over a directory of the run's own, with
+# D:'s label: an overlay is a drive of its own and takes no label from the one under it.
 conf_write() {
-    local run=$1 d=$2 options=$3 no_label=' -label ""'
+    local run=$1 d=$2 options=$3 no_label=' -label ""' name overlay=""
     shift 3
     case "$options" in *-label*) ;; *) options="$options$no_label" ;; esac
+    name=${run##*/run-}
+    # shellcheck disable=SC2254  # the variable is a glob on purpose
+    case "$name" in ${DIRCACHE_OVERLAY:-}) [ -n "${DIRCACHE_OVERLAY:-}" ] && overlay=$run.ov ;; esac
+    if [ -n "$overlay" ]; then mkdir -p "$overlay" || return; fi
     {
         printf '[dosbox]\nmemsize=64\n\n[cpu]\ncore=dynamic\ncycles=%s\n\n[dos]\n%slfn=%s\n\n[autoexec]\n' "${conf_cycles:-max}" "${conf_dos:+$conf_dos$'\n'}" "$lfn_conf"
         printf 'mount c "%s"%s\nmount d "%s"%s\n' "$(host_path "$run")" "$no_label" "$(host_path "$d")" "$options"
+        if [ -n "$overlay" ]; then printf 'mount d "%s" -t overlay%s\n' "$(host_path "$overlay")" "$options"; fi
         printf '%s\n' "$@" exit
     } > "$run/run.conf"
 }
@@ -519,9 +558,10 @@ emu_start() {
 
 # emu_finish <label>: waits, sets emu_version. Non-zero, with the launcher's own words, when
 # the emulator failed or was cut off, the guest left no output, or the report names no build.
-# accept_exit, where a script sets it, is an exit code taken on Windows as the emulator's end
-# when it is all the launcher had against the run (emu_exit_accepted then holds it): the script
-# reads the guest's last line before it trusts the run.
+# accept_exit, where a script sets it, is an exit code taken as the emulator's end when it is all
+# the launcher had against the run (emu_exit_accepted then holds it): the script reads the guest's
+# last line before it trusts the run. On Windows the launcher's only words must be that exit; on
+# macOS its report names the exit code.
 emu_finish() {
     local rc code
     wait "$emu_job"
@@ -529,9 +569,14 @@ emu_finish() {
     emu_job="" emu_exit_accepted=""
     emu_version=$(sed -n 's/^[^ ]*: version: //p' "$emu_dir/report.txt" 2> /dev/null)
     if [ "$rc" -eq 0 ] && [ -n "$emu_version" ]; then return 0; fi
-    if [ "$HOST_KIND" = windows ] && [ -n "${accept_exit:-}" ] && [ -n "$emu_version" ]; then
-        code=$(sed -n 's/^windows\.ps1: exit code: //p' "$emu_dir/report.txt" | tr -d '\r')
-        if [ "$code" = "$accept_exit" ] && [ "$(tr -d '\r' < "$emu_dir/launcher.txt")" = "windows.ps1: INVALID: the emulator exited $accept_exit" ]; then
+    if [ -n "${accept_exit:-}" ] && [ -n "$emu_version" ]; then
+        if [ "$HOST_KIND" = windows ]; then
+            code=$(sed -n 's/^windows\.ps1: exit code: //p' "$emu_dir/report.txt" | tr -d '\r')
+            if [ "$(tr -d '\r' < "$emu_dir/launcher.txt")" != "windows.ps1: INVALID: the emulator exited $accept_exit" ]; then code=""; fi
+        else
+            code=$(sed -n 's/^launch\.sh: exit code: //p' "$emu_dir/report.txt")
+        fi
+        if [ "$code" = "$accept_exit" ]; then
             # shellcheck disable=SC2034  # read by the scripts
             emu_exit_accepted=$code
             return 0

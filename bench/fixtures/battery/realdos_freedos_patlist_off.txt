@@ -1,0 +1,26 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x freedos /images/fd.img patlist
+realdos.sh: freedos: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: freedos: image: /images/fd.img
+realdos.sh: freedos: ver: FreeCom version 0.86 - WATCOMC - XMS_Swap [Dec 30 2024 22:10:51]
+realdos.sh: freedos: dos|version=7.10 oem=FD
+realdos.sh: freedos: dos|true_version=7.10 flags=00
+realdos.sh: freedos: dos|int21=00D9:129A code=EAA5015A06E86E00
+realdos.sh: freedos: dos|lfn_714e=7100
+realdos.sh: freedos: dos|windows_1600=00
+realdos.sh: freedos: dos|drive_z=3
+freedos|pat|*R.TXT|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+freedos|pat|B*R.TXT|first=0 n=1|,BAR.TXT
+freedos|pat|*O.TXT|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+freedos|pat|ZED.T*T|first=0 n=1|,ZED.TXT
+freedos|pat|*.T*T|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+freedos|pat|*.*D|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|pat|TWO.*|first=18 n=0|
+freedos|pat|ALPHA*.MID|first=0 n=4|,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID
+freedos|pat|A*~1.MID|first=0 n=4|,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID
+freedos|pat|*~1.*|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|pat|NOEXT*.*|first=0 n=2|,NOEXT,NOEXTE~1
+freedos|pat|N*|first=0 n=2|,NOEXT,NOEXTE~1
+freedos|pat|MIXCASE.TXT|first=0 n=1|,MIXCASE.TXT
+freedos|pat|????????.???|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|pat|*.*|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+freedos|end|lines=15

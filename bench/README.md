@@ -17,14 +17,20 @@ program sees when it does anything but run one search to its end. The code under
 | [`ties.sh`](#tiessh) | `ties.c` | whether two builds return two entries that share an 8.3 name in the same order |
 | [`enumstat.sh`](#enumstatsh) | `enumstat.c` | how many entries a listing returns while every entry is looked up by name |
 | [`xcopy.sh`](#xcopysh) | the emulator's own `XCOPY.EXE` | how much of a tree of folders arrives when XCOPY copies it |
+| [`xcomsim.sh`](#xcomsimsh) | `xcomsim.c` | whether two listings, each through its own DTA, survive the lookups X-COM Apocalypse makes between their turns |
 | [`drift.sh`](#driftsh) | `drift.c` | whether two builds answer alike when a FindNext brings another pattern than its FindFirst had |
 | [`findpos.sh`](#findpossh) | `findpos.c` | whether two builds keep the place of a search where a program can move it, and leave the same behind after a search for the volume label alone |
 | [`dtadump.sh`](#dtadumpsh) | `dtadump.c` | whether two builds leave the same bytes in a DTA and in an FCB around the find calls |
 | [`patlist.sh`](#patlistsh) | `patlist.c` | whether two builds return the same entries for patterns that hold a `*` before more characters |
 | [`template.sh`](#templatesh) | `template.c` | whether two builds answer alike where the answer hangs on how the search template is padded |
+| [`dosans.sh`](#dosanssh) | `dosans.c` | whether two builds answer alike where DOS parses a path, for 4Eh and for 3Dh, 43h and 3Bh |
+| [`overlay.sh`](#overlaysh) | `findpos.c` | whether an overlay drive answers the label and root searches as the host folder under it and as DOS |
 | [`attrprobe.sh`](#attrprobesh) | `attrprb.c` | whether two builds answer alike when a file is deleted or has its attribute changed while searches are open |
 | [`delete.sh`](#deletesh) | `delprb.c` | whether two builds delete the same files of a folder of long names, and keep the short names of the files left |
+| [`dirgone.sh`](#dirgonesh) | `dirgone.c` | whether two builds answer alike when a search is left open in a directory that is then removed or renamed |
+| [`lfnren.sh`](#lfnrensh) | `lfnren.c` | whether the short names of a directory's long-named files still open the same files after a rename of the directory |
 | [`attrsem.sh`](#attrsemsh) | `attrsem.c`, then the shell's `ATTRIB` and `DIR` | whether two builds answer alike around a change of the hidden, system and read-only attributes |
+| [`sidefx.sh`](#sidefxsh) | `sidefx.c`, or the shell's `VOL` and `LABEL` | what else an attribute change does: a file the host added shows, or a label the guest set is overwritten |
 | [`attrcost.sh`](#attrcostsh) | `attrcost.c` | how many times a build reads a folder from the host while a program changes attributes, deletes or creates files in it |
 | [`resprb.sh`](#resprbsh) | `resprb.c` | how much host memory a build keeps after a program repeats a child process, a change of the FPU's control word, or a search |
 | [`aliases.sh`](#aliasessh) | `aliases.c` | whether two entries of a folder share a short name, and whether each short name opens its own file |
@@ -32,7 +38,7 @@ program sees when it does anything but run one search to its end. The code under
 | [`passfail.sh`](#passfailsh) | a program you hand it | how many checks of a self-testing DOS program pass on a build |
 | [`junktest.sh`](#junktestsh) | the batch files a reporter attached to an upstream issue, then `memprobe.c` to hold | how much host memory a build keeps after the reporter's own run |
 | [`dirtest.sh`](#dirtestsh) | the program a reporter attached to an upstream issue, then `memprobe.c` to hold | how much host memory a build keeps after that program looked up every file of its folder |
-| [`realdos.sh`](#realdossh) | `dosid.c` and one of the programs above | what the DOS of a disk image answers to the same programs, the emulator being only the machine |
+| [`realdos.sh`](#realdossh) | `dosid.c` and one of the programs above | what a real DOS (MS-DOS 7.10, MS-DOS 6.22 or FreeDOS) booted from a disk image answers to the same programs, the emulator being only the machine |
 | [`p5time.sh`](#p5timesh) | `p5probe.c` | how long the first read of a folder takes on two builds, timed from the host |
 | [`p5rep.sh`](#p5repsh) | `p5rep.c`, then the shell's `DIR` | how long the shell's `DIR`, or one open of a file, takes in a folder the emulator has not read |
 | [`batch.sh`](#batchsh) | the two above | a list of timed cells, each run against itself too, on a host that is watched |
@@ -78,12 +84,12 @@ opens on either host.
 - On macOS `memory.sh` and `fc.sh` read the emulator's memory with the system's `ps` and
   `footprint`.
 - On Windows the scripts run under Git Bash and the launcher is `windows.ps1`, beside them.
-- `realdos.sh` needs a hard disk image whose DOS it can boot, and `passfail.sh` a program to
-  run. Neither is kept here: their entries say what each must be.
+- `realdos.sh` needs a hard disk image of each DOS it boots, and `passfail.sh` a program to
+  run. You bring them: none is kept here, and their entries say what each must be.
 - `junktest.sh` and `dirtest.sh` need the files two reporters attached to their upstream
   issues. They are not kept here: their entries say where each comes from.
 - `attrcost.sh`, and the `resets=` figure of `resprb.sh`, need a build with a counter: the
-  source with a diff of `counters/` applied.
+  source with a diff of [`counters/`](#counters) applied.
 - The timers run on macOS only. They need `python3`, version 3.10 or later, with its standard
   library alone, and the host's `top` and `sysctl`.
 - Nothing is written outside a directory made for the run, under `TMPDIR`.
@@ -479,6 +485,57 @@ was cut off, or XCOPY printed nothing.
   what is under test.
 - The tree has 8.3 names only.
 
+## xcomsim.sh
+
+**What it shows.** Whether two listings, each through its own DTA, survive the lookups a game
+makes between their turns. It is the case of
+[upstream issue 4904, "FindFirst (int21,4e) can invalidate handles stored in other DTA blocks"](https://github.com/joncampbell123/dosbox-x/issues/4904).
+
+`XCOMSIM.EXE` is a model of X-COM Apocalypse, not the game. It asks DOS what the game asked, in
+the game's order, and reads two listings across those calls.
+
+| Part | Where it comes from |
+| --- | --- |
+| the lookups | measured: every FindFirst of an INT 21h trace of the game, its name as passed and its attribute word, in `xcomsim/calls.txt` |
+| one DTA for every lookup | measured: the game's DOS extender pointed every SetDTA at one real-mode buffer |
+| the listing | the issue's account: FindFirst through DTA A, FindFirst through DTA B, then FindNext on each in turn |
+| `--relay` | inferred: the listing goes through the lookups' buffer, its DTA bytes copied out and back, as an extender relays a protected-mode FindNext |
+
+- The guest replays the lookups as loads, one load being the whole sequence, until past the
+  emulator's search table.
+- At the listing point the two listings start, with lookups between their turns.
+- `xcomsim/extract.sh <trace>` writes the calls file from such a trace.
+
+**How it is called.** `D:\XCOMA` holds every name the game found as a small file of the
+script's own, and is the current directory. `D:\LISTA` and `D:\LISTB` hold the two listings'
+folders.
+
+```sh
+xcomsim.sh <build A> <build B> <on|off> [--listing-at <lookup>] [--between <n>] [--relay]
+```
+
+**What it prints.** Each build's path, version line and report whole, then one line per build
+and the verdict on the two reports.
+
+- `listing=<found>/<expected> <found>/<expected> lost=<n>` is the guest's verdict. Each
+  expected count is a listing of that folder run alone first.
+- `slots_full=` counts the emulator's search table emptied, and `out_of_range=` a FindNext
+  through a slot that was gone.
+- A lookup that answers otherwise than it did in the game prints a `lookup-differs` line.
+
+**Exit codes.** `0` alike, `1` different, `2` usage, `3` INVALID: an emulator failed or was cut
+off, or a report has no verdict or no trailer.
+
+**What it does not show.**
+
+- The calls file holds names and calls only, nothing of the game's files. The CD's lookups are
+  skipped, being another drive's.
+- `--listing-at` and `--between` are the model's choices. Their defaults put the table's limit
+  inside the listing.
+- The trace held no FindNext, so the listing and the relay are not measured from the game.
+- It makes no long-name call, so `realdos.sh` runs it whole, with its listing through its own
+  DTAs (`xcomsim`) or relayed (`xcomsim-relay`).
+
 ## drift.sh
 
 **What it shows.** Whether two builds answer alike when a FindNext brings another pattern
@@ -702,6 +759,79 @@ the volume did not come out labelled or whole, or a report has no line or no tra
   error.
 - `realdos.sh` runs it whole, on a disk it labels.
 
+## dosans.sh
+
+**What it shows.** Whether two builds answer alike where DOS parses a path, before it reads a
+directory. A change to the parsing shows in every call it reaches.
+
+`DOSANS.EXE` asks 4Eh for each shape, then the calls that parse a path the same way: 3Dh open,
+43h get and set attributes, 3Bh change directory.
+
+- The shapes: a path that ends in a backslash, dots that climb above the root or resolve to it,
+  a leading space, two dots, quotes.
+- The four calls then get shapes of their own, from the root and from `D:\X`. Among them are a
+  space inside a name, a character no 8.3 name holds, a wildcard, a device, a missing directory.
+- Then the root listed with each attribute, the label asked by name, and the bytes a search
+  keeps in the DTA.
+- Then a device found by a search, names with a space made through an FCB, and where each
+  device's header lies in memory.
+- The set call writes back the attribute the get call read, so no file changes.
+
+**How it is called.** Over the same folder as `exact.sh`, a copy per build, on a drive with the
+label `FPLABEL` or with none.
+
+```sh
+dosans.sh <build A> <build B> <labelled|unlabelled> <on|off>
+```
+
+**What it prints.** Each build's path, version line and report whole, then the verdict and the
+lines that differ.
+
+**Exit codes.** `0` alike, `1` different, `2` usage, `3` INVALID: a run collected nothing, or a
+report has no line or no trailer.
+
+**What it does not show.**
+
+- The `chain` lines are where that DOS keeps its device drivers' headers, an address no other
+  DOS shares. A device's size in a search is that address's segment on MS-DOS, so the `dev`
+  lines differ between DOS.
+- A real DOS answers with long names off only. With long names on, nothing referees.
+- `realdos.sh` runs it on the disk as made (`dosans`) and once that DOS has labelled it
+  (`dosans-labelled`).
+
+## overlay.sh
+
+**What it shows.** Whether an overlay drive answers the label and root searches as the host
+folder under it and as DOS. `MOUNT D <dir> -t overlay` reads the folder through its own copy of
+the host folder's FindNext, so a rule given to one can miss the other.
+
+**How it is called.** It runs FINDPOS twice on one build: over the host folder, then with an
+overlay on it, over an empty directory of the run's own.
+
+```sh
+overlay.sh <build> <labelled|unlabelled> <on|off>
+```
+
+**What it prints.** Each `label-` line of the two runs, then three checks:
+
+- the two runs' `label-` lines are alike;
+- on the overlay, a FindNext after a search for the label alone answers 18;
+- on the overlay, the root lists no `.` or `..`.
+
+The last two are what MS-DOS 6.22, MS-DOS 7.10 and FreeDOS 1.4 answer, labelled or not. The
+other lines that differ follow, not judged.
+
+**Exit codes.** `0` the three checks hold, `1` one does not, `2` usage, `3` INVALID: `findpos.sh`
+did not answer, or a run printed no label line.
+
+**What it does not show.**
+
+- The overlay answers some other lines otherwise than its folder on every build: the size of a
+  real 8.3 file whose name another file's alias carries, and an alias path through a long-named
+  directory. They are listed, not judged.
+- `DIRCACHE_OVERLAY` in `common.sh` puts any script's runs on an overlay: a glob matched against
+  a run's name, such as `B` for build B's runs or `'*'` for all.
+
 ## attrprobe.sh
 
 **What it shows.** Whether two builds answer alike when a file is deleted, or has its
@@ -823,6 +953,82 @@ no line or no trailer.
   differ.
 - No real DOS in reach has long names, so nothing referees the folders of long names. A search
   across a delete of an 8.3 name is FINDLIFE's and DRIFT's, which a real DOS referees.
+- A search open inside a directory that is removed or renamed is `dirgone.sh`'s, with 8.3
+  names.
+
+## dirgone.sh
+
+**What it shows.** What a FindNext answers once the directory its search is reading has gone.
+A real DOS reads the directory it started on, by its place on the disk, whatever has become of
+its name since.
+
+`D:\G` holds five directories, each with `ID.TXT` and `TWO.TXT`, and `DIRGONE.EXE` makes six more
+there first. Each case opens a search of one of them with attribute 10h and reads its first
+entry, `.`. Then it does one thing and reads on with 4Fh until the search fails.
+
+| Case | What is done to the directory |
+| --- | --- |
+| `kept` | nothing: the control |
+| `rd` | emptied by 41h before the search, removed by 3Ah |
+| `rd-remade` | the same, then made again empty under its old name |
+| `ren` | renamed by 56h |
+| `ren-remade` | renamed, then a new empty directory made under its old name |
+| `rd-late-remade` | emptied once the search is open, removed, then made again with an `ID.TXT` |
+| `rd-parent-ren` | removed, then its parent renamed |
+| `rd-parent-rd` | removed, then its parent removed |
+| `ren-parent` | its parent renamed |
+| `ren-twice` | renamed, then renamed again |
+| `ren-then-rd` | renamed, then removed under its new name |
+
+**How it is called.** Each build gets its own copy of the folder. Every name is 8.3.
+
+```sh
+dirgone.sh <build A> <build B> <on|off>
+```
+
+**What it prints.** Each build's path, version line and report whole, then the lines that
+differ.
+
+A line reads `gone|<case>|first= entry= op= made= next= rest=`: the 4Eh's error and entry, the
+errors of what the case did and of the 4Fh that ended the search, and every name returned.
+
+**Exit codes.** `0` alike, `1` different, `2` usage, `3` INVALID: a run collected nothing, or a
+report has no case or no trailer.
+
+**What it does not show.**
+
+- `rd-remade` cannot tell a build that follows the removed directory from one that reads the
+  new one, both being empty. `rd-late-remade` can, since the new directory holds a file.
+- FreeDOS can give a directory made right after a removal the removed one's place on the disk.
+  In DIRGONE's sequence that place is not free, and FreeDOS answers as both MS-DOS.
+- Every call is one MS-DOS 6.22 has, so `realdos.sh` runs it whole on the three DOS.
+
+## lfnren.sh
+
+**What it shows.** Whether the short names of a directory's long-named files still open the
+same files once the directory is renamed.
+
+`LFNREN.EXE` makes `A` and `C` in an empty `D:\L`, each with three long-named files whose content
+is a word of the name. It deletes the first by its short name, so the two left keep `~2` and
+`~3`, which a fresh read of the folder would not give them.
+
+- `listed`: `A` listed whole, renamed `AR` by 56h, and each name it gave opened under `AR`.
+- `search`: a search of `C` opened and its `.` read, `C` renamed `CR`, the search read to its
+  end, and each name it returned opened under `CR`.
+
+**How it is called.** Long names are on, since the files are made by 716Ch.
+
+```sh
+lfnren.sh <build A> <build B>
+```
+
+**What it prints.** Each build's path, version line and report whole, then the lines that
+differ. A line per name gives the open's error and what the file holds.
+
+**Exit codes.** `0` alike, `1` different, `2` usage, `3` INVALID: a run collected nothing, or a
+report has no line or no trailer.
+
+**What it does not show.** No real DOS in reach has long names, so nothing referees it.
 
 ## attrsem.sh
 
@@ -853,6 +1059,42 @@ report has no line or no trailer, or the shell left nothing.
 
 **What it does not show.** Its red is on Windows, where the cache is emptied at every
 attribute change. On macOS every build reads alike, and its test plays the lines that differ.
+
+## sidefx.sh
+
+**What it shows.** What else goes with emptying the cache at an attribute change, long names
+off. A build that empties it can show a file the host added behind its back, or overwrite a
+label the guest set.
+
+| Mode | What runs |
+| --- | --- |
+| `rescan` | `SIDEFX.EXE` lists `D:\X` and reads D:'s label, waits while the script adds `NEW.TXT` from the host, lists again, sets one file read-only and lists a third time; then the shell's `DIR`, `RESCAN D:` and `DIR` |
+| `label` | Windows only: the host's `C:\` mounted as the guest's C:, then `VOL`, `LABEL C:GUEST`, `VOL` twice, `ATTRIB +R` on a file of the run's own folder, `VOL` |
+
+- In `rescan`, a build that empties its cache at the attribute change lists the host's file
+  there. One that does not lists it only after `RESCAN`.
+- In `label`, C: is the one kind of mount whose label the guest can change and the host
+  volume's label can overwrite.
+
+**How it is called.**
+
+```sh
+sidefx.sh <rescan|label> <build A> <build B>
+```
+
+**What it prints.** Each build's path, version line and lines whole, then the verdict and the
+lines that differ.
+
+**Exit codes.** `0` alike, `1` different, `2` usage, or `label` on a host that is not Windows,
+`3` INVALID: a run did not end, the guest never waited for the host, a report has no end, or
+the shell's lines are missing.
+
+**What it does not show.**
+
+- Its red is on Windows. On macOS every build reads alike, and its test plays the lines that
+  differ.
+- `label` reaches the run's folder by its 8.3 path, so it needs that folder on C: and short
+  names on there.
 
 ## attrcost.sh
 
@@ -905,8 +1147,8 @@ folder once, so a log with no read is a build that does not count.
 - The count of reads does not depend on the host's load. `guest_us=` does.
 - Its red is on Windows. On macOS every build reads alike, and its test plays the lines that
   differ.
-- The counter's log lines carry the tag the diff writes, `4R-DIR`. A build counted by another
-  diff is not read.
+- The counter's log lines carry the tag the diff writes, `HOST-DIR-READ`. A build counted by
+  another diff is not read.
 
 ## resprb.sh
 
@@ -951,8 +1193,27 @@ was not read while it held, or the emulator failed or passed the memory limit.
 - macOS's build compiles no x86 dynamic core, so there `resets=` is always `none`.
 - Its red is on Windows. On macOS every build reads alike, and its test plays the lines that
   differ.
-- The counter's log lines carry the tag the diff writes, `4R-DYN`. A build counted by another
-  diff is not read.
+- The counter's log lines carry the tag the diff writes, `DYN-CACHE-RESET`. A build counted by
+  another diff is not read.
+
+## counters/
+
+**What it holds.** The diffs that make a build count what no guest program can see: how many
+times the emulator does something inside one call. Each adds log lines and changes nothing a
+program sees.
+
+| Diff | Applies to | Its log lines give |
+| --- | --- | --- |
+| `count-dir.diff` | unpatched upstream, and the retention and create-and-delete branches | `HOST-DIR-READ`: each read of a folder from the host, its entries, the running total and the folder. `attrcost.sh` reads it |
+| `count-dyn.diff` | unpatched upstream | `DYN-CACHE-RESET`: each reset of the x86 dynamic core's code cache, the code pages it dropped and the bytes they held. `resprb.sh` reads it |
+| `count-first-read.diff` | unpatched upstream | `5P`: at each folder read, FindFirst and emptying of the cache, the running count of every loop of a first read |
+| `count-shadow.diff` | unpatched upstream | the `5P` lines, and `5S`: how often a faster way to place, check or number an alias, computed beside the code it would replace, answers differently |
+
+**How it is used.** Apply one diff to the source with `git apply`, and build as any other build.
+
+**What it does not show.** No script reads the `5P` and `5S` lines: they are read from the log.
+The loops `5P` counts are the entries read, the aliases made, the duplicate check's compares,
+the Wine-style lookup's hashes and the alias list's compares and moves.
 
 ## aliases.sh
 
@@ -1194,20 +1455,28 @@ dirtest.sh <build> <folder> <on|off>
 
 ## realdos.sh
 
-**What it shows.** What the DOS of a disk image answers to the same programs. What a search
-ought to answer is decided by a DOS, and the emulator's own DOS is the thing under test.
+**What it shows.** What a real DOS answers to the same programs. What a search ought to answer
+is decided by a DOS, and the emulator's own DOS is the thing under test.
 
-- The image is a hard disk whose first partition starts MS-DOS 7, as the system disk of a
-  Windows 98 does. It is not kept here and is never written: each run boots a copy.
 - The emulator is only the PC. Once the image boots, its DOS, its shell and its host-folder
   drives are gone.
 - Every INT 21h call is answered by the image's kernel over a FAT volume.
+- Three DOS can referee, so an answer is called DOS's only where they agree.
+
+| `<dos>` | The image you bring | How the run starts it |
+| --- | --- | --- |
+| `msdos710` | the system disk of a Windows 98, whose kernel is MS-DOS 7.10 | its `CONFIG.SYS` and `AUTOEXEC.BAT`, tools in `C:\WINDOWS\COMMAND` |
+| `msdos622` | a hard disk MS-DOS 6.22 was installed on, raw or VHD | the same files, tools in `C:\DOS` |
+| `freedos` | FreeDOS 1.4's USB Lite image, as freedos.org gives it | `FDCONFIG.SYS`, whose `SHELL` line starts the run's `AUTOEXEC.BAT`; tools in `C:\FREEDOS\BIN` |
+
+No image is kept here. The image's first partition starts that DOS, and it is never written:
+each run boots a copy.
 
 **How it is called.**
 
 ```sh
-realdos.sh <build> <boot image> <program>
-realdos.sh <build> <boot image> junktest|dirtest <folder>
+realdos.sh <build> <dos> <boot image> <program>
+realdos.sh <build> <dos> <boot image> junktest|dirtest <folder>
 ```
 
 | `<program>` | What runs on the image's DOS |
@@ -1220,9 +1489,12 @@ realdos.sh <build> <boot image> junktest|dirtest <folder>
 | `template` | TEMPLATE over the files `template.sh` makes, in the root of the run's disk, which is then labelled `DISK1` |
 | `findpos` | FINDPOS over the folder `exact.sh` makes, on the run's disk as it is made: with no label |
 | `findpos-labelled` | the same once the image's own `LABEL` has named the disk `FPLABEL` |
+| `dosans`, `dosans-labelled` | DOSANS over the folder `exact.sh` makes, on the disk as made, then once it is labelled `FPLABEL` |
 | `memprobe` | MEMPROBE in its mode `e` over a folder of files with 8.3 names |
 | `fc` | the emulator's `FC.EXE` run again and again from a batch file, as `fc.sh` runs it, in a folder of files |
 | `xcopy` | the emulator's `XCOPY.EXE` over the tree `xcopy.sh` makes |
+| `dirgone` | DIRGONE over the folder `dirgone.sh` makes |
+| `xcomsim`, `xcomsim-relay` | XCOMSIM over the drive `xcomsim.sh` makes, its listing through its own DTAs, then relayed |
 | `junktest` | the reporter's batch files of `junktest.sh`, unpacked in `<folder>`, in the run the issue describes, with the emulator's `FC.EXE` |
 | `dirtest` | the reporter's program of `dirtest.sh`, unpacked in `<folder>`, with Enter typed as `dirtest.sh` types it |
 
@@ -1241,7 +1513,8 @@ A run launches the emulator three times: to stage, to boot and to collect.
 5. The emulator's shell copies that file out of the image.
 
 **What it prints.** The machine's path and version line, the image, whose DOS answered, then
-the program's report whole.
+the program's report whole. Every line names the DOS: the script's own start
+`realdos.sh: <dos>: `, and the report's start `<dos>|`.
 
 - Whose DOS answered is its own `VER` line and what `DOSID.EXE` read: the version, where the
   INT 21h vector points, whether the long-name calls answer, whether a Windows is running,
@@ -1252,6 +1525,8 @@ the program's report whole.
   not differ.
 - For `xcopy` it is how many files and folders the tree holds, how many of each that DOS's
   own `DIR` lists under the copy, and the count XCOPY printed.
+- For `xcomsim` and `xcomsim-relay` it is XCOMSIM's report, then its `listing=` verdict on a
+  line of the script's own.
 - For `junktest` it is the counts `junktest.sh` prints, but memory. For `dirtest` it is how
   many files `DATA` holds, whether the program returned, and what that DOS's `DIR` lists.
 
@@ -1264,8 +1539,13 @@ the program's report whole.
 
 **What it does not show.**
 
-- Long names off only. MS-DOS 7 without its Windows has no long-name calls (714Eh answers
-  7100h), so the cases that need them read `not judged` or do nothing.
+- Long names off only. None of the three has long-name calls without a driver, so the cases
+  that need them read `not judged` or do nothing.
+- MS-DOS 7.10 and FreeDOS answer 714Eh with 7100h. MS-DOS 6.22 returns from 71h with the carry
+  clear, so a long-name case there reads whatever the registers held: its lines are not an
+  answer.
+- FreeDOS's USB Lite image carries `LABEL` only as a package. `findpos-labelled` and
+  `dosans-labelled` install it there with FreeDOS's own installer before they label the disk.
 - FINDLIFE's `remount` and `rescan-mid-search` call the emulator's `MOUNT` and `RESCAN`,
   which no other DOS has. There both read `DIFFERS`, and that is the sign the two DOSes are
   not one.
@@ -1279,8 +1559,8 @@ the program's report whole.
   The script counts what was copied.
 - A large folder, and the tree of `xcopy`, go through `COPY` a folder at a time. `XCOPY`
   looks every file up while it lists, and the emulator's search table fills first.
-- `memprobe`, `fc` and `xcopy` say what that DOS answers, not what it holds: there is no
-  memory to read.
+- `memprobe`, `fc`, `xcopy`, `xcomsim` and `xcomsim-relay` say what that DOS answers, not what
+  it holds: there is no memory to read.
 - The FC and the XCOPY are the emulator's, run by the image's DOS, so the two DOSes are asked
   by one program. What the copy left is listed by that DOS's own `DIR`.
 - `junktest` and `dirtest` say only whether the reporter's files run there to their end.
@@ -1290,8 +1570,13 @@ the program's report whole.
 - `dirtest` cannot count the program's calls there, since that DOS's INT 21h is not the
   emulator's. Its loop reads the FAT folder from its start for every file, so it is the
   longest run of the script.
+- `dirtest` types its keys from before the boot. When the DOS turns the machine off with keys
+  still to type, the emulator can die in its AUTOTYPE thread. That exit is taken, with a line
+  that says so, only when the DOS's batch reached its last section.
 - It has been run on macOS only. The copy of the image is a clone where the file system has
-  them and a whole copy elsewhere.
+  them and a whole copy elsewhere; a VHD keeps its extension, by which the emulator knows it.
+- Every conf that mounts an image says `ver=7.1`. Under a lower reported version the emulator
+  asks about a FAT32 or LBA partition in a native dialog, which a headless run cannot answer.
 
 ## p5time.sh
 
@@ -1510,12 +1795,12 @@ battery.sh [--real-dos] [--raw <directory>] [--only <group>]... <base> <build> [
 | `<base>` | the DOSBox-X executable `<build>` is compared with |
 | `<build>` | the one under test |
 | `<third build>` | another one `<build>` is compared with as well, and measured beside the two: what a branch stacked on another needs |
-| `--real-dos` | adds the cells on the DOS of a disk image, with `<build>` as the machine |
+| `--real-dos` | adds the cells on the three real DOS, with `<build>` as the machine |
 | `--raw <directory>` | keeps there what every script printed, one file per call, and `schedule.txt`; the directory is empty or absent |
 | `--only <group>` | runs one group of cells and prints every other cell as `not run`; given again, one more group |
 
-The groups are `selftest`, `answers`, `folders`, `attrsem`, `delete`, `aliases`, `memory`,
-`realdos` and `reporters`. Its `--help` names the cells of each.
+The groups are `selftest`, `answers`, `folders`, `gone`, `dosans`, `overlay`, `attrsem`,
+`delete`, `aliases`, `memory`, `realdos` and `reporters`. Its `--help` names the cells of each.
 
 Beyond what the scripts need, it takes these from the environment:
 
@@ -1524,7 +1809,7 @@ Beyond what the scripts need, it takes these from the environment:
 | `DIRCACHE_REAL_FOLDER` | the large host folder of the cells named `real`: a name with no space that fits 8.3 |
 | `DIRCACHE_REAL_FILE` | a file of it, as the guest names it |
 | `DIRCACHE_REGRESSION` | the folder holding `FINDTEST.EXE` and `LFNTEST.EXE` |
-| `DIRCACHE_BOOT_IMAGE` | with `--real-dos`, the disk image `realdos.sh` boots |
+| `DIRCACHE_BOOT_MSDOS710`, `DIRCACHE_BOOT_MSDOS622`, `DIRCACHE_BOOT_FREEDOS` | with `--real-dos`, the disk image of each DOS `realdos.sh` boots: all three are needed |
 | `DIRCACHE_JUNKTEST` | the reporter's files of `junktest.sh`, unpacked |
 | `DIRCACHE_DIRTEST` | the reporter's files of `dirtest.sh`, unpacked |
 | `XDG_STATE_HOME` | where the lock is kept, in `dosbox-x-dircache/` under it; by default `~/.local/state` |
@@ -1583,8 +1868,8 @@ it.
 - Where the host's file system names the aliases, the cells that show an alias are that file
   system's: `run` on long names and `enumstat` on long names. `ties` is INVALID where no two
   entries share a name.
-- `--real-dos` condenses each report of the image's DOS to its counts and a digest. Which
-  lines of a build's report differ from it is read from the two reports, under `--raw`.
+- `--real-dos` condenses each report of a real DOS to its counts and a digest. Which lines of
+  a build's report differ from it is read from the two reports, under `--raw`.
 - The memory each cell is planned for is what a macOS run recorded, on Windows too. There,
   what bounds a cell that holds more is the limit past which `memory.sh` kills a run.
 
@@ -1594,8 +1879,8 @@ The lines come out in one fixed order whatever order the calls ran in: the batte
 every call, then reads what each printed. Two lanes run at once.
 
 - The scripts' tests and the answers run one after another.
-- The memory cells, the reporters' runs and the arms of the image's DOS run several at a time,
-  within half the host's cores and half its memory. The image's arms start first, being the
+- The memory cells, the reporters' runs and the arms of the real DOS run several at a time,
+  within half the host's cores and half its memory. The real DOS's arms start first, being the
   longest runs and holding no folder.
 - A memory cell counts for the most memory its recording in `fixtures/battery` shows on any
   build, so a build is planned for as the unpatched base's worst.
@@ -1630,21 +1915,27 @@ off, or both, as the field says.
 | `findlife <pair>` | `findlife.sh` | `cases=`, `ok=`, `differs=`, `not judged`, `differ=` |
 | `exact <pair>` | `exact.sh` | one figure per section, `differ=` |
 | `drift <pair>` | `drift.sh` | `cases=`, `sha256=`, `differ=` |
+| `dirgone <pair>` | `dirgone.sh` | `cases=`, `sha256=`, `differ=` |
+| `lfnren <pair>` | `lfnren.sh`, long names on | `lines=`, `sha256=`, `differ=` |
 | `dtadump <pair>` | `dtadump.sh` | `template=`, `untouched=`, `resumed=`, `fcb=`, `differing_lines=` |
 | `patlist <pair>` | `patlist.sh` | `patterns=`, `sha256=`, `differ=` |
 | `template <fat or host> <pair>` | `template.sh` on a FAT image, then on a host folder | `lines=`, `sha256=`, `differing_lines=` |
 | `findpos <labelled or unlabelled> <pair>` | `findpos.sh` on a drive with a label, then with none | `cases=`, `sha256=`, `differ=` |
+| `dosans <labelled or unlabelled> <pair>` | `dosans.sh` | `lines=`, `sha256=`, `differing_lines=` |
+| `overlay <labelled or unlabelled> <who>` | `overlay.sh` on one build, long names on and off | `label=`, `next=`, `dots=`, `other_lines=` |
 | `attrprobe <pair>` | `attrprobe.sh` | `cases=`, `sha256=`, `differ=` |
 | `attrsem <pair>` | `attrsem.sh` | `lines=`, `shell=`, `sha256=`, `differ=` |
+| `sidefx <rescan or label> <pair>` | `sidefx.sh`, long names off; `label` on Windows only | `lines=`, `sha256=`, `differ=` |
 | `delete <pair>` | `delete.sh` | `lines=`, `sha256=`, the files and directories each build left, `differ=` |
 | `ties <pair>` | `ties.sh` | `ties=`, `differ=` |
 | `aliases cases <who>` | `aliases.sh cases` on one build, long names on and off | the figures of `aliases.sh` |
 | `aliases real <who>` | `aliases.sh folder on` on the large real folder, one build | `entries=`, `host=`, `names_shared=`, `entries_sharing=`, `matched=`, `listed_with_another_size=` |
 | `enumstat <mode> <names> <who>` | one row of `enumstat.sh` | `listed=`, `looked_up_ok=`, `last=`, `slots_full=`, `out_of_range=` |
 | `xcopy <who>` | `xcopy.sh` | `made=`, `dirs_made=`, `copied=`, `dirs_copied=`, `said=`, `slots_full=`, `out_of_range=` |
+| `xcomsim <own or relayed> <pair>` | `xcomsim.sh`, the listing through its own DTAs, then with `--relay` | for each build, A then B: `listing=`, `slots_full=`, `out_of_range=` |
 | `passfail <program> <folder> <who>` | `passfail.sh` with each regression program in a small and in a large folder | `sha256=`, `entries=`, `pass=`, `fail=`, `exit=` |
 | `unit <who>` | `unit.sh` | `tests=`, `failures=`, `errors=`, `disabled=` |
-| `realdos <program>` | with `--real-dos`, `realdos.sh` with `<build>` as the machine | `dos=`, the counts the build's own cell carries, `sha256=` |
+| `realdos <dos> <program>` | with `--real-dos`, `realdos.sh` on each of `msdos710`, `msdos622` and `freedos`, with `<build>` as the machine | `dos=`, the counts the build's own cell carries, `sha256=` |
 | `junktest <batch files> <who>` | `junktest.sh` with the reporter's run and its first steps | `entries=`, `junk=`, `counted=`, `done=`, `slots_full=`, `out_of_range=`, the peak, the held figure |
 | `dirtest <who>` | `dirtest.sh` | `files=`, `calls_4f=`, `calls_4e=`, `slots_full=`, `out_of_range=`, the peak, the held figure |
 
@@ -1680,7 +1971,12 @@ What each figure counts:
 | `said=` | XCOPY's own count |
 | `pass=`, `fail=`, `exit=` | the lines that end in `PASS` and in `FAIL`, and the program's exit code |
 | `tests=`, `failures=`, `errors=`, `disabled=` | the unit tests that ran, failed, erred and are disabled |
-| `dos=` | the version of the DOS that answered |
+| `dos=` | the version that DOS reports |
+| `label=` | in `overlay`, whether the overlay's label lines are the host folder's: `ALIKE` or `DIFFERENT` |
+| `next=` | in `overlay`, `18` when a FindNext after the label alone finds nothing, as DOS, `other` when it goes on |
+| `dots=` | in `overlay`, `none` or `listed`: the root's dot entries |
+| `other_lines=` | in `overlay`, the lines that differ and are not judged |
+| `listing=` | in `xcomsim`, the guest's verdict: each listing's found and expected entries, and how many were lost |
 | `shell=` | in `attrsem`, the shell's lines after ATTRSEM's |
 | `entries_sharing=`, `matched=` | the figures of `aliases.sh folder`: its entry says what each counts |
 | `junk=` | the folder's `.TMP` files at the end |
@@ -1701,14 +1997,16 @@ The `memory` cells run on these folders:
 
 How to read some figures:
 
-- In `drift`, a build whose report is the one the image's DOS gives shows in the line: the
-  two digests are equal.
-- In `dtadump`, where the figures equal those of the image's DOS, the build leaves in a DTA
-  what that DOS leaves.
-- `realdos enumstat <mode> <names>` is one row.
-- `realdos memprobe`, `realdos fc` and `realdos xcopy` carry the counts of their one line and
-  no digest.
-- `realdos junktest` and `realdos dirtest` do the same. They run last, and only where the
+- In `drift`, a build whose report is the one a real DOS gives shows in the line: the two
+  digests are equal.
+- In `dtadump`, where the figures equal those of a real DOS, the build leaves in a DTA what
+  that DOS leaves.
+- A `realdos` digest is taken with the DOS's name off its lines. So two DOS, or a DOS and a
+  build, can be told equal from the line.
+- `realdos <dos> enumstat <mode> <names>` is one row.
+- `realdos <dos> memprobe`, `fc`, `xcopy`, `xcomsim` and `xcomsim-relay` carry the counts of
+  their one line and no digest.
+- `realdos <dos> junktest` and `dirtest` do the same. They run last, and only where the
   reporters' files are named.
 - In `delete`, the files and directories each build left read `A(S=<n> ...)` for one build
   and `B(...)` for the other. `differ=` names each step whose lines differ as `<kind>:<step>`.

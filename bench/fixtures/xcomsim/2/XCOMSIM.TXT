@@ -1,0 +1,7 @@
+model|a model built from X-COM Apocalypse's measured FindFirst lookups and the two-DTA listing upstream issue 4904's reporter describes; not the game
+calls|lookups_a_load=115 cd_skipped=1 loads=18 listing_at=1960 between=2 listing_dta=own
+lookups|made=2118 as_the_game=2118 differ=0 loads=18.41
+listing|A|40 of 40|foreign=0
+listing|B|40 of 40|foreign=0
+listing=40/40 40/40 lost=0
+end|lines=6

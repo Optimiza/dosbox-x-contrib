@@ -10,7 +10,7 @@
 +			for (CodePageHandler * p=cache.free_pages;p;p=p->next) free_n++;
 +			for (CodePageHandler * p=cache.used_pages;p;p=p->next) { used_n++; if (p->invalidation_map) maps_n++; }
 +			resets++; pages_total += free_n; maps_total += maps_n;
-+			LOG_MSG("4R-DYN reset=%lu free_dropped=%lu used_deleted=%lu maps_dropped=%lu page_bytes=%lu total_bytes=%lu",
++			LOG_MSG("DYN-CACHE-RESET reset=%lu free_dropped=%lu used_deleted=%lu maps_dropped=%lu page_bytes=%lu total_bytes=%lu",
 +				resets, free_n, used_n, maps_n, (unsigned long)sizeof(CodePageHandler),
 +				pages_total * (unsigned long)sizeof(CodePageHandler) + maps_total * 4096ul);
 +		}

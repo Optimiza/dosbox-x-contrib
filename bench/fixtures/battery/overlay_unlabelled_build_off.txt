@@ -1,0 +1,27 @@
+exit=0 :: overlay.sh /builds/dos-answers/dosbox-x unlabelled off
+overlay.sh: drive unlabelled, long names off, build /builds/dos-answers/dosbox-x
+overlay.sh: findpos.sh exit 1
+overlay.sh: run A, the host folder:
+pos|label-alone|first=18 entry=- next=18 more=0|
+pos|label-alone-by-another-name|first=18 entry=- next=18 more=0|
+pos|label-alone-by-its-own-name|no label|
+pos|label-with-everything|first=0 entry=X:10:0 n=2|,FOO.TXT:20:4
+pos|label-alone-through-a-live-search|first=0 label=18 more=0|
+overlay.sh: run B, the overlay on it:
+pos|label-alone|first=18 entry=- next=18 more=0|
+pos|label-alone-by-another-name|first=18 entry=- next=18 more=0|
+pos|label-alone-by-its-own-name|no label|
+pos|label-with-everything|first=0 entry=X:10:0 n=2|,FOO.TXT:20:4
+pos|label-alone-through-a-live-search|first=0 label=18 more=0|
+overlay.sh: label lines ALIKE
+overlay.sh: overlay, FindNext after the label alone: 18, as DOS
+overlay.sh: overlay, the root lists no dot entry, as DOS
+overlay.sh: other lines that differ, not judged: 4
+< pos|whole-folder|first=0 n=16|,.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+> pos|whole-folder|first=0 n=16|,.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:5,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+< pos|copy-read-beside-the-original|first=0 original=6 copy=6|,A.B:20:2,ALPHAT~2.MID:20:3,ALPHAT~4.MID:20:2,FOO.TXT:20:3,NOEXT:20:1,TWO~1.TXT:20:4|copy,ALPHAT~1.MID:20:5,ALPHAT~3.MID:20:4,BAR.TXT:20:5,MIXCASE.TXT:20:5,NOEXTE~1:20:9,ZED.TXT:20:7
+< pos|read-on-from-another-address|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+> pos|copy-read-beside-the-original|first=0 original=6 copy=6|,A.B:20:2,ALPHAT~2.MID:20:3,ALPHAT~4.MID:20:2,FOO.TXT:20:3,NOEXT:20:1,TWO~1.TXT:20:4|copy,ALPHAT~1.MID:20:5,ALPHAT~3.MID:20:5,BAR.TXT:20:5,MIXCASE.TXT:20:5,NOEXTE~1:20:9,ZED.TXT:20:7
+> pos|read-on-from-another-address|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:5,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+< pos|ended-dta-beside-a-live-search|first=0,0 ended_next=18 more=13|,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+> pos|ended-dta-beside-a-live-search|first=0,0 ended_next=18 more=13|,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:5,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7

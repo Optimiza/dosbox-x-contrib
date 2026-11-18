@@ -1,0 +1,34 @@
+exit=1 :: xcomsim.sh /builds/base/dosbox-x /builds/all3/dosbox-x on --relay
+xcomsim.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+model|a model built from X-COM Apocalypse's measured FindFirst lookups and the two-DTA listing upstream issue 4904's reporter describes; not the game
+calls|lookups_a_load=115 cd_skipped=1 loads=18 listing_at=1960 between=2 listing_dta=relayed
+findnext-failed|B|after=27 of 40|error=0012|lookups=2066
+findnext-failed|A|after=28 of 40|error=0012|lookups=2068
+lookups|made=2070 as_the_game=2070 differ=0 loads=18.00
+listing|A|28 of 40|foreign=0
+listing|B|27 of 40|foreign=0
+listing=28/40 27/40 lost=25
+end|lines=8
+xcomsim.sh: build A: lfn=on listing=28/40 27/40 lost=25 slots_full=1 out_of_range=2 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/base/dosbox-x
+xcomsim.sh: build B: /builds/all3/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+model|a model built from X-COM Apocalypse's measured FindFirst lookups and the two-DTA listing upstream issue 4904's reporter describes; not the game
+calls|lookups_a_load=115 cd_skipped=1 loads=18 listing_at=1960 between=2 listing_dta=relayed
+lookups|made=2118 as_the_game=2118 differ=0 loads=18.41
+listing|A|40 of 40|foreign=0
+listing|B|40 of 40|foreign=0
+listing=40/40 40/40 lost=0
+end|lines=6
+xcomsim.sh: build B: lfn=on listing=40/40 40/40 lost=0 slots_full=0 out_of_range=0 build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=/builds/all3/dosbox-x
+xcomsim.sh: DIFFERENT, 7 lines differ (A then B):
+< findnext-failed|B|after=27 of 40|error=0012|lookups=2066
+< findnext-failed|A|after=28 of 40|error=0012|lookups=2068
+< lookups|made=2070 as_the_game=2070 differ=0 loads=18.00
+< listing|A|28 of 40|foreign=0
+< listing|B|27 of 40|foreign=0
+< listing=28/40 27/40 lost=25
+< end|lines=8
+> lookups|made=2118 as_the_game=2118 differ=0 loads=18.41
+> listing|A|40 of 40|foreign=0
+> listing|B|40 of 40|foreign=0
+> listing=40/40 40/40 lost=0
+> end|lines=6

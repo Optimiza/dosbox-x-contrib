@@ -1,0 +1,11 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x freedos /images/fd.img dirtest /reporters/DIRTEST
+realdos.sh: freedos: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: freedos: image: /images/fd.img
+realdos.sh: freedos: ver: FreeCom version 0.86 - WATCOMC - XMS_Swap [Dec 30 2024 22:10:51]
+realdos.sh: freedos: dos|version=7.10 oem=FD
+realdos.sh: freedos: dos|true_version=7.10 flags=00
+realdos.sh: freedos: dos|int21=00D9:129A code=EAA5015A06E86E00
+realdos.sh: freedos: dos|lfn_714e=7100
+realdos.sh: freedos: dos|windows_1600=00
+realdos.sh: freedos: dos|drive_z=3
+realdos.sh: freedos: files=1835 returned=1

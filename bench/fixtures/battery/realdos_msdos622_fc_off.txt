@@ -1,0 +1,11 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x msdos622 /images/boot.vhd fc
+realdos.sh: msdos622: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos622: image: /images/boot.vhd
+realdos.sh: msdos622: ver: MS-DOS Version 6.22
+realdos.sh: msdos622: dos|version=6.22 oem=FF
+realdos.sh: msdos622: dos|true_version=6.22 flags=00
+realdos.sh: msdos622: dos|int21=0021:40F8 code=FA80FC6C77D280FC
+realdos.sh: msdos622: dos|lfn_714e=0000
+realdos.sh: msdos622: dos|windows_1600=00
+realdos.sh: msdos622: dos|drive_z=3
+realdos.sh: msdos622: files=700 runs=300 compared=300

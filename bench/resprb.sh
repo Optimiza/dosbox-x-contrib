@@ -91,7 +91,7 @@ case "$guest_line" in
     *) invalid "not every one of the $calls repetitions answered, or the guest was not let go: $guest_line" ;;
 esac
 memory_figures
-resets=$(log_count '4R-DYN reset=') || invalid "the emulator's log could not be read"
+resets=$(log_count 'DYN-CACHE-RESET reset=') || invalid "the emulator's log could not be read"
 if [ "$resets" -eq 0 ]; then resets=none; fi
 
 echo "resprb.sh: mode=$mode calls=$calls core=$core files=$FILES $memory_figures_out resets=$resets guest=\"$guest_line\" build=\"$emu_version\" binary=$binary"

@@ -1,0 +1,314 @@
+diff --git a/src/dos/drive_cache.cpp b/src/dos/drive_cache.cpp
+index 797a90e15..6088f7481 100644
+--- a/src/dos/drive_cache.cpp
++++ b/src/dos/drive_cache.cpp
+@@ -27,6 +27,9 @@
+ #include <vector>
+ #include <iterator>
+ #include <algorithm>
++#include <string>
++#include <unordered_set>
++#include <unordered_map>
+ 
+ #if defined (WIN32)   /* Win 32 */
+ #define WIN32_LEAN_AND_MEAN        // Exclude rarely-used stuff from
+@@ -43,7 +46,43 @@ extern bool gbk;
+ char * DBCS_upcase(char * str);
+ bool isDBCSCP(), shiftjis_lead_byte(int c), isKanji1_gbk(uint8_t chr), filename_not_8x3(const char *n), filename_not_strict_8x3(const char *n);
+ 
++struct P5Count {
++    unsigned long long reads, entries, short_calls, aliases, gln_calls, gln_bin, gln_casecmp, gln_wine,
++        id_bin, id_walk, lnl_scan, lnl_shift, lnl_append, fl_scan, fl_shift, sort_cmp, ff_calls, ff_copied, ff_sort_cmp,
++        cacheout, cacheout_entries, empty, addentry;
++    // The options' shadow checks: how often each would answer differently from the code beside it.
++    unsigned long long c1_checked, c1_differs, c2_checked, c2_differs, wine_calls, walk_same_class;
++    unsigned long long c3_checked, c3_differs, c3_steps, c3_jumps;
++};
++static P5Count p5 = {};
++static bool p5_reading = false;
++static std::unordered_set<std::string> p5_names;
++static std::string p5_fold(const char *name) {
++    std::string key(name);
++    for (char &c : key) if (c >= 'A' && c <= 'Z') c = (char)(c - 'A' + 'a');
++    return key;
++}
++// Per directory: for each "PREFIX~" of its generated aliases, which digit counts it holds.
++static std::unordered_map<const DOS_Drive_Cache::CFileInfo*, std::unordered_map<std::string, unsigned> > p5_classes;
++static void p5_class_add(const DOS_Drive_Cache::CFileInfo* dir, const char *alias) {
++    const size_t pre = strcspn(alias,"~"), dig = strcspn(alias+pre,".");
++    p5_classes[dir][std::string(alias, pre+1)] |= 1u << dig;
++}
++static bool p5_before(DOS_Drive_Cache::CFileInfo* const &a, DOS_Drive_Cache::CFileInfo* const &b) {
++    return strcmp(a->shortname,b->shortname)<0;
++}
++static void p5_log(const char *what, const char *path) {
++    LOG_MSG("5P %s reads=%llu entries=%llu short_calls=%llu aliases=%llu gln_calls=%llu gln_bin=%llu gln_casecmp=%llu gln_wine=%llu id_bin=%llu id_walk=%llu lnl_scan=%llu lnl_shift=%llu lnl_append=%llu fl_scan=%llu fl_shift=%llu sort_cmp=%llu ff_calls=%llu ff_copied=%llu ff_sort_cmp=%llu cacheout=%llu cacheout_entries=%llu empty=%llu addentry=%llu path=%s",
++        what, p5.reads, p5.entries, p5.short_calls, p5.aliases, p5.gln_calls, p5.gln_bin, p5.gln_casecmp, p5.gln_wine,
++        p5.id_bin, p5.id_walk, p5.lnl_scan, p5.lnl_shift, p5.lnl_append, p5.fl_scan, p5.fl_shift, p5.sort_cmp,
++        p5.ff_calls, p5.ff_copied, p5.ff_sort_cmp, p5.cacheout, p5.cacheout_entries, p5.empty, p5.addentry, path);
++    // The shadow checks on a line of their own: the log cuts a line at 512 bytes.
++    LOG_MSG("5S %s c1_checked=%llu c1_differs=%llu c2_checked=%llu c2_differs=%llu wine_calls=%llu walk_same_class=%llu c3_checked=%llu c3_differs=%llu c3_steps=%llu c3_jumps=%llu end=1",
++        what, p5.c1_checked, p5.c1_differs, p5.c2_checked, p5.c2_differs, p5.wine_calls, p5.walk_same_class, p5.c3_checked, p5.c3_differs, p5.c3_steps, p5.c3_jumps);
++}
++
+ bool SortByName(DOS_Drive_Cache::CFileInfo* const &a, DOS_Drive_Cache::CFileInfo* const &b) {
++    p5.sort_cmp++;
+     return strcmp(a->shortname,b->shortname)<0;
+ }
+ 
+@@ -53,6 +92,7 @@ bool SortByNameRev(DOS_Drive_Cache::CFileInfo* const &a, DOS_Drive_Cache::CFileI
+ 
+ bool SortByDirName(DOS_Drive_Cache::CFileInfo* const &a, DOS_Drive_Cache::CFileInfo* const &b) {
+     // Directories first...
++    p5.ff_sort_cmp++;
+     if (a->isDir!=b->isDir) return (a->isDir>b->isDir);
+     return strcmp(a->shortname,b->shortname)<0;
+ }
+@@ -101,6 +141,8 @@ void DOS_Drive_Cache::Clear(void) {
+ 
+ void DOS_Drive_Cache::EmptyCache(void) {
+     // Empty Cache and reinit
++    p5.empty++;
++    p5_log("EMPTY", basePath);
+     Clear();
+     dirBase     = new CFileInfo;
+     save_dir    = nullptr;
+@@ -213,6 +255,7 @@ void DOS_Drive_Cache::AddEntry(const char* path, bool checkExists) {
+ 
+     CFileInfo* dir = FindDirInfo(path,expand);
+     const char* pos = strrchr_dbcs((char *)path,CROSS_FILESPLIT);
++    p5.addentry++;
+ 
+     if (pos) {
+         char file   [CROSS_LEN];
+@@ -361,6 +404,8 @@ void DOS_Drive_Cache::CacheOut(const char* path, bool ignoreLastDir) {
+     }
+     // delete file objects...
+     //Maybe check if it is a file and then only delete the file and possibly the long name. instead of all objects in the dir.
++    p5.cacheout++; p5.cacheout_entries += dir->fileList.size();
++    p5_log("CACHEOUT", path);
+     for(uint32_t i=0; i<dir->fileList.size(); i++) {
+         if (dirSearch[srchNr]==dir->fileList[i]) dirSearch[srchNr] = nullptr;
+         DeleteFileInfo(dir->fileList[i]); dir->fileList[i] = nullptr;
+@@ -368,6 +413,7 @@ void DOS_Drive_Cache::CacheOut(const char* path, bool ignoreLastDir) {
+     // clear lists
+     dir->fileList.clear();
+     dir->longNameList.clear();
++    p5_classes.erase(dir);
+     save_dir = nullptr;
+ }
+ 
+@@ -442,16 +488,50 @@ Bitu DOS_Drive_Cache::CreateShortNameID(CFileInfo* curDir, const char* name) {
+ 
+     while (low<=high) {
+         Bits mid = (low+high)/2;
++        p5.id_bin++;
+         Bits res = CompareShortname(name,curDir->longNameList[(size_t)mid]->shortname);
+ 
+         if (res>0)  low  = mid+1; else
+         if (res<0)  high = mid-1;
+         else {
+             // any more same x chars in next entries ?
++            const char *p5_hit = curDir->longNameList[(size_t)mid]->shortname;
++            const Bits p5_hit_index = mid;
++            const size_t p5_prefix = strcspn(p5_hit,"~"), p5_digits = strcspn(p5_hit+p5_prefix,".");
+             do {
++                p5.id_walk++;
++                { const char *here = curDir->longNameList[(size_t)mid]->shortname; const size_t pre = strcspn(here,"~");
++                  if (pre == p5_prefix && strcspn(here+pre,".") == p5_digits && !strncmp(here,p5_hit,pre)) p5.walk_same_class++; }
+                 foundNr = curDir->longNameList[(size_t)mid]->shortNr;
+                 mid++;
+             } while((Bitu)mid<curDir->longNameList.size() && (CompareShortname(name,curDir->longNameList[(size_t)mid]->shortname)==0));
++            {
++                // The same answer by jumps: inside a "PREFIX~" that holds one digit count, where the
++                // compare looks at the prefix alone, every alias up to the last of that prefix compares
++                // equal, so the walk's last stop there is found by binary search.
++                const std::vector<CFileInfo*> &list = curDir->longNameList;
++                const std::unordered_map<std::string, unsigned> &classes = p5_classes[curDir];
++                size_t j = (size_t)(p5_hit_index), n = list.size(), cc2 = strcspn(name,".");
++                Bitu nr = 0;
++                if (cc2 > 8) cc2 = 8;
++                for (;;) {
++                    const char *here = list[j]->shortname;
++                    const size_t pre = strcspn(here,"~"), dig = strcspn(here+pre,".");
++                    std::unordered_map<std::string, unsigned>::const_iterator known = classes.find(std::string(here, pre+1));
++                    p5.c3_steps++;
++                    if (known != classes.end() && (known->second & (known->second - 1)) == 0 && !(cc2 > pre + dig)) {
++                        size_t lo = j, hi = n - 1;
++                        while (lo < hi) { const size_t m = (lo + hi + 1) / 2; if (!strncmp(list[m]->shortname, here, pre+1)) lo = m; else hi = m - 1; }
++                        if (lo != j) p5.c3_jumps++;
++                        j = lo;
++                    }
++                    nr = list[j]->shortNr;
++                    j++;
++                    if (j >= n || CompareShortname(name, list[j]->shortname) != 0) break;
++                }
++                p5.c3_checked++;
++                if (nr != foundNr) p5.c3_differs++;
++            }
+             break;
+         }
+     }
+@@ -535,8 +615,10 @@ Bits DOS_Drive_Cache::GetLongName(CFileInfo* curDir, char* shortName) {
+ 	Bits low	= 0;
+ 	Bits high	= (Bits)(filelist_size-1);
+ 	Bits mid;
++	p5.gln_calls++;
+ 	while (low<=high) {
+ 		mid = (low+high)/2;
++		p5.gln_bin++;
+ 		res = strcmp(shortName,curDir->fileList[mid]->shortname);
+ 		if (res>0)	low  = mid+1; else
+ 		if (res<0)	high = mid-1; else
+@@ -546,12 +628,17 @@ Bits DOS_Drive_Cache::GetLongName(CFileInfo* curDir, char* shortName) {
+ 		};
+ 	}
+ 	if (uselfn && strlen(shortName)) {
++		const bool p5_expected = p5_reading && p5_names.count(p5_fold(shortName)) > 0;
++		if (p5_reading) p5.c2_checked++;
+ 		for (Bitu i=0; i<filelist_size; i++) {
++			p5.gln_casecmp++;
+ 			if (!strcasecmp(shortName,curDir->fileList[i]->orgname)) {
++				if (p5_reading && !p5_expected) p5.c2_differs++;
+ 				strcpy(shortName,curDir->fileList[i]->orgname);
+ 				return (Bits)i;
+ 		    }
+ 		}
++		if (p5_reading && p5_expected) p5.c2_differs++;
+ 	}
+ 
+ #ifdef WINE_DRIVE_SUPPORT
+@@ -559,7 +646,9 @@ Bits DOS_Drive_Cache::GetLongName(CFileInfo* curDir, char* shortName) {
+     // else it's most likely a Wine style short name ABCD~###, # = not dot  (length at least 8)
+     // The above test is rather strict as the following loop can be really slow if filelist_size is large.
+     char buff[CROSS_LEN];
++    p5.wine_calls++;
+     for (Bitu i = 0; i < filelist_size; i++) {
++        p5.gln_wine++;
+         res = wine_hash_short_file_name(curDir->fileList[i]->orgname,buff);
+         buff[res] = 0;
+         if (!strcmp(shortName,buff)) {
+@@ -589,6 +678,7 @@ void DOS_Drive_Cache::CreateShortName(CFileInfo* curDir, CFileInfo* info) {
+     bool    createShort = false;
+ 
+     char tmpNameBuffer[CROSS_LEN];
++    p5.short_calls++;
+ 
+     char* tmpName = tmpNameBuffer;
+ 
+@@ -639,6 +729,7 @@ void DOS_Drive_Cache::CreateShortName(CFileInfo* curDir, CFileInfo* info) {
+     if (createShort) {
+         // Create number
+         char buffer[8];
++        p5.aliases++;
+         info->shortNr = CreateShortNameID(curDir,tmpName);
+         if (GCC_UNLIKELY(info->shortNr > 9999999)) E_Exit("~9999999 same name files overflow");
+         sprintf(buffer, "%d", static_cast<unsigned int>(info->shortNr));
+@@ -673,24 +764,34 @@ void DOS_Drive_Cache::CreateShortName(CFileInfo* curDir, CFileInfo* info) {
+         if (curDir->longNameList.size()>0) {
+             if (!(strcmp(info->shortname,curDir->longNameList.back()->shortname)<0)) {
+                 // append at end of list
++                p5.lnl_append++;
++                p5.c1_checked++;
++                if (std::upper_bound(curDir->longNameList.begin(), curDir->longNameList.end(), info, p5_before) != curDir->longNameList.end()) p5.c1_differs++;
++                p5_class_add(curDir, info->shortname);
+                 curDir->longNameList.push_back(info);
+             } else {
+                 // look for position where to insert this element
+                 bool found=false;
+                 std::vector<CFileInfo*>::iterator it;
+                 for (it=curDir->longNameList.begin(); it!=curDir->longNameList.end(); ++it) {
++                    p5.lnl_scan++;
+                     if (strcmp(info->shortname,(*it)->shortname)<0) {
+                         found = true;
+                         break;
+                     }
+                 }
+                 // Put it in longname list...
++                p5.lnl_shift += (unsigned long long)(curDir->longNameList.end()-it);
++                p5.c1_checked++;
++                if (std::upper_bound(curDir->longNameList.begin(), curDir->longNameList.end(), info, p5_before) != it) p5.c1_differs++;
++                p5_class_add(curDir, info->shortname);
+                 if (found) curDir->longNameList.insert(it,info);
+                 else curDir->longNameList.push_back(info);
+             }
+         } else {
+             // empty file list, append
+             curDir->longNameList.push_back(info);
++            p5_class_add(curDir, info->shortname);
+         }
+     } else {
+         strcpy(info->shortname,tmpName);
+@@ -844,12 +945,14 @@ char* DOS_Drive_Cache::CreateEntry(CFileInfo* dir, const char* name, const char*
+             // look for position where to insert this element
+             std::vector<CFileInfo*>::iterator it;
+             for (it=dir->fileList.begin(); it!=dir->fileList.end(); ++it) {
++                p5.fl_scan++;
+                 if (strcmp(info->shortname,(*it)->shortname)<0) {
+                     found = true;
+                     break;
+                 }
+             }
+             // Put file in lists
++            p5.fl_shift += (unsigned long long)(dir->fileList.end()-it);
+             if (found) dir->fileList.insert(it,info);
+             else dir->fileList.push_back(info);
+         }
+@@ -857,6 +960,7 @@ char* DOS_Drive_Cache::CreateEntry(CFileInfo* dir, const char* name, const char*
+         // empty file list, append
+         dir->fileList.push_back(info);
+     }
++	if (p5_reading) p5_names.insert(p5_fold(info->orgname));
+ 	static char sgenname[DOS_NAMELENGTH+1];
+ 	strcpy(sgenname, info->shortname);
+ 	return sgenname;
+@@ -890,15 +994,22 @@ bool DOS_Drive_Cache::ReadDir(uint16_t id, char* &result, char * &lresult) {
+         // Read complete directory
+         char dir_name[CROSS_LEN], dir_sname[DOS_NAMELENGTH+1];
+         bool is_directory;
++        p5_log("READ-BEGIN", dirPath);
++        p5.reads++;
++        p5_reading = true; p5_names.clear();
+         if (drive->read_directory_first(dirp, dir_name, dir_sname, is_directory)) {
+             CreateEntry(dirSearch[id], dir_name, dir_sname, is_directory, /*skip search*/true);
++            p5.entries++;
+             while (drive->read_directory_next(dirp, dir_name, dir_sname, is_directory)) {
+                 CreateEntry(dirSearch[id], dir_name, dir_sname, is_directory, /*skip search*/true);
++                p5.entries++;
+             }
+         }
+ 
+         // Insertion skipped sorting, now sort in one go, which should be faster when faced with many files
+         std::sort(dirSearch[id]->fileList.begin(), dirSearch[id]->fileList.end(), SortByName);
++        p5_reading = false; p5_names.clear();
++        p5_log("READ-END", dirPath);
+ 
+         // close dir
+         drive->closedir(dirp);
+@@ -974,8 +1085,10 @@ bool DOS_Drive_Cache::FindFirst(char* path, uint16_t& id) {
+     dirFindFirst[dirFindFirstID]-> nextEntry    = 0;
+ 
+     // Copy entries to use with FindNext
++    p5.ff_calls++;
+     for (Bitu i=0; i<dirSearch[dirID]->fileList.size(); i++) {
+         CopyEntry(dirFindFirst[dirFindFirstID],dirSearch[dirID]->fileList[i]);
++        p5.ff_copied++;
+     }
+     // Now re-sort the fileList accordingly to output
+     switch (sortDirType) {
+@@ -989,6 +1102,7 @@ bool DOS_Drive_Cache::FindFirst(char* path, uint16_t& id) {
+ 
+ //  LOG(LOG_DOSMISC,LOG_ERROR)("DIRCACHE: FindFirst : %s (ID:%02X)",path,dirFindFirstID);
+     id = dirFindFirstID;
++    p5_log("FF", path);
+     return true;
+ }
+ 
+@@ -1018,6 +1132,7 @@ void DOS_Drive_Cache::ClearFileInfo(CFileInfo *dir) {
+ }
+ 
+ void DOS_Drive_Cache::DeleteFileInfo(CFileInfo *dir) {
++    p5_classes.erase(dir);
+     if (dir)
+         ClearFileInfo(dir);
+     delete dir;

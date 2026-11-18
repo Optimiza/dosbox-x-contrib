@@ -76,6 +76,9 @@ static int lfn_first(const char *path, int *handle)
     r.x.ds = g_seg; r.x.dx = PATH_OFF; r.x.es = g_seg; r.x.di = FIND_OFF;
     r.x.flags = 1;
     err = int21(&r);
+    /* A DOS with no long-name calls may clear the carry and leave AX at 7100h, as MS-DOS 6.22
+     * does: that is the call refused, not a handle. */
+    if (err == 0 && r.x.ax == 0x7100) err = 0x7100;
     *handle = r.x.ax;
     return err;
 }

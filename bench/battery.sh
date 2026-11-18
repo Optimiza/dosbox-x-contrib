@@ -12,38 +12,44 @@ usage: battery.sh [--real-dos] [--raw <directory>] [--only <group>]... <base> <b
   <build>            the one under test
   <third build>      another one <build> is compared with as well
   --real-dos         adds FINDLIFE, EXACT, ENUMSTAT, DRIFT, DTADUMP, PATLIST, TEMPLATE,
-                     FINDPOS, MEMPROBE's lookups, FC and XCOPY on the DOS of a disk image,
-                     with <build> as the machine, and the reporters' files where they are named
+                     FINDPOS, DOSANS, MEMPROBE's lookups, FC, XCOPY, DIRGONE and XCOMSIM on three real DOS, each
+                     booted from its disk image with <build> as the machine: MS-DOS 7.10,
+                     MS-DOS 6.22 and FreeDOS; and the reporters' files where they are named
   --raw <directory>  keeps there what every script printed, one file per call named by the
                      call, and schedule.txt, when each call started and ended. The directory
                      is empty or absent
   --only <group>     runs that group of cells and prints every other cell as "not run"; given
                      again, one more group. The groups:
                        selftest   the scripts' own tests
-                       answers    run, findlife, exact, drift, dtadump, patlist, template,
-                                  findpos, attrprobe, ties, enumstat, xcopy, passfail, unit
+                       answers    run, findlife, exact, drift, dtadump, patlist,
+                                  template, findpos, attrprobe, ties, enumstat, xcopy, xcomsim,
+                                  passfail, unit
                        folders    run on the folders of styles dots, mix and wine
-                       attrsem    attrsem
+                       gone       dirgone, lfnren
+                       dosans     dosans, and with --real-dos its runs on the three DOS
+                       attrsem    attrsem, sidefx
+                       overlay    overlay
                        delete     delete
                        aliases    aliases
                        memory     memory, fc
-                       realdos    the DOS of the image (needs --real-dos)
-                       reporters  junktest, dirtest, and with --real-dos their runs on the image
+                       realdos    the three DOS (needs --real-dos)
+                       reporters  junktest, dirtest, and with --real-dos their runs on the three
+                                  DOS
 
 runs, in this order: the scripts' own tests, run.sh, memory.sh, fc.sh, findlife.sh, exact.sh,
-drift.sh, dtadump.sh, patlist.sh, template.sh, findpos.sh, attrprobe.sh, attrsem.sh, delete.sh,
-ties.sh, aliases.sh, enumstat.sh, xcopy.sh, passfail.sh, unit.sh, when asked realdos.sh, and last junktest.sh and dirtest.sh
+drift.sh, dirgone.sh, lfnren.sh, dtadump.sh, patlist.sh, template.sh, findpos.sh, dosans.sh, overlay.sh, attrprobe.sh, attrsem.sh, sidefx.sh, delete.sh,
+ties.sh, aliases.sh, enumstat.sh, xcopy.sh, xcomsim.sh, passfail.sh, unit.sh, when asked realdos.sh, and last junktest.sh and dirtest.sh
 (with their realdos.sh arms when asked), whose cells print "not run" unless the environment
 names the reporters' files.
 A script that compares two builds runs on base against build, then on the third build against
 build; one that measures a single build runs on each.
 
 how they run: the tests and the answers one after another; beside them, the memory cells, the
-reporters' runs and the arms of the image's DOS, as many at once as half the host's cores and
+reporters' runs and the arms of the real DOS, as many at once as half the host's cores and
 half its memory allow. A memory cell counts for the most memory its recording (fixtures/battery)
 shows on any build; one that needs over half of that memory runs with no other memory cell, and
-one with no recording counts for all of it. An arm of the image's DOS counts for the least any
-recorded memory cell holds: the image's DOS keeps no folder in the emulator. A run that holds a
+one with no recording counts for all of it. An arm of a real DOS counts for the least any
+recorded memory cell holds: that DOS keeps no folder in the emulator. A run that holds a
 memory or an image group waits while another battery holding one runs on this host.
 
 prints the builds with their sha256, how many calls run at once and in how much memory, then one
@@ -65,7 +71,9 @@ environment:
                         that fits 8.3
   DIRCACHE_REAL_FILE    a file of it, as the guest names it
   DIRCACHE_REGRESSION   the folder holding FINDTEST.EXE and LFNTEST.EXE (README.md, passfail.sh)
-  DIRCACHE_BOOT_IMAGE   with --real-dos, the disk image realdos.sh boots
+  DIRCACHE_BOOT_MSDOS710  with --real-dos, the disk image of each DOS realdos.sh boots (its
+  DIRCACHE_BOOT_MSDOS622  --help says what each holds); all three are needed
+  DIRCACHE_BOOT_FREEDOS
   DIRCACHE_JUNKTEST     the files attached to upstream issue 6827, unpacked (junktest.sh)
   DIRCACHE_DIRTEST      the files attached to upstream issue 2485, unpacked (dirtest.sh)
   DIRCACHE_SCRIPTS      the folder the scripts are run from (default: this one): the seam of
@@ -106,14 +114,16 @@ FC_FILES=700
 FC_RUNS="1 300"
 PASSFAIL_PROGRAMS="FINDTEST LFNTEST"
 PASSFAIL_FOLDERS="synthetic:40:long synthetic:10000:long"
-SELF_TESTS="run memory fc findlife exact drift dtadump patlist template findpos attrprobe attrsem attrcost resprb delete aliases ties enumstat xcopy passfail unit realdos junktest dirtest p5time p5rep judge batch"
-REALDOS_PROGRAMS="findlife exact enumstat drift dtadump patlist template findpos findpos-labelled memprobe fc xcopy"
+SELF_TESTS="run memory fc findlife exact drift dirgone lfnren dtadump patlist template findpos dosans overlay attrprobe attrsem sidefx attrcost resprb delete aliases ties enumstat xcopy xcomsim passfail unit realdos junktest dirtest p5time p5rep judge batch"
+REALDOS_PROGRAMS="findlife exact enumstat drift dtadump patlist template findpos findpos-labelled memprobe fc xcopy dirgone xcomsim xcomsim-relay"
+# The DOS realdos.sh boots, each from the image DIRCACHE_BOOT_<its name in capitals> names.
+REALDOS_SYSTEMS="msdos710 msdos622 freedos"
 TEMPLATE_VOLUMES="fat host"
 FINDPOS_VOLUMES="labelled unlabelled"
 # The reporter's run of upstream issue 6827 and the two steps before its end, so that what each
 # batch file adds can be read; long names off, as both reporters' confs leave them.
 JUNKTEST_RUNS=("300" "300 JUNK" "300 JUNK 300")
-CELL_GROUPS="selftest answers folders attrsem delete aliases memory realdos reporters"
+CELL_GROUPS="selftest answers folders gone dosans overlay attrsem delete aliases memory realdos reporters"
 # How often the calls that run side by side are looked at: a call ends between two looks.
 POLL_SECONDS=0.1
 
@@ -154,7 +164,7 @@ if [ -n "$third" ]; then pairs="base:build third:build" singles="base build thir
 
 scripts=${DIRCACHE_SCRIPTS:-$here}
 real_folder=${DIRCACHE_REAL_FOLDER:-} real_file=${DIRCACHE_REAL_FILE:-}
-regression=${DIRCACHE_REGRESSION:-} image=${DIRCACHE_BOOT_IMAGE:-}
+regression=${DIRCACHE_REGRESSION:-}
 junktest=${DIRCACHE_JUNKTEST:-} dirtest=${DIRCACHE_DIRTEST:-}
 if [ ! -d "$real_folder" ]; then fail_usage "DIRCACHE_REAL_FOLDER is not a directory: $real_folder"; fi
 if [ -z "$real_file" ] || [ ! -f "$real_folder/$real_file" ]; then
@@ -163,8 +173,18 @@ fi
 for program in $PASSFAIL_PROGRAMS; do
     if [ ! -f "$regression/$program.EXE" ]; then fail_usage "DIRCACHE_REGRESSION holds no $program.EXE: $regression"; fi
 done
-if [ "$real_dos" -eq 1 ] && [ "$HOST_KIND" != windows ] && [ ! -f "$image" ]; then
-    fail_usage "--real-dos needs DIRCACHE_BOOT_IMAGE, a disk image: $image"
+# image_of <dos>: the disk image the environment names for it.
+image_of() {
+    local var
+    var=DIRCACHE_BOOT_$(printf '%s' "$1" | tr '[:lower:]' '[:upper:]')
+    printf '%s' "${!var:-}"
+}
+if [ "$real_dos" -eq 1 ] && [ "$HOST_KIND" != windows ]; then
+    for system in $REALDOS_SYSTEMS; do
+        if [ ! -f "$(image_of "$system")" ]; then
+            fail_usage "--real-dos needs DIRCACHE_BOOT_$(printf '%s' "$system" | tr '[:lower:]' '[:upper:]'), a disk image: $(image_of "$system")"
+        fi
+    done
 fi
 if [ -n "$raw" ]; then
     if ! mkdir -p "$raw"; then fail_usage "the directory for --raw cannot be made: $raw"; fi
@@ -267,8 +287,8 @@ plan_add() {
     echo "$key" >> "$tmp/plan/keys"
     printf '%s\n' "$@" > "$tmp/plan/$i.args"
     call_file[i]=$key call_script[i]=$script call_line[i]="$script $*"
-    case "$group" in
-        memory|realdos|reporters)
+    case "$group:$script" in
+        memory:*|realdos:*|reporters:*|*:realdos.sh)
             case "$script" in
                 memory.sh|fc.sh|junktest.sh|dirtest.sh)
                     measured=1
@@ -364,8 +384,8 @@ admits() {
     return 0
 }
 
-# The memory cells, the reporters' runs and the image's arms, side by side. The image's arms
-# start first: they hold the longest runs of the battery and little memory. A memory cell that
+# The memory cells, the reporters' runs and the real DOS's arms, side by side. The real DOS's
+# arms start first: they hold the longest runs of the battery and little memory. A memory cell that
 # cannot start yet holds back the memory cells behind it, so the largest is not passed for ever.
 pool() {
     local i pending="" rest="" next blocked
@@ -501,7 +521,7 @@ differing() {
         /^[<>] / {
             n = split(substr($0, 3), part, "|")
             if (n < 2) next
-            name = (part[1] == "case" || part[1] == "drift" || part[1] == "life" || part[1] == "tie" || part[1] == "pat" || part[1] == "pos" || part[1] == "attr" || part[1] == "sem") ? part[2] : part[1]
+            name = (part[1] == "case" || part[1] == "drift" || part[1] == "gone" || part[1] == "lfnren" || part[1] == "life" || part[1] == "tie" || part[1] == "pat" || part[1] == "pos" || part[1] == "attr" || part[1] == "sem" || part[1] == "sidefx") ? part[2] : part[1]
             if (part[1] ~ /^(del|alias|search|rmdir|mkdir|rename|host)$/) name = part[1] ":" part[2]
             if (!(name in seen)) { seen[name] = 1; list = list sep name; sep = "," }
         }
@@ -538,6 +558,15 @@ figures_fc() {
 
 figures_xcopy() {
     first 's/^xcopy\.sh: lfn=[a-z]* \(made=[0-9]* copied=[0-9]* dirs_made=[0-9]* dirs_copied=[0-9]* said=[-0-9]* slots_full=[0-9]* out_of_range=[0-9]*\) build=.*/\1/p'
+}
+
+# Each build's verdict on its listings, with what its log counted.
+figures_xcomsim() {
+    local a b
+    a=$(first 's/^xcomsim\.sh: build A: lfn=[a-z]* \(listing=[0-9]*\/[0-9]* [0-9]*\/[0-9]* lost=[0-9]* slots_full=[0-9]* out_of_range=[0-9]*\) build=.*/\1/p')
+    b=$(first 's/^xcomsim\.sh: build B: lfn=[a-z]* \(listing=[0-9]*\/[0-9]* [0-9]*\/[0-9]* lost=[0-9]* slots_full=[0-9]* out_of_range=[0-9]*\) build=.*/\1/p')
+    if [ -z "$a" ] || [ -z "$b" ]; then return 0; fi
+    echo "A($a) B($b)"
 }
 
 figures_junktest() {
@@ -581,6 +610,24 @@ figures_drift() {
     echo "cases=$cases sha256=$(digest "$tmp/A.txt")/$(digest "$tmp/B.txt")${differ:+ differ=$differ}"
 }
 
+figures_dirgone() {
+    local cases other differ
+    reports dirgone.sh
+    cases=$(command grep -a -c '^gone|' "$tmp/A.txt") other=$(command grep -a -c '^gone|' "$tmp/B.txt")
+    differ=$(differing)
+    if [ "${cases:-0}" -eq 0 ] || [ "${other:-0}" -eq 0 ]; then return 0; fi
+    echo "cases=$cases sha256=$(digest "$tmp/A.txt")/$(digest "$tmp/B.txt")${differ:+ differ=$differ}"
+}
+
+figures_lfnren() {
+    local lines other differ
+    reports lfnren.sh
+    lines=$(command grep -a -c '^lfnren|' "$tmp/A.txt") other=$(command grep -a -c '^lfnren|' "$tmp/B.txt")
+    differ=$(differing)
+    if [ "${lines:-0}" -eq 0 ] || [ "${other:-0}" -eq 0 ]; then return 0; fi
+    echo "lines=$lines/$other sha256=$(digest "$tmp/A.txt")/$(digest "$tmp/B.txt")${differ:+ differ=$differ}"
+}
+
 # DTADUMP's lines differ by the dozen between two builds: counted, not named.
 figures_dtadump() {
     local a b lines
@@ -618,6 +665,29 @@ figures_findpos() {
     echo "cases=$cases sha256=$(digest "$tmp/A.txt")/$(digest "$tmp/B.txt")${differ:+ differ=$differ}"
 }
 
+# One build's overlay against the host folder under it and against DOS: the three checks.
+figures_overlay() {
+    local label next dots other
+    label=$(first 's/^overlay\.sh: label lines \([A-Z]*\)$/\1/p')
+    next=$(first 's/^overlay\.sh: overlay, FindNext after the label alone: \(18\), as DOS$/\1/p')
+    if [ -z "$next" ]; then next=$(first 's/^overlay\.sh: overlay, FindNext after the label alone: \(not 18\) .*/other/p'); fi
+    dots=$(first 's/^overlay\.sh: overlay, the root lists \(no\) dot entry, as DOS$/none/p')
+    if [ -z "$dots" ]; then dots=$(first 's/^overlay\.sh: overlay, the root lists a dot entry .*/listed/p'); fi
+    other=$(first 's/^overlay\.sh: other lines that differ, not judged: \([0-9]*\)$/\1/p')
+    if [ -z "$label" ] || [ -z "$next" ] || [ -z "$dots" ] || [ -z "$other" ]; then return 0; fi
+    echo "label=$label next=$next dots=$dots other_lines=$other"
+}
+
+# DOSANS's lines hold paths and quotes: counted, not named.
+figures_dosans() {
+    local lines other differ
+    reports dosans.sh
+    lines=$(command grep -a -c -v '^end|' "$tmp/A.txt") other=$(command grep -a -c -v '^end|' "$tmp/B.txt")
+    differ=$(first 's/^dosans\.sh: DIFFERENT, \([0-9]*\) lines differ.*/\1/p')
+    if [ "${lines:-0}" -eq 0 ] || [ "${other:-0}" -eq 0 ]; then return 0; fi
+    echo "lines=$lines sha256=$(digest "$tmp/A.txt")/$(digest "$tmp/B.txt")${differ:+ differing_lines=$differ}"
+}
+
 figures_attrprobe() {
     local cases other differ
     reports attrprobe.sh
@@ -641,6 +711,16 @@ figures_attrsem() {
     differ=$(differing)
     if [ "${lines:-0}" -eq 0 ] || [ "${other:-0}" -eq 0 ] || [ "${shell:-0}" -eq 0 ]; then return 0; fi
     echo "lines=$lines shell=$shell sha256=$(digest "$tmp/A.txt")/$(digest "$tmp/B.txt")${differ:+ differ=$differ}"
+}
+
+# SIDEFX's lines and the shell's, or the VOL and ATTRIB lines, by their digests.
+figures_sidefx() {
+    local lines other differ
+    reports sidefx.sh
+    lines=$(command grep -a -c . "$tmp/A.txt") other=$(command grep -a -c . "$tmp/B.txt")
+    differ=$(differing)
+    if [ "${lines:-0}" -eq 0 ] || [ "${other:-0}" -eq 0 ]; then return 0; fi
+    echo "lines=$lines sha256=$(digest "$tmp/A.txt")/$(digest "$tmp/B.txt")${differ:+ differ=$differ}"
 }
 
 # DELPRB's steps by their digests, and what each build left on the host.
@@ -738,6 +818,17 @@ cells_xcopy() {
     done
 }
 
+# cells_xcomsim <on|off> [--relay]: the listing through its own DTAs, or relayed through the
+# lookups' one.
+cells_xcomsim() {
+    local pair variant=own
+    if [ $# -gt 1 ]; then variant=relayed; fi
+    for pair in $pairs; do
+        call "xcomsim $variant $pair" "$1" answers xcomsim.sh "$(build_of "${pair%%:*}")" "$(build_of "${pair##*:}")" "$@" || continue
+        emit "xcomsim $variant $pair" "$1" "$(pair_word ALIKE)" "$(figures_xcomsim)"
+    done
+}
+
 # cells_pair <script, without .sh> <word for alike> <on|off|-> [<argument>...]
 cells_pair() {
     local script=$1 word=$2 lfn=$3 pair figures=""
@@ -756,12 +847,54 @@ cells_pair() {
     done
 }
 
+# A search open in a directory removed or renamed: DIRGONE on and off, LFNREN with long names.
+cells_gone() {
+    local lfn pair
+    for lfn in on off; do
+        for pair in $pairs; do
+            call "dirgone $pair" "$lfn" gone dirgone.sh "$(build_of "${pair%%:*}")" "$(build_of "${pair##*:}")" "$lfn" || continue
+            emit "dirgone $pair" "$lfn" "$(pair_word ALIKE)" "$(figures_dirgone)"
+        done
+    done
+    for pair in $pairs; do
+        call "lfnren $pair" on gone lfnren.sh "$(build_of "${pair%%:*}")" "$(build_of "${pair##*:}")" || continue
+        emit "lfnren $pair" on "$(pair_word ALIKE)" "$(figures_lfnren)"
+    done
+}
+
 # cells_findpos <labelled|unlabelled> <on|off>
 cells_findpos() {
     local pair
     for pair in $pairs; do
         call "findpos $1 $pair" "$2" answers findpos.sh "$(build_of "${pair%%:*}")" "$(build_of "${pair##*:}")" "$1" "$2" || continue
         emit "findpos $1 $pair" "$2" "$(pair_word ALIKE)" "$(figures_findpos)"
+    done
+}
+
+# How DOS reads a path: base against build on a drive with a label and with none, then the same
+# program on the three DOS, labelled and not, when they are asked for.
+cells_dosans() {
+    local volume lfn pair system what
+    for volume in $FINDPOS_VOLUMES; do
+        for lfn in on off; do
+            for pair in $pairs; do
+                call "dosans $volume $pair" "$lfn" dosans dosans.sh "$(build_of "${pair%%:*}")" "$(build_of "${pair##*:}")" "$volume" "$lfn" || continue
+                emit "dosans $volume $pair" "$lfn" "$(pair_word ALIKE)" "$(figures_dosans)"
+            done
+        done
+    done
+    if [ "$real_dos" -eq 0 ]; then return 0; fi
+    for system in $REALDOS_SYSTEMS; do
+        for what in dosans dosans-labelled; do cell_realdos "$system" "$what" dosans; done
+    done
+}
+
+# cells_overlay <labelled|unlabelled> <on|off>: one build, its overlay against its host folder.
+cells_overlay() {
+    local who
+    for who in $singles; do
+        call "overlay $1 $who" "$2" overlay overlay.sh "$(build_of "$who")" "$1" "$2" || continue
+        emit "overlay $1 $who" "$2" "$(pair_word ALIKE)" "$(figures_overlay)"
     done
 }
 
@@ -780,6 +913,22 @@ cells_attrsem() {
     for pair in $pairs; do
         call "attrsem $pair" "$1" attrsem attrsem.sh "$(build_of "${pair%%:*}")" "$(build_of "${pair##*:}")" "$1" || continue
         emit "attrsem $pair" "$1" "$(pair_word ALIKE)" "$(figures_attrsem)"
+    done
+}
+
+# What an attribute change does besides: a host's file shown, a label overwritten. The label
+# can be overwritten only where a Windows build mounts a whole host drive.
+cells_sidefx() {
+    local mode pair
+    for mode in rescan label; do
+        for pair in $pairs; do
+            if [ "$mode" = label ] && [ "$HOST_KIND" != windows ]; then
+                cell "sidefx $mode $pair" off "not run" "only a Windows build lets the host's volume label overwrite the guest's"
+                continue
+            fi
+            call "sidefx $mode $pair" off attrsem sidefx.sh "$mode" "$(build_of "${pair%%:*}")" "$(build_of "${pair##*:}")" || continue
+            emit "sidefx $mode $pair" off "$(pair_word ALIKE)" "$(figures_sidefx)"
+        done
     done
 }
 
@@ -854,62 +1003,76 @@ cells_unit() {
     done
 }
 
-# The DOS of the image answers, <build> being only the machine: its report is condensed to its
-# counts and a digest, so two runs, or a build's own report, can be told equal from the line.
+# A real DOS answers, <build> being only the machine: each report is condensed to its counts and
+# a digest, so two runs, or a build's own report, can be told equal from the line.
 cells_realdos() {
-    local what dos counts n lfn names mode figures
-    for what in $REALDOS_PROGRAMS; do
-        if [ "$HOST_KIND" = windows ]; then
-            cell "realdos $what" off "not run" "the disk image is booted on another host: read the lines of a run there"
-            continue
-        fi
-        call "realdos $what" off realdos realdos.sh "$build" "$image" "$what" || continue
-        dos=$(first 's/^realdos\.sh: dos|version=\([0-9.]*\) .*/\1/p')
-        command grep -a -v '^realdos\.sh: ' "$tmp/text" > "$tmp/A.txt"
-        counts="" line=""
-        case "$what" in
-            memprobe) line=$(first 's/^realdos\.sh: names=83 files=[0-9]* \(mode=e k=[0-9]* ok=[0-9]*\)$/\1/p') ;;
-            fc) line=$(first 's/^realdos\.sh: \(files=[0-9]* runs=[0-9]* compared=[0-9]*\)$/\1/p') ;;
-            xcopy) line=$(first 's/^realdos\.sh: \(made=[0-9]* copied=[0-9]* dirs_made=[0-9]* dirs_copied=[0-9]* said=[-0-9]*\)$/\1/p') ;;
-        esac
-        # These three print one line of counts and no report: nothing to digest.
-        case "$what" in
-            memprobe|fc|xcopy)
-                if [ -z "$dos" ] || [ -z "$line" ]; then figures=""; else figures="dos=$dos $line"; fi
-                emit "realdos $what" off "$(ran_word)" "$figures"
-                continue
-                ;;
-        esac
-        case "$what" in
-            findlife) counts=$(tally "$tmp/A.txt") ;;
-            exact) counts=$(awk -F'|' '{ k[$1]++ } END { if (k["basic"]) printf "basic=%d life=%d drift=%d", k["basic"], k["life"], k["drift"] }' "$tmp/A.txt") ;;
-            drift) counts=$(awk -F'|' '$1 == "drift" { n++ } END { if (n) printf "cases=%d", n }' "$tmp/A.txt") ;;
-            findpos|findpos-labelled) counts=$(awk -F'|' '$1 == "pos" { n++ } END { if (n) printf "cases=%d", n }' "$tmp/A.txt") ;;
-            dtadump) counts=$(first 's/^realdos\.sh: figures: //p') ;;
-            patlist) counts=$(awk -F'|' '$1 == "pat" { n++ } END { if (n) printf "patterns=%d", n }' "$tmp/A.txt") ;;
-            template) counts=$(awk -F'|' '$1 != "end" { n++ } END { if (n) printf "lines=%d", n }' "$tmp/A.txt") ;;
-            enumstat)
-                n=0
-                enumstat_rows "realdos.sh: " > "$tmp/rows.txt"
-                while IFS='|' read -r lfn names mode figures; do
-                    cell "realdos enumstat $mode $names" "$lfn" ran "dos=$dos $figures"
-                    n=$((n + 1))
-                done < "$tmp/rows.txt"
-                if [ "$rc" -ne 0 ] || [ "$n" -eq 0 ] || [ -z "$dos" ]; then
-                    cell "realdos enumstat, the rows it did not print" off INVALID "$(why)"
-                fi
-                continue
-                ;;
-        esac
-        if [ -z "$dos" ] || [ -z "$counts" ]; then figures=""; else figures="dos=$dos $counts sha256=$(digest "$tmp/A.txt")"; fi
-        emit "realdos $what" off "$(ran_word)" "$figures"
+    local system what
+    for system in $REALDOS_SYSTEMS; do
+        for what in $REALDOS_PROGRAMS; do cell_realdos "$system" "$what"; done
     done
+}
+
+# realdos_read <dos>: from what realdos.sh printed, the version that DOS reports into dos, and
+# its report, with the DOS's name taken off each line, into $tmp/A.txt.
+realdos_read() {
+    dos=$(first "s/^realdos\.sh: $1: dos|version=\([0-9.]*\) .*/\1/p")
+    sed -n "s/^$1|//p" "$tmp/text" > "$tmp/A.txt"
+}
+
+# cell_realdos <dos> <program> [<group>, default realdos]
+cell_realdos() {
+    local system=$1 what=$2 group=${3:-realdos} name="realdos $1 $2" dos counts n lfn names mode figures line
+    if [ "$HOST_KIND" = windows ]; then
+        cell "$name" off "not run" "the disk images are booted on another host: read the lines of a run there"
+        return 0
+    fi
+    call "$name" off "$group" realdos.sh "$build" "$system" "$(image_of "$system")" "$what" || return 0
+    realdos_read "$system"
+    counts="" line=""
+    case "$what" in
+        memprobe) line=$(first "s/^realdos\.sh: $system: names=83 files=[0-9]* \(mode=e k=[0-9]* ok=[0-9]*\)\$/\1/p") ;;
+        fc) line=$(first "s/^realdos\.sh: $system: \(files=[0-9]* runs=[0-9]* compared=[0-9]*\)\$/\1/p") ;;
+        xcopy) line=$(first "s/^realdos\.sh: $system: \(made=[0-9]* copied=[0-9]* dirs_made=[0-9]* dirs_copied=[0-9]* said=[-0-9]*\)\$/\1/p") ;;
+        xcomsim|xcomsim-relay) line=$(first "s/^realdos\.sh: $system: \(listing=[0-9]*\/[0-9]* [0-9]*\/[0-9]* lost=[0-9]*\)\$/\1/p") ;;
+    esac
+    # These print one line of counts that is their verdict: nothing to digest.
+    case "$what" in
+        memprobe|fc|xcopy|xcomsim|xcomsim-relay)
+            if [ -z "$dos" ] || [ -z "$line" ]; then figures=""; else figures="dos=$dos $line"; fi
+            emit "$name" off "$(ran_word)" "$figures"
+            return 0
+            ;;
+    esac
+    case "$what" in
+        findlife) counts=$(tally "$tmp/A.txt") ;;
+        exact) counts=$(awk -F'|' '{ k[$1]++ } END { if (k["basic"]) printf "basic=%d life=%d drift=%d", k["basic"], k["life"], k["drift"] }' "$tmp/A.txt") ;;
+        drift) counts=$(awk -F'|' '$1 == "drift" { n++ } END { if (n) printf "cases=%d", n }' "$tmp/A.txt") ;;
+        dirgone) counts=$(awk -F'|' '$1 == "gone" { n++ } END { if (n) printf "cases=%d", n }' "$tmp/A.txt") ;;
+        findpos|findpos-labelled) counts=$(awk -F'|' '$1 == "pos" { n++ } END { if (n) printf "cases=%d", n }' "$tmp/A.txt") ;;
+        dtadump) counts=$(first "s/^realdos\.sh: $system: figures: //p") ;;
+        patlist) counts=$(awk -F'|' '$1 == "pat" { n++ } END { if (n) printf "patterns=%d", n }' "$tmp/A.txt") ;;
+        template|dosans|dosans-labelled) counts=$(awk -F'|' '$1 != "end" { n++ } END { if (n) printf "lines=%d", n }' "$tmp/A.txt") ;;
+        enumstat)
+            n=0
+            enumstat_rows "realdos.sh: $system: " > "$tmp/rows.txt"
+            while IFS='|' read -r lfn names mode figures; do
+                cell "realdos $system enumstat $mode $names" "$lfn" ran "dos=$dos $figures"
+                n=$((n + 1))
+            done < "$tmp/rows.txt"
+            if [ "$rc" -ne 0 ] || [ "$n" -eq 0 ] || [ -z "$dos" ]; then
+                cell "realdos $system enumstat, the rows it did not print" off INVALID "$(why)"
+            fi
+            return 0
+            ;;
+    esac
+    if [ -z "$dos" ] || [ -z "$counts" ]; then figures=""; else figures="dos=$dos $counts sha256=$(digest "$tmp/A.txt")"; fi
+    emit "$name" off "$(ran_word)" "$figures"
 }
 
 # The files reporters attached to their upstream issues are theirs and are not in this repository:
 # a folder the environment does not name is a cell that says so.
 cells_reporters() {
-    local steps who what folder dos line
+    local steps who what folder dos line system
     if [ -z "$junktest" ]; then
         cell junktest off "not run" "DIRCACHE_JUNKTEST names no folder: the files of upstream issue 6827 are not in this repository"
     else
@@ -930,21 +1093,23 @@ cells_reporters() {
         done
     fi
     if [ "$real_dos" -eq 0 ]; then return 0; fi
-    for what in junktest dirtest; do
-        if [ "$what" = junktest ]; then folder=$junktest; else folder=$dirtest; fi
-        if [ -z "$folder" ]; then continue; fi
-        if [ "$HOST_KIND" = windows ]; then
-            cell "realdos $what" off "not run" "the disk image is booted on another host: read the lines of a run there"
-            continue
-        fi
-        call "realdos $what" off reporters realdos.sh "$build" "$image" "$what" "$folder" || continue
-        dos=$(first 's/^realdos\.sh: dos|version=\([0-9.]*\) .*/\1/p')
-        case "$what" in
-            junktest) line=$(first 's/^realdos\.sh: \(batches=[^ ]* entries=[0-9]* junk=[0-9]* counted=[0-9]* done=[0-9]*\)$/\1/p') ;;
-            dirtest) line=$(first 's/^realdos\.sh: \(files=[0-9]* returned=1\)$/\1/p') ;;
-        esac
-        if [ -z "$dos" ] || [ -z "$line" ]; then line=""; else line="dos=$dos $line"; fi
-        emit "realdos $what" off "$(ran_word)" "$line"
+    for system in $REALDOS_SYSTEMS; do
+        for what in junktest dirtest; do
+            if [ "$what" = junktest ]; then folder=$junktest; else folder=$dirtest; fi
+            if [ -z "$folder" ]; then continue; fi
+            if [ "$HOST_KIND" = windows ]; then
+                cell "realdos $system $what" off "not run" "the disk images are booted on another host: read the lines of a run there"
+                continue
+            fi
+            call "realdos $system $what" off reporters realdos.sh "$build" "$system" "$(image_of "$system")" "$what" "$folder" || continue
+            realdos_read "$system"
+            case "$what" in
+                junktest) line=$(first "s/^realdos\.sh: $system: \(batches=[^ ]* entries=[0-9]* junk=[0-9]* counted=[0-9]* done=[0-9]*\)\$/\1/p") ;;
+                dirtest) line=$(first "s/^realdos\.sh: $system: \(files=[0-9]* returned=1\)\$/\1/p") ;;
+            esac
+            if [ -z "$dos" ] || [ -z "$line" ]; then line=""; else line="dos=$dos $line"; fi
+            emit "realdos $system $what" off "$(ran_word)" "$line"
+        done
     done
 }
 
@@ -984,6 +1149,7 @@ cells_all() {
     for lfn in on off; do cells_pair findlife ALIKE "$lfn" "$lfn"; done
     for lfn in on off; do cells_pair exact ALIKE "$lfn" "$lfn"; done
     for lfn in on off; do cells_pair drift ALIKE "$lfn" "$lfn"; done
+    cells_gone
     for lfn in on off; do cells_pair dtadump ALIKE "$lfn" "$lfn"; done
     for lfn in on off; do cells_pair patlist ALIKE "$lfn" "$lfn"; done
     for volume in $TEMPLATE_VOLUMES; do
@@ -992,13 +1158,19 @@ cells_all() {
     for volume in $FINDPOS_VOLUMES; do
         for lfn in on off; do cells_findpos "$volume" "$lfn"; done
     done
+    cells_dosans
+    for volume in $FINDPOS_VOLUMES; do
+        for lfn in on off; do cells_overlay "$volume" "$lfn"; done
+    done
     for lfn in on off; do cells_attrprobe "$lfn"; done
     for lfn in on off; do cells_attrsem "$lfn"; done
+    cells_sidefx
     for lfn in on off; do cells_delete "$lfn"; done
     cells_pair ties ALIKE on
     cells_aliases
     cells_enumstat
     for lfn in on off; do cells_xcopy "$lfn"; done
+    for lfn in on off; do cells_xcomsim "$lfn"; cells_xcomsim "$lfn" --relay; done
     cells_passfail
     cells_unit
     if [ "$real_dos" -eq 1 ]; then cells_realdos; fi

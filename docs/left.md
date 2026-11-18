@@ -38,7 +38,7 @@ A search reads a folder that changed under it otherwise than MS-DOS does.
 | `folder-gained-files` | 7 with the exact-name patch | 8 | half closed by [subject 1](01-exact-name.md) |
 | `folder-lost-the-entry` | 5 more | none | the order a changed directory is read in, left |
 
-Source: `battery.sh --real-dos --raw`, calls `drift.sh` and `realdos.sh drift`, in [drift_base-build_off.txt](../bench/fixtures/battery/drift_base-build_off.txt) and [realdos_drift_off.txt](../bench/fixtures/battery/realdos_drift_off.txt).
+Source: `battery.sh --real-dos --raw`, calls `drift.sh` and `realdos.sh msdos710 drift`, in [drift_base-build_off.txt](../bench/fixtures/battery/drift_base-build_off.txt) and [realdos_msdos710_drift_off.txt](../bench/fixtures/battery/realdos_msdos710_drift_off.txt).
 
 ## The remount case answers by host on another author's build
 

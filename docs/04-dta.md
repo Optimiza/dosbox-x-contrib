@@ -57,8 +57,8 @@ Source: `battery.sh --real-dos`, cells `findlife`, `dtadump`, `exact` and `drift
 - Unpatched upstream's and MS-DOS's reports are in `bench/fixtures/battery`:
   [findlife_base-build_on.txt](../bench/fixtures/battery/findlife_base-build_on.txt),
   [drift_base-build_off.txt](../bench/fixtures/battery/drift_base-build_off.txt),
-  [realdos_exact_off.txt](../bench/fixtures/battery/realdos_exact_off.txt) and
-  [realdos_drift_off.txt](../bench/fixtures/battery/realdos_drift_off.txt).
+  [realdos_msdos710_exact_off.txt](../bench/fixtures/battery/realdos_msdos710_exact_off.txt) and
+  [realdos_msdos710_drift_off.txt](../bench/fixtures/battery/realdos_msdos710_drift_off.txt).
 - On Windows the cells read the same but for one DRIFT case, told under "What it needs". They
   are in [results/windows/battery-base-dta.txt](../results/windows/battery-base-dta.txt).
 - The FCB digest differs there only by the alias names NTFS gives.
@@ -102,7 +102,7 @@ bench/findlife.sh <unpatched> <patched> on
 bench/dtadump.sh <unpatched> <patched> off
 bench/exact.sh <unpatched> <patched> off
 bench/drift.sh <unpatched> <patched> off
-bench/realdos.sh <patched> <boot image> dtadump
+bench/realdos.sh <patched> msdos710 <boot image> dtadump
 ```
 
 In the `dtadump` lines, `untouched=` and `resumed=` are the two counts of the table.

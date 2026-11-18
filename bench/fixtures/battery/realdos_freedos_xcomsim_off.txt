@@ -1,0 +1,18 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x freedos /images/fd.img xcomsim
+realdos.sh: freedos: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: freedos: image: /images/fd.img
+realdos.sh: freedos: ver: FreeCom version 0.86 - WATCOMC - XMS_Swap [Dec 30 2024 22:10:51]
+realdos.sh: freedos: dos|version=7.10 oem=FD
+realdos.sh: freedos: dos|true_version=7.10 flags=00
+realdos.sh: freedos: dos|int21=00D9:129A code=EAA5015A06E86E00
+realdos.sh: freedos: dos|lfn_714e=7100
+realdos.sh: freedos: dos|windows_1600=00
+realdos.sh: freedos: dos|drive_z=3
+freedos|model|a model built from X-COM Apocalypse's measured FindFirst lookups and the two-DTA listing upstream issue 4904's reporter describes; not the game
+freedos|calls|lookups_a_load=115 cd_skipped=1 loads=18 listing_at=1960 between=2 listing_dta=own
+freedos|lookups|made=2118 as_the_game=2118 differ=0 loads=18.41
+freedos|listing|A|40 of 40|foreign=0
+freedos|listing|B|40 of 40|foreign=0
+freedos|listing=40/40 40/40 lost=0
+freedos|end|lines=6
+realdos.sh: freedos: listing=40/40 40/40 lost=0

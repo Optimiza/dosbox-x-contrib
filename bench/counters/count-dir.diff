@@ -15,7 +15,7 @@
              }
          }
 +        host_reads++; host_entries += entries_now;
-+        LOG_MSG("4R-DIR read=%lu entries=%lu total_entries=%lu dir=%s", host_reads, entries_now, host_entries, dirPath);
++        LOG_MSG("HOST-DIR-READ read=%lu entries=%lu total_entries=%lu dir=%s", host_reads, entries_now, host_entries, dirPath);
  
          // Insertion skipped sorting, now sort in one go, which should be faster when faced with many files
          std::sort(dirSearch[id]->fileList.begin(), dirSearch[id]->fileList.end(), SortByName);

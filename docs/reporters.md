@@ -11,8 +11,9 @@ comes out whole on the patched builds.
 | Lookups | [issue 2485, a test that each of 1,835 files exists crashes](https://github.com/joncampbell123/dosbox-x/issues/2485) | makes a FindFirst per file over 1,835 files |
 | XCOPY | [issue 4904, a FindFirst can invalidate the searches of other DTAs](https://github.com/joncampbell123/dosbox-x/issues/4904), after the maintainer's reproduction | copies a tree of 2,520 files |
 | Turn about | issue 4904, as its reporter describes it | reads two DTA searches turn about, of 42 and 32 entries |
+| X-COM model | issue 4904, in the shape of a game that hit it | replays X-COM Apocalypse's measured lookups past the search table, with two DTA listings read turn about between them |
 
-Source: the cases as `fc.sh`, `memory.sh` mode `e`, `xcopy.sh` and `findlife.sh` run them, whose lines are in [results/macos/battery-base-retention-exact-name.txt](../results/macos/battery-base-retention-exact-name.txt).
+Source: the cases as `fc.sh`, `memory.sh` mode `e`, `xcopy.sh` and `findlife.sh` run them, whose lines are in [results/macos/battery-base-retention-exact-name.txt](../results/macos/battery-base-retention-exact-name.txt); the X-COM model as `xcomsim.sh` runs it, in [xcomsim_own_base-build_off.txt](../bench/fixtures/battery/xcomsim_own_base-build_off.txt).
 
 These are stand-ins written from the reports: the emulator's own FC from a batch file, a
 program that looks each file up by name, a tree made for the run.

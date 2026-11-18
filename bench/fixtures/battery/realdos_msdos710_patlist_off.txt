@@ -1,0 +1,26 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x msdos710 /images/boot.img patlist
+realdos.sh: msdos710: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos710: image: /images/boot.img
+realdos.sh: msdos710: ver: Windows 98 [Version 4.10.2222]
+realdos.sh: msdos710: dos|version=7.10 oem=FF
+realdos.sh: msdos710: dos|true_version=7.10 flags=10
+realdos.sh: msdos710: dos|int21=030F:04A0 code=EAB20FC9002EF606
+realdos.sh: msdos710: dos|lfn_714e=7100
+realdos.sh: msdos710: dos|windows_1600=00
+realdos.sh: msdos710: dos|drive_z=3
+msdos710|pat|*R.TXT|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+msdos710|pat|B*R.TXT|first=0 n=1|,BAR.TXT
+msdos710|pat|*O.TXT|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+msdos710|pat|ZED.T*T|first=0 n=1|,ZED.TXT
+msdos710|pat|*.T*T|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+msdos710|pat|*.*D|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+msdos710|pat|TWO.*|first=18 n=0|
+msdos710|pat|ALPHA*.MID|first=0 n=4|,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID
+msdos710|pat|A*~1.MID|first=0 n=4|,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID
+msdos710|pat|*~1.*|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+msdos710|pat|NOEXT*.*|first=0 n=2|,NOEXT,NOEXTE~1
+msdos710|pat|N*|first=0 n=2|,NOEXT,NOEXTE~1
+msdos710|pat|MIXCASE.TXT|first=0 n=1|,MIXCASE.TXT
+msdos710|pat|????????.???|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+msdos710|pat|*.*|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+msdos710|end|lines=15

@@ -94,8 +94,9 @@ The answers are read by these rules:
 - With long names on there is no referee: MS-DOS 7 without its Windows has no long-name calls.
   The reference is then the documented call.
 
-Two more referees, MS-DOS 6.22 and FreeDOS, are being added. Where the three agree, an answer
-is "as MS-DOS"; where they differ, the pages will say which DOS answers what.
+`realdos.sh` boots MS-DOS 6.22 and FreeDOS too, each from an image the reader brings. Where
+the three agree, an answer is "as MS-DOS"; where they differ, the pages will say which DOS
+answers what.
 
 ## Both hosts
 
@@ -152,5 +153,5 @@ page gives the factor, or unpatched upstream's seconds as the range of two batch
 
 Some costs are counted rather than timed: how often the emulator reads a folder, or resets the
 code cache. A counter build is a build with one of the diffs of `bench/counters/` applied, which
-logs each such event under a tag, `4R-DIR` or `4R-DYN`. `attrcost.sh` and `resprb.sh` read
-those lines.
+logs each such event under a tag, `HOST-DIR-READ` or `DYN-CACHE-RESET`. `attrcost.sh` and
+`resprb.sh` read those lines.

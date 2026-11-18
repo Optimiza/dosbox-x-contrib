@@ -83,11 +83,11 @@ emu_run "the run" "$binary" "$run" COST.TXT "$SECONDS_BOUND" || invalid "the emu
 
 LC_ALL=C tr -d '\r' < "$run/COST.TXT" > "$tmp/cost.txt" || invalid "the report could not be read"
 exact_whole "$tmp/cost.txt" || invalid "ATTRCOST's report has no line or no trailer"
-LC_ALL=C tr -d '\r' < "$emu_dir/dosbox.log" | command grep -a '4R-DIR read=' > "$tmp/reads.txt"
+LC_ALL=C tr -d '\r' < "$emu_dir/dosbox.log" | command grep -a 'HOST-DIR-READ read=' > "$tmp/reads.txt"
 reads=$(wc -l < "$tmp/reads.txt" | tr -d ' ')
 # The baseline searches the folder, so a build that counts reads has read it at least once.
 if [ "$reads" -eq 0 ]; then invalid "the build logged no read of a folder: it needs the counter of counters/count-dir.diff"; fi
-entries=$(sed -n 's/.*4R-DIR read=.* total_entries=\([0-9]*\) .*/\1/p' "$tmp/reads.txt" | tail -n 1)
+entries=$(sed -n 's/.*HOST-DIR-READ read=.* total_entries=\([0-9]*\) .*/\1/p' "$tmp/reads.txt" | tail -n 1)
 of_folder=$(command grep -a -c "dir=.*[\\/]${base}[\\/]\$" "$tmp/reads.txt")
 after=$(find "$parent/$base" -mindepth 1 -maxdepth 1 | wc -l | tr -d ' ')
 echo "attrcost.sh: mode=$mode k=$k folder=$folder entries=$host_count entries_after=$after host_reads=$reads reads_of_the_folder=$of_folder entries_read=${entries:-0} $(tr '\n' ' ' < "$tmp/cost.txt")build=\"$emu_version\" binary=$binary"

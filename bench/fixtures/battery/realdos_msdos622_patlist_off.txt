@@ -1,0 +1,26 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x msdos622 /images/boot.vhd patlist
+realdos.sh: msdos622: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos622: image: /images/boot.vhd
+realdos.sh: msdos622: ver: MS-DOS Version 6.22
+realdos.sh: msdos622: dos|version=6.22 oem=FF
+realdos.sh: msdos622: dos|true_version=6.22 flags=00
+realdos.sh: msdos622: dos|int21=0021:40F8 code=FA80FC6C77D280FC
+realdos.sh: msdos622: dos|lfn_714e=0000
+realdos.sh: msdos622: dos|windows_1600=00
+realdos.sh: msdos622: dos|drive_z=3
+msdos622|pat|*R.TXT|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+msdos622|pat|B*R.TXT|first=0 n=1|,BAR.TXT
+msdos622|pat|*O.TXT|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+msdos622|pat|ZED.T*T|first=0 n=1|,ZED.TXT
+msdos622|pat|*.T*T|first=0 n=5|,BAR.TXT,FOO.TXT,MIXCASE.TXT,TWO~1.TXT,ZED.TXT
+msdos622|pat|*.*D|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+msdos622|pat|TWO.*|first=18 n=0|
+msdos622|pat|ALPHA*.MID|first=0 n=4|,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID
+msdos622|pat|A*~1.MID|first=0 n=4|,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID
+msdos622|pat|*~1.*|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+msdos622|pat|NOEXT*.*|first=0 n=2|,NOEXT,NOEXTE~1
+msdos622|pat|N*|first=0 n=2|,NOEXT,NOEXTE~1
+msdos622|pat|MIXCASE.TXT|first=0 n=1|,MIXCASE.TXT
+msdos622|pat|????????.???|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+msdos622|pat|*.*|first=0 n=16|,.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
+msdos622|end|lines=15

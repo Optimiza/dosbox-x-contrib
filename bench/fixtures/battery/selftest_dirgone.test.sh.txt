@@ -1,0 +1,14 @@
+exit=0 :: dirgone.test.sh
+ok   two builds that answer alike
+ok   each report printed whole
+ok   a directory removed, emptied after the search, and made again
+ok   a build that reads on in the renamed directory
+ok   and in one whose parent was renamed
+ok   and not in the directory made again under the old name
+ok   a report cut before its trailer
+ok   a case fewer than the trailer says
+ok   a report with no case
+ok   the launcher refuses the run
+ok   neither on nor off
+ok   two arguments
+12 cases, 0 failed

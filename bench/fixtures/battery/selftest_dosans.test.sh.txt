@@ -1,0 +1,13 @@
+exit=0 :: dosans.test.sh
+ok   two builds that answer alike
+ok   each report printed whole
+ok   a build that reads a path otherwise
+ok   the lines that differ, A then B
+ok   a report cut before its trailer
+ok   a line fewer than the trailer says
+ok   the launcher refuses the run
+ok   neither labelled nor unlabelled
+ok   neither on nor off
+ok   three arguments
+ok   its own help
+11 cases, 0 failed

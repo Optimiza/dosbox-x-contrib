@@ -6,14 +6,21 @@ set -u
 
 usage() {
     cat <<'EOT'
-usage: realdos.sh <build> <boot image> <id|findlife|exact|enumstat|drift|dtadump|patlist|template|
-                                        findpos|findpos-labelled|memprobe|fc|xcopy>
-       realdos.sh <build> <boot image> <junktest|dirtest> <folder>
+usage: realdos.sh <build> <dos> <boot image> <id|findlife|exact|enumstat|drift|dtadump|patlist|
+                     template|findpos|findpos-labelled|dosans|dosans-labelled|memprobe|fc|
+                     xcopy|dirgone|xcomsim|xcomsim-relay>
+       realdos.sh <build> <dos> <boot image> <junktest|dirtest> <folder>
 
   <build>       a DOSBox-X executable. It is only the machine here: its own DOS is shut down
                 when the image boots
-  <boot image>  a hard disk image whose first partition starts MS-DOS 7, as the system disk of
-                a Windows 98 does. It is never written: the run boots a copy
+  <dos>         which DOS the image starts, and so how the run starts it:
+                  msdos710  the system disk of a Windows 98, whose kernel is MS-DOS 7.10
+                  msdos622  a hard disk MS-DOS 6.22 was installed on, its tools in C:\DOS
+                  freedos   FreeDOS 1.4's USB Lite image, its tools in C:\FREEDOS\BIN and its
+                            packages in C:\PACKAGES: LABEL is installed there from its own
+                            package when the run needs it
+  <boot image>  a hard disk image, raw or VHD, whose first partition starts that DOS. It is never
+                written: the run boots a copy
   id            which DOS answers, and nothing else
   findlife      FINDLIFE over the two folders findlife.sh makes
   exact         EXACT over the folder exact.sh makes
@@ -26,11 +33,17 @@ usage: realdos.sh <build> <boot image> <id|findlife|exact|enumstat|drift|dtadump
   findpos       FINDPOS over the folder exact.sh makes, the run's disk as it is made: with no
                 label
   findpos-labelled  the same once the image's own LABEL has named the disk FPLABEL
+  dosans        DOSANS over the folder exact.sh makes, the run's disk with no label
+  dosans-labelled  the same once the image's own LABEL has named the disk FPLABEL
   memprobe      MEMPROBE in its mode e over 1,835 files with 8.3 names: each one looked up by
                 a 4Eh that is never continued
   fc            the emulator's FC.EXE run 300 times from a batch file, as fc.sh runs it, in a
                 folder of 700 files
   xcopy         the emulator's XCOPY.EXE over the tree xcopy.sh makes
+  dirgone       DIRGONE over the folder dirgone.sh makes
+  xcomsim       XCOMSIM over the drive xcomsim.sh makes, with X-COM Apocalypse's lookups
+                (xcomsim/calls.txt) and its defaults: a model, not the game
+  xcomsim-relay the same with --relay: the listing through the lookups' one DTA
   junktest      the batch files of the archive of upstream issue 6827, unpacked in <folder>,
                 in the run the issue describes: 300.BAT, JUNK.BAT, 300.BAT, each through
                 COMMAND /C so that what it prints is kept, with the emulator's FC.EXE as
@@ -46,9 +59,11 @@ for the run that holds the folders under the names the emulator shows with long 
 junktest D:\JUNK holds the reporter's folder (a FAT16 root holds 512 entries, which JUNK.BAT
 passes), for dirtest D:'s root; the program runs there.
 
-prints the machine's path and version line, the image, the DOS's own VER line, what DOSID read of
-the DOS that answered, then the program's report whole (for enumstat, one line per mode; for
-dtadump, the figures dtadump.sh prints come first; for memprobe, the guest's line; for fc, how
+every line it prints names the DOS: its own lines start "realdos.sh: <dos>: ", the program's
+report lines "<dos>|". It prints the machine's path and version line, the image, the DOS's own
+VER line, what DOSID read of the DOS that answered, then the program's report whole (for
+enumstat, one line per mode; for dtadump, the figures dtadump.sh prints come first; for
+memprobe, the guest's line; for fc, how
 many runs said the two files do not differ; for xcopy, how many files and folders the tree
 holds, how many of each that DOS's own DIR lists under the copy, and the count XCOPY printed; for
 junktest, the entries that DOS's DIR lists in D:\JUNK at the end, how many of them are .TMP
@@ -85,8 +100,8 @@ DIRTEST_BOOT_SECONDS=6000
 DISK_MB=64
 
 if [ $# -eq 1 ] && [ "$1" = "--help" ]; then usage; exit 0; fi
-if [ $# -ne 3 ] && [ $# -ne 4 ]; then usage >&2; exit 2; fi
-build=$1 image=$2 what=$3 folder=${4:-}
+if [ $# -ne 4 ] && [ $# -ne 5 ]; then usage >&2; exit 2; fi
+build=$1 dos=$2 image=$3 what=$4 folder=${5:-}
 
 tool=realdos.sh
 here=$(cd "$(dirname "$0")" && pwd) || exit 2
@@ -94,6 +109,18 @@ if [ ! -f "$here/common.sh" ]; then echo "realdos.sh: common.sh is missing besid
 # shellcheck source=common.sh
 . "$here/common.sh"
 need_builds "$build"
+# What each DOS needs from the run: the folders of its tools, and the file its kernel reads its
+# configuration from. FreeDOS reads FDCONFIG.SYS, whose SHELL line names the batch file to start.
+case "$dos" in
+    msdos710) dos_path='C:\WINDOWS;C:\WINDOWS\COMMAND' config=CONFIG.SYS config_lines=("FILES=40") ;;
+    msdos622) dos_path='C:\DOS' config=CONFIG.SYS config_lines=("FILES=40") ;;
+    freedos)
+        dos_path='C:\FREEDOS\BIN' config=FDCONFIG.SYS
+        config_lines=("FILES=40" 'SHELL=C:\FREEDOS\BIN\COMMAND.COM C:\FREEDOS\BIN /E:1024 /P=C:\AUTOEXEC.BAT')
+        ;;
+    *) fail_usage "the DOS is msdos710, msdos622 or freedos, not: $dos" ;;
+esac
+tool="realdos.sh: $dos"
 if [ ! -f "$image" ]; then fail_usage "not a disk image: $image"; fi
 case "$what" in
     id) programs="" ;;
@@ -106,12 +133,15 @@ case "$what" in
     template) programs=TEMPLATE ;;
     findpos|findpos-labelled) programs=FINDPOS ;;
     memprobe) programs=MEMPROBE ;;
+    dirgone) programs=DIRGONE ;;
+    dosans|dosans-labelled) programs=DOSANS ;;
+    xcomsim|xcomsim-relay) programs=XCOMSIM ;;
     fc|xcopy|junktest|dirtest) programs="" ;;
-    *) fail_usage "the program is id, findlife, exact, enumstat, drift, dtadump, patlist, template, findpos, findpos-labelled, memprobe, fc, xcopy, junktest or dirtest, not: $what" ;;
+    *) fail_usage "the program is id, findlife, exact, enumstat, drift, dtadump, patlist, template, findpos, findpos-labelled, dosans, dosans-labelled, memprobe, fc, xcopy, dirgone, xcomsim, xcomsim-relay, junktest or dirtest, not: $what" ;;
 esac
 case "$what" in
-    junktest|dirtest) if [ $# -ne 4 ]; then fail_usage "$what takes the folder of the reporter's files"; fi ;;
-    *) if [ $# -ne 3 ]; then fail_usage "$what takes no folder"; fi ;;
+    junktest|dirtest) if [ $# -ne 5 ]; then fail_usage "$what takes the folder of the reporter's files"; fi ;;
+    *) if [ $# -ne 4 ]; then fail_usage "$what takes no folder"; fi ;;
 esac
 need_tools
 # shellcheck disable=SC2086  # the names, split on purpose
@@ -123,8 +153,12 @@ esac
 run_begin realdos
 stage=$tmp/stage boot=$tmp/boot collect=$tmp/collect
 mkdir -p "$stage/RD" "$stage/BOOT" "$stage/D" "$boot" "$collect" || invalid "could not make the run's directories"
-# A clone where the file system has them, a copy elsewhere.
-cp -c "$image" "$boot/c.img" 2> /dev/null || cp "$image" "$boot/c.img" || invalid "could not copy the image"
+# A clone where the file system has them, a copy elsewhere. The copy keeps the image's extension:
+# the emulator tells a VHD by it. A copy of a read-only image is read-only too, and the guest
+# writes the copy.
+image_name=c.${image##*.}
+cp -c "$image" "$boot/$image_name" 2> /dev/null || cp "$image" "$boot/$image_name" || invalid "could not copy the image"
+chmod u+w "$boot/$image_name" || invalid "could not make the copy of the image writable"
 
 for p in DOSID $programs; do
     guest_build "$p" "$stage/RD" || invalid "$p did not build"
@@ -146,7 +180,7 @@ printf '\xB8\x01\x53\x31\xDB\xCD\x15\xB8\x0E\x53\x31\xDB\xB9\x02\x01\xCD\x15\xB8
 # a program that left nothing leaves its section empty, never the one before it. Every path is
 # whole: a program may leave another current directory behind.
 result='C:\RD\RESULT.TXT' out='C:\RD\OUT.TXT'
-batch=("@ECHO OFF" "PATH C:\\RD;C:\\WINDOWS;C:\\WINDOWS\\COMMAND" "C:" "CD \\RD" "ECHO section ver> $result" "VER >> $result")
+batch=("@ECHO OFF" "PATH C:\\RD;$dos_path" "C:" "CD \\RD" "ECHO section ver> $result" "VER >> $result")
 report() {
     batch+=("ECHO section $1>> $result" "$2" "TYPE $out >> $result" "DEL $out")
 }
@@ -158,10 +192,15 @@ case "$what" in
         dos_lines "D:\\" > "$stage/RD/ROOT.TXT"
         report findlife "FINDLIFE.EXE D:\\A D:\\B $out C:\\RD\\ROOT.TXT"
         ;;
-    exact|drift|dtadump|patlist|findpos|findpos-labelled)
+    exact|drift|dtadump|patlist|findpos|findpos-labelled|dosans|dosans-labelled)
         exact_tree "$stage/D" || invalid "could not make the folder"
-        # The label is the image's DOS's own work: an entry as that DOS writes one.
-        if [ "$what" = findpos-labelled ]; then batch+=("LABEL D:$FINDPOS_LABEL"); fi
+        # The label is the image's DOS's own work: an entry as that DOS writes one. FreeDOS's
+        # USB Lite image carries LABEL only as a package, which its own installer puts in place;
+        # the installer will not start without a folder in TEMP to unpack into.
+        if [ "$what" = findpos-labelled ] || [ "$what" = dosans-labelled ]; then
+            if [ "$dos" = freedos ]; then batch+=("SET DOSDIR=C:\\FREEDOS" "SET TEMP=C:\\RD" "FDINST INSTALL C:\\PACKAGES\\BASE\\LABEL.ZIP > NUL"); fi
+            batch+=("LABEL D:$FINDPOS_LABEL")
+        fi
         report "$what" "$programs.EXE D:\\X $out"
         ;;
     enumstat)
@@ -171,6 +210,17 @@ case "$what" in
     template)
         template_tree "$stage/D" || invalid "could not make the volume's files"
         report template "TEMPLATE.EXE D $out"
+        ;;
+    dirgone)
+        dirgone_tree "$stage/D" || invalid "could not make the folder"
+        report dirgone "DIRGONE.EXE D:\\G $out"
+        ;;
+    xcomsim|xcomsim-relay)
+        xcomsim_tree "$stage/D" "$here/xcomsim/calls.txt" || invalid "could not make the drive"
+        cp "$here/xcomsim/calls.txt" "$stage/RD/CALLS.TXT" || invalid "could not copy the calls file"
+        relay=""
+        if [ "$what" = xcomsim-relay ]; then relay=" --relay"; fi
+        report xcomsim "XCOMSIM.EXE C:\\RD\\CALLS.TXT D:\\XCOMA D:\\LISTA D:\\LISTB $out$relay"
         ;;
     memprobe)
         folder_make "$stage/D/DIR" "$EACH_FILES" 83 || invalid "could not make the folder"
@@ -207,7 +257,7 @@ esac
 # image goes on to start its Windows.
 batch+=("ECHO section done>> $result" "APMOFF.COM" ":HOLD" "GOTO HOLD")
 dos_lines "${batch[@]}" > "$stage/BOOT/AUTOEXEC.BAT"
-dos_lines "FILES=40" > "$stage/BOOT/CONFIG.SYS"
+dos_lines "${config_lines[@]}" > "$stage/BOOT/$config"
 host_files=$(find "$stage/D" -type f | wc -l | tr -d ' ')
 host_dirs=$(find "$stage/D" -mindepth 2 -type d | wc -l | tr -d ' ')
 
@@ -223,7 +273,7 @@ conf() {
         printf '%s\n' "$@"
     } > "$run/run.conf"
 }
-c_img=$(host_path "$boot/c.img") d_img=$(host_path "$boot/d.img")
+c_img=$(host_path "$boot/$image_name") d_img=$(host_path "$boot/d.img")
 
 # The emulator's own shell puts everything on the two disks, long names off: the folders reach D:
 # under the 8.3 names a program sees through the emulator's host-folder drive.
@@ -272,7 +322,12 @@ fi
 keys=() bound=$BOOT_SECONDS
 if [ "$what" = dirtest ]; then keys=("$(dirtest_autotype "$DIRTEST_KEYS")") bound=$DIRTEST_BOOT_SECONDS; fi
 conf "$boot" normal "imgmount c \"$c_img\"" "imgmount d \"$d_img\"" ${keys[@]+"${keys[@]}"} "boot c:"
-emu_run boot "$build" "$boot" c.img "$bound" || invalid "the image did not boot, or its DOS wrote nothing"
+# The emulator can die in its AUTOTYPE thread when the DOS turns the machine off with keys still
+# to type (SIGSEGV in Typer::Callback on macOS). That exit is taken here, and the run is then
+# trusted only if the DOS's batch reached its last section, which the power-off follows.
+if [ "$what" = dirtest ] && [ "$HOST_KIND" != windows ]; then accept_exit=139; fi
+emu_run boot "$build" "$boot" "$image_name" "$bound" || invalid "the image did not boot, or its DOS wrote nothing"
+accept_exit="" off_exit=$emu_exit_accepted
 machine=$emu_version
 booted=$(log_count 'DOS kernel shutdown, booting a guest OS') || invalid "the emulator's log could not be read"
 if [ "$booted" -ne 1 ]; then invalid "the emulator's log does not say it shut its own DOS down to boot the image"; fi
@@ -299,17 +354,20 @@ fi
 ver=$(section ver | command grep -a . | head -n 1)
 if [ -z "$ver" ]; then invalid "the DOS printed no VER line"; fi
 
-echo "realdos.sh: machine: $build ($machine)"
-echo "realdos.sh: image: $image"
-echo "realdos.sh: ver: $ver"
-command grep -a '^dos|' "$tmp/dos.txt" | sed 's/^/realdos.sh: /'
+say() { printf '%s: %s\n' "$tool" "$*"; }
+# A line of the program's report, named by the DOS that gave it.
+named() { sed "s/^/$dos|/" "$@"; }
+say "machine: $build ($machine)"
+say "image: $image"
+say "ver: $ver"
+command grep -a '^dos|' "$tmp/dos.txt" | sed "s/^/$tool: /"
 case "$what" in
     findlife)
         section findlife > "$tmp/report.txt"
         findlife_whole "$tmp/report.txt" || invalid "FINDLIFE's report has no case or no trailer"
-        cat "$tmp/report.txt"
+        named "$tmp/report.txt"
         ;;
-    exact|drift|dtadump|patlist|template|findpos|findpos-labelled)
+    exact|drift|dtadump|patlist|template|findpos|findpos-labelled|dirgone|dosans|dosans-labelled)
         section "$what" > "$tmp/report.txt"
         exact_whole "$tmp/report.txt" || invalid "$programs's report has no trailer or its count disagrees"
         if [ "$what" = findpos-labelled ] && ! command grep -a -q "^pos|label-alone|first=0 entry=$FINDPOS_LABEL:" "$tmp/report.txt"; then
@@ -317,27 +375,35 @@ case "$what" in
         fi
         if [ "$what" = dtadump ]; then
             figures=$(dtadump_figures "$tmp/report.txt") || invalid "DTADUMP's report lacks the lines its figures are read from"
-            echo "realdos.sh: figures: $figures"
+            say "figures: $figures"
         fi
-        cat "$tmp/report.txt"
+        named "$tmp/report.txt"
+        ;;
+    xcomsim|xcomsim-relay)
+        section xcomsim > "$tmp/report.txt"
+        exact_whole "$tmp/report.txt" || invalid "XCOMSIM's report has no trailer or its count disagrees"
+        verdict=$(command grep -a '^listing=' "$tmp/report.txt")
+        case "$verdict" in listing=*/*' '*/*' lost='*) ;; *) invalid "XCOMSIM's report has no verdict line" ;; esac
+        named "$tmp/report.txt"
+        say "$verdict"
         ;;
     enumstat)
         for mode in $ENUM_MODES; do
             line=$(section "enumstat-$mode" | command grep -a '^enumstat|')
             case "$line" in "enumstat|mode=$mode|listed="*) ;; *) invalid "not ENUMSTAT's line for mode $mode: $line" ;; esac
-            echo "realdos.sh: names=83 files=$ENUM_FILES $line"
+            say "names=83 files=$ENUM_FILES $line"
         done
         ;;
     memprobe)
         line=$(section memprobe | sed -n 's/^\(mode=e k=[0-9]* ok=[0-9]*\) .*/\1/p')
         case "$line" in "mode=e k=$EACH_FILES ok="*) ;; *) invalid "not MEMPROBE's line for $EACH_FILES calls in mode e: $line" ;; esac
-        echo "realdos.sh: names=83 files=$EACH_FILES $line"
+        say "names=83 files=$EACH_FILES $line"
         ;;
     fc)
         section fc > "$tmp/report.txt"
         compared=$(fc_compared "$tmp/report.txt")
         if [ "$compared" != "$FC_RUNS" ]; then invalid "FC compared the two files ${compared:-0} times of $FC_RUNS"; fi
-        echo "realdos.sh: files=$FC_FILES runs=$FC_RUNS compared=$compared"
+        say "files=$FC_FILES runs=$FC_RUNS compared=$compared"
         ;;
     xcopy)
         section xcopy > "$tmp/report.txt"
@@ -345,7 +411,7 @@ case "$what" in
         said=$(xcopy_said "$tmp/report.txt")
         # shellcheck disable=SC2046  # two counts, split on purpose
         set -- $(awk '$0 == "files" || $0 == "folders" { kind = $0; next } index($0, "D:\\COPY\\") == 1 { n[kind]++ } END { print n["files"] + 0, n["folders"] + 0 }' "$tmp/report.txt")
-        echo "realdos.sh: made=$host_files copied=$1 dirs_made=$host_dirs dirs_copied=$2 said=${said:--}"
+        say "made=$host_files copied=$1 dirs_made=$host_dirs dirs_copied=$2 said=${said:--}"
         ;;
     junktest)
         section junktest > "$tmp/report.txt"
@@ -362,13 +428,14 @@ case "$what" in
         entries=$(command grep -a -c . "$tmp/entries.txt")
         junk=$(command grep -a -c -i '\.TMP$' "$tmp/entries.txt")
         batches=$JUNKTEST_BATCHES
-        echo "realdos.sh: batches=${batches// /,} entries=$entries junk=$junk $said"
+        say "batches=${batches// /,} entries=$entries junk=$junk $said"
         ;;
     dirtest)
         files=$(section entries | command grep -a -c .)
         staged_data=$(find "$stage/D/DATA" -type f | wc -l | tr -d ' ')
         if [ "$files" != "$staged_data" ]; then invalid "that DOS lists $files files in D:\\DATA, of $staged_data staged"; fi
-        echo "realdos.sh: files=$files returned=1"
+        if [ -n "$off_exit" ]; then say "the emulator exited $off_exit with AUTOTYPE's keys still pending, after the DOS's batch reached its end"; fi
+        say "files=$files returned=1"
         ;;
 esac
 exit 0

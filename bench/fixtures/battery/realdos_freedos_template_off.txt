@@ -1,0 +1,48 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x freedos /images/fd.img template
+realdos.sh: freedos: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: freedos: image: /images/fd.img
+realdos.sh: freedos: ver: FreeCom version 0.86 - WATCOMC - XMS_Swap [Dec 30 2024 22:10:51]
+realdos.sh: freedos: dos|version=7.10 oem=FD
+realdos.sh: freedos: dos|true_version=7.10 flags=00
+realdos.sh: freedos: dos|int21=00D9:129A code=EAA5015A06E86E00
+realdos.sh: freedos: dos|lfn_714e=7100
+realdos.sh: freedos: dos|windows_1600=00
+realdos.sh: freedos: dos|drive_z=3
+freedos|label|V:\|first=18 |more=0|
+freedos|label|V:|first=18 |more=0|
+freedos|label|V:\*.*|first=0 DISK1|more=0|
+freedos|label|V:\DISK1|first=0 DISK1|more=0|
+freedos|label|V:\DISK|first=18 |more=0|
+freedos|label|V:\DIS|first=18 |more=0|
+freedos|label|V:\DISK1.*|first=0 DISK1|more=0|
+freedos|label|V:\DISK*|first=0 DISK1|more=0|
+freedos|label|V:\DISK1XYZ|first=18 |more=0|
+freedos|label|V:\D?SK1|first=0 DISK1|more=0|
+freedos|label|V:\DISK2|first=18 |more=0|
+freedos|label|V:\disk1|first=0 DISK1|more=0|
+freedos|label|V:\FOO.TXT|first=18 |more=0|
+freedos|label|V:\FOO|first=18 |more=0|
+freedos|label|V:\.TXT|first=2 |more=0|
+freedos|fcblabel|???????????|al=0|more=0
+freedos|fcblabel|DISK1      |al=0|more=0
+freedos|fcblabel|DISK       |al=1|more=0
+freedos|fcblabel|DIS        |al=1|more=0
+freedos|fcblabel|DISK1   XYZ|al=1|more=0
+freedos|fcblabel|D?SK1      |al=0|more=0
+freedos|fcblabel|DISK2      |al=1|more=0
+freedos|fcblabel|           |al=1|more=0
+freedos|fcblabel|        TXT|al=1|more=0
+freedos|fcblabel|FOO     TXT|al=1|more=0
+freedos|quoted|"V:\FOO .TXT"|first=3 n=0|
+freedos|quoted|V:\FOO.TXT|first=0 n=1|,FOO.TXT
+freedos|quoted|"V:\PROGRAM FILES"|first=3 n=0|
+freedos|quoted|V:\PROGRAM|first=0 n=1|,PROGRAM
+freedos|quoted|"V:\PROGRAM .TXT"|first=3 n=0|
+freedos|quoted|V:\PROGRAM.TXT|first=0 n=1|,PROGRAM.TXT
+freedos|quoted|V:\*.*|first=0 n=8|,BAR.TXT,FOO,FOO.TXT,FOO~1.TXT,PROGRAM,PROGRAM.TXT,PROGRA~1.TXT,PROGRA~2
+freedos|fcbname|FOO     TXT|al=0|name=464F4F2020202020545854|more=0
+freedos|fcbname|FOO        |al=0|name=464F4F2020202020202020|more=0
+freedos|fcbname|foo     txt|al=0|name=666F6F2020202020747874|more=0
+freedos|fcbname|????????TXT|al=0|name=3F3F3F3F3F3F3F3F545854|more=4
+freedos|fcbname|NOSUCH  TXT|al=1|name=4E4F535543482020545854|more=0
+freedos|end|lines=37

@@ -1,0 +1,59 @@
+exit=0 :: sidefx.sh rescan /builds/base/dosbox-x /builds/setattr/dosbox-x
+sidefx.sh: rescan, long names off
+sidefx.sh: build A: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+sidefx|before|listed=10 new=0 label_rc=18 label=
+sidefx|released=1
+sidefx|after-host-create|listed=10 new=0 label_rc=18 label=
+sidefx|setattr|rc=0
+sidefx|after-setattr|listed=10 new=0 label_rc=18 label=
+sidefx|end
+dir-before-rescan|F0000.TXT
+dir-before-rescan|F0001.TXT
+dir-before-rescan|F0002.TXT
+dir-before-rescan|F0003.TXT
+dir-before-rescan|F0004.TXT
+dir-before-rescan|F0005.TXT
+dir-before-rescan|F0006.TXT
+dir-before-rescan|F0007.TXT
+dir-before-rescan|F0008.TXT
+dir-before-rescan|F0009.TXT
+dir-after-rescan|F0000.TXT
+dir-after-rescan|F0001.TXT
+dir-after-rescan|F0002.TXT
+dir-after-rescan|F0003.TXT
+dir-after-rescan|F0004.TXT
+dir-after-rescan|F0005.TXT
+dir-after-rescan|F0006.TXT
+dir-after-rescan|F0007.TXT
+dir-after-rescan|F0008.TXT
+dir-after-rescan|F0009.TXT
+dir-after-rescan|NEW.TXT
+sidefx.sh: build B: /builds/setattr/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+sidefx|before|listed=10 new=0 label_rc=18 label=
+sidefx|released=1
+sidefx|after-host-create|listed=10 new=0 label_rc=18 label=
+sidefx|setattr|rc=0
+sidefx|after-setattr|listed=10 new=0 label_rc=18 label=
+sidefx|end
+dir-before-rescan|F0000.TXT
+dir-before-rescan|F0001.TXT
+dir-before-rescan|F0002.TXT
+dir-before-rescan|F0003.TXT
+dir-before-rescan|F0004.TXT
+dir-before-rescan|F0005.TXT
+dir-before-rescan|F0006.TXT
+dir-before-rescan|F0007.TXT
+dir-before-rescan|F0008.TXT
+dir-before-rescan|F0009.TXT
+dir-after-rescan|F0000.TXT
+dir-after-rescan|F0001.TXT
+dir-after-rescan|F0002.TXT
+dir-after-rescan|F0003.TXT
+dir-after-rescan|F0004.TXT
+dir-after-rescan|F0005.TXT
+dir-after-rescan|F0006.TXT
+dir-after-rescan|F0007.TXT
+dir-after-rescan|F0008.TXT
+dir-after-rescan|F0009.TXT
+dir-after-rescan|NEW.TXT
+sidefx.sh: ALIKE

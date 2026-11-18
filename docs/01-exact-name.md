@@ -86,7 +86,7 @@ found. DRIFT's case `folder-gained-files` creates two files, and one of them sor
 | Patched | 7 |
 | MS-DOS 7.10 | 8 |
 
-Source: `battery.sh --real-dos --raw`, calls `drift.sh` and `realdos.sh drift`, in [drift_base-build_off.txt](../bench/fixtures/battery/drift_base-build_off.txt) and [realdos_drift_off.txt](../bench/fixtures/battery/realdos_drift_off.txt).
+Source: `battery.sh --real-dos --raw`, calls `drift.sh` and `realdos.sh msdos710 drift`, in [drift_base-build_off.txt](../bench/fixtures/battery/drift_base-build_off.txt) and [realdos_msdos710_drift_off.txt](../bench/fixtures/battery/realdos_msdos710_drift_off.txt).
 
 ## How to check it
 

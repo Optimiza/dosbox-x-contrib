@@ -1,0 +1,18 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x msdos710 /images/boot.img xcomsim
+realdos.sh: msdos710: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos710: image: /images/boot.img
+realdos.sh: msdos710: ver: Windows 98 [Version 4.10.2222]
+realdos.sh: msdos710: dos|version=7.10 oem=FF
+realdos.sh: msdos710: dos|true_version=7.10 flags=10
+realdos.sh: msdos710: dos|int21=030F:04A0 code=EAB20FC9002EF606
+realdos.sh: msdos710: dos|lfn_714e=7100
+realdos.sh: msdos710: dos|windows_1600=00
+realdos.sh: msdos710: dos|drive_z=3
+msdos710|model|a model built from X-COM Apocalypse's measured FindFirst lookups and the two-DTA listing upstream issue 4904's reporter describes; not the game
+msdos710|calls|lookups_a_load=115 cd_skipped=1 loads=18 listing_at=1960 between=2 listing_dta=own
+msdos710|lookups|made=2118 as_the_game=2118 differ=0 loads=18.41
+msdos710|listing|A|40 of 40|foreign=0
+msdos710|listing|B|40 of 40|foreign=0
+msdos710|listing=40/40 40/40 lost=0
+msdos710|end|lines=6
+realdos.sh: msdos710: listing=40/40 40/40 lost=0

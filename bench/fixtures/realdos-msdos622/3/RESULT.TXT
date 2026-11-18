@@ -1,0 +1,26 @@
+section ver
+
+MS-DOS Version 6.22
+
+section dos
+dos|version=6.22 oem=FF
+dos|true_version=6.22 flags=00
+dos|int21=0021:40F8 code=FA80FC6C77D280FC
+dos|lfn_714e=0000
+dos|windows_1600=00
+dos|drive_z=3
+end
+section dirgone
+gone|kept|first=0000 entry=. op=- made=- next=0012 rest=..,ID.TXT,TWO.TXT
+gone|rd|first=0000 entry=. op=0000 made=- next=0012 rest=..
+gone|rd-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+gone|ren|first=0000 entry=. op=0000 made=- next=0012 rest=..,ID.TXT,TWO.TXT
+gone|ren-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..,ID.TXT,TWO.TXT
+gone|rd-late-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+gone|rd-parent-ren|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+gone|rd-parent-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+gone|ren-parent|first=0000 entry=. op=0000 made=- next=0012 rest=..,ID.TXT
+gone|ren-twice|first=0000 entry=. op=0000 made=0000 next=0012 rest=..,ID.TXT
+gone|ren-then-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
+end|lines=11
+section done

@@ -1,0 +1,22 @@
+exit=0 :: xcomsim.test.sh 
+ok   a FindFirst that failed, with its error
+ok   a name on the CD
+ok   a name with its trailing spaces
+ok   the attribute word as the game passed it
+ok   a FindFirst with no return
+ok   a trace with no FindFirst
+ok   no trace
+ok   the base's listings cut short, beside one kept whole
+ok   the base's verdict and the log's counts
+ok   the other build's verdict and counts
+ok   a FindNext that failed before its listing ended
+ok   the same report twice
+ok   a report with no verdict line
+ok   a report cut before its trailer
+ok   the launcher refuses the run
+ok   neither on nor off
+ok   an option it does not know
+ok   a listing point that is not a number
+ok   an option with no value
+ok   one argument
+20 cases, 0 failed

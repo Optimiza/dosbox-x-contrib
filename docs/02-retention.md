@@ -54,7 +54,7 @@ Source: `battery.sh --real-dos`, cells `memory synthetic:100:long <a|v> 20000`, 
 
 - The two FINDLIFE rows are its cases `turn-about-past-the-slots` and
   `left-open-past-the-slots`, in [findlife_base-build_on.txt](../bench/fixtures/battery/findlife_base-build_on.txt).
-  MS-DOS's lines are in [realdos_findlife_off.txt](../bench/fixtures/battery/realdos_findlife_off.txt).
+  MS-DOS's lines are in [realdos_msdos710_findlife_off.txt](../bench/fixtures/battery/realdos_msdos710_findlife_off.txt).
 - Those two rows are read with long names on. MS-DOS has no long names, so its column is the
   same cases with long names off.
 - The listing and table rows read the same on Windows. With long names off there, the
@@ -102,7 +102,7 @@ DOS referees.
 | A 714Fh asked again after its search ended: entries a search then returns, of 32 | 1 | 32 | no long names there |
 | A 714Eh turned away for want of a handle: entries its search then returns, of 42 | 3 | 42 | no long names there |
 
-Source: `battery.sh --real-dos --raw`, calls `findpos.sh`, `drift.sh`, `findlife.sh` and `realdos.sh`, in [findpos_unlabelled_base-build_off.txt](../bench/fixtures/battery/findpos_unlabelled_base-build_off.txt), [drift_base-build_off.txt](../bench/fixtures/battery/drift_base-build_off.txt), [findlife_base-build_on.txt](../bench/fixtures/battery/findlife_base-build_on.txt), [realdos_drift_off.txt](../bench/fixtures/battery/realdos_drift_off.txt) and [realdos_findpos_off.txt](../bench/fixtures/battery/realdos_findpos_off.txt).
+Source: `battery.sh --real-dos --raw`, calls `findpos.sh`, `drift.sh`, `findlife.sh` and `realdos.sh`, in [findpos_unlabelled_base-build_off.txt](../bench/fixtures/battery/findpos_unlabelled_base-build_off.txt), [drift_base-build_off.txt](../bench/fixtures/battery/drift_base-build_off.txt), [findlife_base-build_on.txt](../bench/fixtures/battery/findlife_base-build_on.txt), [realdos_msdos710_drift_off.txt](../bench/fixtures/battery/realdos_msdos710_drift_off.txt) and [realdos_msdos710_findpos_off.txt](../bench/fixtures/battery/realdos_msdos710_findpos_off.txt).
 
 On Windows, with long names on, one more line differs: `fcb-wildcard-around-lfn-exact`, an FCB
 search around a long-name call. It is in the section of EXACT that is printed and not judged.
@@ -122,7 +122,7 @@ bench/memory.sh <build> synthetic:50000:83 off d 20 --file '*.*'
 bench/enumstat.sh <unpatched> <patched>
 bench/xcopy.sh <build> off
 bench/findlife.sh <unpatched> <patched> off
-bench/realdos.sh <patched> <boot image> findlife
+bench/realdos.sh <patched> msdos710 <boot image> findlife
 ```
 
 `slots_full=` counts the resets. [bench/README.md](../bench/README.md) says what each script
@@ -147,7 +147,7 @@ emulator keeps the place in its own table, before and after this branch.
 | Reads two copies of one DTA side by side | 6 and 6 | 12 and 12 |
 | Puts a DTA back after its search ended | nothing | 15 |
 
-Source: `battery.sh --real-dos --raw`, calls `findpos.sh` and `realdos.sh findpos`, in [findpos_unlabelled_base-build_off.txt](../bench/fixtures/battery/findpos_unlabelled_base-build_off.txt) and [realdos_findpos_off.txt](../bench/fixtures/battery/realdos_findpos_off.txt).
+Source: `battery.sh --real-dos --raw`, calls `findpos.sh` and `realdos.sh msdos710 findpos`, in [findpos_unlabelled_base-build_off.txt](../bench/fixtures/battery/findpos_unlabelled_base-build_off.txt) and [realdos_msdos710_findpos_off.txt](../bench/fixtures/battery/realdos_msdos710_findpos_off.txt).
 
 Moving the place into the DTA is another design, and no program is known to need it. It is in
 code where upstream already reverted a fix:

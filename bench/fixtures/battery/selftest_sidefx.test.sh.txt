@@ -1,0 +1,15 @@
+exit=0 :: sidefx.test.sh
+ok   two reports alike
+ok   the host's file listed once the folder is rescanned
+ok   the shell's lines before the rescan
+ok   a build whose attribute change shows the host's file
+ok   a guest that went on without the host's file
+ok   a report with no end
+ok   a shell that never reached the rescan
+ok   a guest that never waits for the host
+ok   the launcher refuses the run
+ok   label off Windows
+ok   no such mode
+ok   two arguments
+ok   its own help
+13 cases, 0 failed

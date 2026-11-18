@@ -1,0 +1,12 @@
+exit=0 :: lfnren.test.sh
+ok   two builds that answer alike
+ok   a name listed before the rename opens its own file
+ok   a search open across the rename returns names that open
+ok   a name that opens another file after the rename
+ok   and one that opens none
+ok   a report cut before its trailer
+ok   a line fewer than the trailer says
+ok   the launcher refuses the run
+ok   one argument
+ok   its own help
+10 cases, 0 failed

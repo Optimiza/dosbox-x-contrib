@@ -1,0 +1,36 @@
+exit=0 :: realdos.sh /builds/base/dosbox-x msdos622 /images/boot.vhd drift
+realdos.sh: msdos622: machine: /builds/base/dosbox-x (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos622: image: /images/boot.vhd
+realdos.sh: msdos622: ver: MS-DOS Version 6.22
+realdos.sh: msdos622: dos|version=6.22 oem=FF
+realdos.sh: msdos622: dos|true_version=6.22 flags=00
+realdos.sh: msdos622: dos|int21=0021:40F8 code=FA80FC6C77D280FC
+realdos.sh: msdos622: dos|lfn_714e=0000
+realdos.sh: msdos622: dos|windows_1600=00
+realdos.sh: msdos622: dos|drive_z=3
+msdos622|drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|drift|to-wildcard-that-does-not|first=0 more=0|
+msdos622|drift|to-a-later-exact-name|first=0 more=1|,ZED.TXT:20:7
+msdos622|drift|to-an-earlier-exact-name|first=0 more=0|
+msdos622|drift|to-a-missing-exact-name|first=0 more=0|
+msdos622|drift|to-its-own-name-in-lower-case|first=0 more=0|
+msdos622|drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+msdos622|drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+msdos622|drift|to-a-later-full-length-name-in-lower-case|first=0 more=0|
+msdos622|drift|to-a-later-full-length-name-in-mixed-case|first=0 more=0|
+msdos622|drift|to-a-later-exact-name-zero-padded|first=0 more=0|
+msdos622|drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+msdos622|drift|to-its-own-name-zero-padded|first=0 more=0|
+msdos622|drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|drift|from-the-last-entry|first=0 more=0|
+msdos622|drift|from-a-missing-name|first=18 more=0|
+msdos622|drift|edited-twice|first=0 more=2|,FOO.TXT:20:3,ZED.TXT:20:7
+msdos622|drift|saved-and-restored-then-edited|first=0 inner=16 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|drift|folder-gained-files|first=0 more=8|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7,AAANEW.TXT:20:1,BARNEW.TXT:20:1
+msdos622|drift|folder-lost-the-entry|first=0 more=0|
+msdos622|drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|drift|label-search-then-edited|first=18 more=0|
+msdos622|end|lines=25

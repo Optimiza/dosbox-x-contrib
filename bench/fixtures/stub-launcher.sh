@@ -42,13 +42,13 @@ if [ -n "${STUB_RECORD:-}" ]; then
     rc=$?
     mkdir -p "$STUB_RECORD/$n" || exit 3
     for f in "$name" CWD.TXT RC.TXT FC.TXT SHELL.TXT READY.TXT STOP.TXT; do
-        case "$f" in *.img) continue ;; esac     # a disk image is the run's machine, not its answer
+        case "$f" in *.img|*.vhd) continue ;; esac     # a disk image is the run's machine, not its answer
         if [ -f "$run/$f" ]; then cp "$run/$f" "$STUB_RECORD/$n/" || exit 3; fi
     done
     # The console as the emulator logs it, and its find calls, are what junktest.sh and dirtest.sh
     # read; the counters' lines are what attrcost.sh and resprb.sh read. The console echoes the
     # mounts, so the run's own directory becomes /RUN.
-    LC_ALL=C command grep -a -E 'All slots full|ID out of range|booting a guest OS|^DOS CON: | ah=4[ef], |4R-DIR read=|4R-DYN reset=' "$log" |
+    LC_ALL=C command grep -a -E 'All slots full|ID out of range|booting a guest OS|^DOS CON: | ah=4[ef], |HOST-DIR-READ read=|DYN-CACHE-RESET reset=' "$log" |
         LC_ALL=C sed "s#$(dirname "$run")#/RUN#g" > "$STUB_RECORD/$n/dosbox.log"
     exit "$rc"
 fi
@@ -58,7 +58,7 @@ from=${STUB_PLAY:?set STUB_PLAY or STUB_RECORD}/$n
 if [ -d "$from" ]; then
     for f in "$from"/*; do
         case "$(basename "$f")" in
-            HOLD|"$name") ;;
+            HOLD|EXIT|"$name") ;;
             dosbox.log) cp "$f" "$log" ;;
             *) cp "$f" "$run/" ;;
         esac
@@ -71,4 +71,10 @@ if [ -d "$from" ]; then
 fi
 version=${STUB_VERSION-DOSBox-X version 0.0 stub}
 if [ -n "$version" ]; then echo "launch.sh: version: $version" > "$report"; else : > "$report"; fi
+# An EXIT file in a call's recording is the emulator's exit code for that call alone, as the
+# launcher's report names it.
+if [ -f "$from/EXIT" ]; then
+    echo "launch.sh: exit code: $(cat "$from/EXIT")" >> "$report"
+    exit "$(cat "$from/EXIT")"
+fi
 exit "${STUB_RC:-0}"
