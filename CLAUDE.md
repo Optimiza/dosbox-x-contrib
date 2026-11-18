@@ -1,7 +1,7 @@
-# dosbox-x-dircache
+# dosbox-x-contrib
 
-The bench and the account of the fixes to DOSBox-X's directory cache, offered upstream one
-subject per pull request. No emulator source lives here.
+Fixes offered to DOSBox-X, one subject per pull request, with the bench that measured each.
+The first set is the directory cache. No emulator source lives here.
 
 **`.claude/rules/writing.md` binds every text a person reads here**: `README.md`, every page
 under `docs/`, `bench/README.md`, `results/README.md`, this file, a commit body, and any text
@@ -21,7 +21,7 @@ drafted here for a pull request or a comment.
   The table at the top of `README.md` names them.
 - Each branch is cut from upstream `joncampbell123/dosbox-x` `main-ai` at `4e0b6adcf`, or from
   the branch it needs. Every figure is compared with that base, whatever `main-ai` is today.
-- The instruments are developed in the private repository `scry-dosbox-x`, branch `dircache`,
+- The instruments are developed in [`scry-mcp/scry-dosbox-x`](https://github.com/scry-mcp/scry-dosbox-x), branch `dircache`,
   folder `tests/dircache`. `bench/` is that folder as committed there, last taken at
   `07b429e`, with the changes listed below.
 - The record of which subjects are delivered, and with what figures, is kept in that

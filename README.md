@@ -1,9 +1,9 @@
-# DOSBox-X's directory cache on large folders: a test bench and what it measured
+# dosbox-x-contrib: fixes for DOSBox-X, with the bench that measured them
 
-In a folder with many files, DOSBox-X takes memory on every file lookup, keeps it, stalls on the
-first read and can cut a listing short. This repository holds the bench that measures it and
-the account of nine fixes for DOSBox-X, each on a branch of its own. Eight are done, each proved
-on the hosts it runs on.
+Fixes offered to DOSBox-X, each on a branch of its own, with the bench that measured it. The
+first set is the directory cache: in a folder with many files, DOSBox-X takes memory on every
+lookup, keeps it, stalls on the first read and can cut a listing short. Nine fixes cover it;
+eight are done.
 
 ## The subjects
 

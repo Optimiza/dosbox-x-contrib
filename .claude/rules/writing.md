@@ -92,4 +92,4 @@ The counts are taken by hand or by a script kept outside the repository.
 
 `tools/check-prose.sh` enforces the limits of this file at every commit, through
 `.githooks/pre-commit`. It writes each limit once, at its top, so a limit changed here is
-changed there in the same commit. No CI workflow runs it.
+changed there in the same commit. The CI workflow runs it too, on every push and pull request.
