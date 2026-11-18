@@ -22,17 +22,15 @@ reports.
 
 ## What the fix changes
 
-Each loop asks a table or makes a binary search instead of walking. The branch is
-`dircache-first-read`, four commits ending at `f8fca9bd0`, one per loop:
+Each loop asks a table or makes a binary search instead of walking, one commit per loop. The
+figures are from `dircache-first-read`, ending at `f8fca9bd0`. The same four commits, on
+`main-ai`, are `dircache-first-read-mainai`, ending at `2840025d8`:
 
 1. A new alias finds its place in the sorted list by binary search.
 2. The duplicate check asks a set of the names read so far.
 3. The Wine-style lookup asks a set too.
 4. A new alias jumps to the last number of its prefix, where every alias of the prefix has the
    same number of digits. Elsewhere it walks as before.
-
-Each new answer was computed beside upstream's in a build that logged every difference, and
-none differed.
 
 ## The figures
 
@@ -51,8 +49,8 @@ Source: `p5time.sh`, cells `169000-83-on`, `169000-long-on`, `real-on`, `real-of
 
 - Each time is the median of runs interleaved with unpatched upstream's.
 - A cell counts only when the two builds differ by more than each build's spread against itself.
-- Unpatched upstream's own seconds moved by up to 27 % between two batches of one evening, and
-  the factor by less. So the page gives the factor.
+- Unpatched upstream's own seconds move between batches more than the factor does, so the page
+  gives the factor.
 
 The reporters' cases, timed the same way:
 
@@ -113,14 +111,15 @@ counts of the Windows table come from counter builds the bench does not carry.
 
 ## What it needs
 
-Nothing: it is cut from upstream `main-ai` at `4e0b6adcf`.
-[Subject 5](05-alias.md) is built on it.
+Nothing. The figures' branch is cut from upstream `main-ai` at `4e0b6adcf`; the branch offered
+as [pull request 6853, "Read a large folder without comparing every name with every other"](https://github.com/joncampbell123/dosbox-x/pull/6853)
+stands on `main-ai` at `218ec1894`. [Subject 5](05-alias.md) is built on it.
 
 ## What is left
 
 **The tail of the long-name list.** After this branch the largest cost left in a read of long
-names is the move of that list's tail at each insert. The whole read of the largest folder of
-long names takes 1.38 to 1.44 seconds, so it is named as the next cost and not proposed.
+names is the move of that list's tail at each insert. The whole read of 169,000 long names is
+the 1.44 seconds of the first table, so it is named as the next cost and not proposed.
 
 **A drive mounted on the large folder.** Mounting the folder as the root of a drive makes the
 same first read inside `MOUNT`, earlier.

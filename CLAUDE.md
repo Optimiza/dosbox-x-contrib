@@ -17,10 +17,13 @@ drafted here for a pull request or a comment.
 
 ## Where the rest lives
 
-- The emulator branches belong to the fork `Optimiza/dosbox-x` and are not pushed there yet.
-  The table at the top of `README.md` names them.
-- Each branch is cut from upstream `joncampbell123/dosbox-x` `main-ai` at `4e0b6adcf`, or from
-  the branch it needs. Every figure is compared with that base, whatever `main-ai` is today.
+- The emulator branches belong to the fork `Optimiza/dosbox-x`. The three offered upstream are
+  pushed there: `dircache-6831-followup`, `dircache-first-read-mainai` and
+  `dircache-alias-mainai`. The table at the top of `README.md` names each subject's branch.
+- The offered branches and those of subjects 1, 6, 9, 10 and 11 stand on upstream `main-ai` at
+  `218ec1894`, the merge of
+  [pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831). Subjects 2 and 4 stay on `4e0b6adcf`.
+- Every figure in the pages is compared with `4e0b6adcf`, whatever `main-ai` is today.
 - The instruments are developed in [`scry-mcp/scry-dosbox-x`](https://github.com/scry-mcp/scry-dosbox-x), branch `dircache`,
   folder `tests/dircache`. `bench/` is that folder as committed there, last taken at
   `b829ddc`, with the changes listed below.

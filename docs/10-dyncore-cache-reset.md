@@ -67,7 +67,8 @@ bench/memory.sh <build> synthetic:100:83 off c 20
 
 ## What it needs
 
-Nothing: it is cut from upstream `main-ai` at `4e0b6adcf`.
+Nothing. The figures' commit is cut from upstream `main-ai` at `4e0b6adcf`. The same change
+stands on `main-ai` at `218ec1894` as `87a5d7bcb`, not offered yet.
 
 ## What is left
 

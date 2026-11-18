@@ -1,7 +1,9 @@
 # 2. A search's copy is released without ending a live search
 
-A program that looks thousands of files up while it lists a folder now gets the whole listing,
-and the emulator's memory stays flat. It is proved on macOS and Windows.
+This branch is not offered: upstream merged another author's pull request for the same cost,
+and [pull request 6852, "Keep a search alive when its DTA is reused or its child process ends"](https://github.com/joncampbell123/dosbox-x/pull/6852)
+adds what that one lacked. The page stays as the measurement of the other design, proved on
+macOS and Windows.
 
 ## What was wrong
 
@@ -25,13 +27,12 @@ A search gives its memory back when it ends, and no live search is ended to make
   search a real DOS would continue.
 
 The branch is `dircache-retention`, five commits ending at `527476085`, on top of the
-exact-name branch. The five are offered as one: with the first four alone, a listing that
-looks every entry up by name stops at the table's reset. At the head it comes out whole.
+exact-name branch at `4e0b6adcf`. The five go together: with the first four alone, a listing
+that looks every entry up by name stops at the table's reset.
 
-It was written as a proposal on
-[pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831),
-which upstream has since merged. [That pull request beside this branch](pr6831.md) has its own
-page.
+Upstream has merged
+[pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831)
+instead. [That pull request beside this branch](pr6831.md) has its own page.
 
 ## The figures
 

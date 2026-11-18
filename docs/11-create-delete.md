@@ -86,9 +86,11 @@ Windows table come from counter builds the bench does not carry. [bench/README.m
 
 ## What it needs
 
-Nothing: it is cut from upstream `main-ai` at `4e0b6adcf`. Merged with
-[subject 2](02-retention.md), one line has to set the folder's stamp where an entry is removed,
-which git will not ask for.
+Nothing. The figures' branch is cut from upstream `main-ai` at `4e0b6adcf`. The same change
+stands on `main-ai` at `218ec1894`, ending at `881c87333`, not offered yet.
+
+Merged with [subject 2](02-retention.md), one line has to set the folder's stamp where an entry
+is removed, which git will not ask for.
 
 ## What is left
 

@@ -1,9 +1,8 @@
 # dosbox-x-contrib: fixes for DOSBox-X, with the bench that measured them
 
 Fixes offered to DOSBox-X, each on a branch of its own, with the bench that measured it. The
-first set is the directory cache: in a folder with many files, DOSBox-X takes memory on every
-lookup, keeps it, stalls on the first read and can cut a listing short. Nine fixes cover it;
-eight are done.
+first set is the directory cache: in a large folder, DOSBox-X stalls on the first read, can give
+two files one short name and ends searches MS-DOS continues. Three fixes are offered upstream.
 
 ## The subjects
 
@@ -13,29 +12,28 @@ figures.
 | # | Subject | Branch | Needs | State |
 | --- | --- | --- | --- | --- |
 | 1 | [A search for one exact name does not copy the whole directory](docs/01-exact-name.md) | `dircache-exact-name` | nothing | proved on macOS and Windows |
-| 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | `dircache-retention` | subject 1 | proved on macOS and Windows |
-| 3 | [The first read of a large folder](docs/03-first-read.md) | `dircache-first-read` | nothing | proved on macOS and Windows |
-| 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | `dircache-dta` | nothing; one case on Windows needs subject 2 or 9 | proved on macOS and Windows |
-| 5 | [No two entries of a folder share a short name](docs/05-alias.md) | `dircache-alias` | subject 3 | proved on macOS and Windows |
-| 6 | [The emulator's DOS answers as MS-DOS does](docs/06-dos-answers.md) | `dircache-dos-answers` | nothing | not delivered: two more real DOS referees come first |
+| 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | `dircache-retention` | subject 1 | superseded by [pull request 6831](docs/pr6831.md) and [pull request 6852, its follow-up](https://github.com/joncampbell123/dosbox-x/pull/6852) |
+| 3 | [The first read of a large folder](docs/03-first-read.md) | `dircache-first-read-mainai` | nothing | offered as [pull request 6853, the first read](https://github.com/joncampbell123/dosbox-x/pull/6853) |
+| 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | `dircache-dta` | nothing; one case on Windows needs subject 2 or 9 | proved; conflicts with pull request 6831, to be redone on pull request 6852 |
+| 5 | [No two entries of a folder share a short name](docs/05-alias.md) | `dircache-alias-mainai` | subject 3 | offered as [pull request 6854, the short names](https://github.com/joncampbell123/dosbox-x/pull/6854) |
+| 6 | [The emulator's DOS answers as MS-DOS does](docs/06-dos-answers.md) | `dircache-dos-answers` | nothing | checked on three DOS, not offered |
 | 9 | [An attribute change on Windows does not empty the directory cache](docs/09-setattr.md) | `dircache-setattr` | nothing | proved on Windows, the only host it changes |
 | 10 | [The x86 dynamic core keeps its code-page handlers across a cache reset](docs/10-dyncore-cache-reset.md) | `dyncore-cache-reset` | nothing | proved on Windows; the macOS build has no such core |
 | 11 | [A create keeps the directory cache, and a delete removes one entry](docs/11-create-delete.md) | `dircache-create-delete` | nothing | proved on macOS and Windows |
 
 - Subjects 7 and 8 are withdrawn: the `DIR` fix of subject 7 is a commit of subject 4, and the
   defect of subject 8 was not there.
-- Each is meant as one pull request for `main-ai`, but subject 2: it was written as a proposal
-  on [another author's pull request for the same cost](docs/pr6831.md), which upstream has
-  merged.
-- Every branch is cut from upstream `main-ai` at `4e0b6adcf`, or from the branch it needs.
-- None is published or offered yet. The numbers are this repository's own; a four-digit number
-  is upstream's.
+- [Issue 6851, "main-ai ends directory searches that MS-DOS continues"](https://github.com/joncampbell123/dosbox-x/issues/6851) says
+  how the subjects are offered, one pull request each.
+- Subjects 3 and 5 and pull request 6852 stand on `main-ai` at `218ec1894`, the merge of pull
+  request 6831. So do subjects 1, 6, 9, 10 and 11, not offered.
+- Subjects 2 and 4 stay on `4e0b6adcf`, before it. Each page names its commits.
+- The numbers are this repository's own; a four-digit number is upstream's.
 
 ## The problem, and the case that showed it
 
-Opening one file in a folder of 169,457 files made the emulator's memory grow by the size of
-the whole directory, and it never came back. The folder was a music library, and the program
-a DOS player.
+At `4e0b6adcf`, opening one file in a folder of 169,457 files made the emulator's memory grow
+by the whole directory, and it never came back. The folder was a music library.
 
 | `access()` calls on one file | Memory the emulator held (kB) |
 | --- | --- |
@@ -49,8 +47,8 @@ It is reported upstream as
 [The related upstream issues](docs/issues.md) and [the reporters' cases](docs/reporters.md)
 have their own pages.
 
-DOSBox-X keeps a cache of every host folder a DOS program looks into. Three costs sit in it,
-all in `src/dos/drive_cache.cpp` and the search calls around it:
+DOSBox-X caches every host folder a DOS program looks into. Three costs sit in that cache, in
+`src/dos/drive_cache.cpp` and its search calls:
 
 1. A program that only asks whether one file exists pays for every file of the folder. Every
    FindFirst copies and sorts the whole directory, whatever the pattern, and a libc `access`,
@@ -61,9 +59,12 @@ all in `src/dos/drive_cache.cpp` and the search calls around it:
 3. The first touch of a large folder stalls the emulator while the cache is built, and a
    create or a delete makes it read the folder again.
 
-Subjects 1 and 2 fix the first two, subject 3 the stall and subject 11 the second read.
-[Another author's pull request](docs/pr6831.md), merged upstream since, addresses the second
-cost as well. The three are described as they stand at `4e0b6adcf`, before it.
+Subjects 1 and 2 fix the first two, subject 3 the stall and subject 11 the second read. The
+three costs are described as they stand at `4e0b6adcf`.
+
+Since then upstream merged [another author's pull request for the same cost](docs/pr6831.md),
+so `main-ai` gives a search's memory back. It now ends four kinds of search that MS-DOS
+continues: [issue 6851](https://github.com/joncampbell123/dosbox-x/issues/6851) shows them, and pull request 6852 keeps them alive.
 
 ## How it is measured
 
@@ -96,8 +97,8 @@ bench/drift.sh <unpatched dosbox-x> <patched dosbox-x> off
 cells need a hard disk image of your own whose DOS boots. The large folder is any folder of
 yours.
 
-Each push runs `shellcheck` and those tests on GitHub, but `battery.test.sh`, which needs a
-host of eight cores. A cell needs an emulator, so a reader runs it by hand.
+Each push runs `shellcheck` and those tests on GitHub, but `battery.test.sh`, which needs eight
+cores. A cell needs an emulator, so it runs by hand.
 
 The branches and the bench were written with AI assistance (Claude Fable 5.2), so under the
 project's Artificial Intelligence Policy they do not comply for `master` and are meant for

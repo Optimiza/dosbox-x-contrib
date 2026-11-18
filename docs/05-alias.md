@@ -19,9 +19,12 @@ A folder is read in two rounds: first the names that are their own 8.3 name, the
 generated aliases in the host's order. A real 8.3 name always stays its file's. An alias whose
 name is taken takes the next free number, as NTFS does.
 
-The branch is `dircache-alias`, one commit, `55845db57`. It is built on
+The figures are from `dircache-alias`, one commit, `55845db57`. It is built on
 [subject 3](03-first-read.md), whose two lookup tables it replaces with one set of the short
 names read.
+
+The same commit on `main-ai` is `8b0c52a22`, on the branch `dircache-alias-mainai`. It is offered
+as [pull request 6854, "Give each entry of a folder a short name of its own"](https://github.com/joncampbell123/dosbox-x/pull/6854).
 
 ## The figures
 

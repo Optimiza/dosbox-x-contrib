@@ -78,4 +78,18 @@ Source: `xcopy.sh`, `fc.sh` and `memory.sh <build> synthetic:1835:83 off e 1835`
   of each, in the same file.
 - The reporter's own batch file of issue 6827 runs its 300 batches whole on both builds.
 
+## The X-COM model
+
+The model's two listings come out whole on the patched build, as on MS-DOS. That build holds
+the exact-name, retention and first-read branches together. The run is on macOS with long names
+off, each listing read through its own DTA.
+
+| Build | Listing A, of 40 | Listing B, of 40 | Entries lost |
+| --- | --- | --- | --- |
+| Unpatched | 28 | 27 | 25 |
+| Exact-name, retention and first-read | 40 | 40 | none |
+| MS-DOS 7.10 | 40 | 40 | none |
+
+Source: `xcomsim.sh <unpatched> <patched> off` and `realdos.sh <unpatched> msdos710 <boot image> xcomsim`, in [xcomsim_own_base-build_off.txt](../bench/fixtures/battery/xcomsim_own_base-build_off.txt) and [realdos_msdos710_xcomsim_off.txt](../bench/fixtures/battery/realdos_msdos710_xcomsim_off.txt).
+
 [Another author's pull request for the same cost (6831)](pr6831.md) has its own page.

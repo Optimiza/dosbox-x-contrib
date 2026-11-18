@@ -86,24 +86,24 @@ option, so there is nothing to fix.
 ## A command line ending in `--` erases a position past its end
 
 On `dosbox-x --`, `CommandLine::GetOpt` erases an iterator that no longer names an element, in
-`src/misc/setup.cpp`. It was read and not run, and it is named to the maintainer.
+`src/misc/setup.cpp`. It was read and not run, and it is not reported yet.
 
 ## The shell's `LS` and `TREE` leave its DTA switched
 
 `LS Q:\NOSUCH\`, and `TREE Q:` on a drive that is not mounted, return without putting back the
-shell's own DTA, in `src/shell/shell_cmds.cpp`. They were read and not run, and they are named
-to the maintainer.
+shell's own DTA, in `src/shell/shell_cmds.cpp`. They were read and not run, and they are not
+reported yet.
 
 ## Drive Z: keeps one place for all its searches
 
 Two FCB searches of `Z:` read turn about disturb each other, because the virtual drive keeps one
-search place, in `src/dos/drive_virtual.cpp`. It was read and not run, and it is to be
-described upstream as an issue.
+search place, in `src/dos/drive_virtual.cpp`. It was read and not run, and it is not reported
+yet.
 
 ## An overlay file named like a base file's alias is not listed
 
 The overlay drive never adds such a file to its listing. It was read and not run: the overlay
-drive needs a design of its own, so it is named to the maintainer.
+drive needs a design of its own. It is not reported yet.
 
 ## On Windows an exit with typed keys pending ends with 0xC0000409
 
@@ -114,5 +114,6 @@ types no more keys than it needs.
 ## One run of the unit tests on Windows ended at its start
 
 Once, on the alias build, the emulator's unit tests ended with 0xC0000409 in their first second,
-with nothing logged. Every other run of them passed, on every build. It is not reproduced, and
-the tests are to be run many times on the merged branches before anything is offered.
+with nothing logged. Every other run of them passed, on every build, and so do the branches on
+`main-ai` on both hosts, the offered alias branch among them. The single failure is not
+reproduced.

@@ -114,6 +114,11 @@ Nothing on macOS. On Windows one case also needs [subject 2](02-retention.md) or
 [subject 9](09-setattr.md): DRIFT's `label-search-then-edited`, which this branch closes alone on
 macOS.
 
+The branch stands on `4e0b6adcf` and must be redone on `main-ai`. There it conflicts with
+[pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831) at the
+top of `DOS_FindFirst`, so it is to be redone on
+[pull request 6852, "Keep a search alive when its DTA is reused or its child process ends"](https://github.com/joncampbell123/dosbox-x/pull/6852).
+
 | Build, on Windows | Entries returned after the label search |
 | --- | --- |
 | Unpatched upstream | 4 |
