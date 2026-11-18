@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: shellcheck over the bench's scripts
-        run: shellcheck -x -P bench bench/*.sh bench/fixtures/*.sh
+        run: shellcheck -x -P bench bench/*.sh bench/fixtures/*.sh bench/xcomsim/*.sh
 
   tests:
     # The script tests edit their fixtures with BSD sed, so they run on macOS.
