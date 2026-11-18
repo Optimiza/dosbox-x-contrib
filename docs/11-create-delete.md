@@ -68,9 +68,9 @@ After a delete, a rename or an `RD`, the entries left keep their short names, wh
 upstream numbered them again. A listing after such a change can differ from upstream's, on
 purpose.
 
-A search left open inside a directory that `RD` removed, or that was renamed, now answers "no
-more files". Unpatched upstream returned an entry. Two more real DOS referees, MS-DOS 6.22 and
-FreeDOS, are being added, and the branch will follow their answer.
+A search left open inside a directory that `RD` removed, or that was renamed, reads on as
+MS-DOS 7.10, MS-DOS 6.22 and FreeDOS 1.4 do: `..`, after a rename the directory's files, then
+"no more files". Unpatched upstream returned an entry through another directory.
 
 ## How to check it
 

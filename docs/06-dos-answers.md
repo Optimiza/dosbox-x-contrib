@@ -1,6 +1,6 @@
 # 6. The emulator's DOS answers as MS-DOS does
 
-Not delivered: two more real DOS referees, MS-DOS 6.22 and FreeDOS, are being added first, so that each answer it changes is one that three real DOS agree on.
+Done on its branch, each answer it changes checked against MS-DOS 7.10, MS-DOS 6.22 and FreeDOS 1.4; not offered yet.
 
 ## What was wrong
 

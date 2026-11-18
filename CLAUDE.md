@@ -95,7 +95,7 @@ Before a push, search the tree for each of those with `git grep`: a home directo
 host names, the private tooling's names. Run a pattern known to match beside them as the
 control.
 
-The repository is pushed only while it is private. Its visibility is its owner's to change.
+The repository is public. Each push to it is its owner's word.
 
 ## Writing
 
