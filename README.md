@@ -24,8 +24,9 @@ figures.
 
 - Subjects 7 and 8 are withdrawn: the `DIR` fix of subject 7 is a commit of subject 4, and the
   defect of subject 8 was not there.
-- Each is meant as one pull request for `main-ai`, but subject 2: it is a proposal on
-  [another author's pull request for the same cost](docs/pr6831.md).
+- Each is meant as one pull request for `main-ai`, but subject 2: it was written as a proposal
+  on [another author's pull request for the same cost](docs/pr6831.md), which upstream has
+  merged.
 - Every branch is cut from upstream `main-ai` at `4e0b6adcf`, or from the branch it needs.
 - None is published or offered yet. The numbers are this repository's own; a four-digit number
   is upstream's.
@@ -93,6 +94,9 @@ bench/drift.sh <unpatched dosbox-x> <patched dosbox-x> off
 [bench/README.md](bench/README.md) says what each script needs, shows and prints. The MS-DOS
 cells need a hard disk image of your own whose DOS boots. The large folder is any folder of
 yours.
+
+Each push runs `shellcheck` and those tests on GitHub. A cell needs an emulator, so a reader
+runs it by hand.
 
 The branches and the bench were written with AI assistance (Claude Fable 5.2), so under the
 project's Artificial Intelligence Policy they do not comply for `master` and are meant for

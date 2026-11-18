@@ -28,9 +28,9 @@ The branch is `dircache-retention`, five commits ending at `527476085`, on top o
 exact-name branch. The five are offered as one: with the first four alone, a listing that
 looks every entry up by name stops at the table's reset. At the head it comes out whole.
 
-It will be offered as a proposal on
+It was written as a proposal on
 [pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831),
-not as a competing pull request. [That pull request beside this branch](pr6831.md) has its own
+which upstream has since merged. [That pull request beside this branch](pr6831.md) has its own
 page.
 
 ## The figures
