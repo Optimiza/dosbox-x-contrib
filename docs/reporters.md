@@ -18,11 +18,13 @@ These are stand-ins written from the reports: the emulator's own FC from a batch
 program that looks each file up by name, a tree made for the run.
 
 The reporters' own attached files run too, through `junktest.sh` and `dirtest.sh`, and show what
-the stand-ins show. They are not kept here: a clone brings its own copy from the issues.
+the stand-ins show. Their lines are the `junktest_*` and `dirtest_*` files of
+[bench/fixtures/battery](../bench/fixtures/battery). The files are not kept here: a clone brings
+its own copy from the issues.
 
 ## Memory held: the FC and lookup cases
 
-The exact-name patch closes both issues. The figures are memory held, in kB, on macOS with
+The exact-name patch covers both cases. The figures are memory held, in kB, on macOS with
 long names off.
 
 | Build | FC: held after 1 → 300 runs | FC: peak resident size at 300 runs | Lookups: held after 1 → 1,835 |

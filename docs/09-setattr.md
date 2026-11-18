@@ -22,8 +22,8 @@ The attribute change leaves the cache alone, as on every other host. The branch 
 
 ## The figures
 
-A search kept in a saved DTA across one attribute change, then a search of another folder of
-22 files:
+After the fix a saved search no longer returns another folder's entries. The case is a search
+kept in a saved DTA across one attribute change, then a search of another folder of 22 files:
 
 | What a program reads, Windows | Unpatched | Patched |
 | --- | --- | --- |

@@ -1,4 +1,4 @@
-# What: aliases.sh <base> <alias> cases <on|off>, aliases.sh <base> <alias> folder <the large folder> <on|off>,
+# What: aliases.sh cases <on|off> <base> <alias>, aliases.sh folder <on|off> <the large folder> <base> <alias>,
 #       and the same for a folder of 8 files where the host gave 4 of them a short name by hand
 #       (fsutil file setshortname) and left the other 4 to the emulator (AL-mixed).
 # Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1)

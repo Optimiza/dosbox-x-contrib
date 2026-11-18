@@ -43,7 +43,7 @@ program sees when it does anything but run one search to its end. The code under
 | [`launch.sh`](#launchsh) | none | nothing by itself: it is the launcher the scripts call on macOS |
 | [`windows.ps1`](#windowsps1) | none | nothing by itself: it is the launcher the scripts call on Windows |
 
-Every script prints its arguments, what it prints and its exit codes with `--help`.
+Every shell script prints its arguments, what it prints and its exit codes with `--help`.
 
 ## The exit codes
 
@@ -59,7 +59,7 @@ Every check shares one scheme, so a run that judged nothing never reads as a pas
 - A run is INVALID when the emulator failed or was cut off, when the guest left no output, or
   when a report has no trailer or disagrees with its own counts.
 - An INVALID run keeps its directory and names it.
-- The two launchers have codes of their own: their entries list them.
+- The two launchers and `batch.sh` have codes of their own: their entries list them.
 
 ## What they need
 
@@ -1752,8 +1752,8 @@ launch.sh --conf <file> --binary <build> --seconds <n> --output <file> --log <fi
 
 **What it prints.** A report file with the build's version line and the exit code.
 
-**Exit codes.** `0` the emulator ran and the run left its output, `1` the emulator failed,
-`2` usage, `3` INVALID: the output is absent, empty or was not written by this run, or the
+**Exit codes.** `0` the emulator ran and the run left its output, the emulator's own code
+when it failed, `2` usage, `3` INVALID: the output is absent, empty or was not written by this run, or the
 log is empty.
 
 **What it does not show.** A run that reaches its bound is not a failure by that alone: what
@@ -1804,7 +1804,7 @@ bash <name>.test.sh
   of `dirtest.test.sh` that play a Windows run.
 - `batch.test.sh` plays the timers, the sampler and the judge through stand-ins of its own.
   `judge.test.sh` plays one cell of a real batch and the host's samples around it.
-- `battery.sh` runs them as its first cells, all but its own.
+- `battery.sh` runs them as its first cells, all but its own and `launch.test.sh`.
 - They play through the macOS launcher, so they run on macOS only. `memory.test.sh` and the
   tests of the other scripts that read memory also need its `ps` and `footprint`.
 - `batch.test.sh` and `judge.test.sh` run `judge.py` and `analyze.py` with `python3 -I`.

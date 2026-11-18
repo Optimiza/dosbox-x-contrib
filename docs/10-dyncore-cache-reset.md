@@ -26,7 +26,8 @@ a second time.
 
 ## The figures
 
-One child program per call, each ending with a search open, in a folder of 100 files:
+After the fix the memory held stops growing with each child program. The run is one child per
+call, each ending with a search open, in a folder of 100 files:
 
 | Memory held after the children, Windows | Unpatched (kB) | Patched (kB) |
 | --- | --- | --- |

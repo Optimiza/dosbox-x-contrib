@@ -17,7 +17,7 @@ figures.
 | 3 | [The first read of a large folder](docs/03-first-read.md) | `dircache-first-read` | nothing | proved on macOS and Windows |
 | 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | `dircache-dta` | nothing; one case on Windows needs subject 2 or 9 | proved on macOS and Windows |
 | 5 | [No two entries of a folder share a short name](docs/05-alias.md) | `dircache-alias` | subject 3 | proved on macOS and Windows |
-| 6 | [The emulator's DOS answers as MS-DOS does where the contrast found it differs](docs/06-dos-answers.md) | `dircache-dos-answers` | nothing | not delivered: two more real DOS referees come first |
+| 6 | [The emulator's DOS answers as MS-DOS does](docs/06-dos-answers.md) | `dircache-dos-answers` | nothing | not delivered: two more real DOS referees come first |
 | 9 | [An attribute change on Windows does not empty the directory cache](docs/09-setattr.md) | `dircache-setattr` | nothing | proved on Windows, the only host it changes |
 | 10 | [The x86 dynamic core keeps its code-page handlers across a cache reset](docs/10-dyncore-cache-reset.md) | `dyncore-cache-reset` | nothing | proved on Windows; the macOS build has no such core |
 | 11 | [A create keeps the directory cache, and a delete removes one entry](docs/11-create-delete.md) | `dircache-create-delete` | nothing | proved on macOS and Windows |
@@ -62,7 +62,8 @@ all in `src/dos/drive_cache.cpp` and the search calls around it:
    create or a delete makes it read the folder again.
 
 Subjects 1 and 2 fix the first two, subject 3 the stall and subject 11 the second read.
-[Another author's pull request](docs/pr6831.md) addresses the second cost as well.
+[Another author's pull request](docs/pr6831.md), merged upstream since, addresses the second
+cost as well. The three are described as they stand at `4e0b6adcf`, before it.
 
 ## How it is measured
 
@@ -95,8 +96,8 @@ bench/drift.sh <unpatched dosbox-x> <patched dosbox-x> off
 cells need a hard disk image of your own whose DOS boots. The large folder is any folder of
 yours.
 
-Each push runs `shellcheck` and those tests on GitHub. A cell needs an emulator, so a reader
-runs it by hand.
+Each push runs `shellcheck` and those tests on GitHub, but `battery.test.sh`, which needs a
+host of eight cores. A cell needs an emulator, so a reader runs it by hand.
 
 The branches and the bench were written with AI assistance (Claude Fable 5.2), so under the
 project's Artificial Intelligence Policy they do not comply for `master` and are meant for

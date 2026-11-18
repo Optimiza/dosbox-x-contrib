@@ -25,7 +25,8 @@ names read.
 
 ## The figures
 
-A folder made of the three cases, judged against the files the host holds:
+After the fix no two entries share a short name, and every file opens by its own. The folder
+is made of the three cases and judged against the files the host holds:
 
 | What the bench finds, macOS, long names on | Unpatched | Patched |
 | --- | --- | --- |

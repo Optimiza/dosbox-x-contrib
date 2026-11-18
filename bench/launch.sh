@@ -20,7 +20,7 @@ usage: launch.sh --conf <file> --binary <build> --seconds <n> --output <file> --
 No window opens: the emulator runs on SDL's dummy video driver. It needs GNU timeout, as
 timeout or gtimeout on the PATH.
 
-exit: 0 the emulator ran and the run left its output | 1 the emulator failed | 2 usage
+exit: 0 the emulator ran and the run left its output | the emulator's own code when it failed | 2 usage
       3 INVALID: the output is absent, empty or was not written by this run, or the log is empty
 EOT
 }

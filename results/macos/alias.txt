@@ -1,4 +1,4 @@
-# What: aliases.sh <base> <alias> cases <on|off> and aliases.sh <base> <alias> folder <the large folder> on:
+# What: aliases.sh cases <on|off> <base> <alias> and aliases.sh folder on <the large folder> <base> <alias>:
 #       each build's short names judged against the host's files, one line per build.
 #       The last line is derived: the entries whose short name differs between the two builds'
 #       listings of the large folder, long names on, and whether each sits in a family of entries that

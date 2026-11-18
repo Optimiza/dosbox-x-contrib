@@ -31,7 +31,9 @@ the alias, in a folder it has not read, and on the overlay and PhysFS drives.
 
 ## The figures
 
-A folder of eight long names that share their first six letters, beside others, on macOS:
+After the fix a delete, a create, `RD`, `MD` and a rename leave every other short name in
+place. The folder holds eight long names that share their first six letters, beside others, on
+macOS:
 
 | What a program does, long names on | Unpatched | Patched |
 | --- | --- | --- |
