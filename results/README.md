@@ -35,6 +35,7 @@ Each build is named with the commit it was made from and the sha256 of its execu
 | [`macos/setattr-mainai.txt`](macos/setattr-mainai.txt), [`windows/setattr-mainai.txt`](windows/setattr-mainai.txt) | an attribute change on `main-ai`: the saved search, and the reads of the folder it costs |
 | [`macos/dyncore-mainai.txt`](macos/dyncore-mainai.txt), [`windows/dyncore-mainai.txt`](windows/dyncore-mainai.txt) | memory held after child programs on `main-ai`, with and without the fix |
 | [`macos/create-delete-mainai.txt`](macos/create-delete-mainai.txt), [`windows/create-delete-mainai.txt`](windows/create-delete-mainai.txt) | the same cases as subject 11 on `main-ai`, and on `main-ai` with the branches of subjects 3 and 5 |
+| [`macos/scry-create-delete.txt`](macos/scry-create-delete.txt), [`windows/scry-create-delete.txt`](windows/scry-create-delete.txt) | the fork's scry before and after create-delete was merged into it: long paths, the cases of subject 11 and the COPY case |
 
 Pull request 6831 is
 [another author's pull request, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831).

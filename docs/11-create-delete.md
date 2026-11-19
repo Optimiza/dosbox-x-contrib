@@ -17,7 +17,7 @@ names that share their first letters, deleted half of them and said nothing.
 ## What the fix changes
 
 Each change edits the one entry it touches, and the rest of the folder stays as it was read.
-The branch is `dircache-create-delete`, six commits ending at `ee861536f`:
+The branch is `dircache-create-delete`, tag `archive/dircache-create-delete` of the fork, six commits ending at `ee861536f`:
 
 1. A delete removes the one entry.
 2. A create of an 8.3 name keeps the cache.

@@ -11,10 +11,10 @@ figures.
 
 | # | Subject | Branch | Needs | State |
 | --- | --- | --- | --- | --- |
-| 1 | [A search for one exact name does not copy the whole directory](docs/01-exact-name.md) | `dircache-exact-name` | nothing | proved on macOS and Windows |
-| 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | `dircache-retention` | subject 1 | superseded by [pull request 6831](docs/pr6831.md), merged, and [pull request 6852](https://github.com/joncampbell123/dosbox-x/pull/6852), merged |
+| 1 | [A search for one exact name does not copy the whole directory](docs/01-exact-name.md) | tag `archive/dircache-exact-name` | nothing | proved on macOS and Windows |
+| 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | tag `archive/dircache-retention` | subject 1 | superseded by [pull request 6831](docs/pr6831.md), merged, and [pull request 6852](https://github.com/joncampbell123/dosbox-x/pull/6852), merged |
 | 3 | [The first read of a large folder](docs/03-first-read.md) | `dircache-first-read-mainai` | nothing | [pull request 6853](https://github.com/joncampbell123/dosbox-x/pull/6853), open |
-| 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | `dircache-dta` | nothing; one case on Windows needs subject 2 or 9 | proved; conflicts with pull request 6831, to be redone on `main-ai`, which has pull request 6852 now |
+| 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | tag `archive/dircache-dta` | nothing; one case on Windows needs subject 2 or 9 | proved; conflicts with pull request 6831, to be redone on `main-ai`, which has pull request 6852 now |
 | 5 | [No two entries of a folder share a short name](docs/05-alias.md) | `dircache-alias-mainai` | subject 3 | [pull request 6854](https://github.com/joncampbell123/dosbox-x/pull/6854), open |
 | 6 | [The emulator's DOS answers as MS-DOS does](docs/06-dos-answers.md) | `dircache-dos-answers` | nothing | checked on three DOS, not offered |
 | 9 | [An attribute change on Windows does not empty the directory cache](docs/09-setattr.md) | `dircache-setattr-mainai` | nothing | [pull request 6873, "Keep the directory cache when a file's attributes change on Windows"](https://github.com/joncampbell123/dosbox-x/pull/6873), open; proved on Windows, the only host it changes |

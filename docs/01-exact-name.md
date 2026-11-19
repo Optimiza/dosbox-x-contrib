@@ -22,7 +22,7 @@ A search for one name keeps only the entries that match.
   copy is made then, and the search goes on behind the entry already returned, as on unpatched
   upstream.
 
-The branch is `dircache-exact-name`, two commits (`7e74299e2`, `73e09f70d`).
+The branch is `dircache-exact-name`, kept as the tag `archive/dircache-exact-name` of the fork, two commits (`7e74299e2`, `73e09f70d`).
 
 ## The figures
 

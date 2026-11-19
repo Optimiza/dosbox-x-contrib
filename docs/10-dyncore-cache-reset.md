@@ -18,7 +18,7 @@ reports the same leak upstream, and is open.
 
 ## What the fix changes
 
-`cache_reset` keeps the free handlers it already has. The branch is `dyncore-cache-reset`, one
+`cache_reset` keeps the free handlers it already has. The branch is `dyncore-cache-reset`, tag `archive/dyncore-cache-reset` of the fork, one
 commit, `e1d62e10d`.
 
 The patch attached to issue 6794 fixes it another way. By reading, it deletes the handlers in use

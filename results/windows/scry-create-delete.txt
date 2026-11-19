@@ -1,0 +1,125 @@
+# What: The fork's scry before and after create-delete was merged into it (it already holds longname, setattr and dyncore): longpath.sh long names on and off, delete.sh, dirgone.sh, findlife.sh, lfnren.sh, attrcost.sh modes b, u and c on counter builds, and the COPY case. The counter diff of counters/ does not apply to scry, so the same counter block was put into ReadDir by hand.
+# Host: Windows 11 x64, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1), as `MSBuild.exe vs\dosbox-x.sln /p:Configuration=Release /p:Platform=x64 /m /v:minimal /nologo`
+# Date: 2026-11-19
+# Builds (source commit, sha256 of the executable):
+#   scry-before   Optimiza/dosbox-x scry dae742aae   556fafdaea68c05d94516b554db73333f0011f9d568c2a03826526c586bc722f
+#   scry-after    scry-create-delete 0e900e855, the merge of dae742aae and dircache-create-delete-mainai 054925019   e18a9bb3d5615823e8b8b8720ab979b014bbe49236df822edaf70a323152b784
+#   counters: before f22899eafbb49b730e4dd3e3286df6ebd4e7180a2309e323962775edb1334939, after 87ee4545a941e5236b6ef719498a966177d2a41e735acca91d8b9c0097719cf2
+# longpath.sh on scry-before scry-after
+longpath.sh: lfn=on mount=survived nested=survived zip=survived overlay=survived controls=ok
+longpath.sh: lfn=on mount=survived nested=survived zip=survived overlay=survived controls=ok
+longpath.sh: SURVIVED
+# exit code 0
+# longpath.sh off scry-before scry-after
+longpath.sh: lfn=off mount=survived nested=survived zip=survived overlay=survived controls=ok
+longpath.sh: lfn=off mount=survived nested=survived zip=survived overlay=survived controls=ok
+longpath.sh: SURVIVED
+# exit code 0
+# delete.sh scry-before scry-after on
+delete.sh: long names on
+delete.sh: build A: files the host holds at the end: S=0 L=0 W=0 A=10 P=6 C=10 R=9 directories
+delete.sh: build A: short names moved by one delete: 0 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build A: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build A: short names of directories moved by one RD: 0 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=ALPHAT~1.MID the old short name of the renamed file=AL37F2~1.MID
+delete.sh: build A: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build A: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=AL4DCA~1 the old short name of the renamed directory=AL4DCA~1
+delete.sh: build A: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=0 A=10 P=6 C=10 R=9 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=ALPHAT~1.MID the old short name of the renamed file=AL37F2~1.MID
+delete.sh: build B: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=AL4DCA~1 the old short name of the renamed directory=AL4DCA~1
+delete.sh: build B: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: ALIKE
+# exit code 0
+# dirgone.sh scry-before scry-after on
+dirgone.sh: long names on
+dirgone.sh: DIFFERENT, 7 lines differ (A then B):
+# exit code 1
+# findlife.sh scry-before scry-after on
+findlife.sh: long names on
+findlife.sh: ALIKE
+# exit code 0
+# delete.sh scry-before scry-after off
+delete.sh: long names off
+delete.sh: build A: files the host holds at the end: S=0 L=0 W=8 A=9 P=6 C=9 R=7 directories
+delete.sh: build A: short names moved by one delete: 0 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build A: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build A: short names of directories moved by one RD: 0 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=- the old short name of the renamed file=AL37F2~1.MID
+delete.sh: build A: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build A: R after NEWDIR is removed again: listed=7 before=8 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=- the old short name of the renamed directory=AL4DCA~1
+delete.sh: build A: R after one rename: listed=7 before=7 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=8 A=9 P=6 C=9 R=7 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=- the old short name of the renamed file=AL37F2~1.MID
+delete.sh: build B: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=7 before=8 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=- the old short name of the renamed directory=AL4DCA~1
+delete.sh: build B: R after one rename: listed=7 before=7 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: ALIKE
+# exit code 0
+# dirgone.sh scry-before scry-after off
+dirgone.sh: long names off
+dirgone.sh: DIFFERENT, 7 lines differ (A then B):
+# exit code 1
+# findlife.sh scry-before scry-after off
+findlife.sh: long names off
+findlife.sh: ALIKE
+# exit code 0
+# lfnren.sh scry-before scry-after
+lfnren.sh: long names on
+lfnren.sh: DIFFERENT, 2 lines differ (A then B):
+# exit code 1
+# attrcost.sh scry-before+counter synthetic:300:83 b 20
+attrcost.sh: mode=b k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=6 reads_of_the_folder=1 entries_read=337
+# exit code 0
+# attrcost.sh scry-after+counter synthetic:300:83 b 20
+attrcost.sh: mode=b k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=3 reads_of_the_folder=1 entries_read=312
+# exit code 0
+# attrcost.sh scry-before+counter synthetic:300:83 u 20
+attrcost.sh: mode=u k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877
+# exit code 0
+# attrcost.sh scry-after+counter synthetic:300:83 u 20
+attrcost.sh: mode=u k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=3 reads_of_the_folder=1 entries_read=312
+# exit code 0
+# attrcost.sh scry-before+counter synthetic:300:83 c 20
+attrcost.sh: mode=c k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877
+# exit code 0
+# attrcost.sh scry-after+counter synthetic:300:83 c 20
+attrcost.sh: mode=c k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=3 reads_of_the_folder=1 entries_read=312
+# exit code 0
+# COPY case: delete LONGER~1.TXT, COPY X.TXT Y.TXT, TYPE LONGER~2.TXT on scry-old.exe
+copy-case scry-old: start CONTENT-a. CONTENT-b. CONTENT-b. 
+# exit code 0
+# COPY case: delete LONGER~1.TXT, COPY X.TXT Y.TXT, TYPE LONGER~2.TXT on scry-new.exe
+copy-case scry-new: start CONTENT-a. CONTENT-b. CONTENT-b. 
+# exit code 0

@@ -33,7 +33,7 @@ Each find call writes only where its own search keeps its state.
 - The index `isoDrive::FindNext` reads from the guest is checked.
 - `DIR` takes the drive of its free-space line from the path it listed.
 
-The branch is `dircache-dta`, six commits ending at `8e5e74905`. The sixth fixes `DIR` and
+The branch is `dircache-dta`, kept as the tag `archive/dircache-dta` of the fork, six commits ending at `8e5e74905`. The sixth fixes `DIR` and
 removes the exception the second made for the shell's temporary DTA, which no longer needs one.
 
 ## The figures

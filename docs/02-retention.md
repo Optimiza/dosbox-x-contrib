@@ -26,7 +26,7 @@ A search gives its memory back when it ends, and no live search is ended to make
 - Nothing is released when a process ends or by DTA address. That cannot be told apart from a
   search a real DOS would continue.
 
-The branch is `dircache-retention`, five commits ending at `527476085`, on top of the
+The branch is `dircache-retention`, kept as the tag `archive/dircache-retention` of the fork, five commits ending at `527476085`, on top of the
 exact-name branch at `4e0b6adcf`. The five go together: with the first four alone, a listing
 that looks every entry up by name stops at the table's reset.
 

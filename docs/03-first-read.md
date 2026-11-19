@@ -23,7 +23,7 @@ reports.
 ## What the fix changes
 
 Each loop asks a table or makes a binary search instead of walking, one commit per loop. The
-figures are from `dircache-first-read`, ending at `f8fca9bd0`. The same four commits, on
+figures are from `dircache-first-read`, tag `archive/dircache-first-read` of the fork, ending at `f8fca9bd0`. The same four commits, on
 `main-ai`, are `dircache-first-read-mainai`, ending at `2840025d8`:
 
 1. A new alias finds its place in the sorted list by binary search.
