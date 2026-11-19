@@ -23,7 +23,7 @@ program sees when it does anything but run one search to its end. The code under
 | [`dtadump.sh`](#dtadumpsh) | `dtadump.c` | whether two builds leave the same bytes in a DTA and in an FCB around the find calls |
 | [`patlist.sh`](#patlistsh) | `patlist.c` | whether two builds return the same entries for patterns that hold a `*` before more characters |
 | [`template.sh`](#templatesh) | `template.c` | whether two builds answer alike where the answer hangs on how the search template is padded |
-| [`dosans.sh`](#dosanssh) | `dosans.c` | whether two builds answer alike where DOS parses a path, for 4Eh and for 3Dh, 43h and 3Bh |
+| [`dosans.sh`](#dosanssh) | `dosans.c` | whether two builds answer alike where DOS parses a path, for 4Eh and for 3Dh, 43h and 3Bh, over a folder or a CD image |
 | [`overlay.sh`](#overlaysh) | `findpos.c` | whether an overlay drive answers the label and root searches as the host folder under it and as DOS |
 | [`attrprobe.sh`](#attrprobesh) | `attrprb.c` | whether two builds answer alike when a file is deleted or has its attribute changed while searches are open |
 | [`delete.sh`](#deletesh) | `delprb.c` | whether two builds delete the same files of a folder of long names, and keep the short names of the files left |
@@ -46,6 +46,7 @@ program sees when it does anything but run one search to its end. The code under
 | [`loadwatch.sh`](#loadwatchsh) | none | nothing by itself: it samples the host while `batch.sh` runs |
 | [`judge.py`](#judgepy) | none | whether one cell of `batch.sh` ran on a quiet host |
 | [`analyze.py`](#analyzepy) | none | the tables of what `batch.sh` left |
+| [`agree.py`](#agreepy) | none | how many of the lines two real DOS answer alike a build's report equals |
 | [`battery.sh`](#batterysh) | every one above; the timers, `attrcost.sh` and `resprb.sh` by their tests only | all of it on two or three builds, one line per cell |
 | [`launch.sh`](#launchsh) | none | nothing by itself: it is the launcher the scripts call on macOS |
 | [`windows.ps1`](#windowsps1) | none | nothing by itself: it is the launcher the scripts call on Windows |
@@ -779,10 +780,12 @@ directory. A change to the parsing shows in every call it reaches.
 - The set call writes back the attribute the get call read, so no file changes.
 
 **How it is called.** Over the same folder as `exact.sh`, a copy per build, on a drive with the
-label `FPLABEL` or with none.
+label `FPLABEL` or with none. With `cd`, D: is a CD image instead, `fixtures/cdans/game.iso.gz`:
+the volume `GAMEDISC`, with `FOO.TXT` in its root and in `X` the files `A.B`, `BAR.TXT`, `FOO.TXT`,
+`NOEXT` and `ZED.TXT` and the directory `SUBDIR`, which holds `INNER.TXT`.
 
 ```sh
-dosans.sh <build A> <build B> <labelled|unlabelled> <on|off>
+dosans.sh <build A> <build B> <labelled|unlabelled|cd> <on|off>
 ```
 
 **What it prints.** Each build's path, version line and report whole, then the verdict and the
@@ -798,7 +801,10 @@ report has no line or no trailer.
   lines differ between DOS.
 - A real DOS answers with long names off only. With long names on, nothing referees.
 - `realdos.sh` runs it on the disk as made (`dosans`) and once that DOS has labelled it
-  (`dosans-labelled`).
+  (`dosans-labelled`), and over the CD image (`dosans-cd`). `agree.py` counts what a report has
+  in common with both DOS.
+- On a CD, a device's `chain` and `dev` lines and the bytes of the DTA also differ by build and
+  by DOS; `agree.py` leaves them out.
 
 ## overlay.sh
 
@@ -1524,6 +1530,13 @@ is decided by a DOS, and the emulator's own DOS is the thing under test.
 No image is kept here. The image's first partition starts that DOS, and it is never written:
 each run boots a copy.
 
+The CD arm needs a CD stack the image does not always hold. MS-DOS 6.22 loads its own `CD1.SYS` and
+MSCDEX 2.23. MS-DOS 7.10 has MSCDEX 2.25 and no driver, so `DIRCACHE_CD1_SYS` names the `CD1.SYS`
+of an MS-DOS 6.22 disk, which the run copies onto the 7.10 disk.
+
+FreeDOS answers INVALID there: none of its drivers leaves a drive MSCDEX can open. The run says
+MSCDEX's version and refuses a CD it did not give the letter D:.
+
 **How it is called.**
 
 ```sh
@@ -1542,6 +1555,7 @@ realdos.sh <build> <dos> <boot image> junktest|dirtest <folder>
 | `findpos` | FINDPOS over the folder `exact.sh` makes, on the run's disk as it is made: with no label |
 | `findpos-labelled` | the same once the image's own `LABEL` has named the disk `FPLABEL` |
 | `dosans`, `dosans-labelled` | DOSANS over the folder `exact.sh` makes, on the disk as made, then once it is labelled `FPLABEL` |
+| `dosans-cd` | DOSANS over the CD image of `dosans.sh cd`, attached to the booted DOS as an ATAPI drive and read through that DOS's own CD stack |
 | `memprobe` | MEMPROBE in its mode `e` over a folder of files with 8.3 names |
 | `fc` | the emulator's `FC.EXE` run again and again from a batch file, as `fc.sh` runs it, in a folder of files |
 | `xcopy` | the emulator's `XCOPY.EXE` over the tree `xcopy.sh` makes |
@@ -1828,6 +1842,32 @@ Then it lists the runs whose window holds a host sample under 10 % idle.
 `batch.sh`, a cell has no try or misses a call, or no cell was found.
 
 **What it does not show.** Only the last try of each cell is read.
+
+## agree.py
+
+**What it shows.** Of the lines two real DOS answer alike, how many a build's report gives the same
+answer to. A line is one answer to one search; the two DOS agree on it when both give the same.
+
+- A report is what `realdos.sh` printed, or what `dosans.sh` or the guest program left. A script
+  that runs two builds prints both reports in one file: `<file>#A` and `<file>#B` name the part of each.
+- Lines that hold a time, an address or where a DOS keeps a device header are left out.
+- With two builds or more, the first is the base: the last line says how many of the lines the last
+  build changes against it now equal both DOS, and how many that were right are now wrong.
+
+**How it is called.**
+
+```sh
+python3 -I agree.py <one DOS's report> <another DOS's report> <build report>...
+python3 -I agree.py --differ <one DOS's report> <another DOS's report> <what a comparing script printed>
+```
+
+**What it prints.** The lines both DOS answer alike, then one line per build, then the last line.
+With `--differ`, for A's lines and then B's that the script printed as different, how many equal both DOS.
+
+**Exit codes.** `0` counted, `2` usage, `3` INVALID: the two DOS answered no line alike.
+
+**What it does not show.** Whether the DOS answers are right for a program: they are only the two
+DOS's, and where they differ nothing is counted.
 
 ## battery.sh
 

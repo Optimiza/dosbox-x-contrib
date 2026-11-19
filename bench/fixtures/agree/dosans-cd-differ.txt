@@ -1,0 +1,210 @@
+< ans|shape|37|D:\X\FOO.TXT\|D:\|err=18|n=0|
+< ans|shape|00|D:\X\FOO.TXT\|D:\|err=18|n=0|
+> ans|shape|37|D:\X\FOO.TXT\|D:\|err=2|n=0|
+> ans|shape|00|D:\X\FOO.TXT\|D:\|err=2|n=0|
+< ans|shape|37|D:\NOSUCH\|D:\|err=18|n=0|
+< ans|shape|00|D:\NOSUCH\|D:\|err=18|n=0|
+> ans|shape|37|D:\NOSUCH\|D:\|err=2|n=0|
+> ans|shape|00|D:\NOSUCH\|D:\|err=2|n=0|
+< ans|shape|37|D:\X\.|D:\|err=0|n=1|,X:31:2048
+> ans|shape|37|D:\X\.|D:\|err=0|n=1|,X:10:2048
+< ans|shape|37|D:\X\SUBDIR\..|D:\|err=0|n=1|,X:31:2048
+> ans|shape|37|D:\X\SUBDIR\..|D:\|err=0|n=1|,X:10:2048
+< ans|shape|37|D:\X\...|D:\|err=18|n=0|
+< ans|shape|00|D:\X\...|D:\|err=18|n=0|
+> ans|shape|37|D:\X\...|D:\|err=3|n=0|
+> ans|shape|00|D:\X\...|D:\|err=3|n=0|
+< ans|shape|37|D:\X\....\FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:4
+< ans|shape|00|D:\X\....\FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:4
+> ans|shape|37|D:\X\....\FOO.TXT|D:\|err=3|n=0|
+> ans|shape|00|D:\X\....\FOO.TXT|D:\|err=3|n=0|
+< ans|shape|37|D:\X\FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+< ans|shape|00|D:\X\FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+> ans|shape|37|D:\X\FOO.TXT|D:\|err=0|n=1|,FOO.TXT:01:3
+> ans|shape|00|D:\X\FOO.TXT|D:\|err=0|n=1|,FOO.TXT:01:3
+< ans|shape|37|D:\X\FOO.TXT.|D:\|err=2|n=0|
+< ans|shape|00|D:\X\FOO.TXT.|D:\|err=2|n=0|
+> ans|shape|37|D:\X\FOO.TXT.|D:\|err=3|n=0|
+> ans|shape|00|D:\X\FOO.TXT.|D:\|err=3|n=0|
+< ans|shape|37|D:\X\NOEXT.|D:\|err=0|n=1|,NOEXT:21:1
+< ans|shape|00|D:\X\NOEXT.|D:\|err=0|n=1|,NOEXT:21:1
+> ans|shape|37|D:\X\NOEXT.|D:\|err=0|n=1|,NOEXT:01:1
+> ans|shape|00|D:\X\NOEXT.|D:\|err=0|n=1|,NOEXT:01:1
+< ans|shape|37|D:\X\A.B.|D:\|err=2|n=0|
+< ans|shape|00|D:\X\A.B.|D:\|err=2|n=0|
+> ans|shape|37|D:\X\A.B.|D:\|err=3|n=0|
+> ans|shape|00|D:\X\A.B.|D:\|err=3|n=0|
+< ans|shape|37|D:\X\A.B..|D:\|err=2|n=0|
+< ans|shape|00|D:\X\A.B..|D:\|err=2|n=0|
+> ans|shape|37|D:\X\A.B..|D:\|err=3|n=0|
+> ans|shape|00|D:\X\A.B..|D:\|err=3|n=0|
+< ans|shape|37|D:\X\Two.dots.name.txt|D:\|err=2|n=0|
+< ans|shape|00|D:\X\Two.dots.name.txt|D:\|err=2|n=0|
+> ans|shape|37|D:\X\Two.dots.name.txt|D:\|err=3|n=0|
+> ans|shape|00|D:\X\Two.dots.name.txt|D:\|err=3|n=0|
+< ans|shape|37|D:\X\SUBDIR.\INNER.TXT|D:\|err=0|n=1|,INNER.TXT:21:5
+< ans|shape|00|D:\X\SUBDIR.\INNER.TXT|D:\|err=0|n=1|,INNER.TXT:21:5
+> ans|shape|37|D:\X\SUBDIR.\INNER.TXT|D:\|err=0|n=1|,INNER.TXT:01:5
+> ans|shape|00|D:\X\SUBDIR.\INNER.TXT|D:\|err=0|n=1|,INNER.TXT:01:5
+< ans|shape|37|D:\X\.TXT|D:\|err=18|n=0|
+< ans|shape|00|D:\X\.TXT|D:\|err=18|n=0|
+> ans|shape|37|D:\X\.TXT|D:\|err=3|n=0|
+> ans|shape|00|D:\X\.TXT|D:\|err=3|n=0|
+< ans|shape|37|D:\X\ FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+< ans|shape|00|D:\X\ FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+> ans|shape|37|D:\X\ FOO.TXT|D:\|err=3|n=0|
+> ans|shape|00|D:\X\ FOO.TXT|D:\|err=3|n=0|
+< ans|shape|37|D:\ X\FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+< ans|shape|00|D:\ X\FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+> ans|shape|37|D:\ X\FOO.TXT|D:\|err=3|n=0|
+> ans|shape|00|D:\ X\FOO.TXT|D:\|err=3|n=0|
+< ans|shape|37|D:\X\FOO .TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+< ans|shape|00|D:\X\FOO .TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+> ans|shape|37|D:\X\FOO .TXT|D:\|err=0|n=1|,FOO.TXT:01:3
+> ans|shape|00|D:\X\FOO .TXT|D:\|err=0|n=1|,FOO.TXT:01:3
+< ans|shape|37|D:\X\FOO.TXT |D:\|err=0|n=1|,FOO.TXT:21:3
+< ans|shape|00|D:\X\FOO.TXT |D:\|err=0|n=1|,FOO.TXT:21:3
+> ans|shape|37|D:\X\FOO.TXT |D:\|err=0|n=1|,FOO.TXT:01:3
+> ans|shape|00|D:\X\FOO.TXT |D:\|err=0|n=1|,FOO.TXT:01:3
+< ans|shape|37|D:\X\FOO. TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+< ans|shape|00|D:\X\FOO. TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+> ans|shape|37|D:\X\FOO. TXT|D:\|err=18|n=0|
+> ans|shape|00|D:\X\FOO. TXT|D:\|err=18|n=0|
+< ans|shape|37|"D:\X\FOO.TXT"|D:\|err=0|n=1|,FOO.TXT:21:3
+< ans|shape|00|"D:\X\FOO.TXT"|D:\|err=0|n=1|,FOO.TXT:21:3
+> ans|shape|37|"D:\X\FOO.TXT"|D:\|err=3|n=0|
+> ans|shape|00|"D:\X\FOO.TXT"|D:\|err=3|n=0|
+< ans|shape|37|D:\X\"FOO.TXT"|D:\|err=0|n=1|,FOO.TXT:21:3
+< ans|shape|00|D:\X\"FOO.TXT"|D:\|err=0|n=1|,FOO.TXT:21:3
+> ans|shape|37|D:\X\"FOO.TXT"|D:\|err=3|n=0|
+> ans|shape|00|D:\X\"FOO.TXT"|D:\|err=3|n=0|
+< ans|shape|37|D:\X\FOO.TXT\..|D:\|err=0|n=1|,X:31:2048
+> ans|shape|37|D:\X\FOO.TXT\..|D:\|err=0|n=1|,X:10:2048
+< ans|shape|37|D:\X\NOEXT. |D:\|err=0|n=1|,NOEXT:21:1
+< ans|shape|00|D:\X\NOEXT. |D:\|err=0|n=1|,NOEXT:21:1
+> ans|shape|37|D:\X\NOEXT. |D:\|err=0|n=1|,NOEXT:01:1
+> ans|shape|00|D:\X\NOEXT. |D:\|err=0|n=1|,NOEXT:01:1
+< ans|shape|37|D:\X\SUBDIR. \INNER.TXT|D:\|err=0|n=1|,INNER.TXT:21:5
+< ans|shape|00|D:\X\SUBDIR. \INNER.TXT|D:\|err=0|n=1|,INNER.TXT:21:5
+> ans|shape|37|D:\X\SUBDIR. \INNER.TXT|D:\|err=0|n=1|,INNER.TXT:01:5
+> ans|shape|00|D:\X\SUBDIR. \INNER.TXT|D:\|err=0|n=1|,INNER.TXT:01:5
+< ans|shape|37|D:/X/FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+< ans|shape|00|D:/X/FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+> ans|shape|37|D:/X/FOO.TXT|D:\|err=0|n=1|,FOO.TXT:01:3
+> ans|shape|00|D:/X/FOO.TXT|D:\|err=0|n=1|,FOO.TXT:01:3
+< ans|shape|37|D:\X/SUBDIR/INNER.TXT|D:\|err=0|n=1|,INNER.TXT:21:5
+< ans|shape|00|D:\X/SUBDIR/INNER.TXT|D:\|err=0|n=1|,INNER.TXT:21:5
+> ans|shape|37|D:\X/SUBDIR/INNER.TXT|D:\|err=0|n=1|,INNER.TXT:01:5
+> ans|shape|00|D:\X/SUBDIR/INNER.TXT|D:\|err=0|n=1|,INNER.TXT:01:5
+< ans|trail|08|D:\X\|D:\|err=18|n=0|
+> ans|trail|08|D:\X\|D:\|err=0|n=1|,GAMEDISC.:09:0
+< ans|trail|37|D:\X\*.*\|D:\|err=18|n=0|
+> ans|trail|37|D:\X\*.*\|D:\|err=2|n=0|
+< ans|trail|08|D:\|D:\|err=0|n=1|,GAMEDISC.:08:0
+> ans|trail|08|D:\|D:\|err=0|n=1|,GAMEDISC.:09:0
+< ans|trail|37|D:\X\\FOO.TXT|D:\|err=0|n=1|,FOO.TXT:21:3
+> ans|trail|37|D:\X\\FOO.TXT|D:\|err=0|n=1|,FOO.TXT:01:3
+< ans|dots|08|D:\X\..|D:\|err=0|n=1|,GAMEDISC.:08:0
+> ans|dots|08|D:\X\..|D:\|err=0|n=1|,GAMEDISC.:09:0
+< ans|dots|37|D:\..|D:\|err=18|n=0|
+> ans|dots|37|D:\..|D:\|err=3|n=0|
+< ans|dots|37|D:|D:\|err=18|n=0|
+> ans|dots|37|D:|D:\|err=3|n=0|
+< ans|dots|37|..|D:\|err=18|n=0|
+< ans|dots|37|D:|D:\X|err=0|n=1|,X:31:2048
+< ans|dots|37|.|D:\X|err=0|n=1|,X:31:2048
+> ans|dots|37|..|D:\|err=3|n=0|
+> ans|dots|37|D:|D:\X|err=3|n=0|
+> ans|dots|37|.|D:\X|err=0|n=1|,X:10:2048
+< ans|dots|37|SUBDIR\..|D:\X|err=0|n=1|,X:31:2048
+< ans|dots|37|..\X\FOO.TXT|D:\X|err=0|n=1|,FOO.TXT:21:3
+> ans|dots|37|SUBDIR\..|D:\X|err=0|n=1|,X:10:2048
+> ans|dots|37|..\X\FOO.TXT|D:\X|err=0|n=1|,FOO.TXT:01:3
+< ans|root|37|D:\*.*|D:\|err=0|n=2|,FOO.TXT:21:4,X:31:2048
+< ans|root|10|D:\*.*|D:\|err=0|n=2|,FOO.TXT:21:4,X:31:2048
+< ans|root|3F|D:\????????.???|D:\|err=0|n=3|,GAMEDISC.:08:0,FOO.TXT:21:4,X:31:2048
+< ans|root|3F|D:\*|D:\|err=0|n=2|,GAMEDISC.:08:0,X:31:2048
+< ans|root|37|\*.*|D:\|err=0|n=2|,FOO.TXT:21:4,X:31:2048
+< ans|root|37|D:*.*|D:\|err=0|n=2|,FOO.TXT:21:4,X:31:2048
+< ans|root|3F|D:\X\*.*|D:\|err=0|n=8|,.:31:2048,..:31:2048,A.B:21:2,BAR.TXT:21:5,FOO.TXT:21:3,NOEXT:21:1,SUBDIR:31:2048,ZED.TXT:21:7
+< ans|label|08|D:\*.*|D:\|err=0|n=2|,GAMEDISC.:08:0,FOO.TXT:21:4
+< ans|label|08|D:\FPLABEL|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\FPLAB*|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\FPLABEL.*|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\FPL|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\FPLABELX|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\FOO.TXT|D:\|err=0|n=2|,GAMEDISC.:08:0,FOO.TXT:21:4
+< ans|label|08|D:\X\*.*|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\X\FPLABEL|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\NOSUCH\*.*|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:*.*|D:\|err=0|n=2|,GAMEDISC.:08:0,FOO.TXT:21:4
+< ans|label|08|D:|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\.TXT|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\.|D:\|err=0|n=1|,GAMEDISC.:08:0
+> ans|root|37|D:\*.*|D:\|err=0|n=2|,FOO.TXT:01:4,X:10:2048
+> ans|root|10|D:\*.*|D:\|err=0|n=2|,FOO.TXT:01:4,X:10:2048
+> ans|root|3F|D:\????????.???|D:\|err=0|n=2|,FOO.TXT:01:4,X:10:2048
+> ans|root|3F|D:\*|D:\|err=0|n=1|,X:10:2048
+> ans|root|37|\*.*|D:\|err=0|n=2|,FOO.TXT:01:4,X:10:2048
+> ans|root|37|D:*.*|D:\|err=0|n=2|,FOO.TXT:01:4,X:10:2048
+> ans|root|3F|D:\X\*.*|D:\|err=0|n=8|,.:10:2048,..:10:2048,A.B:01:2,BAR.TXT:01:5,FOO.TXT:01:3,NOEXT:01:1,SUBDIR:10:2048,ZED.TXT:01:7
+> ans|label|08|D:\*.*|D:\|err=0|n=2|,GAMEDISC.:09:0,FOO.TXT:01:4
+> ans|label|08|D:\FPLABEL|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:\FPLAB*|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:\FPLABEL.*|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:\FPL|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:\FPLABELX|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:\FOO.TXT|D:\|err=0|n=2|,GAMEDISC.:09:0,FOO.TXT:01:4
+> ans|label|08|D:\X\*.*|D:\|err=0|n=6|,GAMEDISC.:09:0,A.B:01:2,BAR.TXT:01:5,FOO.TXT:01:3,NOEXT:01:1,ZED.TXT:01:7
+> ans|label|08|D:\X\FPLABEL|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:\NOSUCH\*.*|D:\|err=2|n=0|
+> ans|label|08|D:*.*|D:\|err=0|n=2|,GAMEDISC.:09:0,FOO.TXT:01:4
+> ans|label|08|D:|D:\|err=3|n=0|
+> ans|label|08|D:\.TXT|D:\|err=3|n=0|
+> ans|label|08|D:\.|D:\|err=0|n=1|,GAMEDISC.:09:0
+< ans|label|08|D:\X\.|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\X\SUBDIR\.|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\X\..|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:/X/FPLABEL|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:/FPLABEL|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|08|D:\X\..\FPLABEL|D:\|err=0|n=1|,GAMEDISC.:08:0
+< ans|label|18|D:\*.*|D:\|err=0|n=3|,GAMEDISC.:08:0,FOO.TXT:21:4,X:31:2048
+< ans|label|09|D:\*.*|D:\|err=0|n=2|,GAMEDISC.:08:0,FOO.TXT:21:4
+< dta|D:\X\*.*|err=0|032A000000000000002A00003700000098C5010012|2E00EEEEEEEEEEEEEEEEEEEEEE
+< dta|D:\X\NOEXT|err=0|034E4F4558540000000000003701000098C5010012|4E4F45585400EEEEEEEEEEEEEE
+< dta|D:\X\A.B|err=0|0341000000000000004200003702000098C5010012|412E4200EEEEEEEEEEEEEEEEEE
+< dta|D:\X\FOO.TXT|err=0|03464F4F00000000005458543703000098C5010012|464F4F2E54585400EEEEEEEEEE
+< dta|D:\X\SUBDIR|err=0|0353554244495200000000003704000098C5010012|53554244495200EEEEEEEEEEEE
+< dta|D:\*.*|err=0|032A000000000000002A00003705000098C5010012|464F4F2E54585400EEEEEEEEEE
+< dev|D:\X\NUL|err=0|size=0|034E554C00000000000000003705000098C5010012
+< dev|NUL|err=0|size=0|034E554C00000000000000003705000098C5010012
+< dev|D:\X\CON|err=0|size=0|03434F4E00000000000000003705000098C5010012
+< dev|CON.TXT|err=0|size=0|03434F4E00000000005458543705000098C5010012
+< dev|D:\X\PRN.TXT|err=0|size=0|0350524E00000000005458543705000098C5010012
+< dev|AUX|err=0|size=0|0341555800000000000000003705000098C5010012
+< dev|CLOCK$|err=18|size=0|03434C4F434B2400000000003706000098C5010012
+< dev|D:\NOSUCH\NUL|err=3|size=0|034E554C00000000000000003706000098C5010012
+< dev|D:\X\NUL\FOO|err=3|size=0|03464F4F00000000000000003706000098C5010012
+> ans|label|08|D:\X\.|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:\X\SUBDIR\.|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:\X\..|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:/X/FPLABEL|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:/FPLABEL|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|08|D:\X\..\FPLABEL|D:\|err=0|n=1|,GAMEDISC.:09:0
+> ans|label|18|D:\*.*|D:\|err=0|n=2|,FOO.TXT:01:4,X:10:2048
+> ans|label|09|D:\*.*|D:\|err=0|n=1|,FOO.TXT:01:4
+> dta|D:\X\*.*|err=0|042A000000000000002A00003700000098C5010012|2E00202020202020EEEEEEEEEE
+> dta|D:\X\NOEXT|err=0|044E4F4558540000000000003701000098C5010012|4E4F455854002020EEEEEEEEEE
+> dta|D:\X\A.B|err=0|0441000000000000004200003702000098C5010012|412E420020202020EEEEEEEEEE
+> dta|D:\X\FOO.TXT|err=0|04464F4F00000000005458543703000098C5010012|464F4F2E54585400EEEEEEEEEE
+> dta|D:\X\SUBDIR|err=0|0453554244495200000000003704000098C5010012|5355424449520020EEEEEEEEEE
+> dta|D:\*.*|err=0|042A000000000000002A00003705000098C5010012|464F4F2E54585400EEEEEEEEEE
+> dev|D:\X\NUL|err=0|size=0|044E554C00000000000000003705000098C5010012
+> dev|NUL|err=0|size=0|044E554C00000000000000003705000098C5010012
+> dev|D:\X\CON|err=0|size=0|04434F4E00000000000000003705000098C5010012
+> dev|CON.TXT|err=0|size=0|04434F4E00000000005458543705000098C5010012
+> dev|D:\X\PRN.TXT|err=0|size=0|0450524E00000000005458543705000098C5010012
+> dev|AUX|err=0|size=0|0441555800000000000000003705000098C5010012
+> dev|CLOCK$|err=18|size=0|04434C4F434B2400000000003706000098C5010012
+> dev|D:\NOSUCH\NUL|err=2|size=0|044E554C00000000000000003706000098C5010012
+> dev|D:\X\NUL\FOO|err=2|size=0|04464F4F00000000000000003706000098C5010012

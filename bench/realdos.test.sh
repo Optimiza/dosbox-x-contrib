@@ -8,8 +8,8 @@
 # run of each reporter's files: all of them on MS-DOS 7.10. fixtures/realdos-msdos622 and
 # realdos-freedos hold a dirgone run on MS-DOS 6.22 and on FreeDOS, realdos-freedos-findpos a
 # findpos-labelled run on FreeDOS. fixtures/realdos-dosans holds a dosans run on MS-DOS 7.10,
-# realdos-dosans-labelled a dosans-labelled run on MS-DOS 6.22, realdos-xcomsim an xcomsim run on
-# MS-DOS 7.10.
+# realdos-dosans-labelled a dosans-labelled run on MS-DOS 6.22, realdos-dosans-cd a dosans-cd run on
+# MS-DOS 6.22 (the CD image attached, MSCDEX 2.23), realdos-xcomsim an xcomsim run on MS-DOS 7.10.
 # Those files are not in this repository: the folders handed to the script hold empty files under
 # their names, as many as the reporters'.
 set -u
@@ -102,6 +102,19 @@ t_derive "$f/realdos-xcomsim"; sed -i '' '/^listing|A|/d' "$derived/3/RESULT.TXT
 t_case "XCOMSIM's report with a line missing" 3 "XCOMSIM's report has no trailer or its count disagrees" run xcomsim
 t_play "$f/realdos-dosans-labelled"
 t_case "DOSANS on the disk MS-DOS 6.22 labelled" 0 "msdos622|ans|root|3F|D:\\*|D:\\|err=0|n=2|,X:10:0,FPLABEL:28:0" run_on msdos622 "$work/boot.vhd" dosans-labelled
+t_play "$f/realdos-dosans-cd"
+t_case "MSCDEX named by the run" 0 "realdos.sh: msdos622: mscdex: MSCDEX Version 2.23" run_on msdos622 "$work/boot.vhd" dosans-cd
+t_case "DOSANS on a CD, the label asked of its root" 0 "msdos622|ans|label|08|D:\\*.*|D:\\|err=0|n=2|,GAMEDISC.:09:0,FOO.TXT:01:4" run_on msdos622 "$work/boot.vhd" dosans-cd
+t_case "a CD with no folder staged for D:" 0 "msdos622|ans|trail|37|X\\|D:\\|err=18|n=0|" run_on msdos622 "$work/boot.vhd" dosans-cd
+t_derive "$f/realdos-dosans-cd"; LC_ALL=C sed -i '' 's/Drive D: = Driver BANANA unit 0/Drive E: = Driver BANANA unit 0/' "$derived/3/RESULT.TXT"; t_play "$derived"
+t_case "a CD that MSCDEX gave another letter" 3 "MSCDEX did not give the CD the letter D:" run_on msdos622 "$work/boot.vhd" dosans-cd
+t_derive "$f/realdos-dosans-cd"; LC_ALL=C sed -i '' '/^end|lines/d' "$derived/3/RESULT.TXT"; t_play "$derived"
+t_case "DOSANS on a CD cut before its trailer" 3 "DOSANS's report has no trailer or its count disagrees" run_on msdos622 "$work/boot.vhd" dosans-cd
+t_play "$f/realdos-dosans-cd"
+t_case "FreeDOS has no CD stack to read it with" 3 "no CD driver of freedos leaves a drive that MSCDEX opens" run_on freedos "$work/boot.img" dosans-cd
+t_case "MS-DOS 7.10 with no driver file given" 2 "ships no CD driver: DIRCACHE_CD1_SYS" run_on msdos710 "$work/boot.img" dosans-cd
+: > "$work/cd1.sys"
+t_case "MS-DOS 7.10 with the driver file of a 6.22 disk" 0 "realdos.sh: msdos710: mscdex: MSCDEX Version 2.23" env DIRCACHE_CD1_SYS="$work/cd1.sys" "$here/realdos.sh" "$build_a" msdos710 "$work/boot.img" dosans-cd
 t_play "$f/realdos-msdos622"
 t_case "the same program on MS-DOS 6.22, named by it" 0 "msdos622|gone|rd|first=0000 entry=. op=0000 made=- next=0012 rest=.." run_on msdos622 "$work/boot.vhd" dirgone
 t_case "MS-DOS 6.22's own VER line" 0 "realdos.sh: msdos622: ver: MS-DOS Version 6.22" run_on msdos622 "$work/boot.vhd" dirgone

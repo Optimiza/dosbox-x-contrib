@@ -6,10 +6,12 @@ set -u
 
 usage() {
     cat <<'EOT'
-usage: dosans.sh <build A> <build B> <labelled|unlabelled> <on|off>
+usage: dosans.sh <build A> <build B> <labelled|unlabelled|cd> <on|off>
 
   <build A>, <build B>    the two DOSBox-X executables compared; one given twice is the control
-  <labelled|unlabelled>   D: carries the label FPLABEL, which DOSANS asks for by name, or none
+  <labelled|unlabelled|cd>  D: carries the label FPLABEL, which DOSANS asks for by name, or none;
+                          cd: D: is a CD image, fixtures/cdans/game.iso.gz (volume GAMEDISC, FOO.TXT
+                          and X\ holding A.B, BAR.TXT, FOO.TXT, NOEXT, ZED.TXT and SUBDIR\INNER.TXT)
   <on|off>                long file names in the guest ([dos] lfn); a real DOS answers off only
 
 DOSANS asks each path shape of 4Eh and of 3Dh, 43h (get and set) and 3Bh, over a copy per
@@ -43,14 +45,18 @@ if [ ! -f "$here/common.sh" ]; then echo "dosans.sh: common.sh is missing beside
 need_builds "$build_a" "$build_b"
 case "$volume" in
     labelled) options=" -label $FINDPOS_LABEL" ;;
-    unlabelled) options="" ;;
-    *) fail_usage "the drive is labelled or unlabelled, not: $volume" ;;
+    unlabelled|cd) options="" ;;
+    *) fail_usage "the drive is labelled, unlabelled or cd, not: $volume" ;;
 esac
 lfn_parse "$lfn"
 need_tools
 
 run_begin dosans
 guest_build DOSANS "$tmp/c" || invalid "DOSANS did not build"
+if [ "$volume" = cd ]; then
+    gzip -dc "$here/fixtures/cdans/game.iso.gz" > "$tmp/game.iso" || invalid "the CD image could not be unpacked"
+    conf_d_image=$tmp/game.iso
+fi
 
 echo "dosans.sh: drive $volume, long names $lfn"
 exact_reports DOSANS "$build_a" "$build_b" "$options"

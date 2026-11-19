@@ -520,6 +520,7 @@ folder_resolve() {
 # DIRCACHE_OVERLAY, a glob matched against the run's name (guest_run's label: A, B, A-exact...),
 # puts an overlay drive on D: in the runs it matches, over a directory of the run's own, with
 # D:'s label: an overlay is a drive of its own and takes no label from the one under it.
+# conf_d_image, when a script sets it, is an ISO mounted as D: in place of the folder.
 conf_write() {
     local run=$1 d=$2 options=$3 no_label=' -label ""' name overlay=""
     shift 3
@@ -530,7 +531,12 @@ conf_write() {
     if [ -n "$overlay" ]; then mkdir -p "$overlay" || return; fi
     {
         printf '[dosbox]\nmemsize=64\n\n[cpu]\ncore=dynamic\ncycles=%s\n\n[dos]\n%slfn=%s\n\n[autoexec]\n' "${conf_cycles:-max}" "${conf_dos:+$conf_dos$'\n'}" "$lfn_conf"
-        printf 'mount c "%s"%s\nmount d "%s"%s\n' "$(host_path "$run")" "$no_label" "$(host_path "$d")" "$options"
+        printf 'mount c "%s"%s\n' "$(host_path "$run")" "$no_label"
+        if [ -n "${conf_d_image:-}" ]; then
+            printf 'imgmount d "%s" -t iso\n' "$(host_path "$conf_d_image")"
+        else
+            printf 'mount d "%s"%s\n' "$(host_path "$d")" "$options"
+        fi
         if [ -n "$overlay" ]; then printf 'mount d "%s" -t overlay%s\n' "$(host_path "$overlay")" "$options"; fi
         printf '%s\n' "$@" exit
     } > "$run/run.conf"

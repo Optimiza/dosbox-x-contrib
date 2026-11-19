@@ -7,7 +7,7 @@ set -u
 usage() {
     cat <<'EOT'
 usage: realdos.sh <build> <dos> <boot image> <id|findlife|exact|enumstat|drift|dtadump|patlist|
-                     template|findpos|findpos-labelled|dosans|dosans-labelled|memprobe|fc|
+                     template|findpos|findpos-labelled|dosans|dosans-labelled|dosans-cd|memprobe|fc|
                      xcopy|dirgone|xcomsim|xcomsim-relay>
        realdos.sh <build> <dos> <boot image> <junktest|dirtest> <folder>
 
@@ -35,6 +35,10 @@ usage: realdos.sh <build> <dos> <boot image> <id|findlife|exact|enumstat|drift|d
   findpos-labelled  the same once the image's own LABEL has named the disk FPLABEL
   dosans        DOSANS over the folder exact.sh makes, the run's disk with no label
   dosans-labelled  the same once the image's own LABEL has named the disk FPLABEL
+  dosans-cd     DOSANS over a CD image, fixtures/cdans/game.iso.gz, attached to the booted DOS as an
+                ATAPI drive and read through the DOS's own CD stack: MS-DOS 6.22 with its CD1.SYS and
+                MSCDEX 2.23, MS-DOS 7.10 with MSCDEX 2.25 and the CD1.SYS in DIRCACHE_CD1_SYS (7.10
+                ships no driver). FreeDOS: INVALID, none of its drivers leaves a drive MSCDEX opens
   memprobe      MEMPROBE in its mode e over 1,835 files with 8.3 names: each one looked up by
                 a 4Eh that is never continued
   fc            the emulator's FC.EXE run 300 times from a batch file, as fc.sh runs it, in a
@@ -134,16 +138,28 @@ case "$what" in
     findpos|findpos-labelled) programs=FINDPOS ;;
     memprobe) programs=MEMPROBE ;;
     dirgone) programs=DIRGONE ;;
-    dosans|dosans-labelled) programs=DOSANS ;;
+    dosans|dosans-labelled|dosans-cd) programs=DOSANS ;;
     xcomsim|xcomsim-relay) programs=XCOMSIM ;;
     fc|xcopy|junktest|dirtest) programs="" ;;
-    *) fail_usage "the program is id, findlife, exact, enumstat, drift, dtadump, patlist, template, findpos, findpos-labelled, dosans, dosans-labelled, memprobe, fc, xcopy, dirgone, xcomsim, xcomsim-relay, junktest or dirtest, not: $what" ;;
+    *) fail_usage "the program is id, findlife, exact, enumstat, drift, dtadump, patlist, template, findpos, findpos-labelled, dosans, dosans-labelled, dosans-cd, memprobe, fc, xcopy, dirgone, xcomsim, xcomsim-relay, junktest or dirtest, not: $what" ;;
 esac
 case "$what" in
     junktest|dirtest) if [ $# -ne 5 ]; then fail_usage "$what takes the folder of the reporter's files"; fi ;;
     *) if [ $# -ne 4 ]; then fail_usage "$what takes no folder"; fi ;;
 esac
 need_tools
+cd_driver=""
+if [ "$what" = dosans-cd ]; then
+    case "$dos" in
+        msdos622) cd_driver='C:\DOS\CD1.SYS' ;;
+        msdos710)
+            if [ ! -f "${DIRCACHE_CD1_SYS:-}" ]; then fail_usage "MS-DOS 7.10 ships no CD driver: DIRCACHE_CD1_SYS names the CD1.SYS of an MS-DOS 6.22 disk"; fi
+            cd_driver='C:\RD\CD1.SYS'
+            ;;
+        *) echo "$tool: INVALID: no CD driver of $dos leaves a drive that MSCDEX opens" >&2; exit 3 ;;
+    esac
+    config_lines+=("DEVICE=$cd_driver /D:banana")
+fi
 # shellcheck disable=SC2086  # the names, split on purpose
 case "$what" in
     junktest) reporter_folder "$folder" $JUNKTEST_FILES ;;
@@ -163,6 +179,10 @@ chmod u+w "$boot/$image_name" || invalid "could not make the copy of the image w
 for p in DOSID $programs; do
     guest_build "$p" "$stage/RD" || invalid "$p did not build"
 done
+if [ "$what" = dosans-cd ]; then
+    gzip -dc "$here/fixtures/cdans/game.iso.gz" > "$tmp/game.iso" || invalid "the CD image could not be unpacked"
+    if [ "$dos" = msdos710 ]; then cp "$DIRCACHE_CD1_SYS" "$stage/RD/CD1.SYS" || invalid "could not copy the CD driver"; fi
+fi
 
 # The batch files are DOS's: CR LF.
 dos_lines() { printf '%s\r\n' "$@"; }
@@ -191,6 +211,12 @@ case "$what" in
         # FINDLIFE reads the host path of its remount case here: there is none under this DOS.
         dos_lines "D:\\" > "$stage/RD/ROOT.TXT"
         report findlife "FINDLIFE.EXE D:\\A D:\\B $out C:\\RD\\ROOT.TXT"
+        ;;
+    dosans-cd)
+        # The CD is the disk the program reads: no folder is made for D:. MSCDEX gives the driver's
+        # unit the letter D: and says so, which the run keeps and checks.
+        batch+=("ECHO section mscdex>> $result" "MSCDEX.EXE /D:banana /L:D >> $result")
+        report dosans-cd "DOSANS.EXE D:\\X $out"
         ;;
     exact|drift|dtadump|patlist|findpos|findpos-labelled|dosans|dosans-labelled)
         exact_tree "$stage/D" || invalid "could not make the folder"
@@ -281,7 +307,7 @@ c_img=$(host_path "$boot/$image_name") d_img=$(host_path "$boot/d.img")
 # while it lists the folder, and the emulator's search table gives out before the listing ends.
 # FC.EXE and XCOPY.EXE are the emulator's own, taken from its Z: drive like the DPMI host.
 case "$what" in
-    id) folders=("echo 0 file(s) copied > e:\\STAGED.TXT") ;;
+    id|dosans-cd) folders=("echo 0 file(s) copied > e:\\STAGED.TXT") ;;
     enumstat|memprobe) folders=("md d:\\DIR" "copy /y e:\\D\\DIR\\*.* d:\\DIR > e:\\STAGED.TXT") ;;
     fc) folders=("copy /y z:\\dos\\fc.exe c:\\RD > nul" "md d:\\DIR" "copy /y e:\\D\\DIR\\*.* d:\\DIR > e:\\STAGED.TXT") ;;
     xcopy)
@@ -321,7 +347,9 @@ fi
 # The image's own DOS. What the guest must leave is the image itself, written.
 keys=() bound=$BOOT_SECONDS
 if [ "$what" = dirtest ]; then keys=("$(dirtest_autotype "$DIRTEST_KEYS")") bound=$DIRTEST_BOOT_SECONDS; fi
-conf "$boot" normal "imgmount c \"$c_img\"" "imgmount d \"$d_img\"" ${keys[@]+"${keys[@]}"} "boot c:"
+d_boot="imgmount d \"$d_img\""
+if [ "$what" = dosans-cd ]; then d_boot="imgmount d \"$(host_path "$tmp/game.iso")\" -t iso -ide 2m"; fi
+conf "$boot" normal "imgmount c \"$c_img\"" "$d_boot" ${keys[@]+"${keys[@]}"} "boot c:"
 # The emulator can die in its AUTOTYPE thread when the DOS turns the machine off with keys still
 # to type (SIGSEGV in Typer::Callback on macOS). That exit is taken here, and the run is then
 # trusted only if the DOS's batch reached its last section, which the power-off follows.
@@ -367,7 +395,12 @@ case "$what" in
         findlife_whole "$tmp/report.txt" || invalid "FINDLIFE's report has no case or no trailer"
         named "$tmp/report.txt"
         ;;
-    exact|drift|dtadump|patlist|template|findpos|findpos-labelled|dirgone|dosans|dosans-labelled)
+    exact|drift|dtadump|patlist|template|findpos|findpos-labelled|dirgone|dosans|dosans-labelled|dosans-cd)
+        if [ "$what" = dosans-cd ]; then
+            section mscdex > "$tmp/mscdex.txt"
+            command grep -a -q 'Drive D: = Driver BANANA unit 0' "$tmp/mscdex.txt" || invalid "MSCDEX did not give the CD the letter D:"
+            say "mscdex: $(command grep -a -m1 '^MSCDEX Version' "$tmp/mscdex.txt")"
+        fi
         section "$what" > "$tmp/report.txt"
         exact_whole "$tmp/report.txt" || invalid "$programs's report has no trailer or its count disagrees"
         if [ "$what" = findpos-labelled ] && ! command grep -a -q "^pos|label-alone|first=0 entry=$FINDPOS_LABEL:" "$tmp/report.txt"; then
