@@ -87,7 +87,7 @@ Windows table come from counter builds the bench does not carry. [bench/README.m
 ## What it needs
 
 Nothing. The figures' branch is cut from upstream `main-ai` at `4e0b6adcf`. The same change
-stands on `main-ai` at `0dbfdad51`, its ninth commit being `36f7056be`.
+stands on `main-ai` at `72ee221bf`, its ninth commit being `36f7056be`.
 
 A tenth commit leaves COPY's cache alone. It is offered as [pull request 6875, "Keep the directory cache when a local drive creates, deletes or renames"](https://github.com/joncampbell123/dosbox-x/pull/6875).
 
