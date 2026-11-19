@@ -82,7 +82,7 @@ Move the commit named above in the same change.
   `bench/README.md` says what each script needs.
 
 When a subject closes: add its result files, write its page from them, and move its row in the
-table of `README.md` and in `docs/issues.md`.
+table of `README.md`.
 
 ## Never committed here
 

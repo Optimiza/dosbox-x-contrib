@@ -79,7 +79,6 @@ is called, what it prints, its exit codes, and what it does not show.
 | `docs/method.md` | how a figure is measured and who referees an answer |
 | `docs/pr6831.md` | another author's pull request for the same cost, beside subject 2 |
 | `docs/reporters.md` | the case of each related upstream issue, on every build |
-| `docs/issues.md` | the related upstream issues and what the work does for each |
 | `docs/left.md` | what was seen and left |
 
 ## Before a push

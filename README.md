@@ -12,10 +12,10 @@ figures.
 | # | Subject | Branch | Needs | State |
 | --- | --- | --- | --- | --- |
 | 1 | [A search for one exact name does not copy the whole directory](docs/01-exact-name.md) | `dircache-exact-name` | nothing | proved on macOS and Windows |
-| 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | `dircache-retention` | subject 1 | superseded by [pull request 6831](docs/pr6831.md) and [pull request 6852, its follow-up](https://github.com/joncampbell123/dosbox-x/pull/6852), both merged ([all merged](docs/issues.md#merged-upstream)) |
-| 3 | [The first read of a large folder](docs/03-first-read.md) | `dircache-first-read-mainai` | nothing | offered as [pull request 6853, the first read](https://github.com/joncampbell123/dosbox-x/pull/6853) |
+| 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | `dircache-retention` | subject 1 | superseded by [pull request 6831](docs/pr6831.md), merged, and [pull request 6852](https://github.com/joncampbell123/dosbox-x/pull/6852), merged |
+| 3 | [The first read of a large folder](docs/03-first-read.md) | `dircache-first-read-mainai` | nothing | [pull request 6853](https://github.com/joncampbell123/dosbox-x/pull/6853), open |
 | 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | `dircache-dta` | nothing; one case on Windows needs subject 2 or 9 | proved; conflicts with pull request 6831, to be redone on `main-ai`, which has pull request 6852 now |
-| 5 | [No two entries of a folder share a short name](docs/05-alias.md) | `dircache-alias-mainai` | subject 3 | offered as [pull request 6854, the short names](https://github.com/joncampbell123/dosbox-x/pull/6854) |
+| 5 | [No two entries of a folder share a short name](docs/05-alias.md) | `dircache-alias-mainai` | subject 3 | [pull request 6854](https://github.com/joncampbell123/dosbox-x/pull/6854), open |
 | 6 | [The emulator's DOS answers as MS-DOS does](docs/06-dos-answers.md) | `dircache-dos-answers` | nothing | checked on three DOS, not offered |
 | 9 | [An attribute change on Windows does not empty the directory cache](docs/09-setattr.md) | `dircache-setattr` | nothing | proved on Windows, the only host it changes |
 | 10 | [The x86 dynamic core keeps its code-page handlers across a cache reset](docs/10-dyncore-cache-reset.md) | `dyncore-cache-reset` | nothing | proved on Windows; the macOS build has no such core |
@@ -44,8 +44,7 @@ Source: `battery.sh --real-dos`, cells `memory real a <1|20> base`, in [results/
 
 It is reported upstream as
 [issue 6823, "FindFirst copies and retains the whole directory on every call"](https://github.com/joncampbell123/dosbox-x/issues/6823).
-[The related upstream issues](docs/issues.md) and [the reporters' cases](docs/reporters.md)
-have their own pages.
+[The reporters' cases](docs/reporters.md) have their own page.
 
 DOSBox-X caches every host folder a DOS program looks into. Three costs sit in that cache, in
 `src/dos/drive_cache.cpp` and its search calls:
