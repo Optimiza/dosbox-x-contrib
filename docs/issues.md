@@ -14,7 +14,7 @@ the second which subject and which offered pull request covers which.
 | [Issue 3572, "Very slow response when querying a large directory"](https://github.com/joncampbell123/dosbox-x/issues/3572) | open | covered, measured on macOS (subject 3) |
 | [Issue 5039, "Large number of files in dir stalls dosbox-x"](https://github.com/joncampbell123/dosbox-x/issues/5039) | closed | its later comment's case: covered, measured on macOS (subject 3) |
 | [Issue 6794, "Dynamic cores: free the old code pages when the cache is reset"](https://github.com/joncampbell123/dosbox-x/issues/6794) | open | covered, measured on Windows; its attached patch is another fix (subject 10) |
-| [Issue 6851, "main-ai ends directory searches that MS-DOS continues"](https://github.com/joncampbell123/dosbox-x/issues/6851) | open | reported by this work; pull request 6852 fixes it |
+| [Issue 6851, "main-ai ends directory searches that MS-DOS continues"](https://github.com/joncampbell123/dosbox-x/issues/6851) | open | reported by this work; pull request 6852, merged, fixes it |
 | [Issue 6808, "main-ai no longer builds on macOS or Visual Studio since the IDE commit"](https://github.com/joncampbell123/dosbox-x/issues/6808) | closed | nothing to do here: every build carries its fix |
 
 Source: each issue's page upstream, read with `gh issue view` on the date the column names; the figures are on each subject's page and on [the page of the reporters' cases](reporters.md).
@@ -24,7 +24,7 @@ Source: each issue's page upstream, read with `gh issue view` on the date the co
 | 1 | [A search for one exact name does not copy the whole directory](01-exact-name.md) | issues 6823, 6827 and 2485 | not offered |
 | 2 | [A search's copy is released without ending a live search](02-retention.md) | issues 6823 and 4904 | superseded by pull request 6831 and [pull request 6852, "Keep a search alive when its DTA is reused or its child process ends"](https://github.com/joncampbell123/dosbox-x/pull/6852), for issue 6851 |
 | 3 | [The first read of a large folder](03-first-read.md) | issues 6823, 3572 and 5039 | [pull request 6853, "Read a large folder without comparing every name with every other"](https://github.com/joncampbell123/dosbox-x/pull/6853) |
-| 4 | [A find call does not disturb another search's DTA](04-dta.md) | none: its defects have no issue upstream | not offered: to be redone on pull request 6852 |
+| 4 | [A find call does not disturb another search's DTA](04-dta.md) | none: its defects have no issue upstream | not offered: to be redone on `main-ai`, which has pull request 6852 now |
 | 5 | [No two entries of a folder share a short name](05-alias.md) | none | [pull request 6854, "Give each entry of a folder a short name of its own"](https://github.com/joncampbell123/dosbox-x/pull/6854) |
 | 6 | [The emulator's DOS answers as MS-DOS does](06-dos-answers.md) | none | not offered |
 | 9 | [An attribute change on Windows does not empty the directory cache](09-setattr.md) | none | not offered |
