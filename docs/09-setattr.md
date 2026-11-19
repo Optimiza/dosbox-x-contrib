@@ -19,7 +19,7 @@ The line came with upstream's `ATTRIB` support, and protects nothing a run of th
 
 The attribute change leaves the cache alone, as on every other host. The branch is
 `dircache-setattr`, tag `archive/dircache-setattr` of the fork, one commit, `97d438ae9`. On `main-ai` at `0dbfdad51` it is
-`dircache-setattr-mainai`, offered as [pull request 6873, "Keep the directory cache when a file's attributes change on Windows"](https://github.com/joncampbell123/dosbox-x/pull/6873).
+`dircache-setattr-mainai`, merged as [pull request 6873, "Keep the directory cache when a file's attributes change on Windows"](https://github.com/joncampbell123/dosbox-x/pull/6873).
 
 ## The figures
 

@@ -17,9 +17,8 @@ drafted here for a pull request or a comment.
 
 ## Where the rest lives
 
-- The emulator branches belong to the fork `Optimiza/dosbox-x`. The four still open upstream are
-  pushed there: `dircache-longname`, `dircache-setattr-mainai`, `dyncore-cache-reset-mainai` and
-  `dircache-create-delete-mainai`. The table at the top of `README.md` names each subject's branch.
+- The emulator branches belong to the fork `Optimiza/dosbox-x`. The one still open upstream is
+  pushed there: `dircache-create-delete-mainai`. The table at the top of `README.md` names each subject's branch.
 - The offered branches stand on upstream `main-ai` at `0dbfdad51`, the merge of [pull request 6857, "IDE: put std::min in parentheses against the windows.h macros"](https://github.com/joncampbell123/dosbox-x/pull/6857).
   Those of subjects 1 and 6 stand on `218ec1894`, the merge of
   [pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831). Subjects 2 and 4 stay on `4e0b6adcf`.

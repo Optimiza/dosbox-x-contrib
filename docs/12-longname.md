@@ -61,7 +61,7 @@ bench/longpath.sh on <build without the fix> <build with the fix>
 
 ## What it needs
 
-Nothing. The branch stands on upstream `main-ai` at `0dbfdad51`.
+Nothing. The branch stood on upstream `main-ai` at `0dbfdad51` and was merged.
 
 ## What is left
 

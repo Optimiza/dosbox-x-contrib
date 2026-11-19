@@ -68,7 +68,7 @@ bench/memory.sh <build> synthetic:100:83 off c 20
 ## What it needs
 
 Nothing. The figures' commit is cut from upstream `main-ai` at `4e0b6adcf`. The same change
-stands on `main-ai` at `0dbfdad51` as `4458a606d`, offered as [pull request 6874, "Keep the x86 dynamic core's code page handlers across a cache reset"](https://github.com/joncampbell123/dosbox-x/pull/6874).
+stands on `main-ai` at `0dbfdad51` as `4458a606d`, merged as [pull request 6874, "Keep the x86 dynamic core's code page handlers across a cache reset"](https://github.com/joncampbell123/dosbox-x/pull/6874).
 
 ## What is left
 
