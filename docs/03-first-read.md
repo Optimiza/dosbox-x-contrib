@@ -113,7 +113,7 @@ counts of the Windows table come from counter builds the bench does not carry.
 
 Nothing. The figures' branch is cut from upstream `main-ai` at `4e0b6adcf`; the branch offered
 as [pull request 6853, "Read a large folder without comparing every name with every other"](https://github.com/joncampbell123/dosbox-x/pull/6853)
-stands on `main-ai` at `218ec1894`. [Subject 5](05-alias.md) is built on it.
+stood on `main-ai` at `218ec1894`, and was merged. [Subject 5](05-alias.md) is built on it.
 
 ## What is left
 

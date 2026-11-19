@@ -61,7 +61,7 @@ bench/longpath.sh on <build without the fix> <build with the fix>
 
 ## What it needs
 
-Nothing. The branch stands on upstream `main-ai` at `8de17e7f5`.
+Nothing. The branch stands on upstream `main-ai` at `0dbfdad51`.
 
 ## What is left
 
