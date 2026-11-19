@@ -2,7 +2,7 @@
 
 Fixes offered to DOSBox-X, each on a branch of its own, with the bench that measured it. The
 first set is the directory cache: in a large folder, DOSBox-X stalls on the first read, can give
-two files one short name and ends searches MS-DOS continues. Three fixes are offered upstream.
+two files one short name and ends searches MS-DOS continues. Three fixes: one merged, two open.
 
 ## The subjects
 
@@ -12,7 +12,7 @@ figures.
 | # | Subject | Branch | Needs | State |
 | --- | --- | --- | --- | --- |
 | 1 | [A search for one exact name does not copy the whole directory](docs/01-exact-name.md) | `dircache-exact-name` | nothing | proved on macOS and Windows |
-| 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | `dircache-retention` | subject 1 | superseded by [pull request 6831](docs/pr6831.md) and [pull request 6852, its follow-up](https://github.com/joncampbell123/dosbox-x/pull/6852), both merged |
+| 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | `dircache-retention` | subject 1 | superseded by [pull request 6831](docs/pr6831.md) and [pull request 6852, its follow-up](https://github.com/joncampbell123/dosbox-x/pull/6852), both merged ([all merged](docs/issues.md#merged-upstream)) |
 | 3 | [The first read of a large folder](docs/03-first-read.md) | `dircache-first-read-mainai` | nothing | offered as [pull request 6853, the first read](https://github.com/joncampbell123/dosbox-x/pull/6853) |
 | 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | `dircache-dta` | nothing; one case on Windows needs subject 2 or 9 | proved; conflicts with pull request 6831, to be redone on `main-ai`, which has pull request 6852 now |
 | 5 | [No two entries of a folder share a short name](docs/05-alias.md) | `dircache-alias-mainai` | subject 3 | offered as [pull request 6854, the short names](https://github.com/joncampbell123/dosbox-x/pull/6854) |

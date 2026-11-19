@@ -31,7 +31,27 @@ Source: each issue's page upstream, read with `gh issue view` on the date the co
 | 10 | [The x86 dynamic core keeps its code-page handlers across a cache reset](10-dyncore-cache-reset.md) | issue 6794 | not offered |
 | 11 | [A create keeps the directory cache, and a delete removes one entry](11-create-delete.md) | none | not offered |
 
-Source: each pull request's page upstream, read with `gh pr view` on the same date; each is open on `main-ai`.
+Source: each pull request's page upstream, read with `gh pr view` on the same date; each is open on `main-ai`, except pull request 6852, which is merged.
 
 The fix for issue 6808 is
 [pull request 6822, "fix(ide): give the ATAPI sector counters the type of the ATA ones"](https://github.com/joncampbell123/dosbox-x/pull/6822).
+
+## Merged upstream
+
+The pull requests of this work that the maintainer has merged into `main-ai`.
+
+| Pull request | Area |
+| --- | --- |
+| [Pull request 6852, "Keep a search alive when its DTA is reused or its child process ends"](https://github.com/joncampbell123/dosbox-x/pull/6852) | the directory cache, for issue 6851 |
+| [Pull request 6822, "fix(ide): give the ATAPI sector counters the type of the ATA ones"](https://github.com/joncampbell123/dosbox-x/pull/6822) | IDE, for issue 6808 |
+| [Pull request 6799, "cdrom: put std::max in parentheses against the windows.h macros"](https://github.com/joncampbell123/dosbox-x/pull/6799) | Visual Studio build |
+| [Pull request 6779, "cdrom: apply the MSCDEX channel volume once, not again as a mixer scale"](https://github.com/joncampbell123/dosbox-x/pull/6779) | CD audio |
+| [Pull request 6777, "dynrec: reserve room for the 16-bit shift in the ARM thumb-interwork backend"](https://github.com/joncampbell123/dosbox-x/pull/6777) | ARM dynamic core |
+| [Pull request 6775, "cpu: keep the segment limit comparison out of line in the normal core"](https://github.com/joncampbell123/dosbox-x/pull/6775) | normal core |
+| [Pull request 6773, "sdl: take full screen before the first video mode on a halted start"](https://github.com/joncampbell123/dosbox-x/pull/6773) | halted start |
+| [Pull request 6772, "Fix the Visual Studio build errors of main-ai (std::min and std::max, SDL.h before voodoo_def.h)"](https://github.com/joncampbell123/dosbox-x/pull/6772) | Visual Studio build |
+| [Pull request 6771, "dynrec: remove a duplicated template parameter list in the ARM thumb-interwork backend"](https://github.com/joncampbell123/dosbox-x/pull/6771) | ARM dynamic core |
+| [Pull request 6683, "debugger: add SAVESTATE and LOADSTATE commands"](https://github.com/joncampbell123/dosbox-x/pull/6683) | debugger |
+| [Pull request 6682, "Keep host tick handlers out of save states"](https://github.com/joncampbell123/dosbox-x/pull/6682) | save states |
+
+Source: each pull request's page upstream, read with `gh pr list --author` and `gh pr view`.
