@@ -1,0 +1,33 @@
+# agree.py --differ ../../macos/dos-answers/real-710-exact.txt ../../macos/dos-answers/real-622-exact.txt exact.txt
+lines of build A that differ: 17, equal to both DOS: 0
+lines of build B that differ: 17, equal to both DOS: 17
+# exit code 0
+# agree.py --differ ../../macos/dos-answers/real-710-template.txt ../../macos/dos-answers/real-622-template.txt template-fat.txt
+lines of build A that differ: 8, equal to both DOS: 0
+lines of build B that differ: 8, equal to both DOS: 8
+# exit code 0
+# agree.py --differ ../../macos/dos-answers/real-710-template.txt ../../macos/dos-answers/real-622-template.txt template-host.txt
+lines of build A that differ: 22, equal to both DOS: 0
+lines of build B that differ: 22, equal to both DOS: 21
+# exit code 0
+# agree.py --differ ../../macos/dos-answers/real-710-dosans.txt ../../macos/dos-answers/real-622-dosans.txt dosans-unlabelled.txt
+lines of build A that differ: 60, equal to both DOS: 0
+lines of build B that differ: 60, equal to both DOS: 59
+# exit code 0
+# agree.py --differ ../../macos/dos-answers/real-710-dosans-labelled.txt ../../macos/dos-answers/real-622-dosans-labelled.txt dosans-labelled.txt
+lines of build A that differ: 81, equal to both DOS: 0
+lines of build B that differ: 81, equal to both DOS: 77
+# exit code 0
+# agree.py ../../macos/dos-answers/real-710-dosans-cd.txt ../../macos/dos-answers/real-622-dosans-cd.txt dosans-cd-folder.txt#A dosans-cd-folder.txt#B dosans-cd-cd.txt#B
+lines both DOS answer alike: 703 of 709
+dosans-cd-folder.txt#A: equal to both DOS on 404 of 703
+dosans-cd-folder.txt#B: equal to both DOS on 428 of 703
+dosans-cd-cd.txt#B: equal to both DOS on 494 of 703
+lines the last build changes against the first: 90, now equal to both DOS: 90, were right and are now wrong: 0
+# exit code 0
+# agree.py ../../macos/dos-answers/real-710-dosans-cd.txt ../../macos/dos-answers/real-622-dosans-cd.txt dosans-cd-folder.txt#B dosans-cd-cd.txt#B
+lines both DOS answer alike: 703 of 709
+dosans-cd-folder.txt#B: equal to both DOS on 428 of 703
+dosans-cd-cd.txt#B: equal to both DOS on 494 of 703
+lines the last build changes against the first: 66, now equal to both DOS: 66, were right and are now wrong: 0
+# exit code 0

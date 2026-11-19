@@ -1,0 +1,98 @@
+template.sh: volume fat, long names off
+template.sh: build A: build (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+label|V:\|first=0 DISK1|more=0|
+label|V:|first=0 DISK1|more=0|
+label|V:\*.*|first=0 DISK1|more=0|
+label|V:\DISK1|first=0 DISK1|more=0|
+label|V:\DISK|first=0 DISK1|more=0|
+label|V:\DIS|first=0 DISK1|more=0|
+label|V:\DISK1.*|first=0 DISK1|more=0|
+label|V:\DISK*|first=0 DISK1|more=0|
+label|V:\DISK1XYZ|first=18 |more=0|
+label|V:\D?SK1|first=0 DISK1|more=0|
+label|V:\DISK2|first=18 |more=0|
+label|V:\disk1|first=0 DISK1|more=0|
+label|V:\FOO.TXT|first=18 |more=0|
+label|V:\FOO|first=18 |more=0|
+label|V:\.TXT|first=18 |more=0|
+fcblabel|???????????|al=0|more=0
+fcblabel|DISK1      |al=0|more=0
+fcblabel|DISK       |al=1|more=0
+fcblabel|DIS        |al=1|more=0
+fcblabel|DISK1   XYZ|al=1|more=0
+fcblabel|D?SK1      |al=0|more=0
+fcblabel|DISK2      |al=1|more=0
+fcblabel|           |al=1|more=0
+fcblabel|        TXT|al=1|more=0
+fcblabel|FOO     TXT|al=1|more=0
+quoted|"V:\FOO .TXT"|first=0 n=1|,FOO.TXT
+quoted|V:\FOO.TXT|first=0 n=1|,FOO.TXT
+quoted|"V:\PROGRAM FILES"|first=18 n=0|
+quoted|V:\PROGRAM|first=0 n=1|,PROGRAM
+quoted|"V:\PROGRAM .TXT"|first=0 n=1|,PROGRAM.TXT
+quoted|V:\PROGRAM.TXT|first=0 n=1|,PROGRAM.TXT
+quoted|V:\*.*|first=0 n=8|,BAR.TXT,FOO,FOO.TXT,FOO~1.TXT,PROGRAM,PROGRAM.TXT,PROGRA~1.TXT,PROGRA~2
+fcbname|FOO     TXT|al=0|name=464F4F2020202020545854|more=0
+fcbname|FOO        |al=0|name=464F4F2020202020202020|more=0
+fcbname|foo     txt|al=0|name=666F6F2020202020747874|more=0
+fcbname|????????TXT|al=0|name=3F3F3F3F3F3F3F3F545854|more=4
+fcbname|NOSUCH  TXT|al=1|name=4E4F535543482020545854|more=0
+end|lines=37
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+template.sh: build B: build (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+label|V:\|first=18 |more=0|
+label|V:|first=3 |more=0|
+label|V:\*.*|first=0 DISK1|more=0|
+label|V:\DISK1|first=0 DISK1|more=0|
+label|V:\DISK|first=18 |more=0|
+label|V:\DIS|first=18 |more=0|
+label|V:\DISK1.*|first=0 DISK1|more=0|
+label|V:\DISK*|first=0 DISK1|more=0|
+label|V:\DISK1XYZ|first=18 |more=0|
+label|V:\D?SK1|first=0 DISK1|more=0|
+label|V:\DISK2|first=18 |more=0|
+label|V:\disk1|first=0 DISK1|more=0|
+label|V:\FOO.TXT|first=18 |more=0|
+label|V:\FOO|first=18 |more=0|
+label|V:\.TXT|first=3 |more=0|
+fcblabel|???????????|al=0|more=0
+fcblabel|DISK1      |al=0|more=0
+fcblabel|DISK       |al=1|more=0
+fcblabel|DIS        |al=1|more=0
+fcblabel|DISK1   XYZ|al=1|more=0
+fcblabel|D?SK1      |al=0|more=0
+fcblabel|DISK2      |al=1|more=0
+fcblabel|           |al=1|more=0
+fcblabel|        TXT|al=1|more=0
+fcblabel|FOO     TXT|al=1|more=0
+quoted|"V:\FOO .TXT"|first=3 n=0|
+quoted|V:\FOO.TXT|first=0 n=1|,FOO.TXT
+quoted|"V:\PROGRAM FILES"|first=3 n=0|
+quoted|V:\PROGRAM|first=0 n=1|,PROGRAM
+quoted|"V:\PROGRAM .TXT"|first=3 n=0|
+quoted|V:\PROGRAM.TXT|first=0 n=1|,PROGRAM.TXT
+quoted|V:\*.*|first=0 n=8|,BAR.TXT,FOO,FOO.TXT,FOO~1.TXT,PROGRAM,PROGRAM.TXT,PROGRA~1.TXT,PROGRA~2
+fcbname|FOO     TXT|al=0|name=464F4F2020202020545854|more=0
+fcbname|FOO        |al=0|name=464F4F2020202020202020|more=0
+fcbname|foo     txt|al=0|name=666F6F2020202020747874|more=0
+fcbname|????????TXT|al=0|name=3F3F3F3F3F3F3F3F545854|more=4
+fcbname|NOSUCH  TXT|al=1|name=4E4F535543482020545854|more=0
+end|lines=37
+shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
+template.sh: DIFFERENT, 8 lines differ (A then B):
+< label|V:\|first=0 DISK1|more=0|
+< label|V:|first=0 DISK1|more=0|
+> label|V:\|first=18 |more=0|
+> label|V:|first=3 |more=0|
+< label|V:\DISK|first=0 DISK1|more=0|
+< label|V:\DIS|first=0 DISK1|more=0|
+> label|V:\DISK|first=18 |more=0|
+> label|V:\DIS|first=18 |more=0|
+< label|V:\.TXT|first=18 |more=0|
+> label|V:\.TXT|first=3 |more=0|
+< quoted|"V:\FOO .TXT"|first=0 n=1|,FOO.TXT
+> quoted|"V:\FOO .TXT"|first=3 n=0|
+< quoted|"V:\PROGRAM FILES"|first=18 n=0|
+> quoted|"V:\PROGRAM FILES"|first=3 n=0|
+< quoted|"V:\PROGRAM .TXT"|first=0 n=1|,PROGRAM.TXT
+> quoted|"V:\PROGRAM .TXT"|first=3 n=0|

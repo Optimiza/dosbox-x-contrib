@@ -1,0 +1,388 @@
+realdos.sh: msdos622: machine: build (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos622: image: MS-DOS 6.22 with CD-Rom Support VHD.vhd
+realdos.sh: msdos622: ver: MS-DOS Version 6.22
+realdos.sh: msdos622: dos|version=6.22 oem=FF
+realdos.sh: msdos622: dos|true_version=6.22 flags=00
+realdos.sh: msdos622: dos|int21=0021:40F8 code=FA80FC6C77D280FC
+realdos.sh: msdos622: dos|lfn_714e=0000
+realdos.sh: msdos622: dos|windows_1600=00
+realdos.sh: msdos622: dos|drive_z=3
+msdos622|basic|4e|37|D:\X\FOO.TXT|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|00|D:\X\FOO.TXT|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|10|D:\X\FOO.TXT|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|37|D:\X\FOO.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\FOO.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\foo.txt|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|00|D:\X\foo.txt|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|10|D:\X\foo.txt|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|37|D:\X\foo.txt|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\foo.txt|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\Foo.Txt|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|00|D:\X\Foo.Txt|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|10|D:\X\Foo.Txt|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|37|D:\X\Foo.Txt|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\Foo.Txt|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOO.TXT.|err=3|n=0|
+msdos622|basic|4e|00|D:\X\FOO.TXT.|err=3|n=0|
+msdos622|basic|4e|10|D:\X\FOO.TXT.|err=3|n=0|
+msdos622|basic|lfn|37|D:\X\FOO.TXT.|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\FOO.TXT.|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOO.|err=18|n=0|
+msdos622|basic|4e|00|D:\X\FOO.|err=18|n=0|
+msdos622|basic|4e|10|D:\X\FOO.|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\FOO.|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\FOO.|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOO|err=18|n=0|
+msdos622|basic|4e|00|D:\X\FOO|err=18|n=0|
+msdos622|basic|4e|10|D:\X\FOO|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\FOO|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\FOO|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOO.TX|err=18|n=0|
+msdos622|basic|4e|00|D:\X\FOO.TX|err=18|n=0|
+msdos622|basic|4e|10|D:\X\FOO.TX|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\FOO.TX|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\FOO.TX|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOO.TXTX|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|00|D:\X\FOO.TXTX|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|10|D:\X\FOO.TXTX|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|37|D:\X\FOO.TXTX|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\FOO.TXTX|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOOO.TXT|err=18|n=0|
+msdos622|basic|4e|00|D:\X\FOOO.TXT|err=18|n=0|
+msdos622|basic|4e|10|D:\X\FOOO.TXT|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\FOOO.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\FOOO.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FO.TXT|err=18|n=0|
+msdos622|basic|4e|00|D:\X\FO.TXT|err=18|n=0|
+msdos622|basic|4e|10|D:\X\FO.TXT|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\FO.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\FO.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\ FOO.TXT|err=3|n=0|
+msdos622|basic|4e|00|D:\X\ FOO.TXT|err=3|n=0|
+msdos622|basic|4e|10|D:\X\ FOO.TXT|err=3|n=0|
+msdos622|basic|lfn|37|D:\X\ FOO.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\ FOO.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOO.TXT |err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|00|D:\X\FOO.TXT |err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|10|D:\X\FOO.TXT |err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|37|D:\X\FOO.TXT |err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\FOO.TXT |err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOO .TXT|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|00|D:\X\FOO .TXT|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|10|D:\X\FOO .TXT|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|37|D:\X\FOO .TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\FOO .TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\NOSUCH.TXT|err=18|n=0|
+msdos622|basic|4e|00|D:\X\NOSUCH.TXT|err=18|n=0|
+msdos622|basic|4e|10|D:\X\NOSUCH.TXT|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\NOSUCH.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\NOSUCH.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\NOEXT|err=0|n=1|NOEXT:20:1
+msdos622|basic|4e|00|D:\X\NOEXT|err=0|n=1|NOEXT:20:1
+msdos622|basic|4e|10|D:\X\NOEXT|err=0|n=1|NOEXT:20:1
+msdos622|basic|lfn|37|D:\X\NOEXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\NOEXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\NOEXT.|err=0|n=1|NOEXT:20:1
+msdos622|basic|4e|00|D:\X\NOEXT.|err=0|n=1|NOEXT:20:1
+msdos622|basic|4e|10|D:\X\NOEXT.|err=0|n=1|NOEXT:20:1
+msdos622|basic|lfn|37|D:\X\NOEXT.|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\NOEXT.|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\noext.|err=0|n=1|NOEXT:20:1
+msdos622|basic|4e|00|D:\X\noext.|err=0|n=1|NOEXT:20:1
+msdos622|basic|4e|10|D:\X\noext.|err=0|n=1|NOEXT:20:1
+msdos622|basic|lfn|37|D:\X\noext.|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\noext.|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\A.B|err=0|n=1|A.B:20:2
+msdos622|basic|4e|00|D:\X\A.B|err=0|n=1|A.B:20:2
+msdos622|basic|4e|10|D:\X\A.B|err=0|n=1|A.B:20:2
+msdos622|basic|lfn|37|D:\X\A.B|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\A.B|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\A.B.|err=3|n=0|
+msdos622|basic|4e|00|D:\X\A.B.|err=3|n=0|
+msdos622|basic|4e|10|D:\X\A.B.|err=3|n=0|
+msdos622|basic|lfn|37|D:\X\A.B.|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\A.B.|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\SUBDIR|err=0|n=1|SUBDIR:10:0
+msdos622|basic|4e|00|D:\X\SUBDIR|err=18|n=0|
+msdos622|basic|4e|10|D:\X\SUBDIR|err=0|n=1|SUBDIR:10:0
+msdos622|basic|lfn|37|D:\X\SUBDIR|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\SUBDIR|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\subdir|err=0|n=1|SUBDIR:10:0
+msdos622|basic|4e|00|D:\X\subdir|err=18|n=0|
+msdos622|basic|4e|10|D:\X\subdir|err=0|n=1|SUBDIR:10:0
+msdos622|basic|lfn|37|D:\X\subdir|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\subdir|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\SUBDIR.|err=0|n=1|SUBDIR:10:0
+msdos622|basic|4e|00|D:\X\SUBDIR.|err=18|n=0|
+msdos622|basic|4e|10|D:\X\SUBDIR.|err=0|n=1|SUBDIR:10:0
+msdos622|basic|lfn|37|D:\X\SUBDIR.|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\SUBDIR.|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\Long Sub Directory|err=18|n=0|
+msdos622|basic|4e|00|D:\X\Long Sub Directory|err=18|n=0|
+msdos622|basic|4e|10|D:\X\Long Sub Directory|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\Long Sub Directory|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\Long Sub Directory|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\LONGSU~1|err=0|n=1|LONGSU~1:10:0
+msdos622|basic|4e|00|D:\X\LONGSU~1|err=18|n=0|
+msdos622|basic|4e|10|D:\X\LONGSU~1|err=0|n=1|LONGSU~1:10:0
+msdos622|basic|lfn|37|D:\X\LONGSU~1|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\LONGSU~1|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\LONGSU~1.|err=0|n=1|LONGSU~1:10:0
+msdos622|basic|4e|00|D:\X\LONGSU~1.|err=18|n=0|
+msdos622|basic|4e|10|D:\X\LONGSU~1.|err=0|n=1|LONGSU~1:10:0
+msdos622|basic|lfn|37|D:\X\LONGSU~1.|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\LONGSU~1.|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\ALPHAT~1.MID|err=0|n=1|ALPHAT~1.MID:20:4
+msdos622|basic|4e|00|D:\X\ALPHAT~1.MID|err=0|n=1|ALPHAT~1.MID:20:4
+msdos622|basic|4e|10|D:\X\ALPHAT~1.MID|err=0|n=1|ALPHAT~1.MID:20:4
+msdos622|basic|lfn|37|D:\X\ALPHAT~1.MID|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\ALPHAT~1.MID|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\alphat~1.mid|err=0|n=1|ALPHAT~1.MID:20:4
+msdos622|basic|4e|00|D:\X\alphat~1.mid|err=0|n=1|ALPHAT~1.MID:20:4
+msdos622|basic|4e|10|D:\X\alphat~1.mid|err=0|n=1|ALPHAT~1.MID:20:4
+msdos622|basic|lfn|37|D:\X\alphat~1.mid|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\alphat~1.mid|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\ALPHAT~2.MID|err=0|n=1|ALPHAT~2.MID:20:5
+msdos622|basic|4e|00|D:\X\ALPHAT~2.MID|err=0|n=1|ALPHAT~2.MID:20:5
+msdos622|basic|4e|10|D:\X\ALPHAT~2.MID|err=0|n=1|ALPHAT~2.MID:20:5
+msdos622|basic|lfn|37|D:\X\ALPHAT~2.MID|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\ALPHAT~2.MID|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\ALPHAT~3.MID|err=0|n=1|ALPHAT~3.MID:20:3
+msdos622|basic|4e|00|D:\X\ALPHAT~3.MID|err=0|n=1|ALPHAT~3.MID:20:3
+msdos622|basic|4e|10|D:\X\ALPHAT~3.MID|err=0|n=1|ALPHAT~3.MID:20:3
+msdos622|basic|lfn|37|D:\X\ALPHAT~3.MID|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\ALPHAT~3.MID|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\ALPHAT~4.MID|err=0|n=1|ALPHAT~4.MID:20:2
+msdos622|basic|4e|00|D:\X\ALPHAT~4.MID|err=0|n=1|ALPHAT~4.MID:20:2
+msdos622|basic|4e|10|D:\X\ALPHAT~4.MID|err=0|n=1|ALPHAT~4.MID:20:2
+msdos622|basic|lfn|37|D:\X\ALPHAT~4.MID|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\ALPHAT~4.MID|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\Alpha track 000000.mid|err=18|n=0|
+msdos622|basic|4e|00|D:\X\Alpha track 000000.mid|err=18|n=0|
+msdos622|basic|4e|10|D:\X\Alpha track 000000.mid|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\Alpha track 000000.mid|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\Alpha track 000000.mid|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\ALPHA TRACK 000000.MID|err=18|n=0|
+msdos622|basic|4e|00|D:\X\ALPHA TRACK 000000.MID|err=18|n=0|
+msdos622|basic|4e|10|D:\X\ALPHA TRACK 000000.MID|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\ALPHA TRACK 000000.MID|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\ALPHA TRACK 000000.MID|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\Alpha track 000001.mid|err=18|n=0|
+msdos622|basic|4e|00|D:\X\Alpha track 000001.mid|err=18|n=0|
+msdos622|basic|4e|10|D:\X\Alpha track 000001.mid|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\Alpha track 000001.mid|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\Alpha track 000001.mid|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\Alpha tr.mid|err=18|n=0|
+msdos622|basic|4e|00|D:\X\Alpha tr.mid|err=18|n=0|
+msdos622|basic|4e|10|D:\X\Alpha tr.mid|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\Alpha tr.mid|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\Alpha tr.mid|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\ALPHA TR.MID|err=18|n=0|
+msdos622|basic|4e|00|D:\X\ALPHA TR.MID|err=18|n=0|
+msdos622|basic|4e|10|D:\X\ALPHA TR.MID|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\ALPHA TR.MID|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\ALPHA TR.MID|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\MixCase.Txt|err=0|n=1|MIXCASE.TXT:20:5
+msdos622|basic|4e|00|D:\X\MixCase.Txt|err=0|n=1|MIXCASE.TXT:20:5
+msdos622|basic|4e|10|D:\X\MixCase.Txt|err=0|n=1|MIXCASE.TXT:20:5
+msdos622|basic|lfn|37|D:\X\MixCase.Txt|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\MixCase.Txt|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\MIXCASE.TXT|err=0|n=1|MIXCASE.TXT:20:5
+msdos622|basic|4e|00|D:\X\MIXCASE.TXT|err=0|n=1|MIXCASE.TXT:20:5
+msdos622|basic|4e|10|D:\X\MIXCASE.TXT|err=0|n=1|MIXCASE.TXT:20:5
+msdos622|basic|lfn|37|D:\X\MIXCASE.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\MIXCASE.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\Two.dots.name.txt|err=3|n=0|
+msdos622|basic|4e|00|D:\X\Two.dots.name.txt|err=3|n=0|
+msdos622|basic|4e|10|D:\X\Two.dots.name.txt|err=3|n=0|
+msdos622|basic|lfn|37|D:\X\Two.dots.name.txt|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\Two.dots.name.txt|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\TWODOT~1.TXT|err=18|n=0|
+msdos622|basic|4e|00|D:\X\TWODOT~1.TXT|err=18|n=0|
+msdos622|basic|4e|10|D:\X\TWODOT~1.TXT|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\TWODOT~1.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\TWODOT~1.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\No extension long name|err=18|n=0|
+msdos622|basic|4e|00|D:\X\No extension long name|err=18|n=0|
+msdos622|basic|4e|10|D:\X\No extension long name|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\No extension long name|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\No extension long name|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\NOEXTE~1|err=0|n=1|NOEXTE~1:20:9
+msdos622|basic|4e|00|D:\X\NOEXTE~1|err=0|n=1|NOEXTE~1:20:9
+msdos622|basic|4e|10|D:\X\NOEXTE~1|err=0|n=1|NOEXTE~1:20:9
+msdos622|basic|lfn|37|D:\X\NOEXTE~1|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\NOEXTE~1|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\NUL|err=0|n=1|NUL:40:284
+msdos622|basic|4e|00|D:\X\NUL|err=0|n=1|NUL:40:284
+msdos622|basic|4e|10|D:\X\NUL|err=0|n=1|NUL:40:284
+msdos622|basic|lfn|37|D:\X\NUL|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\NUL|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\NUL.TXT|err=0|n=1|NUL:40:284
+msdos622|basic|4e|00|D:\X\NUL.TXT|err=0|n=1|NUL:40:284
+msdos622|basic|4e|10|D:\X\NUL.TXT|err=0|n=1|NUL:40:284
+msdos622|basic|lfn|37|D:\X\NUL.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\NUL.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\CON|err=0|n=1|CON:40:112
+msdos622|basic|4e|00|D:\X\CON|err=0|n=1|CON:40:112
+msdos622|basic|4e|10|D:\X\CON|err=0|n=1|CON:40:112
+msdos622|basic|lfn|37|D:\X\CON|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\CON|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\PRN.TXT|err=0|n=1|PRN:40:112
+msdos622|basic|4e|00|D:\X\PRN.TXT|err=0|n=1|PRN:40:112
+msdos622|basic|4e|10|D:\X\PRN.TXT|err=0|n=1|PRN:40:112
+msdos622|basic|lfn|37|D:\X\PRN.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\PRN.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\.|err=0|n=1|X:10:0
+msdos622|basic|4e|00|D:\X\.|err=18|n=0|
+msdos622|basic|4e|10|D:\X\.|err=0|n=1|X:10:0
+msdos622|basic|lfn|37|D:\X\.|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\.|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\..|err=18|n=0|
+msdos622|basic|4e|00|D:\X\..|err=18|n=0|
+msdos622|basic|4e|10|D:\X\..|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\..|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\..|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\X|err=18|n=0|
+msdos622|basic|4e|00|D:\X\X|err=18|n=0|
+msdos622|basic|4e|10|D:\X\X|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\X|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\X|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\SUBDIR\INNER.TXT|err=0|n=1|INNER.TXT:20:5
+msdos622|basic|4e|00|D:\X\SUBDIR\INNER.TXT|err=0|n=1|INNER.TXT:20:5
+msdos622|basic|4e|10|D:\X\SUBDIR\INNER.TXT|err=0|n=1|INNER.TXT:20:5
+msdos622|basic|lfn|37|D:\X\SUBDIR\INNER.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\SUBDIR\INNER.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\SUBDIR\NOSUCH.TXT|err=18|n=0|
+msdos622|basic|4e|00|D:\X\SUBDIR\NOSUCH.TXT|err=18|n=0|
+msdos622|basic|4e|10|D:\X\SUBDIR\NOSUCH.TXT|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\SUBDIR\NOSUCH.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\SUBDIR\NOSUCH.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\NOSUCH\FOO.TXT|err=3|n=0|
+msdos622|basic|4e|00|D:\X\NOSUCH\FOO.TXT|err=3|n=0|
+msdos622|basic|4e|10|D:\X\NOSUCH\FOO.TXT|err=3|n=0|
+msdos622|basic|lfn|37|D:\X\NOSUCH\FOO.TXT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\NOSUCH\FOO.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\Long Sub Directory\Inner long name.dat|err=3|n=0|
+msdos622|basic|4e|00|D:\X\Long Sub Directory\Inner long name.dat|err=3|n=0|
+msdos622|basic|4e|10|D:\X\Long Sub Directory\Inner long name.dat|err=3|n=0|
+msdos622|basic|lfn|37|D:\X\Long Sub Directory\Inner long name.dat|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\Long Sub Directory\Inner long name.dat|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\LONGSU~1\INNERL~1.DAT|err=0|n=1|INNERL~1.DAT:20:9
+msdos622|basic|4e|00|D:\X\LONGSU~1\INNERL~1.DAT|err=0|n=1|INNERL~1.DAT:20:9
+msdos622|basic|4e|10|D:\X\LONGSU~1\INNERL~1.DAT|err=0|n=1|INNERL~1.DAT:20:9
+msdos622|basic|lfn|37|D:\X\LONGSU~1\INNERL~1.DAT|err=28928|n=0|
+msdos622|basic|lfn|00|D:\X\LONGSU~1\INNERL~1.DAT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\*.*|err=0|n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|basic|lfn|37|D:\X\*.*|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\*.TXT|err=0|n=5|BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|basic|lfn|37|D:\X\*.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOO.T?T|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|37|D:\X\FOO.T?T|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\F*.TXT|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|37|D:\X\F*.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\????????.???|err=0|n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|basic|lfn|37|D:\X\????????.???|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOO.*|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|37|D:\X\FOO.*|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\*.MID|err=0|n=4|ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2
+msdos622|basic|lfn|37|D:\X\*.MID|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\ALPHAT~?.MID|err=0|n=4|ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2
+msdos622|basic|lfn|37|D:\X\ALPHAT~?.MID|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\*|err=0|n=6|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,NOEXT:20:1,NOEXTE~1:20:9
+msdos622|basic|lfn|37|D:\X\*|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\Alpha*|err=18|n=0|
+msdos622|basic|lfn|37|D:\X\Alpha*|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\*.mid|err=0|n=4|ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2
+msdos622|basic|lfn|37|D:\X\*.mid|err=28928|n=0|
+msdos622|basic|4e|37|D:\X|err=0|n=1|X:10:0
+msdos622|basic|lfn|37|D:\X|err=28928|n=0|
+msdos622|basic|4e|37|D:\x|err=0|n=1|X:10:0
+msdos622|basic|lfn|37|D:\x|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\|err=3|n=0|
+msdos622|basic|lfn|37|D:\X\|err=28928|n=0|
+msdos622|basic|4e|37|D:\FOO.TXT|err=0|n=1|FOO.TXT:20:4
+msdos622|basic|lfn|37|D:\FOO.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\NOSUCH|err=18|n=0|
+msdos622|basic|lfn|37|D:\NOSUCH|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\FOO.TXT\|err=3|n=0|
+msdos622|basic|lfn|37|D:\X\FOO.TXT\|err=28928|n=0|
+msdos622|basic|4e|37|D:FOO.TXT|err=0|n=1|FOO.TXT:20:4
+msdos622|basic|lfn|37|D:FOO.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\.\X\FOO.TXT|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|37|D:\.\X\FOO.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\..\FOO.TXT|err=0|n=1|FOO.TXT:20:4
+msdos622|basic|lfn|37|D:\X\..\FOO.TXT|err=28928|n=0|
+msdos622|basic|4e|37|D:\X\SUBDIR\..\BAR.TXT|err=0|n=1|BAR.TXT:20:5
+msdos622|basic|lfn|37|D:\X\SUBDIR\..\BAR.TXT|err=28928|n=0|
+msdos622|basic|4e|08|D:\*.*|err=18|n=0|
+msdos622|basic|4e|3F|D:\*.*|err=0|n=2|X:10:0,FOO.TXT:20:4
+msdos622|basic|lfn|08|D:\*.*|err=28928|n=0|
+msdos622|basic|4e|08|D:\FOO.TXT|err=18|n=0|
+msdos622|basic|4e|3F|D:\FOO.TXT|err=0|n=1|FOO.TXT:20:4
+msdos622|basic|lfn|08|D:\FOO.TXT|err=28928|n=0|
+msdos622|basic|4e|08|D:\X\FOO.TXT|err=18|n=0|
+msdos622|basic|4e|3F|D:\X\FOO.TXT|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|lfn|08|D:\X\FOO.TXT|err=28928|n=0|
+msdos622|basic|4e|08|D:\NOSUCH.TXT|err=18|n=0|
+msdos622|basic|4e|3F|D:\NOSUCH.TXT|err=18|n=0|
+msdos622|basic|lfn|08|D:\NOSUCH.TXT|err=28928|n=0|
+msdos622|basic|4e|08|D:\X\*.*|err=18|n=0|
+msdos622|basic|4e|3F|D:\X\*.*|err=0|n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|basic|lfn|08|D:\X\*.*|err=28928|n=0|
+msdos622|basic|fcb|plain|FOO     TXT|n=1|FOO     TXT
+msdos622|basic|fcb|10|FOO     TXT|n=1|FOO     TXT
+msdos622|basic|fcb|16|FOO     TXT|n=1|FOO     TXT
+msdos622|basic|fcb|plain|NOSUCH  TXT|n=0|
+msdos622|basic|fcb|10|NOSUCH  TXT|n=0|
+msdos622|basic|fcb|16|NOSUCH  TXT|n=0|
+msdos622|basic|fcb|plain|NOEXT      |n=1|NOEXT      
+msdos622|basic|fcb|10|NOEXT      |n=1|NOEXT      
+msdos622|basic|fcb|16|NOEXT      |n=1|NOEXT      
+msdos622|basic|fcb|plain|A       B  |n=1|A       B  
+msdos622|basic|fcb|10|A       B  |n=1|A       B  
+msdos622|basic|fcb|16|A       B  |n=1|A       B  
+msdos622|basic|fcb|plain|SUBDIR     |n=0|
+msdos622|basic|fcb|10|SUBDIR     |n=1|SUBDIR     
+msdos622|basic|fcb|16|SUBDIR     |n=1|SUBDIR     
+msdos622|basic|fcb|plain|ALPHAT~1MID|n=1|ALPHAT~1MID
+msdos622|basic|fcb|10|ALPHAT~1MID|n=1|ALPHAT~1MID
+msdos622|basic|fcb|16|ALPHAT~1MID|n=1|ALPHAT~1MID
+msdos622|basic|fcb|plain|ALPHAT~2MID|n=1|ALPHAT~2MID
+msdos622|basic|fcb|10|ALPHAT~2MID|n=1|ALPHAT~2MID
+msdos622|basic|fcb|16|ALPHAT~2MID|n=1|ALPHAT~2MID
+msdos622|basic|fcb|plain|MIXCASE TXT|n=1|MIXCASE TXT
+msdos622|basic|fcb|10|MIXCASE TXT|n=1|MIXCASE TXT
+msdos622|basic|fcb|16|MIXCASE TXT|n=1|MIXCASE TXT
+msdos622|basic|fcb|plain|????????TXT|n=5|BAR     TXT,FOO     TXT,MIXCASE TXT,TWO~1   TXT,ZED     TXT
+msdos622|basic|fcb|10|????????TXT|n=5|BAR     TXT,FOO     TXT,MIXCASE TXT,TWO~1   TXT,ZED     TXT
+msdos622|basic|fcb|16|????????TXT|n=5|BAR     TXT,FOO     TXT,MIXCASE TXT,TWO~1   TXT,ZED     TXT
+msdos622|basic|fcb|plain|FOO     T?T|n=1|FOO     TXT
+msdos622|basic|fcb|10|FOO     T?T|n=1|FOO     TXT
+msdos622|basic|fcb|16|FOO     T?T|n=1|FOO     TXT
+msdos622|basic|fcb|plain|FOO     ???|n=1|FOO     TXT
+msdos622|basic|fcb|10|FOO     ???|n=1|FOO     TXT
+msdos622|basic|fcb|16|FOO     ???|n=1|FOO     TXT
+msdos622|basic|fcb|plain|???????????|n=12|A       B  ,ALPHAT~1MID,ALPHAT~2MID,ALPHAT~3MID,ALPHAT~4MID,BAR     TXT,FOO     TXT,MIXCASE TXT,NOEXT      ,NOEXTE~1   ,TWO~1   TXT,ZED     TXT
+msdos622|basic|fcb|10|???????????|n=16|.          ,..         ,LONGSU~1   ,SUBDIR     ,A       B  ,ALPHAT~1MID,ALPHAT~2MID,ALPHAT~3MID,ALPHAT~4MID,BAR     TXT,FOO     TXT,MIXCASE TXT,NOEXT      ,NOEXTE~1   ,TWO~1   TXT,ZED     TXT
+msdos622|basic|fcb|16|???????????|n=16|.          ,..         ,LONGSU~1   ,SUBDIR     ,A       B  ,ALPHAT~1MID,ALPHAT~2MID,ALPHAT~3MID,ALPHAT~4MID,BAR     TXT,FOO     TXT,MIXCASE TXT,NOEXT      ,NOEXTE~1   ,TWO~1   TXT,ZED     TXT
+msdos622|basic|4e|37|FOO.TXT|err=0|n=1|FOO.TXT:20:3
+msdos622|basic|4e|37|NOSUCH.TXT|err=18|n=0|
+msdos622|basic|4e|37|SUBDIR|err=0|n=1|SUBDIR:10:0
+msdos622|basic|lfn|37|Alpha track 000000.mid|err=28928|n=0|
+msdos622|life|whole-folder|n=16
+msdos622|life|exact-nested-same-dta|outer=1 inner=1
+msdos622|life|exact-inside-whole-folder|outer=16 of 16 inner=1
+msdos622|life|exact-two-entries|n=1 inner=16 of 16|ALPHAT~1.MID:20:4
+msdos622|life|exact-after-create-and-delete|before=18 created=1 found=1 other_case=1 after=18|NEWFILE.TXT:20:3
+msdos622|life|exact-across-create|first=0 more=0
+msdos622|life|lfn-exact-300-then-folder|found=0 folder=16 of 16
+msdos622|life|exact-abandoned-past-the-slots|found=2108 folder=16 of 16 then=1|ZED.TXT:20:7
+msdos622|drift|dta-pattern-edited|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|drift|failed-findfirst-other-pattern|first=0 failed=3 more=0|
+msdos622|drift|lfn-wildcard-writes-exact-dta|first=0 lfn=28928 more=0|
+msdos622|drift|lfn-exact-writes-wildcard-dta|lfn=28928 outer=16 of 16|,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos622|drift|device-through-exact-dta|first=0 device=0 more=0|
+msdos622|drift|fcb-exact-around-lfn-exact|lfn=28928 files=1|
+msdos622|drift|fcb-wildcard-around-lfn-exact|lfn=28928 files=12|,ALPHAT~2MID,ALPHAT~3MID,ALPHAT~4MID,BAR     TXT,FOO     TXT,MIXCASE TXT,NOEXT      ,NOEXTE~1   ,TWO~1   TXT,ZED     TXT
+msdos622|life|fcb-wildcard-around-4e-exact|inner=0 files=12
+msdos622|end|lines=378

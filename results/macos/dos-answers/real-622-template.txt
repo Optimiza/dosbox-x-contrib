@@ -1,0 +1,47 @@
+realdos.sh: msdos622: machine: build (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos622: image: MS-DOS 6.22 with CD-Rom Support VHD.vhd
+realdos.sh: msdos622: ver: MS-DOS Version 6.22
+realdos.sh: msdos622: dos|version=6.22 oem=FF
+realdos.sh: msdos622: dos|true_version=6.22 flags=00
+realdos.sh: msdos622: dos|int21=0021:40F8 code=FA80FC6C77D280FC
+realdos.sh: msdos622: dos|lfn_714e=0000
+realdos.sh: msdos622: dos|windows_1600=00
+realdos.sh: msdos622: dos|drive_z=3
+msdos622|label|V:\|first=18 |more=0|
+msdos622|label|V:|first=3 |more=0|
+msdos622|label|V:\*.*|first=0 DISK1|more=0|
+msdos622|label|V:\DISK1|first=0 DISK1|more=0|
+msdos622|label|V:\DISK|first=18 |more=0|
+msdos622|label|V:\DIS|first=18 |more=0|
+msdos622|label|V:\DISK1.*|first=0 DISK1|more=0|
+msdos622|label|V:\DISK*|first=0 DISK1|more=0|
+msdos622|label|V:\DISK1XYZ|first=18 |more=0|
+msdos622|label|V:\D?SK1|first=0 DISK1|more=0|
+msdos622|label|V:\DISK2|first=18 |more=0|
+msdos622|label|V:\disk1|first=0 DISK1|more=0|
+msdos622|label|V:\FOO.TXT|first=18 |more=0|
+msdos622|label|V:\FOO|first=18 |more=0|
+msdos622|label|V:\.TXT|first=3 |more=0|
+msdos622|fcblabel|???????????|al=0|more=0
+msdos622|fcblabel|DISK1      |al=0|more=0
+msdos622|fcblabel|DISK       |al=1|more=0
+msdos622|fcblabel|DIS        |al=1|more=0
+msdos622|fcblabel|DISK1   XYZ|al=1|more=0
+msdos622|fcblabel|D?SK1      |al=0|more=0
+msdos622|fcblabel|DISK2      |al=1|more=0
+msdos622|fcblabel|           |al=1|more=0
+msdos622|fcblabel|        TXT|al=1|more=0
+msdos622|fcblabel|FOO     TXT|al=1|more=0
+msdos622|quoted|"V:\FOO .TXT"|first=3 n=0|
+msdos622|quoted|V:\FOO.TXT|first=0 n=1|,FOO.TXT
+msdos622|quoted|"V:\PROGRAM FILES"|first=3 n=0|
+msdos622|quoted|V:\PROGRAM|first=0 n=1|,PROGRAM
+msdos622|quoted|"V:\PROGRAM .TXT"|first=3 n=0|
+msdos622|quoted|V:\PROGRAM.TXT|first=0 n=1|,PROGRAM.TXT
+msdos622|quoted|V:\*.*|first=0 n=8|,BAR.TXT,FOO,FOO.TXT,FOO~1.TXT,PROGRAM,PROGRAM.TXT,PROGRA~1.TXT,PROGRA~2
+msdos622|fcbname|FOO     TXT|al=0|name=464F4F2020202020545854|more=0
+msdos622|fcbname|FOO        |al=0|name=464F4F2020202020202020|more=0
+msdos622|fcbname|foo     txt|al=0|name=464F4F2020202020545854|more=0
+msdos622|fcbname|????????TXT|al=0|name=3F3F3F3F3F3F3F3F545854|more=4
+msdos622|fcbname|NOSUCH  TXT|al=1|name=4E4F535543482020545854|more=0
+msdos622|end|lines=37
