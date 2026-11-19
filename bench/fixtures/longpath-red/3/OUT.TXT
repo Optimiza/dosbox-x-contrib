@@ -1,0 +1,12 @@
+start
+
+ Volume in drive D has no label
+ Volume Serial Number is 0000-1234
+ Directory of D:\D1xxxx\D2xxxx\D3xxxx
+
+.              <DIR>            11/19/2026 10:44a .
+..             <DIR>            11/19/2026 10:44a ..
+CTRL     TXT                  7 11/19/2026 10:44a CTRL.TXT
+    1 File(s)                 7 Bytes
+    2 Dir(s)      2,013,265,920 Bytes free
+end

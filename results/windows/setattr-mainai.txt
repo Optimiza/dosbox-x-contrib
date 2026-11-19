@@ -1,0 +1,53 @@
+# What: attrprobe.sh and attrsem.sh on base and setattr, then attrcost.sh on counter builds, modes b, s, m, u and c, 20 repeats, 300 files.
+# Host: Windows 11 x64, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1), each with the commit of pull request 6857 merged in, because main-ai alone does not compile with MSVC
+# Date: 2026-11-19
+# Builds (source commit, sha256 of the executable):
+#   base         joncampbell123/dosbox-x main-ai 8de17e7f5 + 6857   f0942a9599ed27bbec0075ee058eb8843c25dd987034f4f3d6f5f1213b083d42
+#   setattr      dircache-setattr-mainai 167a9fed6 + 6857   a7609756b6e90df0d2c6c513de90fa749437e4327440ab063f80588a4a00109c
+#   counters: base + counters c302529d3ff2..., setattr + counters 60c35d042d6e..., scratch builds, not kept
+# attrprobe.sh base setattr on
+attrprobe.sh: long names on
+attrprobe.sh: DIFFERENT, 1 lines differ (A then B):
+# exit code 1
+# attrsem.sh base setattr on
+attrsem.sh: long names on
+attrsem.sh: ALIKE
+# exit code 0
+# attrprobe.sh base setattr off
+attrprobe.sh: long names off
+attrprobe.sh: DIFFERENT, 1 lines differ (A then B):
+# exit code 1
+# attrsem.sh base setattr off
+attrsem.sh: long names off
+attrsem.sh: ALIKE
+# exit code 0
+# attrcost.sh base synthetic:300:83 b 20
+attrcost.sh: mode=b k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=6 reads_of_the_folder=1 entries_read=337 cost|baseline|names=22 end|lines=1
+# exit code 0
+# attrcost.sh setattr synthetic:300:83 b 20
+attrcost.sh: mode=b k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=6 reads_of_the_folder=1 entries_read=337 cost|baseline|names=22 end|lines=1
+# exit code 0
+# attrcost.sh base synthetic:300:83 s 20
+attrcost.sh: mode=s k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=46 reads_of_the_folder=21 entries_read=6437 cost|baseline|names=22 cost|loop|mode=s k=20 done=20 found=20 guest_us=2772 end|lines=2
+# exit code 0
+# attrcost.sh setattr synthetic:300:83 s 20
+attrcost.sh: mode=s k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=6 reads_of_the_folder=1 entries_read=337 cost|baseline|names=22 cost|loop|mode=s k=20 done=20 found=20 guest_us=2577 end|lines=2
+# exit code 0
+# attrcost.sh base synthetic:300:83 m 20
+attrcost.sh: mode=m k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=106 reads_of_the_folder=61 entries_read=19187 cost|baseline|names=22 cost|loop|mode=m k=20 done=20 found=20 guest_us=10120 end|lines=2
+# exit code 0
+# attrcost.sh setattr synthetic:300:83 m 20
+attrcost.sh: mode=m k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=m k=20 done=20 found=20 guest_us=10424 end|lines=2
+# exit code 0
+# attrcost.sh base synthetic:300:83 u 20
+attrcost.sh: mode=u k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=u k=20 done=20 found=20 guest_us=5209 end|lines=2
+# exit code 0
+# attrcost.sh setattr synthetic:300:83 u 20
+attrcost.sh: mode=u k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=u k=20 done=20 found=20 guest_us=5214 end|lines=2
+# exit code 0
+# attrcost.sh base synthetic:300:83 c 20
+attrcost.sh: mode=c k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=c k=20 done=20 found=20 guest_us=9705 end|lines=2
+# exit code 0
+# attrcost.sh setattr synthetic:300:83 c 20
+attrcost.sh: mode=c k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=c k=20 done=20 found=20 guest_us=9122 end|lines=2
+# exit code 0

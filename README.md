@@ -20,6 +20,7 @@ figures.
 | 9 | [An attribute change on Windows does not empty the directory cache](docs/09-setattr.md) | `dircache-setattr` | nothing | proved on Windows, the only host it changes |
 | 10 | [The x86 dynamic core keeps its code-page handlers across a cache reset](docs/10-dyncore-cache-reset.md) | `dyncore-cache-reset` | nothing | proved on Windows; the macOS build has no such core |
 | 11 | [A create keeps the directory cache, and a delete removes one entry](docs/11-create-delete.md) | `dircache-create-delete` | nothing | proved on macOS and Windows |
+| 12 | [A path longer than the emulator's arrays answers "path not found"](docs/12-longname.md) | `dircache-longname` | nothing | proved on macOS and Windows, not offered yet |
 
 - Subjects 7 and 8 are withdrawn: the `DIR` fix of subject 7 is a commit of subject 4, and the
   defect of subject 8 was not there.

@@ -34,6 +34,7 @@ program sees when it does anything but run one search to its end. The code under
 | [`attrcost.sh`](#attrcostsh) | `attrcost.c` | how many times a build reads a folder from the host while a program changes attributes, deletes or creates files in it |
 | [`resprb.sh`](#resprbsh) | `resprb.c` | how much host memory a build keeps after a program repeats a child process, a change of the FPU's control word, or a search |
 | [`aliases.sh`](#aliasessh) | `aliases.c` | whether two entries of a folder share a short name, and whether each short name opens its own file |
+| [`longpath.sh`](#longpathsh) | none: shell commands | whether the emulator survives a host path, or a path inside a zip, longer than the arrays it builds paths in |
 | [`unit.sh`](#unitsh) | none: the emulator's own unit tests | how many of a build's unit tests ran and failed |
 | [`passfail.sh`](#passfailsh) | a program you hand it | how many checks of a self-testing DOS program pass on a build |
 | [`junktest.sh`](#junktestsh) | the batch files a reporter attached to an upstream issue, then `memprobe.c` to hold | how much host memory a build keeps after the reporter's own run |
@@ -1283,6 +1284,57 @@ two builds' figures differ, `2` usage, `3` INVALID.
   file stays reachable by its own short name.
 - The Wine-style names are written in the script, as the emulator computes them for the eight
   long names. A change to that hash is a change to the script.
+
+## longpath.sh
+
+**What it shows.** Whether the emulator survives a path longer than the arrays it builds host
+paths in. On a build that overruns them, the emulator ends on its stack check.
+
+- It runs three cases, each in a run of its own, so that one that ends the emulator hides no
+  other.
+- Each case has a control that does the same over a short path, and the control must list its
+  file.
+
+**How it is called.**
+
+```sh
+longpath.sh <on|off> <build>...
+```
+
+- `mount`: MOUNT of a host folder whose path is 369 bytes, then `DIR` of the drive.
+- `nested`: `DIR`, `TYPE` and `CD` of three nested host folders of 200 characters each, by
+  their 8.3 names.
+- `zip`: MOUNT of a zip holding three nested folders, two of 200 characters and the last of 95,
+  then `DIR /S`.
+- `overlay`: an overlay drive whose folder is 404 bytes long over a base with a file of 101
+  characters, which `DIR` must list; then one over a base folder that holds an entry too long to
+  list, whose `RD` must fail with "directory not empty".
+
+- The guest runs shell commands only, so no compiler is needed.
+- `DIRCACHE_LONGPATH_BYTES` sets the path of the `mount` case, 250 bytes or more.
+- `DIRCACHE_LONGPATH_ZIPS` names a folder with `long.zip` and `short.zip` made on another host,
+  for a host whose Python cannot start.
+
+**What it prints.** One line per build: `mount=`, `nested=`, `zip=` and `overlay=`, each `survived`, `crashed:<exit code>` or `wrong:<what>`, then `controls=ok`.
+
+- A case survives when the guest reaches its last line and the emulator exits `0`.
+- The answer the guest gets for a path the emulator cannot hold is not judged. The overlay case
+  is `wrong:unlisted` or `wrong:rd-succeeded` when its listing or its `RD` answers otherwise.
+
+**Exit codes.** `0` every case survived on every build, `1` a case ended the emulator on some
+build, `2` usage, `3` INVALID.
+
+- A run is INVALID when the emulator did not start, a run left no first line, or a control did
+  not list its file.
+
+**What it does not show.**
+
+- On Windows the `nested` case survives on every build: the host cannot hold three folders of
+  200 characters, so the guest never reaches them. The `RD` half of `overlay` is not run there,
+  for the same reason, nor with long names off, where the overlay's `RD` does not list the
+  folder it removes on any build.
+- The mount case ends at MOUNT's refusal on a build that has the fix.
+- It does not say what the guest is told for a path that does not fit.
 
 ## unit.sh
 

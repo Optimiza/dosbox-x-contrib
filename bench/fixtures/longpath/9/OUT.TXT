@@ -1,0 +1,13 @@
+start
+Invalid path, not directory, or directory not empty - E:\N1XXXX~1\N2XXXX~1
+
+ Volume in drive E has no label
+ Volume Serial Number is 0000-1234
+ Directory of E:\N1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+.              <DIR>            11/19/2026 10:45a .
+..             <DIR>            11/19/2026 10:45a ..
+N2XXXX~1       <DIR>            11/19/2026 10:45a N2xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    0 File(s)                 0 Bytes
+    3 Dir(s)      2,013,265,920 Bytes free
+end

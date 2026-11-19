@@ -1,0 +1,53 @@
+# What: attrprobe.sh and attrsem.sh on base and setattr, then attrcost.sh on counter builds (counters/count-dir.diff), 20 repeats, 300 files. On macOS the two builds read alike: the change is for Windows.
+# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-19
+# Builds (source commit, sha256 of the executable):
+#   base         joncampbell123/dosbox-x main-ai 8de17e7f5   d7b400542a462c195e82116d7ce1ad7129f4ea14acb2a90c46827f478acbf823
+#   setattr      dircache-setattr-mainai 167a9fed6   f2cd4a8ffafb2c2ce7251c3f033e3629bdc08eb11412124c2f685668c49679b5
+#   counters: base + counters (sha256 e2711c2334d7...), setattr + counters (sha256 236a8dd0d56f...), scratch builds, not kept
+# attrprobe.sh base setattr on
+attrprobe.sh: long names on
+attrprobe.sh: ALIKE
+# exit code 0
+# attrsem.sh base setattr on
+attrsem.sh: long names on
+attrsem.sh: ALIKE
+# exit code 0
+# attrprobe.sh base setattr off
+attrprobe.sh: long names off
+attrprobe.sh: ALIKE
+# exit code 0
+# attrsem.sh base setattr off
+attrsem.sh: long names off
+attrsem.sh: ALIKE
+# exit code 0
+# attrcost.sh base+counter synthetic:300:83 b 20
+attrcost.sh: mode=b k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=6 reads_of_the_folder=1 entries_read=337 cost|baseline|names=22 end|lines=1
+# exit code 0
+# attrcost.sh setattr+counter synthetic:300:83 b 20
+attrcost.sh: mode=b k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=6 reads_of_the_folder=1 entries_read=337 cost|baseline|names=22 end|lines=1
+# exit code 0
+# attrcost.sh base+counter synthetic:300:83 s 20
+attrcost.sh: mode=s k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=6 reads_of_the_folder=1 entries_read=337 cost|baseline|names=22 cost|loop|mode=s k=20 done=20 found=20 guest_us=3420 end|lines=2
+# exit code 0
+# attrcost.sh setattr+counter synthetic:300:83 s 20
+attrcost.sh: mode=s k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=6 reads_of_the_folder=1 entries_read=337 cost|baseline|names=22 cost|loop|mode=s k=20 done=20 found=20 guest_us=3746 end|lines=2
+# exit code 0
+# attrcost.sh base+counter synthetic:300:83 m 20
+attrcost.sh: mode=m k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=m k=20 done=20 found=20 guest_us=14074 end|lines=2
+# exit code 0
+# attrcost.sh setattr+counter synthetic:300:83 m 20
+attrcost.sh: mode=m k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=m k=20 done=20 found=20 guest_us=14454 end|lines=2
+# exit code 0
+# attrcost.sh base+counter synthetic:300:83 u 20
+attrcost.sh: mode=u k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=u k=20 done=20 found=20 guest_us=6548 end|lines=2
+# exit code 0
+# attrcost.sh setattr+counter synthetic:300:83 u 20
+attrcost.sh: mode=u k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=u k=20 done=20 found=20 guest_us=6184 end|lines=2
+# exit code 0
+# attrcost.sh base+counter synthetic:300:83 c 20
+attrcost.sh: mode=c k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=c k=20 done=20 found=20 guest_us=11175 end|lines=2
+# exit code 0
+# attrcost.sh setattr+counter synthetic:300:83 c 20
+attrcost.sh: mode=c k=20 folder=synthetic:300:83 entries=300 entries_after=300 host_reads=66 reads_of_the_folder=41 entries_read=12877 cost|baseline|names=22 cost|loop|mode=c k=20 done=20 found=20 guest_us=11246 end|lines=2
+# exit code 0

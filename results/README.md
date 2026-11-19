@@ -31,6 +31,10 @@ Each build is named with the commit it was made from and the sha256 of its execu
 | [`windows/setattr.txt`](windows/setattr.txt) | an attribute change on Windows: a saved DTA, the reads it costs, its side effects |
 | [`windows/dyncore.txt`](windows/dyncore.txt) | memory held after child programs on Windows: unpatched, dynamic-core, retention and the two merged |
 | [`macos/create-delete.txt`](macos/create-delete.txt), [`windows/create-delete.txt`](windows/create-delete.txt) | a delete, a create, `RD`, `MD` and a rename, and on Windows the reads they cost |
+| [`macos/longname.txt`](macos/longname.txt), [`windows/longname.txt`](windows/longname.txt) | whether the emulator survives a path past its arrays, on `main-ai` and with the fix, and the listings that read alike |
+| [`macos/setattr-mainai.txt`](macos/setattr-mainai.txt), [`windows/setattr-mainai.txt`](windows/setattr-mainai.txt) | an attribute change on `main-ai`: the saved search, and the reads of the folder it costs |
+| [`macos/dyncore-mainai.txt`](macos/dyncore-mainai.txt), [`windows/dyncore-mainai.txt`](windows/dyncore-mainai.txt) | memory held after child programs on `main-ai`, with and without the fix |
+| [`macos/create-delete-mainai.txt`](macos/create-delete-mainai.txt), [`windows/create-delete-mainai.txt`](windows/create-delete-mainai.txt) | the same cases as subject 11 on `main-ai`, and on `main-ai` with the branches of subjects 3 and 5 |
 
 Pull request 6831 is
 [another author's pull request, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831).

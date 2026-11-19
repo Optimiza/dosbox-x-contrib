@@ -1,0 +1,12 @@
+start
+
+ Volume in drive E has no label
+ Volume Serial Number is 0000-1234
+ Directory of E:\
+
+.              <DIR>            11/19/2026 10:44a .
+..             <DIR>            11/19/2026 10:44a ..
+FXXXXX~1                      7 11/19/2026 10:44a Fxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    1 File(s)                 7 Bytes
+    2 Dir(s)      2,013,265,920 Bytes free
+end

@@ -1,0 +1,19 @@
+# What: resprb.sh on counter builds, modes c and p, 20 calls: the memory the emulator holds after twenty child programs (held_private_kb) and the cache resets counted.
+# Host: Windows 11 x64, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1), each with the commit of pull request 6857 merged in, because main-ai alone does not compile with MSVC
+# Date: 2026-11-19
+# Builds (source commit, sha256 of the executable):
+#   base         joncampbell123/dosbox-x main-ai 8de17e7f5 + 6857 + counters   a16d8c1140b7c1ca4c576484aef6c11a9a9d8026d4987f9b53d119807fdbcdfe
+#   dyncore      dyncore-cache-reset-mainai 4458a606d + 6857 + counters   6702134ef53bc31b70c7864b7fcdf1bed43890c1fe4c83656410419931e32abd
+#   counters: scratch builds, not kept; the dyncore one has the counter applied by hand
+# resprb.sh base c 20
+resprb.sh: mode=c calls=20 core=dynamic files=100 peak_ws_kb=336100 held_ws_kb=336096 held_private_kb=321928 samples=27 resets=42 guest="mode=c k=20 ok=20 released=1 guest_us=1098932"
+# exit code 0
+# resprb.sh dyncore c 20
+resprb.sh: mode=c calls=20 core=dynamic files=100 peak_ws_kb=206608 held_ws_kb=206604 held_private_kb=188308 samples=27 resets=42 guest="mode=c k=20 ok=20 released=1 guest_us=1098886"
+# exit code 0
+# resprb.sh base p 20
+resprb.sh: mode=p calls=20 core=dynamic files=100 peak_ws_kb=298724 held_ws_kb=298680 held_private_kb=325212 samples=14 resets=41 guest="mode=p k=20 ok=20 released=1 guest_us=25"
+# exit code 0
+# resprb.sh dyncore p 20
+resprb.sh: mode=p calls=20 core=dynamic files=100 peak_ws_kb=166056 held_ws_kb=166016 held_private_kb=188212 samples=13 resets=41 guest="mode=p k=20 ok=20 released=1 guest_us=29"
+# exit code 0

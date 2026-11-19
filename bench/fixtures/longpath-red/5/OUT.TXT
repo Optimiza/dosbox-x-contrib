@@ -1,0 +1,37 @@
+start
+
+ Volume in drive E has no label
+ Volume Serial Number is 0000-1234
+
+ Directory of E:\
+
+.              <DIR>            01/01/2098  1:00a .
+..             <DIR>            01/01/2098  1:00a ..
+D1XXXX         <DIR>            01/01/2098  1:00a D1xxxx
+    0 File(s)                 0 Bytes
+
+ Directory of E:\D1xxxx
+
+.              <DIR>            01/01/2098  1:00a .
+..             <DIR>            01/01/2098  1:00a ..
+D2XXXX         <DIR>            01/01/2098  1:00a D2xxxx
+    0 File(s)                 0 Bytes
+
+ Directory of E:\D1xxxx\D2xxxx
+
+.              <DIR>            01/01/2098  1:00a .
+..             <DIR>            01/01/2098  1:00a ..
+D3XXXX         <DIR>            01/01/2098  1:00a D3xxxx
+    0 File(s)                 0 Bytes
+
+ Directory of E:\D1xxxx\D2xxxx\D3xxxx
+
+.              <DIR>            01/01/2098  1:00a .
+..             <DIR>            01/01/2098  1:00a ..
+CTRL     TXT                  7 11/19/2026 10:44a CTRL.TXT
+    1 File(s)                 7 Bytes
+
+Total files listed:
+    1 File(s)                 7 Bytes
+   11 Dir(s)        262,144,000 Bytes free
+end

@@ -1,0 +1,19 @@
+# What: resprb.sh on counter builds (counters/count-dyn.diff), modes c and p, 20 calls. The macOS build has no x86 dynamic core, so no reset is counted and the two builds read alike.
+# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-19
+# Builds (source commit, sha256 of the executable):
+#   base         joncampbell123/dosbox-x main-ai 8de17e7f5   (+ counters, sha256 f647e4d15704...)
+#   dyncore      dyncore-cache-reset-mainai 4458a606d (+ counters, sha256 b14c2967dea1...)
+#   counters: scratch builds, not kept; the counter diff was applied to dyncore by hand, as its context no longer matches
+# resprb.sh base+counter c 20
+resprb.sh: mode=c calls=20 core=dynamic files=100 peak_rss_kb=205696 held_rss_kb=205696 held_footprint_kb=166272 samples=14 resets=none guest="mode=c k=20 ok=20 released=1 guest_us=1099352"
+# exit code 0
+# resprb.sh dyncore+counter c 20
+resprb.sh: mode=c calls=20 core=dynamic files=100 peak_rss_kb=205584 held_rss_kb=205584 held_footprint_kb=166160 samples=14 resets=none guest="mode=c k=20 ok=20 released=1 guest_us=1099326"
+# exit code 0
+# resprb.sh base+counter p 20
+resprb.sh: mode=p calls=20 core=dynamic files=100 peak_rss_kb=206576 held_rss_kb=206576 held_footprint_kb=167152 samples=7 resets=none guest="mode=p k=20 ok=20 released=1 guest_us=44"
+# exit code 0
+# resprb.sh dyncore+counter p 20
+resprb.sh: mode=p calls=20 core=dynamic files=100 peak_rss_kb=204352 held_rss_kb=204352 held_footprint_kb=164944 samples=7 resets=none guest="mode=p k=20 ok=20 released=1 guest_us=42"
+# exit code 0

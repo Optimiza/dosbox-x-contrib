@@ -1,0 +1,24 @@
+start
+
+ Volume in drive E has no label
+ Volume Serial Number is 0000-1234
+ Directory of E:\
+
+.              <DIR>            11/19/2026 10:44a .
+..             <DIR>            11/19/2026 10:44a ..
+D1             <DIR>            11/19/2026 10:44a D1
+CTRL     TXT                  7 11/19/2026 10:44a CTRL.TXT
+    1 File(s)                 7 Bytes
+    3 Dir(s)      2,013,265,920 Bytes free
+Invalid path, not directory, or directory not empty - E:\D1
+
+ Volume in drive E has no label
+ Volume Serial Number is 0000-1234
+ Directory of E:\D1
+
+.              <DIR>            11/19/2026 10:44a .
+..             <DIR>            11/19/2026 10:44a ..
+D2             <DIR>            11/19/2026 10:44a D2
+    0 File(s)                 0 Bytes
+    3 Dir(s)      2,013,265,920 Bytes free
+end

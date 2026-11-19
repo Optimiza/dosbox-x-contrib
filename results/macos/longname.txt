@@ -1,0 +1,79 @@
+# What: longpath.sh on base and longname, long names on and off; then run.sh, exact.sh, dosans.sh, aliases.sh and overlay.sh on both, which read alike.
+# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-19
+# Builds (source commit, sha256 of the executable):
+#   base       joncampbell123/dosbox-x main-ai 8de17e7f5   d7b400542a462c195e82116d7ce1ad7129f4ea14acb2a90c46827f478acbf823
+#   longname   dircache-longname 9180e708c   e9982c97f861074cb40f9fe4eb0a4148b16990c5212fa02da049390960eed804
+# longpath.sh on base longname
+longpath.sh: lfn=on mount=crashed:139 nested=crashed:134 zip=crashed:134 overlay=crashed:134 controls=ok
+longpath.sh: lfn=on mount=survived nested=survived zip=survived overlay=survived controls=ok
+longpath.sh: CRASHED
+# exit code 1
+# longpath.sh off base longname
+longpath.sh: lfn=off mount=crashed:139 nested=crashed:134 zip=crashed:134 overlay=survived controls=ok
+longpath.sh: lfn=off mount=survived nested=survived zip=survived overlay=survived controls=ok
+longpath.sh: CRASHED
+# exit code 1
+# run.sh base longname synthetic:300:83 on
+run.sh: folder synthetic:300:83 (300 entries on the host), long names on
+run.sh: IDENTICAL
+# exit code 0
+# run.sh base longname synthetic:300:long on
+run.sh: folder synthetic:300:long (300 entries on the host), long names on
+run.sh: IDENTICAL
+# exit code 0
+# exact.sh base longname on
+exact.sh: long names on
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (72 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+exact.sh: the life and drift lines of build A:
+# exit code 0
+# dosans.sh base longname labelled on
+dosans.sh: drive labelled, long names on
+dosans.sh: ALIKE
+# exit code 0
+# dosans.sh base longname unlabelled on
+dosans.sh: drive unlabelled, long names on
+dosans.sh: ALIKE
+# exit code 0
+# aliases.sh cases on base longname
+aliases.sh: cases, long names on, 87 entries
+aliases.sh: cases lfn=on entries=87 host=87 names_shared=17 exact_search_not_one=19 real_name_not_its_own=11 files_no_short_name_opens=19 listed_with_another_size=20 name_opens_another_file=19 long_name_opens_another_file=8
+aliases.sh: cases lfn=on entries=87 host=87 names_shared=17 exact_search_not_one=19 real_name_not_its_own=11 files_no_short_name_opens=19 listed_with_another_size=20 name_opens_another_file=19 long_name_opens_another_file=8
+aliases.sh: ALIKE
+# exit code 0
+# run.sh base longname synthetic:300:83 off
+run.sh: folder synthetic:300:83 (300 entries on the host), long names off
+run.sh: IDENTICAL
+# exit code 0
+# exact.sh base longname off
+exact.sh: long names off
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (69 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+exact.sh: the life and drift lines of build A:
+# exit code 0
+# dosans.sh base longname labelled off
+dosans.sh: drive labelled, long names off
+dosans.sh: ALIKE
+# exit code 0
+# dosans.sh base longname unlabelled off
+dosans.sh: drive unlabelled, long names off
+dosans.sh: ALIKE
+# exit code 0
+# aliases.sh cases off base longname
+aliases.sh: cases, long names off, 87 entries
+aliases.sh: cases lfn=off entries=87 host=87 names_shared=17 exact_search_not_one=17 real_name_not_its_own=11 files_no_short_name_opens=19
+aliases.sh: cases lfn=off entries=87 host=87 names_shared=17 exact_search_not_one=17 real_name_not_its_own=11 files_no_short_name_opens=19
+aliases.sh: ALIKE
+# exit code 0
+# overlay.sh, one run on each build, the lines compared once the build path is cut: cmp 0 is alike
+overlay labelled on rc_unfixed=1 rc_fixed=1 lines_unfixed=      26 cmp=0
+overlay labelled off rc_unfixed=1 rc_fixed=1 lines_unfixed=      26 cmp=0
+overlay unlabelled on rc_unfixed=1 rc_fixed=1 lines_unfixed=      26 cmp=0
+overlay unlabelled off rc_unfixed=1 rc_fixed=1 lines_unfixed=      26 cmp=0

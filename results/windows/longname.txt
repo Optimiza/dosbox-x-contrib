@@ -1,0 +1,62 @@
+# What: run.sh, exact.sh, dosans.sh and aliases.sh, base against longname, then longpath.sh on both, long names on and off. The nested case does not end the emulator on Windows, which cannot hold the folders.
+# Host: Windows 11 x64, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1), each with the commit of pull request 6857 merged in, because main-ai alone does not compile with MSVC
+# Date: 2026-11-19
+# Builds (source commit, sha256 of the executable):
+#   base         joncampbell123/dosbox-x main-ai 8de17e7f5 + 6857   2e9f9c72a132cf81f2a50da5c43484ff8d70b50d433029521d0cde435a7d983b
+#   longname     the tree of dircache-longname 0580b3bb8 (its code; 9180e708c adds the CHANGELOG line) + 6857   9609a4cce658adfaff301595d9f674a485ec6c3ec19e6504cf8f98117d2570e2
+# run.sh base longname synthetic:300:83 on
+run.sh: folder synthetic:300:83 (300 entries on the host), long names on
+run.sh: IDENTICAL
+# exit code 0
+# exact.sh base longname on
+exact.sh: long names on
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (71 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+exact.sh: the life and drift lines of build A:
+# exit code 0
+# dosans.sh base longname unlabelled on
+dosans.sh: drive unlabelled, long names on
+dosans.sh: ALIKE
+# exit code 0
+# aliases.sh cases on base longname
+aliases.sh: cases, long names on, 87 entries
+aliases.sh: cases lfn=on entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=8 files_no_short_name_opens=0 listed_with_another_size=0 name_opens_another_file=0 long_name_opens_another_file=0
+aliases.sh: cases lfn=on entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=8 files_no_short_name_opens=0 listed_with_another_size=0 name_opens_another_file=0 long_name_opens_another_file=0
+aliases.sh: ALIKE
+# exit code 0
+# longpath.sh on base longname
+longpath.sh: lfn=on mount=crashed:-1073741819 nested=survived zip=crashed:-1073740791 overlay=crashed:-1073741819 controls=ok
+longpath.sh: lfn=on mount=survived nested=survived zip=survived overlay=survived controls=ok
+longpath.sh: CRASHED
+# exit code 1
+# run.sh base longname synthetic:300:83 off
+run.sh: folder synthetic:300:83 (300 entries on the host), long names off
+run.sh: IDENTICAL
+# exit code 0
+# exact.sh base longname off
+exact.sh: long names off
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (69 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+exact.sh: the life and drift lines of build A:
+# exit code 0
+# dosans.sh base longname unlabelled off
+dosans.sh: drive unlabelled, long names off
+dosans.sh: ALIKE
+# exit code 0
+# aliases.sh cases off base longname
+aliases.sh: cases, long names off, 87 entries
+aliases.sh: cases lfn=off entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=8 files_no_short_name_opens=0
+aliases.sh: cases lfn=off entries=87 host=87 names_shared=0 exact_search_not_one=0 real_name_not_its_own=8 files_no_short_name_opens=0
+aliases.sh: ALIKE
+# exit code 0
+# longpath.sh off base longname
+longpath.sh: lfn=off mount=crashed:-1073741819 nested=survived zip=crashed:-1073740791 overlay=crashed:-1073741819 controls=ok
+longpath.sh: lfn=off mount=survived nested=survived zip=survived overlay=survived controls=ok
+longpath.sh: CRASHED
+# exit code 1

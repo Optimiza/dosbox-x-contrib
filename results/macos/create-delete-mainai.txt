@@ -1,0 +1,253 @@
+# What: delete.sh, dirgone.sh, findlife.sh and lfnren.sh, base against create-delete (on main-ai) and alias against alias+create-delete (main-ai with pull requests 6853 and 6854), long names on and off; each pair also against itself for delete.sh and findlife.sh.
+# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-debug=heavy --enable-sdl2 (SDL2)
+# Date: 2026-11-19
+# Builds (source commit, sha256 of the executable):
+#   base            joncampbell123/dosbox-x main-ai 8de17e7f5   d7b400542a462c195e82116d7ce1ad7129f4ea14acb2a90c46827f478acbf823
+#   create-delete   dircache-create-delete-mainai 40adb589f (rebased; tip with CHANGELOG 054925019)   b13bdbb6f9b78d3fd44931a480f3bff6ad427db0f7fd63d53ac353800a137edf
+#   alias           dircache-alias-mainai 9e28fe5de   969d34d1352922d92caf6d2b2d02fd0e04def97432be2564c9cd95362174e12f
+#   alias+create-delete  alias-mainai with create-delete 40adb589f merged   6efc1b978796b50aae77ae4a7d4cea28be6feeed661b610fe03b63546cd58232
+#   findlife.sh ran with TMPDIR short; a long TMPDIR makes it read no folder, on any build
+# delete.sh base create-delete on
+delete.sh: long names on
+delete.sh: build A: files the host holds at the end: S=4 L=4 W=4 A=10 P=6 C=10 R=9 directories
+delete.sh: build A: short names moved by one delete: 7 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 1 of 8
+delete.sh: build A: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=1
+delete.sh: build A: short names of directories moved by one RD: 7 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=6 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=6 its short name=ALPHAT~7.MID the old short name of the renamed file=ALPHAT~1.MID
+delete.sh: build A: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=7
+delete.sh: build A: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=6 its short name=ALPHAT~8 the old short name of the renamed directory=ALPHAT~2
+delete.sh: build A: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=6 RENAMED reaches the renamed directory=yes
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=0 A=10 P=6 C=10 R=9 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=ALPHAT~9.MID the old short name of the renamed file=ALPHAT~2.MID
+delete.sh: build B: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=ALPHA~10 the old short name of the renamed directory=ALPHAT~2
+delete.sh: build B: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: DIFFERENT, 69 lines differ (A then B):
+# exit code 1
+# dirgone.sh base create-delete on
+dirgone.sh: long names on
+dirgone.sh: DIFFERENT, 9 lines differ (A then B):
+# exit code 1
+# findlife.sh base create-delete on
+findlife.sh: long names on
+findlife.sh: ALIKE
+# exit code 0
+# delete.sh base create-delete off
+delete.sh: long names off
+delete.sh: build A: files the host holds at the end: S=4 L=4 W=8 A=9 P=6 C=9 R=7 directories
+delete.sh: build A: short names moved by one delete: 7 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build A: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build A: short names of directories moved by one RD: 7 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=6 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=- the old short name of the renamed file=ALPHAT~1.MID
+delete.sh: build A: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build A: R after NEWDIR is removed again: listed=7 before=8 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=- the old short name of the renamed directory=ALPHAT~1
+delete.sh: build A: R after one rename: listed=7 before=7 renamed=1 listed twice=0 earlier short names reaching another directory=6 RENAMED reaches the renamed directory=yes
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=8 A=9 P=6 C=9 R=7 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=- the old short name of the renamed file=ALPHAT~2.MID
+delete.sh: build B: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=7 before=8 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=- the old short name of the renamed directory=ALPHAT~2
+delete.sh: build B: R after one rename: listed=7 before=7 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: DIFFERENT, 79 lines differ (A then B):
+# exit code 1
+# dirgone.sh base create-delete off
+dirgone.sh: long names off
+dirgone.sh: DIFFERENT, 9 lines differ (A then B):
+# exit code 1
+# findlife.sh base create-delete off
+findlife.sh: long names off
+findlife.sh: ALIKE
+# exit code 0
+# lfnren.sh base create-delete
+lfnren.sh: long names on
+lfnren.sh: DIFFERENT, 4 lines differ (A then B):
+# exit code 1
+# delete.sh create-delete create-delete on
+delete.sh: long names on
+delete.sh: build A: files the host holds at the end: S=0 L=0 W=0 A=10 P=6 C=10 R=9 directories
+delete.sh: build A: short names moved by one delete: 0 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build A: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build A: short names of directories moved by one RD: 0 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=ALPHAT~9.MID the old short name of the renamed file=ALPHAT~2.MID
+delete.sh: build A: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build A: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=ALPHA~10 the old short name of the renamed directory=ALPHAT~2
+delete.sh: build A: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=0 A=10 P=6 C=10 R=9 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=ALPHAT~9.MID the old short name of the renamed file=ALPHAT~2.MID
+delete.sh: build B: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=ALPHA~10 the old short name of the renamed directory=ALPHAT~2
+delete.sh: build B: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: ALIKE
+# exit code 0
+# findlife.sh base base on
+findlife.sh: long names on
+findlife.sh: ALIKE
+# exit code 0
+# findlife.sh alias alias on
+findlife.sh: long names on
+findlife.sh: ALIKE
+# exit code 0
+# delete.sh alias alias+create-delete on
+delete.sh: long names on
+delete.sh: build A: files the host holds at the end: S=4 L=4 W=4 A=10 P=6 C=10 R=9 directories
+delete.sh: build A: short names moved by one delete: 7 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 1 of 8
+delete.sh: build A: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=1
+delete.sh: build A: short names of directories moved by one RD: 7 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=6 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=6 its short name=ALPHAT~7.MID the old short name of the renamed file=ALPHAT~1.MID
+delete.sh: build A: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=7
+delete.sh: build A: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=6 its short name=ALPHAT~8 the old short name of the renamed directory=ALPHAT~2
+delete.sh: build A: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=6 RENAMED reaches the renamed directory=yes
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=0 A=10 P=6 C=10 R=9 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=ALPHAT~9.MID the old short name of the renamed file=ALPHAT~2.MID
+delete.sh: build B: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=ALPHA~10 the old short name of the renamed directory=ALPHAT~2
+delete.sh: build B: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: DIFFERENT, 69 lines differ (A then B):
+# exit code 1
+# dirgone.sh alias alias+create-delete on
+dirgone.sh: long names on
+dirgone.sh: DIFFERENT, 9 lines differ (A then B):
+# exit code 1
+# findlife.sh alias alias+create-delete on
+findlife.sh: long names on
+findlife.sh: ALIKE
+# exit code 0
+# delete.sh alias alias+create-delete off
+delete.sh: long names off
+delete.sh: build A: files the host holds at the end: S=4 L=4 W=8 A=9 P=6 C=9 R=7 directories
+delete.sh: build A: short names moved by one delete: 7 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build A: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build A: short names of directories moved by one RD: 7 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=6 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=- the old short name of the renamed file=ALPHAT~1.MID
+delete.sh: build A: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build A: R after NEWDIR is removed again: listed=7 before=8 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=- the old short name of the renamed directory=ALPHAT~1
+delete.sh: build A: R after one rename: listed=7 before=7 renamed=1 listed twice=0 earlier short names reaching another directory=6 RENAMED reaches the renamed directory=yes
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=8 A=9 P=6 C=9 R=7 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=9 before=8 created=1 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=- the old short name of the renamed file=ALPHAT~2.MID
+delete.sh: build B: R after the MD: listed=8 before=7 made=1 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=7 before=8 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=- the old short name of the renamed directory=ALPHAT~2
+delete.sh: build B: R after one rename: listed=7 before=7 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: DIFFERENT, 79 lines differ (A then B):
+# exit code 1
+# dirgone.sh alias alias+create-delete off
+dirgone.sh: long names off
+dirgone.sh: DIFFERENT, 9 lines differ (A then B):
+# exit code 1
+# findlife.sh alias alias+create-delete off
+findlife.sh: long names off
+findlife.sh: ALIKE
+# exit code 0
+# lfnren.sh alias alias+create-delete
+lfnren.sh: long names on
+lfnren.sh: DIFFERENT, 4 lines differ (A then B):
+# exit code 1
+# delete.sh alias+create-delete alias+create-delete on
+delete.sh: long names on
+delete.sh: build A: files the host holds at the end: S=0 L=0 W=0 A=10 P=6 C=10 R=9 directories
+delete.sh: build A: short names moved by one delete: 0 of 8
+delete.sh: build A: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build A: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build A: short names of directories moved by one RD: 0 of 7
+delete.sh: build A: R after the RD: listed=7 before=8
+delete.sh: build A: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build A: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build A: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=ALPHAT~9.MID the old short name of the renamed file=ALPHAT~2.MID
+delete.sh: build A: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build A: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build A: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build A: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=ALPHA~10 the old short name of the renamed directory=ALPHAT~2
+delete.sh: build A: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: build B: files the host holds at the end: S=0 L=0 W=0 A=10 P=6 C=10 R=9 directories
+delete.sh: build B: short names moved by one delete: 0 of 8
+delete.sh: build B: short names a search returned that open another file after the creates: 0 of 8
+delete.sh: build B: C after the creates: listed=10 before=8 created=2 listed twice=0 earlier short names opening another file=0
+delete.sh: build B: short names of directories moved by one RD: 0 of 7
+delete.sh: build B: R after the RD: listed=7 before=8
+delete.sh: build B: A after one rename: listed=9 before=9 renamed=1 listed twice=0 earlier short names opening another file=0 RENAMED.TXT opens the renamed file=yes
+delete.sh: build B: A after a case-only rename: short names that moved: 0 of 9
+delete.sh: build B: A after the old long name of the renamed file is made again: earlier short names opening another file=0 its short name=ALPHAT~9.MID the old short name of the renamed file=ALPHAT~2.MID
+delete.sh: build B: R after the MD: listed=9 before=7 made=2 listed twice=0 earlier short names reaching another directory=0
+delete.sh: build B: R after NEWDIR is removed again: listed=8 before=9 earlier short names reaching another directory=0
+delete.sh: build B: R directories whose search lists other entries than their own: after the MD=0 after the rename=0
+delete.sh: build B: R after the old long name of the renamed directory is made again: earlier short names reaching another directory=0 its short name=ALPHA~10 the old short name of the renamed directory=ALPHAT~2
+delete.sh: build B: R after one rename: listed=8 before=8 renamed=1 listed twice=0 earlier short names reaching another directory=0 RENAMED reaches the renamed directory=yes
+delete.sh: ALIKE
+# exit code 0
+# findlife.sh alias alias on
+findlife.sh: long names on
+findlife.sh: ALIKE
+# exit code 0
