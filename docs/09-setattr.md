@@ -18,7 +18,8 @@ The line came with upstream's `ATTRIB` support, and protects nothing a run of th
 ## What the fix changes
 
 The attribute change leaves the cache alone, as on every other host. The branch is
-`dircache-setattr`, one commit, `97d438ae9`.
+`dircache-setattr`, one commit, `97d438ae9`. On `main-ai` at `8de17e7f5` it is
+`dircache-setattr-mainai`, offered as [pull request 6873, "Keep the directory cache when a file's attributes change on Windows"](https://github.com/joncampbell123/dosbox-x/pull/6873).
 
 ## The figures
 

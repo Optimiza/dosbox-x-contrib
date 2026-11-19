@@ -17,17 +17,17 @@ figures.
 | 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | `dircache-dta` | nothing; one case on Windows needs subject 2 or 9 | proved; conflicts with pull request 6831, to be redone on `main-ai`, which has pull request 6852 now |
 | 5 | [No two entries of a folder share a short name](docs/05-alias.md) | `dircache-alias-mainai` | subject 3 | [pull request 6854](https://github.com/joncampbell123/dosbox-x/pull/6854), open |
 | 6 | [The emulator's DOS answers as MS-DOS does](docs/06-dos-answers.md) | `dircache-dos-answers` | nothing | checked on three DOS, not offered |
-| 9 | [An attribute change on Windows does not empty the directory cache](docs/09-setattr.md) | `dircache-setattr` | nothing | proved on Windows, the only host it changes |
-| 10 | [The x86 dynamic core keeps its code-page handlers across a cache reset](docs/10-dyncore-cache-reset.md) | `dyncore-cache-reset` | nothing | proved on Windows; the macOS build has no such core |
-| 11 | [A create keeps the directory cache, and a delete removes one entry](docs/11-create-delete.md) | `dircache-create-delete` | nothing | proved on macOS and Windows |
-| 12 | [A path longer than the emulator's arrays answers "path not found"](docs/12-longname.md) | `dircache-longname` | nothing | proved on macOS and Windows, not offered yet |
+| 9 | [An attribute change on Windows does not empty the directory cache](docs/09-setattr.md) | `dircache-setattr-mainai` | nothing | [pull request 6873, "Keep the directory cache when a file's attributes change on Windows"](https://github.com/joncampbell123/dosbox-x/pull/6873), open; proved on Windows, the only host it changes |
+| 10 | [The x86 dynamic core keeps its code-page handlers across a cache reset](docs/10-dyncore-cache-reset.md) | `dyncore-cache-reset-mainai` | nothing | [pull request 6874, "Keep the x86 dynamic core's code page handlers across a cache reset"](https://github.com/joncampbell123/dosbox-x/pull/6874), open; proved on Windows, the macOS build has no such core |
+| 11 | [A create keeps the directory cache, and a delete removes one entry](docs/11-create-delete.md) | `dircache-create-delete-mainai` | nothing | [pull request 6875, "Keep the directory cache when a local drive creates, deletes or renames"](https://github.com/joncampbell123/dosbox-x/pull/6875), open; proved on macOS and Windows |
+| 12 | [A path longer than the emulator's arrays answers "path not found"](docs/12-longname.md) | `dircache-longname` | nothing | [pull request 6872, "Answer path not found for a host path past CROSS_LEN"](https://github.com/joncampbell123/dosbox-x/pull/6872), open; proved on macOS and Windows |
 
 - Subjects 7 and 8 are withdrawn: the `DIR` fix of subject 7 is a commit of subject 4, and the
   defect of subject 8 was not there.
 - [Issue 6851, "main-ai ends directory searches that MS-DOS continues"](https://github.com/joncampbell123/dosbox-x/issues/6851) says
   how the subjects are offered, one pull request each.
-- Subjects 3 and 5 stand on `main-ai` at `8de17e7f5`, merging pull request 6852. Subjects
-  1, 6, 9, 10 and 11, not offered, stand on `218ec1894`, the merge of pull request 6831.
+- Subjects 3, 5, 9, 10, 11 and 12 stand on `main-ai` at `8de17e7f5`, merging pull request 6852.
+  Subjects 1 and 6, not offered, stand on `218ec1894`, the merge of pull request 6831.
 - Subjects 2 and 4 stay on `4e0b6adcf`, before it. Each page names its commits.
 - The numbers are this repository's own; a four-digit number is upstream's.
 
