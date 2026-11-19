@@ -17,10 +17,10 @@ drafted here for a pull request or a comment.
 
 ## Where the rest lives
 
-- The emulator branches belong to the fork `Optimiza/dosbox-x`. The one still open upstream is
-  pushed there: `dircache-create-delete-mainai`. The table at the top of `README.md` names each subject's branch.
+- The emulator branches belong to the fork `Optimiza/dosbox-x`. The three still open upstream are
+  pushed there: `dircache-create-delete-mainai`, `dos-answers-path-mainai` and `dos-answers-cd-mainai`. The table at the top of `README.md` names each subject's branch.
 - The offered branches stand on upstream `main-ai` at `72ee221bf`, the merge of [pull request 6874, "Keep the x86 dynamic core's code page handlers across a cache reset"](https://github.com/joncampbell123/dosbox-x/pull/6874).
-  Those of subjects 1 and 6 stand on `218ec1894`, the merge of
+  That of subject 1 stands on `218ec1894`, the merge of
   [pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831). Subjects 2 and 4 stay on `4e0b6adcf`.
 - Every figure in the pages is compared with `4e0b6adcf`, whatever `main-ai` is today.
 - The instruments are developed in [`scry-mcp/scry-dosbox-x`](https://github.com/scry-mcp/scry-dosbox-x), branch `dircache`,
