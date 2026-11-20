@@ -15,7 +15,6 @@ exit: 0 counted | 2 usage | 3 INVALID, no line of the two DOS reports could be j
 import re
 import sys
 
-NAMES = ("msdos622:", "msdos710:", "freedos:")
 # Lines that carry a time, an address or a place in a DOS's own memory: not an answer to compare.
 NOISE = ("chain|", "end|", "section", "dta|", "dev|")
 
