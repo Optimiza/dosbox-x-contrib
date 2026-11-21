@@ -57,6 +57,10 @@ long_tmp=$work/tmp/$(printf '%0130d' 0)
 mkdir -p "$long_tmp" || exit 3
 imgmake_tail() { TMPDIR=$long_tmp conf_of fat off | awk '/^imgmake / { t = substr($0, 8); print (length(t) <= 126 ? "fits" : "too long: " length(t)) }'; }
 t_case "under a long TMPDIR the line that makes the image fits a DOS command line" 0 "fits" imgmake_tail
+t_case "the image is made and mounted on C:, by its name there" 0 'c:
+imgmake v.img -t hd -size 64
+imgmount e v.img
+label e: DISK1' conf_of fat off
 t_case "neither fat nor host" 2 "fat or host" run iso off
 t_case "neither on nor off" 2 "on or off" run fat maybe
 t_case "three arguments" 2 "usage:" "$here/template.sh" "$build_a" "$build_b" fat

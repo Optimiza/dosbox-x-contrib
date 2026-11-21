@@ -52,8 +52,12 @@ t_derive "$f"; survive "$derived" "" "${lines_a[@]}" "${lines_b[@]}"; printf 'st
 t_case "a run cut on an answer that ends in the letters of the old last line" 3 "build A: \"label c: X\" (label-q-x-control) did not reach its last line" run
 t_derive "$f"; printf 'start\r\n' > "$derived/7/OUT.TXT"; t_play "$derived"
 t_case "a line that ends the emulator before its drive line is a death" 3 "build A: \"label q:X\" (label-qx) ended the emulator: SEGV, exit 139; build A: \"label X\" (cur-label-x) ended the emulator: SEGV, exit 139" run
+t_derive "$f"; echo 1 > "$derived/1/EXIT"; t_play "$derived"
+t_case "a code that is no signal, by its number" 3 "(label-q-x) ended the emulator: exit 1;" run
 t_derive "$f"; survive "$derived" "" "${lines_a[@]}" "${lines_b[@]}"; sed -i '' '/^line/d' "$derived/12/OUT.TXT"; t_play "$derived"
 t_case "a run that left no line marker" 3 "build A's run of \"vol\" (cur-vol-control) left no \"line\" marker" run
+t_derive "$f"; rm "$derived/2/OUT.TXT"; t_play "$derived"
+t_case "a run that left no output" 3 "build A's run of \"label c: X\" (label-q-x-control) left no output" run
 t_derive "$f"; rm "$derived/2/OUT.TXT"; echo 3 > "$derived/2/EXIT"; echo 'the run left no OUT.TXT' > "$derived/2/INVALID"; t_play "$derived"
 t_case "on macOS a run the launcher refused, whose code is the launcher's" 3 "the launcher refused build A's run of \"label c: X\" (label-q-x-control): the run left no OUT.TXT; before it, build A: \"label q: X\"" run
 t_derive "$f"; sed -i '' 's/^A:/C:/' "$derived/19/OUT.TXT"; t_play "$derived"

@@ -107,6 +107,9 @@ batch_of() {
     tr -d '\r' < "$(printf '%s\n' "$out" | sed -n 's/.*the run is kept in //p')/stage/BOOT/AUTOEXEC.BAT"
 }
 t_case "each line runs through REDIR, which keeps the error messages" 0 'REDIR.EXE C:\RD\OUT.TXT label q:X' batch_of nodrive
+t_case "and what REDIR kept goes into the result" 0 'REDIR.EXE C:\RD\OUT.TXT label q:X
+TYPE C:\RD\OUT.TXT >> C:\RD\RESULT.TXT
+ECHO.>> C:\RD\RESULT.TXT' batch_of nodrive
 t_play "$f/realdos-xcomsim"
 t_case "XCOMSIM's report of the image's DOS" 0 "msdos710|lookups|made=2118 as_the_game=2118 differ=0 loads=18.41" run xcomsim
 t_case "XCOMSIM's verdict on the image's DOS" 0 "realdos.sh: msdos710: listing=40/40 40/40 lost=0" run xcomsim

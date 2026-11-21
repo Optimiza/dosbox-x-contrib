@@ -32,6 +32,13 @@ root_of() {
     awk '{ print (length($0) <= 123 ? "fits" : "too long: " length($0)) }' "$(printf '%s\n' "$out" | sed -n 's/.*the run is kept in //p')/run-A/ROOT.TXT"
 }
 t_case "under a long TMPDIR the remount's folder fits MOUNT's command line" 0 "fits" root_of
+tree_of() {
+    local out kept
+    out=$(STUB_RC=3 run on 2>&1)
+    kept=$(printf '%s\n' "$out" | sed -n 's/.*the run is kept in //p')
+    if [ "$(cd "$kept/run-A" && cd "$(cat ROOT.TXT)" && pwd -P)" = "$kept/tree-A" ]; then echo "the build's tree"; else echo "another folder"; fi
+}
+t_case "the remount's folder, from the run's folder, is the build's tree" 0 "the build's tree" tree_of
 # On Windows: a uname that says MINGW, and a cygpath that names a relative path from the folder it
 # is called in, as Git Bash's does. A launcher with no run to play refuses, so the run is kept.
 mkdir -p "$work/winbin" || exit 3
