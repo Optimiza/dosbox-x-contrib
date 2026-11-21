@@ -47,11 +47,13 @@ build_a=$(whole "$build_a") build_b=$(whole "$build_b") launcher=$(whole "$launc
 # Each build gets its own D: tree: one case creates and removes a file in it. ROOT.TXT carries
 # the host path the remount mounts it from, relative to the emulator's working folder: FINDLIFE
 # hands it to MOUNT on a DOS command line, which holds 126 characters, and a path under TMPDIR
-# grows past them.
+# grows past them. cygpath would name a relative path from the script's folder, so on Windows
+# only the separators change.
 run_one() {
-    local label=$1 binary=$2 tree=$tmp/tree-$1
+    local label=$1 binary=$2 tree=$tmp/tree-$1 root=../tree-$1
     findlife_tree "$tree" || invalid "could not make build $label's folders"
-    host_path "../tree-$label" > "$tmp/c/ROOT.TXT" || invalid "could not write ROOT.TXT"
+    if [ "$HOST_KIND" = windows ]; then root=${root//\//\\}; fi
+    printf '%s\n' "$root" > "$tmp/c/ROOT.TXT" || invalid "could not write ROOT.TXT"
     if ! mkdir -p "$tmp/run-$label" || ! cd "$tmp/run-$label"; then invalid "could not enter build $label's run directory"; fi
     guest_run "$label" "$binary" "$tree" "" LIFE.TXT "$SECONDS_BOUND" "c:" 'FINDLIFE.EXE D:\A D:\B C:\LIFE.TXT C:\ROOT.TXT'
     LC_ALL=C tr -d '\r' < "$guest_out" > "$tmp/life-$label.txt" || invalid "build $label's report could not be read"

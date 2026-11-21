@@ -32,6 +32,19 @@ root_of() {
     awk '{ print (length($0) <= 123 ? "fits" : "too long: " length($0)) }' "$(printf '%s\n' "$out" | sed -n 's/.*the run is kept in //p')/run-A/ROOT.TXT"
 }
 t_case "under a long TMPDIR the remount's folder fits MOUNT's command line" 0 "fits" root_of
+# On Windows: a uname that says MINGW, and a cygpath that names a relative path from the folder it
+# is called in, as Git Bash's does. A launcher with no run to play refuses, so the run is kept.
+mkdir -p "$work/winbin" || exit 3
+printf '#!/bin/sh\necho MINGW64_NT-10.0-26300\n' > "$work/winbin/uname"
+# shellcheck disable=SC2016  # the script written here expands its own argument
+printf '#!/bin/sh\ncase "$2" in /*) echo "$2" ;; *) echo "$PWD/$2" ;; esac\n' > "$work/winbin/cygpath"
+chmod +x "$work/winbin/uname" "$work/winbin/cygpath" && ln -s "$here/fixtures/stub-powershell.sh" "$work/winbin/powershell" || exit 3
+win_root() {
+    local out
+    out=$(PATH="$work/winbin:$PATH" STUB_PLAY=$work/none run on 2>&1)
+    cat "$(printf '%s\n' "$out" | sed -n 's/.*the run is kept in //p')/run-A/ROOT.TXT"
+}
+t_case "on Windows too, the remount's folder is named from the run's folder" 0 '..\tree-A' win_root
 spy=$work/spy.sh
 # shellcheck disable=SC2016  # the script written here expands its own variables
 printf '%s\n' '#!/bin/bash' 'pwd -P >> "$SPY_OUT"' "exec \"$here/fixtures/stub-launcher.sh\" \"\$@\"" > "$spy" && chmod +x "$spy" || exit 3
