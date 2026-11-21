@@ -1371,6 +1371,9 @@ nodrive.sh <build A> <build B>
 | `cur-fd`, `cur-hd` | `imgmake x.img -t fd_1440`, `imgmake x.img -t hd -size 4`, after `NODRIVE.EXE` | the same with `C:` current |
 
 - `Q:` is never mounted, and `C:` is the run's folder with no label.
+- The emulator starts in that folder too. With no drive current, `IMGMAKE` writes `x.img` in
+  the emulator's working folder, so the image stays in its run and the next line starts
+  without it.
 - `realdos.sh` asks a real DOS the three lines on `Q:` (`nodrive`). No DOS can be put in the
   state of the other lines.
 

@@ -68,6 +68,18 @@ cd >> C:\OUT.TXT
 echo line>> C:\OUT.TXT
 vol >> C:\OUT.TXT' conf_of cur-vol-control
 t_case "a control of a line on Q: runs it on C:" 0 'label c:X >> C:\OUT.TXT' conf_of label-qx-control
+# The spy writes an image in its working folder, as IMGMAKE does with no drive current.
+spy=$work/spy.sh
+# shellcheck disable=SC2016  # the script written here expands its own variables
+printf '%s\n' '#!/bin/bash' 'pwd -P >> "$SPY_OUT"' ': > x.img' "exec \"$here/fixtures/stub-launcher.sh\" \"\$@\"" > "$spy" && chmod +x "$spy" || exit 3
+where() {
+    rm -rf "$work/caller" "$work/where.txt" && mkdir "$work/caller" || exit 3
+    (cd "$work/caller" && SPY_OUT=$work/where.txt DIRCACHE_LAUNCHER=$spy run > /dev/null 2>&1)
+    awk '$0 ~ /\/run-[AB]-[a-z-]+$/ { n[$0]++ } END { print length(n) " run folders, " NR " starts" }' "$work/where.txt"
+    printf 'in the caller'\''s folder: [%s]\n' "$(ls -A "$work/caller")"
+}
+t_case "each start runs in a folder of its own" 0 "36 run folders, 36 starts" where
+t_case "and writes nothing in the caller's folder" 0 "in the caller's folder: []" where
 t_case "one argument" 2 "usage:" "$here/nodrive.sh" "$build_a"
 t_case "its own help" 0 "usage: nodrive.sh" "$here/nodrive.sh" --help
 t_end

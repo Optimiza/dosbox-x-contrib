@@ -62,6 +62,13 @@ run_begin nodrive
 guest_build NODRIVE "$tmp/c" || invalid "NODRIVE did not build"
 mkdir -p "$tmp/d" || invalid "could not make D:'s folder"
 
+# Each start runs in its own run's folder, as windows.ps1 starts it there too: IMGMAKE with no
+# drive current writes its image in the emulator's working folder, so a folder shared between
+# lines would answer the first line's image to the next. The builds and the launcher are named
+# whole before the script moves.
+whole() { case "$1" in /*) printf '%s\n' "$1" ;; *) printf '%s/%s\n' "$PWD" "$1" ;; esac; }
+build_a=$(whole "$build_a") build_b=$(whole "$build_b") launcher=$(whole "$launcher")
+
 # name|state|line: state q is a line on Q:, whose control runs it on C:; state none runs the line
 # after NODRIVE.EXE, and its control the same line with C: current.
 CASES='label-q-x|q|label q: X
@@ -88,7 +95,7 @@ signal_of() {
 # line, and to $tmp/dead what ended the emulator or kept it from its last line.
 run_one() {
     local label=$1 binary=$2 name=$3 state=$4 line=$5 run=$tmp/run-$1-$3 code before=() answer current
-    if ! mkdir -p "$run" || ! cp -R "$tmp/c/." "$run/"; then invalid "could not make the run directory of $label $name"; fi
+    if ! mkdir -p "$run" || ! cp -R "$tmp/c/." "$run/" || ! cd "$run"; then invalid "could not make the run directory of $label $name"; fi
     if [ "$state" = none ]; then before=('NODRIVE.EXE'); fi
     conf_write "$run" "$tmp/d" "" 'c:' 'echo start> C:\OUT.TXT' ${before[@]+"${before[@]}"} \
         'cd >> C:\OUT.TXT' 'echo line>> C:\OUT.TXT' "$line >> C:\\OUT.TXT" 'echo end>> C:\OUT.TXT'
