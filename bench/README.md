@@ -35,6 +35,7 @@ program sees when it does anything but run one search to its end. The code under
 | [`resprb.sh`](#resprbsh) | `resprb.c` | how much host memory a build keeps after a program repeats a child process, a change of the FPU's control word, or a search |
 | [`aliases.sh`](#aliasessh) | `aliases.c` | whether two entries of a folder share a short name, and whether each short name opens its own file |
 | [`longpath.sh`](#longpathsh) | none: shell commands | whether the emulator survives a host path, or a path inside a zip, longer than the arrays it builds paths in |
+| [`nodrive.sh`](#nodrivesh) | `nodrive.c`, then the shell's `LABEL`, `VOL`, `TREE` and `IMGMAKE` | whether the emulator survives a command on a drive that is not mounted, or with no drive behind the current one, and what it answers |
 | [`unit.sh`](#unitsh) | none: the emulator's own unit tests | how many of a build's unit tests ran and failed |
 | [`passfail.sh`](#passfailsh) | a program you hand it | how many checks of a self-testing DOS program pass on a build |
 | [`junktest.sh`](#junktestsh) | the batch files a reporter attached to an upstream issue, then `memprobe.c` to hold | how much host memory a build keeps after the reporter's own run |
@@ -95,6 +96,8 @@ opens on either host.
 - The timers run on macOS only. They need `python3`, version 3.10 or later, with its standard
   library alone, and the host's `top` and `sysctl`.
 - Nothing is written outside a directory made for the run, under `TMPDIR`.
+- `template.sh` and `findlife.sh` take a `TMPDIR` of any length. A DOS command line holds 126
+  characters, so the image and the remounted folder are named by short paths of the run's own.
 
 ## What the scripts share
 
@@ -1342,6 +1345,56 @@ build, `2` usage, `3` INVALID.
 - The mount case ends at MOUNT's refusal on a build that has the fix.
 - It does not say what the guest is told for a path that does not fit.
 
+## nodrive.sh
+
+**What it shows.** Whether the emulator survives a shell command on a drive that is not mounted,
+or with no drive behind the current one, and what it answers. On the unpatched base every such
+line ends the emulator on SIGSEGV.
+
+- Each line runs in an emulator start of its own, so that one that ends the emulator hides no
+  other.
+- Each line has a control: the same command on `C:`, a mounted drive, which must answer.
+- `NODRIVE.EXE` leaves `A:` current with nothing mounted on it. Before each line `CD` must
+  answer `A:\` after it and `C:\` elsewhere.
+
+**How it is called.**
+
+```sh
+nodrive.sh <build A> <build B>
+```
+
+| Line | Command | Control |
+| --- | --- | --- |
+| `label-q-x`, `label-q`, `label-qx` | `label q: X`, `label q:`, `label q:X` | the same on `c:` |
+| `cur-label-x`, `cur-label` | `label X`, `label`, after `NODRIVE.EXE` | the same with `C:` current |
+| `cur-vol`, `cur-tree` | `vol`, `tree`, after `NODRIVE.EXE` | the same with `C:` current |
+| `cur-fd`, `cur-hd` | `imgmake x.img -t fd_1440`, `imgmake x.img -t hd -size 4`, after `NODRIVE.EXE` | the same with `C:` current |
+
+- `Q:` is never mounted, and `C:` is the run's folder with no label.
+- `realdos.sh` asks a real DOS the three lines on `Q:` (`nodrive`). No DOS can be put in the
+  state of the other lines.
+
+**What it prints.** Each build's path and version line, then a line per run: its name, the
+command and what the shell answered, its lines joined by ` / `. Then the verdict and the lines
+that differ.
+
+- A control's name ends in `-control`.
+- A line that ended the emulator answers `died:` and the signal, with the exit code.
+
+**Exit codes.** `0` alike, `1` different, `2` usage, `3` INVALID.
+
+- A line that ends the emulator is INVALID, never a difference. The message names each such
+  line, its build and its signal.
+- So is a run that did not reach its last line, or had another drive current than its line
+  asks for.
+
+**What it does not show.**
+
+- It does not say what a fixed build ought to answer with no drive current: no DOS has that
+  state.
+- It does not run `IMGMAKE -source` or `START`, which read the current drive the same way but
+  are built on Windows only.
+
 ## unit.sh
 
 **What it shows.** How many of a build's own unit tests ran and failed. DOSBox-X carries unit
@@ -1561,6 +1614,7 @@ realdos.sh <build> <dos> <boot image> junktest|dirtest <folder>
 | `xcopy` | the emulator's `XCOPY.EXE` over the tree `xcopy.sh` makes |
 | `dirgone` | DIRGONE over the folder `dirgone.sh` makes |
 | `xcomsim`, `xcomsim-relay` | XCOMSIM over the drive `xcomsim.sh` makes, its listing through its own DTAs, then relayed |
+| `nodrive` | the three lines of `nodrive.sh` on `Q:`, a letter that DOS has no drive for, each through `REDIR.EXE` |
 | `junktest` | the reporter's batch files of `junktest.sh`, unpacked in `<folder>`, in the run the issue describes, with the emulator's `FC.EXE` |
 | `dirtest` | the reporter's program of `dirtest.sh`, unpacked in `<folder>`, with Enter typed as `dirtest.sh` types it |
 
@@ -1593,6 +1647,9 @@ the program's report whole. Every line names the DOS: the script's own start
   own `DIR` lists under the copy, and the count XCOPY printed.
 - For `xcomsim` and `xcomsim-relay` it is XCOMSIM's report, then its `listing=` verdict on a
   line of the script's own.
+- For `nodrive` it is a line per command, as `nodrive.sh` prints it. `REDIR.EXE` keeps the
+  error messages too, which a batch file's `>` loses. A command the DOS answered with nothing
+  is INVALID.
 - For `junktest` it is the counts `junktest.sh` prints, but memory. For `dirtest` it is how
   many files `DATA` holds, whether the program returned, and what that DOS's `DIR` lists.
 

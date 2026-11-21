@@ -8,7 +8,7 @@ usage() {
     cat <<'EOT'
 usage: realdos.sh <build> <dos> <boot image> <id|findlife|exact|enumstat|drift|dtadump|patlist|
                      template|findpos|findpos-labelled|dosans|dosans-labelled|dosans-cd|memprobe|fc|
-                     xcopy|dirgone|xcomsim|xcomsim-relay>
+                     xcopy|dirgone|xcomsim|xcomsim-relay|nodrive>
        realdos.sh <build> <dos> <boot image> <junktest|dirtest> <folder>
 
   <build>       a DOSBox-X executable. It is only the machine here: its own DOS is shut down
@@ -48,6 +48,8 @@ usage: realdos.sh <build> <dos> <boot image> <id|findlife|exact|enumstat|drift|d
   xcomsim       XCOMSIM over the drive xcomsim.sh makes, with X-COM Apocalypse's lookups
                 (xcomsim/calls.txt) and its defaults: a model, not the game
   xcomsim-relay the same with --relay: the listing through the lookups' one DTA
+  nodrive       the lines of nodrive.sh on Q:, a letter the DOS has no drive for: label q: X,
+                label q: and label q:X, each through REDIR, which keeps the error messages too
   junktest      the batch files of the archive of upstream issue 6827, unpacked in <folder>,
                 in the run the issue describes: 300.BAT, JUNK.BAT, 300.BAT, each through
                 COMMAND /C so that what it prints is kept, with the emulator's FC.EXE as
@@ -67,7 +69,8 @@ every line it prints names the DOS: its own lines start "realdos.sh: <dos>: ", t
 report lines "<dos>|". It prints the machine's path and version line, the image, the DOS's own
 VER line, what DOSID read of the DOS that answered, then the program's report whole (for
 enumstat, one line per mode; for dtadump, the figures dtadump.sh prints come first; for
-memprobe, the guest's line; for fc, how
+memprobe, the guest's line; for nodrive, a line per command: its name, the command and what the
+DOS answered, its lines joined by " / "; for fc, how
 many runs said the two files do not differ; for xcopy, how many files and folders the tree
 holds, how many of each that DOS's own DIR lists under the copy, and the count XCOPY printed; for
 junktest, the entries that DOS's DIR lists in D:\JUNK at the end, how many of them are .TMP
@@ -102,6 +105,10 @@ JUNKTEST_BATCHES="300 JUNK 300"
 DIRTEST_KEYS=600
 DIRTEST_BOOT_SECONDS=6000
 DISK_MB=64
+# name|line: nodrive.sh's lines on a drive that is not mounted, under its names.
+NODRIVE_LINES='label-q-x|label q: X
+label-q|label q:
+label-qx|label q:X'
 
 if [ $# -eq 1 ] && [ "$1" = "--help" ]; then usage; exit 0; fi
 if [ $# -ne 4 ] && [ $# -ne 5 ]; then usage >&2; exit 2; fi
@@ -140,8 +147,9 @@ case "$what" in
     dirgone) programs=DIRGONE ;;
     dosans|dosans-labelled|dosans-cd) programs=DOSANS ;;
     xcomsim|xcomsim-relay) programs=XCOMSIM ;;
+    nodrive) programs=REDIR ;;
     fc|xcopy|junktest|dirtest) programs="" ;;
-    *) fail_usage "the program is id, findlife, exact, enumstat, drift, dtadump, patlist, template, findpos, findpos-labelled, dosans, dosans-labelled, dosans-cd, memprobe, fc, xcopy, dirgone, xcomsim, xcomsim-relay, junktest or dirtest, not: $what" ;;
+    *) fail_usage "the program is id, findlife, exact, enumstat, drift, dtadump, patlist, template, findpos, findpos-labelled, dosans, dosans-labelled, dosans-cd, memprobe, fc, xcopy, dirgone, xcomsim, xcomsim-relay, nodrive, junktest or dirtest, not: $what" ;;
 esac
 case "$what" in
     junktest|dirtest) if [ $# -ne 5 ]; then fail_usage "$what takes the folder of the reporter's files"; fi ;;
@@ -264,6 +272,13 @@ case "$what" in
             "ECHO files>> $out" "DIR D:\\COPY /S /B /A-D >> $out" "ECHO folders>> $out" "DIR D:\\COPY /S /B /AD >> $out"
             "TYPE $out >> $result" "DEL $out")
         ;;
+    nodrive)
+        # A blank line after each answer: a message that ends with no line break would join the
+        # next section's name.
+        while IFS='|' read -r name line; do
+            batch+=("ECHO section nodrive-$name>> $result" "REDIR.EXE $out $line" "TYPE $out >> $result" "ECHO.>> $result" "DEL $out")
+        done <<< "$NODRIVE_LINES"
+        ;;
     junktest)
         # In a folder of D:, not its root: a FAT16 root holds 512 entries, and the folder the
         # reporter mounted as a drive has no such limit. A batch file prints through a COMMAND /C
@@ -307,7 +322,7 @@ c_img=$(host_path "$boot/$image_name") d_img=$(host_path "$boot/d.img")
 # while it lists the folder, and the emulator's search table gives out before the listing ends.
 # FC.EXE and XCOPY.EXE are the emulator's own, taken from its Z: drive like the DPMI host.
 case "$what" in
-    id|dosans-cd) folders=("echo 0 file(s) copied > e:\\STAGED.TXT") ;;
+    id|dosans-cd|nodrive) folders=("echo 0 file(s) copied > e:\\STAGED.TXT") ;;
     enumstat|memprobe) folders=("md d:\\DIR" "copy /y e:\\D\\DIR\\*.* d:\\DIR > e:\\STAGED.TXT") ;;
     fc) folders=("copy /y z:\\dos\\fc.exe c:\\RD > nul" "md d:\\DIR" "copy /y e:\\D\\DIR\\*.* d:\\DIR > e:\\STAGED.TXT") ;;
     xcopy)
@@ -445,6 +460,13 @@ case "$what" in
         # shellcheck disable=SC2046  # two counts, split on purpose
         set -- $(awk '$0 == "files" || $0 == "folders" { kind = $0; next } index($0, "D:\\COPY\\") == 1 { n[kind]++ } END { print n["files"] + 0, n["folders"] + 0 }' "$tmp/report.txt")
         say "made=$host_files copied=$1 dirs_made=$host_dirs dirs_copied=$2 said=${said:--}"
+        ;;
+    nodrive)
+        while IFS='|' read -r name line; do
+            answer=$(section "nodrive-$name" | awk 'NF { printf "%s%s", sep, $0; sep = " / " } END { print "" }')
+            if [ -z "$answer" ]; then invalid "the DOS printed nothing for \"$line\""; fi
+            echo "$dos|$name|$line|$answer"
+        done <<< "$NODRIVE_LINES"
         ;;
     junktest)
         section junktest > "$tmp/report.txt"

@@ -9,7 +9,8 @@
 # realdos-freedos hold a dirgone run on MS-DOS 6.22 and on FreeDOS, realdos-freedos-findpos a
 # findpos-labelled run on FreeDOS. fixtures/realdos-dosans holds a dosans run on MS-DOS 7.10,
 # realdos-dosans-labelled a dosans-labelled run on MS-DOS 6.22, realdos-dosans-cd a dosans-cd run on
-# MS-DOS 6.22 (the CD image attached, MSCDEX 2.23), realdos-xcomsim an xcomsim run on MS-DOS 7.10.
+# MS-DOS 6.22 (the CD image attached, MSCDEX 2.23), realdos-xcomsim an xcomsim run on MS-DOS 7.10,
+# realdos-nodrive and realdos-nodrive-msdos622 a nodrive run on MS-DOS 7.10 and on 6.22.
 # Those files are not in this repository: the folders handed to the script hold empty files under
 # their names, as many as the reporters'.
 set -u
@@ -17,6 +18,7 @@ set -u
 . "$(dirname "$0")/testlib.sh"
 t_begin
 f=$here/fixtures
+: > "$work/prebuilt/REDIR.EXE"
 : > "$work/boot.img"
 : > "$work/boot.vhd"
 run() { "$here/realdos.sh" "$build_a" msdos710 "$work/boot.img" "$@"; }
@@ -93,6 +95,18 @@ t_play "$f/realdos-dosans"
 t_case "DOSANS's report of MS-DOS 7.10" 0 "msdos710|call|3D|D:\\NOSUCH\\CON|err=3" run dosans
 t_derive "$f/realdos-dosans"; sed -i '' '/^call|3B|D:\\X\\|/d' "$derived/3/RESULT.TXT"; t_play "$derived"
 t_case "DOSANS's report with a line missing" 3 "DOSANS's report has no trailer or its count disagrees" run dosans
+t_play "$f/realdos-nodrive"
+t_case "what MS-DOS 7.10 answers on a drive that is not there" 0 "msdos710|label-q-x|label q: X|Invalid drive specification" run nodrive
+t_play "$f/realdos-nodrive-msdos622"
+t_case "and MS-DOS 6.22" 0 "msdos622|label-qx|label q:X|Invalid drive specification" run_on msdos622 "$work/boot.vhd" nodrive
+t_derive "$f/realdos-nodrive"; sed -i '' '/^section nodrive-label-q[[:cntrl:]]*$/,/^section nodrive-label-qx/{/^Invalid/d;}' "$derived/3/RESULT.TXT"; t_play "$derived"
+t_case "a line the DOS answered with nothing" 3 "the DOS printed nothing for \"label q:\"" run nodrive
+batch_of() {
+    local out
+    out=$(STUB_RC=3 run "$@" 2>&1)
+    tr -d '\r' < "$(printf '%s\n' "$out" | sed -n 's/.*the run is kept in //p')/stage/BOOT/AUTOEXEC.BAT"
+}
+t_case "each line runs through REDIR, which keeps the error messages" 0 'REDIR.EXE C:\RD\OUT.TXT label q:X' batch_of nodrive
 t_play "$f/realdos-xcomsim"
 t_case "XCOMSIM's report of the image's DOS" 0 "msdos710|lookups|made=2118 as_the_game=2118 differ=0 loads=18.41" run xcomsim
 t_case "XCOMSIM's verdict on the image's DOS" 0 "realdos.sh: msdos710: listing=40/40 40/40 lost=0" run xcomsim
@@ -157,7 +171,7 @@ t_derive "$f/realdos"; echo 139 > "$derived/2/EXIT"; t_play "$derived"
 t_case "that exit in a run with no keys to type" 3 "the image did not boot, or its DOS wrote nothing" run findlife
 t_play "$f/realdos"
 STUB_RC=3 t_case "the launcher refuses the run" 3 "the disks could not be made" run findlife
-t_case "a program it does not have" 2 "memprobe, fc, xcopy, dirgone, xcomsim, xcomsim-relay, junktest or dirtest, not: shell" run shell
+t_case "a program it does not have" 2 "memprobe, fc, xcopy, dirgone, xcomsim, xcomsim-relay, nodrive, junktest or dirtest, not: shell" run shell
 t_case "an image that is not there" 2 "not a disk image" run_on msdos710 "$work/none.img" id
 t_case "a DOS it does not know" 2 "the DOS is msdos710, msdos622 or freedos, not: pcdos7" run_on pcdos7 "$work/boot.img" id
 t_case "the image and the program with no DOS" 2 "usage:" run_on "$work/boot.img" id

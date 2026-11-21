@@ -22,6 +22,21 @@ t_derive "$f/findlife"; printf 'folders|a=2 b=2 foreign=0\r\nend|cases=0\r\n' > 
 t_case "a report with no case" 3 "build B's report has no case" run on
 t_play "$f/findlife"
 STUB_RC=3 t_case "the launcher refuses the run" 3 "did not run to its end" run on
+# A temporary folder longer than a DOS command line, wherever the test runs. FINDLIFE hands the
+# remount's folder to MOUNT after " d ", in the 126 characters of the command line.
+long_tmp=$work/tmp/$(printf '%0130d' 0)
+mkdir -p "$long_tmp" || exit 3
+root_of() {
+    local out
+    out=$(TMPDIR=$long_tmp STUB_RC=3 run on 2>&1)
+    awk '{ print (length($0) <= 123 ? "fits" : "too long: " length($0)) }' "$(printf '%s\n' "$out" | sed -n 's/.*the run is kept in //p')/run-A/ROOT.TXT"
+}
+t_case "under a long TMPDIR the remount's folder fits MOUNT's command line" 0 "fits" root_of
+spy=$work/spy.sh
+# shellcheck disable=SC2016  # the script written here expands its own variables
+printf '%s\n' '#!/bin/bash' 'pwd -P >> "$SPY_OUT"' "exec \"$here/fixtures/stub-launcher.sh\" \"\$@\"" > "$spy" && chmod +x "$spy" || exit 3
+where() { SPY_OUT=$work/where.txt DIRCACHE_LAUNCHER=$spy run on > /dev/null; head -n 1 "$work/where.txt"; }
+t_case "the emulator starts in the run's folder, which the remount's folder is named from" 0 "/run-A" where
 t_case "neither on nor off" 2 "on or off" run maybe
 t_case "two arguments" 2 "usage:" "$here/findlife.sh" "$build_a" "$build_b"
 t_end

@@ -1,0 +1,22 @@
+section ver
+
+Windows 98 [Version 4.10.2222]
+
+section dos
+dos|version=7.10 oem=FF
+dos|true_version=7.10 flags=10
+dos|int21=030F:04A0 code=EAB20FC9002EF606
+dos|lfn_714e=7100
+dos|windows_1600=00
+dos|drive_z=3
+end
+section nodrive-label-q-x
+Invalid drive specification
+
+section nodrive-label-q
+Invalid drive specification
+
+section nodrive-label-qx
+Invalid drive specification
+
+section done

@@ -63,9 +63,11 @@ for label in A B; do
         guest_run "$label" "$binary" "$tmp/fx" " -label $TEMPLATE_LABEL" TEMPLATE.TXT "$SECONDS_BOUND" \
             'vol d: > c:\TEMPLATE.TXT' "c:" 'TEMPLATE.EXE D C:\REPORT.TXT' 'type c:\REPORT.TXT >> c:\TEMPLATE.TXT'
     else
-        image=$(host_path "$tmp/run-$label/v.img")
+        # The image is named on C:, which IMGMAKE and IMGMOUNT read relative to: a host path
+        # grows with TMPDIR past the 126 characters a DOS command line holds, and IMGMAKE then
+        # prints its help and makes nothing.
         guest_run "$label" "$binary" "$tmp/fx" "" TEMPLATE.TXT "$SECONDS_BOUND" \
-            "imgmake \"$image\" -t hd -size $DISK_MB" "imgmount e \"$image\"" "label e: $TEMPLATE_LABEL" \
+            "c:" "imgmake v.img -t hd -size $DISK_MB" "imgmount e v.img" "label e: $TEMPLATE_LABEL" \
             'dir c:\ > c:\DIRC.TXT' 'dir e:\ > c:\DIRE.TXT' \
             'copy d:\*.* e:\ > c:\TEMPLATE.TXT' 'vol e: >> c:\TEMPLATE.TXT' 'type c:\DIRE.TXT >> c:\TEMPLATE.TXT' \
             "c:" 'TEMPLATE.EXE E C:\REPORT.TXT' 'type c:\REPORT.TXT >> c:\TEMPLATE.TXT'

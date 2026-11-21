@@ -1,0 +1,22 @@
+section ver
+
+MS-DOS Version 6.22
+
+section dos
+dos|version=6.22 oem=FF
+dos|true_version=6.22 flags=00
+dos|int21=0021:40F8 code=FA80FC6C77D280FC
+dos|lfn_714e=0000
+dos|windows_1600=00
+dos|drive_z=3
+end
+section nodrive-label-q-x
+Invalid drive specification
+
+section nodrive-label-q
+Invalid drive specification
+
+section nodrive-label-qx
+Invalid drive specification
+
+section done

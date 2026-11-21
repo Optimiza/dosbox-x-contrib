@@ -40,12 +40,20 @@ need_tools
 run_begin life
 guest_build FINDLIFE "$tmp/c" || invalid "FINDLIFE did not build"
 
+# The emulator runs in the run's own folder, as windows.ps1 starts it there too: the builds and
+# the launcher are named whole before the script moves into it.
+whole() { case "$1" in /*) printf '%s\n' "$1" ;; *) printf '%s/%s\n' "$PWD" "$1" ;; esac; }
+build_a=$(whole "$build_a") build_b=$(whole "$build_b") launcher=$(whole "$launcher")
+
 # Each build gets its own D: tree: one case creates and removes a file in it. ROOT.TXT carries
-# the tree's host path for the remount, too long for a DOS command line.
+# the host path the remount mounts it from, relative to the emulator's working folder: FINDLIFE
+# hands it to MOUNT on a DOS command line, which holds 126 characters, and a path under TMPDIR
+# grows past them.
 run_one() {
     local label=$1 binary=$2 tree=$tmp/tree-$1
     findlife_tree "$tree" || invalid "could not make build $label's folders"
-    host_path "$tree" > "$tmp/c/ROOT.TXT" || invalid "could not write ROOT.TXT"
+    host_path "../tree-$label" > "$tmp/c/ROOT.TXT" || invalid "could not write ROOT.TXT"
+    if ! mkdir -p "$tmp/run-$label" || ! cd "$tmp/run-$label"; then invalid "could not enter build $label's run directory"; fi
     guest_run "$label" "$binary" "$tree" "" LIFE.TXT "$SECONDS_BOUND" "c:" 'FINDLIFE.EXE D:\A D:\B C:\LIFE.TXT C:\ROOT.TXT'
     LC_ALL=C tr -d '\r' < "$guest_out" > "$tmp/life-$label.txt" || invalid "build $label's report could not be read"
     echo "findlife.sh: build $label: $binary ($emu_version)"
