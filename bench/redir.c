@@ -1,13 +1,6 @@
-/* REDIR.EXE: runs one command line through the DOS's own COMMAND.COM with both what it prints
- * and its error messages appended to a file, which a batch file's > cannot do: DOS has no 2>.
- *
- *   usage: REDIR <output file> <command line>
- *          e.g. REDIR C:\RD\OUT.TXT label q: X
- *
- * The command line is read from the PSP's command tail as typed. Through argv the C library
- * would quote its words again, and COMMAND.COM would then answer that no such command exists.
- * Exit 2 with no file or no line, 3 when the file cannot be opened.
- */
+/* REDIR <file> <command line>: runs the line through COMMAND.COM with its output and errors
+ * appended to <file>: DOS has no 2>. The line is read from the PSP's tail as typed,
+ * since through argv the C library would quote its words and COMMAND.COM would not find them. */
 #include <fcntl.h>
 #include <go32.h>
 #include <process.h>

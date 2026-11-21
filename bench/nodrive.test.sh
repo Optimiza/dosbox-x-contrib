@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # nodrive.sh's verdicts against captured runs, no emulator: bash nodrive.test.sh
-# fixtures/nodrive holds the unpatched base against itself on macOS: 48 starts, a line and its
-# control in turn, build A's 24 then build B's. The first nine lines die on SIGSEGV (EXIT 139);
-# cd, vol 1: and tree 1: and every control answer.
+# fixtures/nodrive holds the unpatched base against itself on macOS: a start per line and per
+# control, in turn, build A's then build B's. lines_a and lines_b are the starts that die on
+# SIGSEGV (EXIT 139); every other start answers.
 set -u
 # shellcheck source=testlib.sh
 . "$(dirname "$0")/testlib.sh"
@@ -114,9 +114,9 @@ t_case "and writes nothing in the caller's folder" 0 "in the caller's folder: []
 # shellcheck disable=SC2016  # the child shell expands its own variables
 whole_of() { bash -c 'tool=t here=$1; . "$here/common.sh" && cd "$2" && printf "[%s] [%s] [%s]\n" "$(whole C:/dosbox/d.exe)" "$(whole /c/w/d.exe)" "$(whole d.exe)"' _ "$here" "$work"; }
 t_case "a path from a drive letter or from the root is kept, another is named from here" 0 "[C:/dosbox/d.exe] [/c/w/d.exe] [$work/d.exe]" whole_of
-# fixtures/nodrive-windows holds the unpatched base against itself on Windows: 56 starts, as
-# windows.ps1 wrote them and as stub-powershell.sh plays them, the build's path replaced. The
-# nine lines, imgmake -source q and start /hid whoami.exe die on 0xC0000005.
+# fixtures/nodrive-windows holds the unpatched base against itself on Windows, as windows.ps1
+# wrote its starts and as stub-powershell.sh plays them, the build's path replaced. win_dead are
+# the starts that die on 0xC0000005.
 w=$here/fixtures/nodrive-windows
 mkdir -p "$work/winbin" || exit 3
 printf '#!/bin/sh\necho MINGW64_NT-10.0-26300\n' > "$work/winbin/uname"

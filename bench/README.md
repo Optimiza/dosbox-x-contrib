@@ -1348,15 +1348,14 @@ build, `2` usage, `3` INVALID.
 ## nodrive.sh
 
 **What it shows.** Whether the emulator survives a shell command on a drive that is not mounted,
-or with no drive behind the current one, and what it answers. On the unpatched base every such
-line ends the emulator on SIGSEGV.
+or with no drive behind the current one, and what it answers.
 
 - Each line runs in an emulator start of its own, so that one that ends the emulator hides no
   other.
 - Each line has a control: the same command on `C:`, a mounted drive, which must answer.
 - `NODRIVE.EXE` leaves `A:` current with nothing mounted on it, and prints the drive DOS names
-  as current. `NODRIVE.EXE /S` only prints it, before a control. A run is trusted when that
-  drive is `A:` before a line and `C:` before a control.
+  as current. `NODRIVE.EXE /S` only prints it, with `C:` current: before the lines on `Q:` and
+  `1:`, and before every control. A run is trusted when that drive is the one its start set.
 
 **How it is called.**
 
@@ -1381,7 +1380,7 @@ nodrive.sh <build A> <build B>
 - The emulator starts in that folder too. With no drive current, `IMGMAKE` writes `x.img` in
   the emulator's working folder, so the image stays in its run and the next line starts
   without it.
-- `realdos.sh` asks a real DOS the three lines on `Q:` (`nodrive`). No DOS can be put in the
+- `realdos.sh` asks a real DOS the lines on `Q:` (`nodrive`). No DOS can be put in the
   state of the other lines.
 
 **What it prints.** Each build's path and version line, then a line per run: its name, the
@@ -1632,7 +1631,7 @@ realdos.sh <build> <dos> <boot image> junktest|dirtest <folder>
 | `xcopy` | the emulator's `XCOPY.EXE` over the tree `xcopy.sh` makes |
 | `dirgone` | DIRGONE over the folder `dirgone.sh` makes |
 | `xcomsim`, `xcomsim-relay` | XCOMSIM over the drive `xcomsim.sh` makes, its listing through its own DTAs, then relayed |
-| `nodrive` | the three lines of `nodrive.sh` on `Q:`, a letter that DOS has no drive for, each through `REDIR.EXE` |
+| `nodrive` | the lines of `nodrive.sh` on `Q:`, a letter that DOS has no drive for, each through `REDIR.EXE` |
 | `junktest` | the reporter's batch files of `junktest.sh`, unpacked in `<folder>`, in the run the issue describes, with the emulator's `FC.EXE` |
 | `dirtest` | the reporter's program of `dirtest.sh`, unpacked in `<folder>`, with Enter typed as `dirtest.sh` types it |
 
@@ -1665,7 +1664,8 @@ the program's report whole. Every line names the DOS: the script's own start
   own `DIR` lists under the copy, and the count XCOPY printed.
 - For `xcomsim` and `xcomsim-relay` it is XCOMSIM's report, then its `listing=` verdict on a
   line of the script's own.
-- For `nodrive` it is a line per command, as `nodrive.sh` prints it. `REDIR.EXE` keeps the
+- For `nodrive` it is a line per command: its name, the command and what the DOS answered,
+  with no control line. `REDIR.EXE` keeps the
   error messages too, which a batch file's `>` loses. A command the DOS answered with nothing
   is INVALID.
 - For `junktest` it is the counts `junktest.sh` prints, but memory. For `dirtest` it is how

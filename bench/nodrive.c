@@ -1,17 +1,5 @@
-/* NODRIVE.EXE: makes A: the current drive and prints the current drive as DOS answers it, so
- * that the shell's next line runs with a current drive nothing is mounted on, and the run says
- * which drive that was.
- *
- *   usage: NODRIVE [/S]
- *
- *   /S  changes nothing: prints the current drive only
- *
- * INT 21h 0Eh takes A: and B: whether or not a drive is there, as a real DOS does for its two
- * floppy letters. A real DOS has a floppy drive behind them; the emulator, with none mounted,
- * then has no drive at all behind the current one. INT 21h 19h names the current drive without
- * reading it, so its answer holds with nothing behind it, where the shell's CD prints what the
- * drive's own state leaves.
- */
+/* NODRIVE [/S]: makes A: current, which 0Eh takes with no drive behind it, then prints the
+ * current drive as 19h names it, without reading it. /S only prints it. */
 #include <dpmi.h>
 #include <stdio.h>
 #include <string.h>

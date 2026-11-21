@@ -31,8 +31,9 @@ on Windows also, with START.COM made by startcmd=true:
   cur-start   start /hid whoami.exe     after NODRIVE.EXE   control: the same line on C:
 
 NODRIVE.EXE makes A:, which nothing mounts, the current drive, and prints the current drive as
-INT 21h 19h answers it; NODRIVE.EXE /S, run before a control, prints it only. It must say A:
-before a line and C: before a control, or the run is not trusted.
+INT 21h 19h answers it; NODRIVE.EXE /S prints it only, with C: current: before the lines on Q:
+and 1:, and before every control. It must say the drive its start set, or the run is not
+trusted.
 
 prints each build's path, version line and report: a line per run, its name (a control's ends
 in -control), the command and what the shell answered, its lines joined by " / ". Then the
