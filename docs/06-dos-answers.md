@@ -21,15 +21,16 @@ For a mounted folder, an overlay drive and a zip drive, INT 21h 4Eh checks the p
 directory, and the label and root searches follow one rule on the three drives.
 
 The first byte of the DTA holds the drive counted from 1, as in DOS. It is [pull request 6877, "Answer INT 21h 4Eh and the
-label and root searches as MS-DOS does"](https://github.com/joncampbell123/dosbox-x/pull/6877), on the
-branch `dos-answers-path-mainai`.
+label and root searches as MS-DOS does"](https://github.com/joncampbell123/dosbox-x/pull/6877).
 
 For a CD image, a file is 01h, a directory 10h and the label 09h. The label comes only to a search for
 the label with 08h.
 
 A missing directory answers 2, and a path that ends in a backslash is a directory with no entry in
 it. It is [pull request 6878, "Answer a search on a CD image as MSCDEX
-does"](https://github.com/joncampbell123/dosbox-x/pull/6878), on `dos-answers-cd-mainai`, on top of the first.
+does"](https://github.com/joncampbell123/dosbox-x/pull/6878), on top of the first.
+
+Both were merged into `main-ai` on 20 November 2026.
 
 ## The figures
 
