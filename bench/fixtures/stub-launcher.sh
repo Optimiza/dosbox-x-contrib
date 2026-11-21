@@ -58,7 +58,7 @@ from=${STUB_PLAY:?set STUB_PLAY or STUB_RECORD}/$n
 if [ -d "$from" ]; then
     for f in "$from"/*; do
         case "$(basename "$f")" in
-            HOLD|EXIT|"$name") ;;
+            HOLD|EXIT|INVALID|"$name") ;;
             dosbox.log) cp "$f" "$log" ;;
             *) cp "$f" "$run/" ;;
         esac
@@ -71,8 +71,9 @@ if [ -d "$from" ]; then
 fi
 version=${STUB_VERSION-DOSBox-X version 0.0 stub}
 if [ -n "$version" ]; then echo "launch.sh: version: $version" > "$report"; else : > "$report"; fi
-# An EXIT file in a call's recording is the emulator's exit code for that call alone, as the
-# launcher's report names it.
+# An INVALID file holds the reason launch.sh gives when it refuses a run; an EXIT file is the exit
+# code for that call alone, as the launcher's report names it.
+if [ -f "$from/INVALID" ]; then echo "launch.sh: INVALID: $(cat "$from/INVALID")" >> "$report"; fi
 if [ -f "$from/EXIT" ]; then
     echo "launch.sh: exit code: $(cat "$from/EXIT")" >> "$report"
     exit "$(cat "$from/EXIT")"

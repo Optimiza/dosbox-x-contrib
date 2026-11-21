@@ -3,4 +3,4 @@ C:
 line
 Starting whoami.exe...
 (Press Ctrl+C to exit immediately)
-end
+nodrive-end

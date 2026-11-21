@@ -1392,13 +1392,19 @@ that differ.
 - A line that ended the emulator answers `died:` and why, with the exit code. On macOS that
   is the signal, such as `SEGV, exit 139`.
 - On Windows it is the exception code, such as `0xC0000005, exit -1073741819`.
+- A run `windows.ps1` killed at its bound answers `killed:` and the bound, never `died:`: the
+  `-1` it reports is the kill's code.
 
 **Exit codes.** `0` alike, `1` different, `2` usage, `3` INVALID.
 
 - A line that ends the emulator is INVALID, never a difference. The message names each such
   line, its build and its signal or exception code.
-- So is a run that did not reach its last line, or had another drive current than its line
-  asks for.
+- So is a run killed at its bound, or one that did not reach its last line, left no output or
+  no `line` marker, or had another drive current than its start set. The message names too
+  the lines that ended the emulator before it.
+- The exit code decides first: a run whose code says the emulator ended is a death, whatever
+  it wrote. On macOS a run `launch.sh` refused is INVALID with the launcher's reason, since its
+  code is then the launcher's.
 
 **What it does not show.**
 

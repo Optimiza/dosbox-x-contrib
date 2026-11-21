@@ -42,7 +42,6 @@ guest_build FINDLIFE "$tmp/c" || invalid "FINDLIFE did not build"
 
 # The emulator runs in the run's own folder, as windows.ps1 starts it there too: the builds and
 # the launcher are named whole before the script moves into it.
-whole() { case "$1" in /*) printf '%s\n' "$1" ;; *) printf '%s/%s\n' "$PWD" "$1" ;; esac; }
 build_a=$(whole "$build_a") build_b=$(whole "$build_b") launcher=$(whole "$launcher")
 
 # Each build gets its own D: tree: one case creates and removes a file in it. ROOT.TXT carries

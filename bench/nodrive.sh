@@ -44,9 +44,11 @@ environment:
 
 exit: 0 alike | 1 different | 2 usage
       3 INVALID: a line ended the emulator, which names the build, the line and the signal on
-        macOS or the exception code on Windows;
-        or a run did not reach its last line, or had another drive current than the line
-        asks for; the run's directory is kept and named
+        macOS or the exception code on Windows; on Windows, a run windows.ps1 killed at its
+        bound, named as such; or a run did not reach its last line, left no output or no "line" marker, or had
+        another drive current than its start set; or, on macOS, launch.sh refused a run.
+        The lines that ended the emulator before it are named too; the run's directory is
+        kept and named
 EOT
 }
 
@@ -74,7 +76,6 @@ mkdir -p "$tmp/d" || invalid "could not make D:'s folder"
 # drive current writes its image in the emulator's working folder, so a folder shared between
 # lines would answer the first line's image to the next. The builds and the launcher are named
 # whole before the script moves.
-whole() { case "$1" in /*) printf '%s\n' "$1" ;; *) printf '%s/%s\n' "$PWD" "$1" ;; esac; }
 build_a=$(whole "$build_a") build_b=$(whole "$build_b") launcher=$(whole "$launcher")
 
 # name|state|line: state q is a line on a drive nothing is mounted on, Q: or 1:, whose control
@@ -112,15 +113,25 @@ signal_of() {
     fi
 }
 
+# The guest's last line: no command prints it, so an answer cut short cannot end in it.
+END_MARK=nodrive-end
+
+# not_trusted <why>: INVALID, naming too the lines that ended the emulator before this run.
+not_trusted() {
+    if [ -s "$tmp/dead" ]; then set -- "$1; before it, $(joined "$tmp/dead")"; fi
+    invalid "$1"
+}
+joined() { awk '{ printf "%s%s", sep, $0; sep = "; " }' "$1"; }
+
 # run_one <label> <build> <name> <state> <line>: one emulator start. The guest writes "start",
-# the drive NODRIVE.EXE names, "line" and the line's answer into OUT.TXT, then "end". Appends the
-# report line, and to $tmp/dead what ended the emulator or kept it from its last line.
+# the drive NODRIVE.EXE names, "line" and the line's answer into OUT.TXT, then END_MARK. Appends
+# the report line, and to $tmp/dead what ended the emulator or kept it from its last line.
 run_one() {
-    local label=$1 binary=$2 name=$3 state=$4 line=$5 run=$tmp/run-$1-$3 code before='NODRIVE.EXE /S' answer current
-    if ! mkdir -p "$run" || ! cp -R "$tmp/c/." "$run/" || ! cd "$run"; then invalid "could not make the run directory of $label $name"; fi
+    local label=$1 binary=$2 name=$3 state=$4 line=$5 run=$tmp/run-$1-$3 code before='NODRIVE.EXE /S' answer current refused bound
+    if ! mkdir -p "$run" || ! cp -R "$tmp/c/." "$run/" || ! cd "$run"; then not_trusted "could not make the run directory of $label $name"; fi
     if [ "$state" = none ]; then before='NODRIVE.EXE'; fi
     conf_write "$run" "$tmp/d" "" 'c:' 'echo start> C:\OUT.TXT' "$before >> C:\\OUT.TXT" \
-        'echo line>> C:\OUT.TXT' "$line >> C:\\OUT.TXT" 'echo end>> C:\OUT.TXT'
+        'echo line>> C:\OUT.TXT' "$line >> C:\\OUT.TXT" "echo $END_MARK>> C:\\OUT.TXT"
     emu_start "$binary" "$run" OUT.TXT "$SECONDS_BOUND"
     wait "$emu_job"
     emu_job=""
@@ -128,34 +139,48 @@ run_one() {
     if [ -z "$emu_version" ]; then
         echo "$tool: $label $name: no version line; the launcher said:" >&2
         cat "$run/launcher.txt" >&2
-        invalid "build $label did not start"
+        not_trusted "build $label did not start"
     fi
+    # On macOS the report's code is launch.sh's own when it refused the run, not the emulator's.
+    # On Windows a run windows.ps1 killed at its bound reports the -1 of the kill.
     if [ "$HOST_KIND" = windows ]; then
+        bound=$(tr -d '\r' < "$run/launcher.txt" | sed -n 's/^windows\.ps1: INVALID: the emulator \(passed the bound of [0-9]* s\) and was killed$/\1/p')
+        if [ -n "$bound" ]; then
+            echo "$name|$line|killed: $bound" >> "$tmp/report-$label.txt"
+            echo "build $label: \"$line\" ($name) $bound and was killed" >> "$tmp/dead"
+            return
+        fi
         code=$(sed -n 's/^windows\.ps1: exit code: //p' "$run/report.txt" | tr -d '\r')
     else
         code=$(sed -n 's/^launch\.sh: exit code: //p' "$run/report.txt")
+        refused=$(sed -n 's/^launch\.sh: INVALID: //p' "$run/report.txt")
+        if [ -n "$refused" ]; then not_trusted "the launcher refused build $label's run of \"$line\" ($name): $refused"; fi
     fi
-    if [ ! -f "$run/OUT.TXT" ]; then invalid "build $label's run of \"$line\" left no output"; fi
-    # IMGMAKE -source ends its answer with no newline, so "end" lands on the answer's last line,
-    # and the shell writes no empty line to a file (echo. prints none there): split it off here.
-    LC_ALL=C tr -d '\r' < "$run/OUT.TXT" | LC_ALL=C awk 'NR > 1 { print prev } { prev = $0 }
-        END { if (NR) { if (prev ~ /.end$/) { print substr(prev, 1, length(prev) - 3); prev = "end" } print prev } }' \
-        > "$run/said.txt" || invalid "build $label's output could not be read"
-    if [ "$(head -n 1 "$run/said.txt")" != start ]; then invalid "build $label's run of \"$line\" left no first line"; fi
-    case "${code#-}" in ''|*[!0-9]*) invalid "the launcher's report of build $label's run of \"$line\" names no exit code" ;; esac
+    case "${code#-}" in ''|*[!0-9]*) not_trusted "the launcher's report of build $label's run of \"$line\" ($name) names no exit code" ;; esac
+    if [ "$code" -ne 0 ]; then
+        echo "$name|$line|died: $(signal_of "$code")" >> "$tmp/report-$label.txt"
+        echo "build $label: \"$line\" ($name) ended the emulator: $(signal_of "$code")" >> "$tmp/dead"
+        return
+    fi
+    if [ ! -f "$run/OUT.TXT" ]; then not_trusted "build $label's run of \"$line\" ($name) left no output"; fi
+    # IMGMAKE -source ends its answer with no newline, so END_MARK lands on the answer's last
+    # line, and the shell writes no empty line to a file (echo. prints none there): split it off.
+    LC_ALL=C tr -d '\r' < "$run/OUT.TXT" | LC_ALL=C awk -v m="$END_MARK" 'NR > 1 { print prev } { prev = $0 }
+        END { if (NR) { k = length(prev) - length(m); if (k > 0 && substr(prev, k + 1) == m) { print substr(prev, 1, k); prev = m } print prev } }' \
+        > "$run/said.txt" || not_trusted "build $label's output could not be read"
+    if [ "$(head -n 1 "$run/said.txt")" != start ]; then not_trusted "build $label's run of \"$line\" ($name) left no first line"; fi
     current=C:
     if [ "$state" = none ]; then current=A:; fi
     if [ "$(sed -n 2p "$run/said.txt")" != "$current" ]; then
-        invalid "build $label's run of \"$line\" ($name) had $(sed -n 2p "$run/said.txt") current, not $current"
+        not_trusted "build $label's run of \"$line\" ($name) had $(sed -n 2p "$run/said.txt") current, not $current"
     fi
-    if [ "$code" -ne 0 ]; then
-        answer="died: $(signal_of "$code")"
-        echo "build $label: \"$line\" ($name) ended the emulator: $(signal_of "$code")" >> "$tmp/dead"
-    elif [ "$(tail -n 1 "$run/said.txt")" != end ]; then
+    if [ "$(tail -n 1 "$run/said.txt")" != "$END_MARK" ]; then
         answer="did not reach its last line"
         echo "build $label: \"$line\" ($name) did not reach its last line" >> "$tmp/dead"
+    elif ! LC_ALL=C command grep -qx line "$run/said.txt"; then
+        not_trusted "build $label's run of \"$line\" ($name) left no \"line\" marker"
     else
-        answer=$(awk 'f && $0 != "end" && NF { printf "%s%s", sep, $0; sep = " / " } $0 == "line" { f = 1 } END { print "" }' "$run/said.txt")
+        answer=$(awk -v m="$END_MARK" 'f && $0 != m && NF { printf "%s%s", sep, $0; sep = " / " } $0 == "line" { f = 1 } END { print "" }' "$run/said.txt")
     fi
     echo "$name|$line|$answer" >> "$tmp/report-$label.txt"
 }
@@ -175,5 +200,5 @@ for label in A B; do
     echo "$tool: build $label: $binary ($emu_version)"
     cat "$tmp/report-$label.txt"
 done
-if [ -s "$tmp/dead" ]; then invalid "$(awk '{ printf "%s%s", sep, $0; sep = "; " }' "$tmp/dead")"; fi
+if [ -s "$tmp/dead" ]; then invalid "$(joined "$tmp/dead")"; fi
 reports_verdict

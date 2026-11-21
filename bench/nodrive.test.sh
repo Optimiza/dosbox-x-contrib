@@ -19,7 +19,7 @@ survive() {
     for n in "$@"; do
         echo 0 > "$d/$n/EXIT"
         if [ -n "$answer" ]; then printf '%s\r\n' "$answer" >> "$d/$n/OUT.TXT"; fi
-        printf 'end\r\n' >> "$d/$n/OUT.TXT"
+        printf 'nodrive-end\r\n' >> "$d/$n/OUT.TXT"
     done
 }
 lines_a=(1 3 5 7 9 11 13 15 17) lines_b=(25 27 29 31 33 35 37 39 41)
@@ -48,13 +48,23 @@ t_case "two builds that survive and answer otherwise" 1 "nodrive.sh: DIFFERENT, 
 t_case "the lines that differ, of the second build" 1 "> cur-vol|vol|Invalid drive specification" run
 t_derive "$f"; echo 0 > "$derived/1/EXIT"; t_play "$derived"
 t_case "a run that stops short of its last line, whenever it stopped" 3 "build A: \"label q: X\" (label-q-x) did not reach its last line; " run
-t_derive "$f"; sed -i '' 's/^A:/C:/' "$derived/7/OUT.TXT"; t_play "$derived"
-t_case "NODRIVE.EXE that left C: current" 3 "build A's run of \"label X\" (cur-label-x) had C: current, not A:" run
+t_derive "$f"; survive "$derived" "" "${lines_a[@]}" "${lines_b[@]}"; printf 'start\r\nC:\r\nline\r\nUnable to extend\r\n' > "$derived/2/OUT.TXT"; t_play "$derived"
+t_case "a run cut on an answer that ends in the letters of the old last line" 3 "build A: \"label c: X\" (label-q-x-control) did not reach its last line" run
+t_derive "$f"; printf 'start\r\n' > "$derived/7/OUT.TXT"; t_play "$derived"
+t_case "a line that ends the emulator before its drive line is a death" 3 "build A: \"label q:X\" (label-qx) ended the emulator: SEGV, exit 139; build A: \"label X\" (cur-label-x) ended the emulator: SEGV, exit 139" run
+t_derive "$f"; survive "$derived" "" "${lines_a[@]}" "${lines_b[@]}"; sed -i '' '/^line/d' "$derived/12/OUT.TXT"; t_play "$derived"
+t_case "a run that left no line marker" 3 "build A's run of \"vol\" (cur-vol-control) left no \"line\" marker" run
+t_derive "$f"; rm "$derived/2/OUT.TXT"; echo 3 > "$derived/2/EXIT"; echo 'the run left no OUT.TXT' > "$derived/2/INVALID"; t_play "$derived"
+t_case "on macOS a run the launcher refused, whose code is the launcher's" 3 "the launcher refused build A's run of \"label c: X\" (label-q-x-control): the run left no OUT.TXT; before it, build A: \"label q: X\"" run
+t_derive "$f"; sed -i '' 's/^A:/C:/' "$derived/19/OUT.TXT"; t_play "$derived"
+t_case "NODRIVE.EXE that left C: current" 3 "build A's run of \"cd\" (cur-cd) had C: current, not A:" run
 t_derive "$f"; sed -i '' 's/^C:/A:/' "$derived/2/OUT.TXT"; t_play "$derived"
 t_case "a control with no drive current" 3 "build A's run of \"label c: X\" (label-q-x-control) had A: current, not C:" run
+t_derive "$f"; sed -i '' 's/^C:/A:/' "$derived/8/OUT.TXT"; t_play "$derived"
+t_case "a run not trusted names the deaths before it" 3 "build A's run of \"label X\" (cur-label-x-control) had A: current, not C:; before it, build A: \"label q: X\" (label-q-x) ended the emulator: SEGV, exit 139; build A: \"label q:\" (label-q) ended the emulator" run
 t_derive "$f"; sed -i '' '/^start/d' "$derived/4/OUT.TXT"; t_play "$derived"
-t_case "a run that left no first line" 3 "build A's run of \"label c:\" left no first line" run
-t_derive "$f"; printf 'start\r\nC:\r\nline\r\nUnable to read floppy.end\r\n' > "$derived/2/OUT.TXT"; t_play "$derived"
+t_case "a run that left no first line" 3 "build A's run of \"label c:\" (label-q-control) left no first line" run
+t_derive "$f"; printf 'start\r\nC:\r\nline\r\nUnable to read floppy.nodrive-end\r\n' > "$derived/2/OUT.TXT"; t_play "$derived"
 t_case "an answer with no newline of its own, which the last line closes" 3 "label-q-x-control|label c: X|Unable to read floppy.
 label-q|" run
 t_derive "$f"; rm "$derived/1/EXIT"; t_play "$derived"
@@ -72,9 +82,10 @@ conf_of_win() {
     out=$(win 2>&1)
     cat "$(printf '%s\n' "$out" | sed -n 's/.*the run is kept in //p')/run-A-$1/run.conf"
 }
-t_case "the line runs after NODRIVE.EXE" 0 'NODRIVE.EXE >> C:\OUT.TXT
+t_case "the line runs after NODRIVE.EXE, and a line no command prints closes it" 0 'NODRIVE.EXE >> C:\OUT.TXT
 echo line>> C:\OUT.TXT
-vol >> C:\OUT.TXT' conf_of cur-vol
+vol >> C:\OUT.TXT
+echo nodrive-end>> C:\OUT.TXT' conf_of cur-vol
 t_case "and its control with C: current, after NODRIVE.EXE /S" 0 'c:
 echo start> C:\OUT.TXT
 NODRIVE.EXE /S >> C:\OUT.TXT
@@ -96,6 +107,10 @@ where() {
 }
 t_case "each start runs in a folder of its own" 0 "48 run folders, 48 starts" where
 t_case "and writes nothing in the caller's folder" 0 "in the caller's folder: []" where
+# whole is common.sh's: nodrive.sh and findlife.sh name the builds by it before they change folder.
+# shellcheck disable=SC2016  # the child shell expands its own variables
+whole_of() { bash -c 'tool=t here=$1; . "$here/common.sh" && cd "$2" && printf "[%s] [%s] [%s]\n" "$(whole C:/dosbox/d.exe)" "$(whole /c/w/d.exe)" "$(whole d.exe)"' _ "$here" "$work"; }
+t_case "a path from a drive letter or from the root is kept, another is named from here" 0 "[C:/dosbox/d.exe] [/c/w/d.exe] [$work/d.exe]" whole_of
 # fixtures/nodrive-windows holds the unpatched base against itself on Windows: 56 starts, as
 # windows.ps1 wrote them and as stub-powershell.sh plays them, the build's path replaced. The
 # nine lines, imgmake -source q and start /hid whoami.exe die on 0xC0000005.
@@ -112,7 +127,7 @@ win_survive() {
     shift
     for n in "$@"; do
         sed -i '' 's/^windows\.ps1: exit code: .*/windows.ps1: exit code: 0\r/' "$d/$n/report.txt"
-        echo 0 > "$d/$n/launcher.rc" && rm "$d/$n/launcher.err" && printf 'end\r\n' >> "$d/$n/OUT.TXT" || exit 3
+        echo 0 > "$d/$n/launcher.rc" && rm "$d/$n/launcher.err" && printf 'nodrive-end\r\n' >> "$d/$n/OUT.TXT" || exit 3
     done
 }
 win_dead=(1 3 5 7 9 11 13 15 17 25 27 29 31 33 35 37 39 41 43 45 53 55)
@@ -126,6 +141,11 @@ t_derive "$w"; sed -i '' 's/^windows\.ps1: exit code: .*/windows.ps1: exit code:
 t_case "Windows: another exception, by its own code" 3 "(label-q-x) ended the emulator: 0xC0000409, exit -1073740791" win
 t_derive "$w"; sed -i '' 's/^windows\.ps1: exit code: .*/windows.ps1: exit code: 3\r/' "$derived/1/report.txt"; t_play "$derived"
 t_case "Windows: a code that is no exception, by its number" 3 "(label-q-x) ended the emulator: exit 3;" win
+# fixtures/nodrive-windows-bound is a run windows.ps1 killed at a bound of 5 s, its guest held on
+# PAUSE: the emulator's exit code is then the -1 of the kill.
+t_derive "$w"; cp "$here/fixtures/nodrive-windows-bound/"* "$derived/2/" || exit 3; t_play "$derived"
+t_case "Windows: a run killed at its bound is named so, never as a crash" 3 "build A: \"label c: X\" (label-q-x-control) passed the bound of 5 s and was killed;" win
+t_case "and its report says so" 3 "label-q-x-control|label c: X|killed: passed the bound of 5 s" win
 t_derive "$w"; win_survive "$derived" "${win_dead[@]}"; t_play "$derived"
 t_case "Windows: every line survives, alike" 0 "nodrive.sh: ALIKE" win
 t_play "$w"

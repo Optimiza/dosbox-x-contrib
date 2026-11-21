@@ -2,4 +2,4 @@ start
 C:
 line
 Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
-end
+nodrive-end

@@ -91,6 +91,10 @@ host_path() {
     if [ "$HOST_KIND" = windows ]; then cygpath -w "$1"; else printf '%s\n' "$1"; fi
 }
 
+# whole <path>: the path named from the root, so that it holds after the script changes folder.
+# One from a drive letter, as a Windows build may be named, already is.
+whole() { case "$1" in /*|[A-Za-z]:*) printf '%s\n' "$1" ;; *) printf '%s/%s\n' "$PWD" "$1" ;; esac; }
+
 # guest_build <NAME> <dir>: <dir>/<NAME>.EXE from the source beside the scripts, so a run tests
 # the source it sits with; or from DIRCACHE_PREBUILT, on a host with no DJGPP.
 guest_build() {
