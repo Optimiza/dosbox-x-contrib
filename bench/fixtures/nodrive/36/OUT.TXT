@@ -1,5 +1,7 @@
 start
-C:\
+C:
 line
-Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+
+ Volume in drive C has no label
+ Volume Serial Number is 0000-1234
 end

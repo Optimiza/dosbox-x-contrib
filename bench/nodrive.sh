@@ -23,9 +23,16 @@ other. Q: is never mounted, C: is the run's folder and holds no label. The lines
   cur-tree    tree           after NODRIVE.EXE      control: the same line on C:
   cur-fd      imgmake x.img -t fd_1440    after NODRIVE.EXE   control: the same line on C:
   cur-hd      imgmake x.img -t hd -size 4 after NODRIVE.EXE   control: the same line on C:
+  cur-cd      cd             after NODRIVE.EXE      control: the same line on C:
+  vol-1       vol 1:         control: vol c:
+  tree-1      tree 1:        control: tree c:
+on Windows also, with START.COM made by startcmd=true:
+  cur-imgsrc  imgmake x.img -source q   after NODRIVE.EXE   control: the same line on C:
+  cur-start   start /hid whoami.exe     after NODRIVE.EXE   control: the same line on C:
 
-NODRIVE.EXE makes A:, which nothing mounts, the current drive. Before each line CD must answer
-A:\ after it and C:\ elsewhere, or the run is not trusted.
+NODRIVE.EXE makes A:, which nothing mounts, the current drive, and prints the current drive as
+INT 21h 19h answers it; NODRIVE.EXE /S, run before a control, prints it only. It must say A:
+before a line and C: before a control, or the run is not trusted.
 
 prints each build's path, version line and report: a line per run, its name (a control's ends
 in -control), the command and what the shell answered, its lines joined by " / ". Then the
@@ -69,8 +76,9 @@ mkdir -p "$tmp/d" || invalid "could not make D:'s folder"
 whole() { case "$1" in /*) printf '%s\n' "$1" ;; *) printf '%s/%s\n' "$PWD" "$1" ;; esac; }
 build_a=$(whole "$build_a") build_b=$(whole "$build_b") launcher=$(whole "$launcher")
 
-# name|state|line: state q is a line on Q:, whose control runs it on C:; state none runs the line
-# after NODRIVE.EXE, and its control the same line with C: current.
+# name|state|line: state q is a line on a drive nothing is mounted on, Q: or 1:, whose control
+# runs it on C:; state none runs the line after NODRIVE.EXE, and its control the same line with C:
+# current.
 CASES='label-q-x|q|label q: X
 label-q|q|label q:
 label-qx|q|label q:X
@@ -79,7 +87,17 @@ cur-label|none|label
 cur-vol|none|vol
 cur-tree|none|tree
 cur-fd|none|imgmake x.img -t fd_1440
-cur-hd|none|imgmake x.img -t hd -size 4'
+cur-hd|none|imgmake x.img -t hd -size 4
+cur-cd|none|cd
+vol-1|q|vol 1:
+tree-1|q|tree 1:'
+# IMGMAKE -source and START are built on Windows only. START.COM exists only with startcmd=true,
+# which no other line reads.
+if [ "$HOST_KIND" = windows ]; then
+    CASES+=$'\ncur-imgsrc|none|imgmake x.img -source q\ncur-start|none|start /hid whoami.exe'
+    # shellcheck disable=SC2034  # read by conf_write
+    conf_dos=startcmd=true
+fi
 
 # signal_of <exit code>: the signal a code past 128 carries on a Mac, or the code itself.
 signal_of() {
@@ -91,14 +109,14 @@ signal_of() {
 }
 
 # run_one <label> <build> <name> <state> <line>: one emulator start. The guest writes "start",
-# what CD answers, "line" and the line's answer into OUT.TXT, then "end". Appends the report
-# line, and to $tmp/dead what ended the emulator or kept it from its last line.
+# the drive NODRIVE.EXE names, "line" and the line's answer into OUT.TXT, then "end". Appends the
+# report line, and to $tmp/dead what ended the emulator or kept it from its last line.
 run_one() {
-    local label=$1 binary=$2 name=$3 state=$4 line=$5 run=$tmp/run-$1-$3 code before=() answer current
+    local label=$1 binary=$2 name=$3 state=$4 line=$5 run=$tmp/run-$1-$3 code before='NODRIVE.EXE /S' answer current
     if ! mkdir -p "$run" || ! cp -R "$tmp/c/." "$run/" || ! cd "$run"; then invalid "could not make the run directory of $label $name"; fi
-    if [ "$state" = none ]; then before=('NODRIVE.EXE'); fi
-    conf_write "$run" "$tmp/d" "" 'c:' 'echo start> C:\OUT.TXT' ${before[@]+"${before[@]}"} \
-        'cd >> C:\OUT.TXT' 'echo line>> C:\OUT.TXT' "$line >> C:\\OUT.TXT" 'echo end>> C:\OUT.TXT'
+    if [ "$state" = none ]; then before='NODRIVE.EXE'; fi
+    conf_write "$run" "$tmp/d" "" 'c:' 'echo start> C:\OUT.TXT' "$before >> C:\\OUT.TXT" \
+        'echo line>> C:\OUT.TXT' "$line >> C:\\OUT.TXT" 'echo end>> C:\OUT.TXT'
     emu_start "$binary" "$run" OUT.TXT "$SECONDS_BOUND"
     wait "$emu_job"
     emu_job=""
@@ -117,8 +135,8 @@ run_one() {
     LC_ALL=C tr -d '\r' < "$run/OUT.TXT" > "$run/said.txt" || invalid "build $label's output could not be read"
     if [ "$(head -n 1 "$run/said.txt")" != start ]; then invalid "build $label's run of \"$line\" left no first line"; fi
     case "$code" in ''|*[!0-9]*) invalid "the launcher's report of build $label's run of \"$line\" names no exit code" ;; esac
-    current="C:\\"
-    if [ "$state" = none ]; then current="A:\\"; fi
+    current=C:
+    if [ "$state" = none ]; then current=A:; fi
     if [ "$(sed -n 2p "$run/said.txt")" != "$current" ]; then
         invalid "build $label's run of \"$line\" ($name) had $(sed -n 2p "$run/said.txt") current, not $current"
     fi
@@ -141,7 +159,7 @@ for label in A B; do
     while IFS='|' read -r name state line; do
         run_one "$label" "$binary" "$name" "$state" "$line"
         if [ "$state" = q ]; then
-            run_one "$label" "$binary" "$name-control" q "$(printf '%s\n' "$line" | sed 's/ q:/ c:/')"
+            run_one "$label" "$binary" "$name-control" q "$(printf '%s\n' "$line" | sed 's/ [q1]:/ c:/')"
         else
             run_one "$label" "$binary" "$name-control" c "$line"
         fi

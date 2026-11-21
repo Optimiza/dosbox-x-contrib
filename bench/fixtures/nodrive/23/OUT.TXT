@@ -1,3 +1,5 @@
 start
-C:\
+C:
 line
+Invalid drive specification
+end

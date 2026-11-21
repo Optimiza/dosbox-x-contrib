@@ -1,4 +1,5 @@
 start
-C:\
+C:
 line
+C:\
 end
