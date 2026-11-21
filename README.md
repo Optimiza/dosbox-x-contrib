@@ -21,6 +21,7 @@ figures.
 | 10 | [The x86 dynamic core keeps its code-page handlers across a cache reset](docs/10-dyncore-cache-reset.md) | merged | nothing | [pull request 6874, "Keep the x86 dynamic core's code page handlers across a cache reset"](https://github.com/joncampbell123/dosbox-x/pull/6874), merged; proved on Windows, the macOS build has no such core |
 | 11 | [A create keeps the directory cache, and a delete removes one entry](docs/11-create-delete.md) | merged | nothing | [pull request 6875, "Keep the directory cache when a local drive creates, deletes or renames"](https://github.com/joncampbell123/dosbox-x/pull/6875), merged; proved on macOS and Windows |
 | 12 | [A path longer than the emulator's arrays answers "path not found"](docs/12-longname.md) | merged | nothing | [pull request 6872, "Answer path not found for a host path past CROSS_LEN"](https://github.com/joncampbell123/dosbox-x/pull/6872), merged; proved on macOS and Windows |
+| 13 | [A command on an unmounted drive answers "Invalid drive specification"](docs/13-unmounted-drive.md) | `unmounted-drive-mainai`, local | nothing | not offered yet; proved on macOS and Windows |
 
 - Subjects 7 and 8 are withdrawn: the `DIR` fix of subject 7 is a commit of subject 4, and the
   defect of subject 8 was not there.
