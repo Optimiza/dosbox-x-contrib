@@ -132,7 +132,11 @@ run_one() {
         code=$(sed -n 's/^launch\.sh: exit code: //p' "$run/report.txt")
     fi
     if [ ! -f "$run/OUT.TXT" ]; then invalid "build $label's run of \"$line\" left no output"; fi
-    LC_ALL=C tr -d '\r' < "$run/OUT.TXT" > "$run/said.txt" || invalid "build $label's output could not be read"
+    # IMGMAKE -source ends its answer with no newline, so "end" lands on the answer's last line,
+    # and the shell writes no empty line to a file (echo. prints none there): split it off here.
+    LC_ALL=C tr -d '\r' < "$run/OUT.TXT" | LC_ALL=C awk 'NR > 1 { print prev } { prev = $0 }
+        END { if (NR) { if (prev ~ /.end$/) { print substr(prev, 1, length(prev) - 3); prev = "end" } print prev } }' \
+        > "$run/said.txt" || invalid "build $label's output could not be read"
     if [ "$(head -n 1 "$run/said.txt")" != start ]; then invalid "build $label's run of \"$line\" left no first line"; fi
     case "$code" in ''|*[!0-9]*) invalid "the launcher's report of build $label's run of \"$line\" names no exit code" ;; esac
     current=C:

@@ -54,6 +54,9 @@ t_derive "$f"; sed -i '' 's/^C:/A:/' "$derived/2/OUT.TXT"; t_play "$derived"
 t_case "a control with no drive current" 3 "build A's run of \"label c: X\" (label-q-x-control) had A: current, not C:" run
 t_derive "$f"; sed -i '' '/^start/d' "$derived/4/OUT.TXT"; t_play "$derived"
 t_case "a run that left no first line" 3 "build A's run of \"label c:\" left no first line" run
+t_derive "$f"; printf 'start\r\nC:\r\nline\r\nUnable to read floppy.end\r\n' > "$derived/2/OUT.TXT"; t_play "$derived"
+t_case "an answer with no newline of its own, which the last line closes" 3 "label-q-x-control|label c: X|Unable to read floppy.
+label-q|" run
 t_derive "$f"; rm "$derived/1/EXIT"; t_play "$derived"
 t_case "a launcher's report that names no exit code" 3 "names no exit code" run
 t_play "$f"
