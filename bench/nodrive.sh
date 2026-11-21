@@ -153,7 +153,7 @@ run_one() {
         echo "build $label: \"$line\" ($name) ended the emulator: $(signal_of "$code")" >> "$tmp/dead"
     elif [ "$(tail -n 1 "$run/said.txt")" != end ]; then
         answer="did not reach its last line"
-        echo "build $label: \"$line\" ($name) did not reach its last line in $SECONDS_BOUND seconds" >> "$tmp/dead"
+        echo "build $label: \"$line\" ($name) did not reach its last line" >> "$tmp/dead"
     else
         answer=$(awk 'f && $0 != "end" && NF { printf "%s%s", sep, $0; sep = " / " } $0 == "line" { f = 1 } END { print "" }' "$run/said.txt")
     fi

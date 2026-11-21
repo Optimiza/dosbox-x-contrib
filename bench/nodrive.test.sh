@@ -47,7 +47,7 @@ survive "$derived" "" "${lines_a[@]}"; survive "$derived" "Invalid drive specifi
 t_case "two builds that survive and answer otherwise" 1 "nodrive.sh: DIFFERENT, 9 lines differ" run
 t_case "the lines that differ, of the second build" 1 "> cur-vol|vol|Invalid drive specification" run
 t_derive "$f"; echo 0 > "$derived/1/EXIT"; t_play "$derived"
-t_case "a run that stops short of its last line" 3 "build A: \"label q: X\" (label-q-x) did not reach its last line" run
+t_case "a run that stops short of its last line, whenever it stopped" 3 "build A: \"label q: X\" (label-q-x) did not reach its last line; " run
 t_derive "$f"; sed -i '' 's/^A:/C:/' "$derived/7/OUT.TXT"; t_play "$derived"
 t_case "NODRIVE.EXE that left C: current" 3 "build A's run of \"label X\" (cur-label-x) had C: current, not A:" run
 t_derive "$f"; sed -i '' 's/^C:/A:/' "$derived/2/OUT.TXT"; t_play "$derived"
