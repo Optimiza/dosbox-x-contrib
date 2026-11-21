@@ -18,7 +18,6 @@ set -u
 . "$(dirname "$0")/testlib.sh"
 t_begin
 f=$here/fixtures
-: > "$work/prebuilt/REDIR.EXE"
 : > "$work/boot.img"
 : > "$work/boot.vhd"
 run() { "$here/realdos.sh" "$build_a" msdos710 "$work/boot.img" "$@"; }

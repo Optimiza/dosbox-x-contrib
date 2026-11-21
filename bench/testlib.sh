@@ -9,7 +9,7 @@ t_begin() {
     trap 'rm -rf "$work"' EXIT
     mkdir -p "$work/state" "$work/prebuilt" "$work/tmp" || exit 3
     ln -s /bin/bash "$work/build-A" && ln -s /bin/bash "$work/build-B" || exit 3
-    for p in LISTDUMP MEMPROBE FINDLIFE EXACT DRIFT DIRGONE LFNREN DOSANS DTADUMP PATLIST TEMPLATE FINDPOS ATTRPRB ATTRSEM ATTRCOST RESPRB SIDEFX DELPRB ALIASES P5PROBE P5REP TIES ENUMSTAT XCOMSIM DOSID; do : > "$work/prebuilt/$p.EXE"; done
+    for p in LISTDUMP MEMPROBE FINDLIFE EXACT DRIFT DIRGONE LFNREN DOSANS DTADUMP PATLIST TEMPLATE FINDPOS ATTRPRB ATTRSEM ATTRCOST RESPRB SIDEFX DELPRB ALIASES P5PROBE P5REP TIES ENUMSTAT XCOMSIM DOSID NODRIVE REDIR; do : > "$work/prebuilt/$p.EXE"; done
     # shellcheck disable=SC2034  # the two builds a test hands to its script
     build_a=$work/build-A build_b=$work/build-B
     export DIRCACHE_LAUNCHER="$here/fixtures/stub-launcher.sh" STUB_STATE="$work/state" DIRCACHE_PREBUILT="$work/prebuilt" TMPDIR="$work/tmp"

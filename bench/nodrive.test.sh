@@ -7,7 +7,6 @@ set -u
 # shellcheck source=testlib.sh
 . "$(dirname "$0")/testlib.sh"
 t_begin
-: > "$work/prebuilt/NODRIVE.EXE" || exit 3
 f=$here/fixtures/nodrive
 run() { "$here/nodrive.sh" "$build_a" "$build_b"; }
 
