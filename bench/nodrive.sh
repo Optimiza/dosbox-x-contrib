@@ -43,7 +43,8 @@ environment:
   DIRCACHE_PREBUILT     a folder holding NODRIVE.EXE built on another host, instead of DJGPP
 
 exit: 0 alike | 1 different | 2 usage
-      3 INVALID: a line ended the emulator, which names the build, the line and the signal;
+      3 INVALID: a line ended the emulator, which names the build, the line and the signal on
+        macOS or the exception code on Windows;
         or a run did not reach its last line, or had another drive current than the line
         asks for; the run's directory is kept and named
 EOT
@@ -99,9 +100,12 @@ if [ "$HOST_KIND" = windows ]; then
     conf_dos=startcmd=true
 fi
 
-# signal_of <exit code>: the signal a code past 128 carries on a Mac, or the code itself.
+# signal_of <exit code>: the signal a code past 128 carries on a Mac, the exception a negative
+# code is on Windows (an NTSTATUS read as signed), or the code itself.
 signal_of() {
-    if [ "$HOST_KIND" != windows ] && [ "$1" -gt 128 ] && [ "$1" -lt 160 ]; then
+    if [ "$HOST_KIND" = windows ] && [ "$1" -lt 0 ]; then
+        printf '0x%08X, exit %s\n' $(($1 + 4294967296)) "$1"
+    elif [ "$HOST_KIND" != windows ] && [ "$1" -gt 128 ] && [ "$1" -lt 160 ]; then
         printf '%s, exit %s\n' "$(kill -l $(($1 - 128)))" "$1"
     else
         printf 'exit %s\n' "$1"
@@ -138,7 +142,7 @@ run_one() {
         END { if (NR) { if (prev ~ /.end$/) { print substr(prev, 1, length(prev) - 3); prev = "end" } print prev } }' \
         > "$run/said.txt" || invalid "build $label's output could not be read"
     if [ "$(head -n 1 "$run/said.txt")" != start ]; then invalid "build $label's run of \"$line\" left no first line"; fi
-    case "$code" in ''|*[!0-9]*) invalid "the launcher's report of build $label's run of \"$line\" names no exit code" ;; esac
+    case "${code#-}" in ''|*[!0-9]*) invalid "the launcher's report of build $label's run of \"$line\" names no exit code" ;; esac
     current=C:
     if [ "$state" = none ]; then current=A:; fi
     if [ "$(sed -n 2p "$run/said.txt")" != "$current" ]; then

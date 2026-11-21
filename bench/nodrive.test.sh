@@ -67,6 +67,11 @@ conf_of() {
     out=$(run 2>&1)
     cat "$(printf '%s\n' "$out" | sed -n 's/.*the run is kept in //p')/run-A-$1/run.conf"
 }
+conf_of_win() {
+    local out
+    out=$(win 2>&1)
+    cat "$(printf '%s\n' "$out" | sed -n 's/.*the run is kept in //p')/run-A-$1/run.conf"
+}
 t_case "the line runs after NODRIVE.EXE" 0 'NODRIVE.EXE >> C:\OUT.TXT
 echo line>> C:\OUT.TXT
 vol >> C:\OUT.TXT' conf_of cur-vol
@@ -91,6 +96,42 @@ where() {
 }
 t_case "each start runs in a folder of its own" 0 "48 run folders, 48 starts" where
 t_case "and writes nothing in the caller's folder" 0 "in the caller's folder: []" where
+# fixtures/nodrive-windows holds the unpatched base against itself on Windows: 56 starts, as
+# windows.ps1 wrote them and as stub-powershell.sh plays them, the build's path replaced. The
+# nine lines, imgmake -source q and start /hid whoami.exe die on 0xC0000005.
+w=$here/fixtures/nodrive-windows
+mkdir -p "$work/winbin" || exit 3
+printf '#!/bin/sh\necho MINGW64_NT-10.0-26300\n' > "$work/winbin/uname"
+# shellcheck disable=SC2016  # the script written here expands its own argument
+printf '#!/bin/sh\necho "$2"\n' > "$work/winbin/cygpath"
+chmod +x "$work/winbin/uname" "$work/winbin/cygpath" && ln -s "$here/fixtures/stub-powershell.sh" "$work/winbin/powershell" || exit 3
+win() { PATH="$work/winbin:$PATH" "$here/nodrive.sh" "$build_a" "$build_b"; }
+# win_survive <dir> <call>...: those calls, which died, exit 0 and reach their last line.
+win_survive() {
+    local d=$1 n
+    shift
+    for n in "$@"; do
+        sed -i '' 's/^windows\.ps1: exit code: .*/windows.ps1: exit code: 0\r/' "$d/$n/report.txt"
+        echo 0 > "$d/$n/launcher.rc" && rm "$d/$n/launcher.err" && printf 'end\r\n' >> "$d/$n/OUT.TXT" || exit 3
+    done
+}
+win_dead=(1 3 5 7 9 11 13 15 17 25 27 29 31 33 35 37 39 41 43 45 53 55)
+t_play "$w"
+t_case "Windows: a line that ends the emulator is named by its exception" 3 "nodrive.sh: INVALID: build A: \"label q: X\" (label-q-x) ended the emulator: 0xC0000005, exit -1073741819" win
+t_case "Windows: every line that does is named, of both builds" 3 "build B: \"start /hid whoami.exe\" (cur-start) ended the emulator: 0xC0000005, exit -1073741819; the run is kept" win
+t_case "Windows: the line that died, in its report" 3 "cur-imgsrc|imgmake x.img -source q|died: 0xC0000005, exit -1073741819" win
+t_case "Windows: IMGMAKE -source with C: current" 3 "cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy." win
+t_case "Windows: START with C: current" 3 "cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)" win
+t_derive "$w"; sed -i '' 's/^windows\.ps1: exit code: .*/windows.ps1: exit code: -1073740791\r/' "$derived/1/report.txt"; t_play "$derived"
+t_case "Windows: another exception, by its own code" 3 "(label-q-x) ended the emulator: 0xC0000409, exit -1073740791" win
+t_derive "$w"; sed -i '' 's/^windows\.ps1: exit code: .*/windows.ps1: exit code: 3\r/' "$derived/1/report.txt"; t_play "$derived"
+t_case "Windows: a code that is no exception, by its number" 3 "(label-q-x) ended the emulator: exit 3;" win
+t_derive "$w"; win_survive "$derived" "${win_dead[@]}"; t_play "$derived"
+t_case "Windows: every line survives, alike" 0 "nodrive.sh: ALIKE" win
+t_play "$w"
+t_case "Windows: every run has START.COM" 0 '[dos]
+startcmd=true
+lfn=false' conf_of_win cur-vol
 t_case "one argument" 2 "usage:" "$here/nodrive.sh" "$build_a"
 t_case "its own help" 0 "usage: nodrive.sh" "$here/nodrive.sh" --help
 t_end

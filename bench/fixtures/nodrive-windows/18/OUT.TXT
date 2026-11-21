@@ -1,0 +1,5 @@
+start
+C:
+line
+Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+end

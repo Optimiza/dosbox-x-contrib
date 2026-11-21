@@ -1,0 +1,6 @@
+start
+C:
+line
+
+
+Unable to read floppy.end
