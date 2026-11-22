@@ -4,7 +4,7 @@
 # Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; every run headless
 # Date: 2026-11-22
 # Builds (source commit, sha256 of the executable):
-#   dta   dta-searches-mainai 233596320f93c4a835791539e7196d47ae657b37             69c16361e2e976dc0ccf8e5d29e44b639e98c69972fb7bfcee8802036146faeb
+#   dta   dta-searches-mainai cbc326e0f350b35fb0535b2155d9036c7ef8eb36             f2ff2fbfd0b052cdee0e65a20fe23b9d92374873236aa5c3279ddf3e5d0bb235
 # run 1: dirgone.sh dta dta off   (exit code 0)
 dirgone.sh: ALIKE
 # run 1: dosans.sh dta dta cd off   (exit code 0)

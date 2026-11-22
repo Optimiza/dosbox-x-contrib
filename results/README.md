@@ -29,8 +29,8 @@ command and its exit code, which the run printed apart from its lines.
 | [`macos/dta-searches-answers.txt`](macos/dta-searches-answers.txt) | the answers of the search-fix branch against unpatched `main-ai` at `ac2787a42`: DTADUMP, DRIFT, FINDLIFE, EXACT, FINDPOS, TEMPLATE and DIRGONE |
 | [`macos/dta-searches-alike.txt`](macos/dta-searches-alike.txt) | the verdict lines of the same scripts with the branch as both builds, run twice |
 | [`macos/dta-searches-run.txt`](macos/dta-searches-run.txt) | LISTDUMP on the large folder and on the synthetic folders, unpatched against the branch |
-| [`macos/dta-searches-memory.txt`](macos/dta-searches-memory.txt) | memory held: the label slot, a synthetic folder and the large folder, unpatched against the branch |
-| [`macos/dta-searches-msdos.txt`](macos/dta-searches-msdos.txt) | what MS-DOS 7.10 answered to DTADUMP, DRIFT, FINDLIFE, FINDPOS and TEMPLATE |
+| [`macos/dta-searches-memory.txt`](macos/dta-searches-memory.txt) | memory held: the label slot, the searches child programs leave kept, a synthetic folder and the large folder, unpatched against the branch |
+| [`macos/dta-searches-msdos.txt`](macos/dta-searches-msdos.txt) | what MS-DOS 7.10 and MS-DOS 6.22 answered to DTADUMP and DRIFT, and MS-DOS 7.10 to FINDLIFE, FINDPOS and TEMPLATE |
 | [`macos/dta-searches-win98.txt`](macos/dta-searches-win98.txt) | DRIFT and DTADUMP inside Windows 98 SE's DOS box, with its version and the folder it read |
 | [`windows/dta-searches-answers.txt`](windows/dta-searches-answers.txt) | the same answers on Windows: unpatched `main-ai` against the branch, and the head before the last commit against it |
 | [`windows/dta-searches-alike.txt`](windows/dta-searches-alike.txt) | the verdict lines of those scripts with the branch as both builds, run twice, on Windows |
@@ -93,7 +93,7 @@ These hold for every file here.
 - **The large folder.** A music library of 169,457 files with long names, read-only and not
   kept here. On Windows it is the same names as empty files, of which 169,452 could be made.
 - **The MS-DOS cells.** They boot the DOS of a Windows 98 SE hard disk image (MS-DOS 7.10)
-  inside the emulator, on macOS only. The image is not kept here either.
+  inside the emulator, on macOS only, and some of them an MS-DOS 6.22 one. The images are not kept here either.
 
 The two lines are
 [pull request 6822, "fix(ide): give the ATAPI sector counters the type of the ATA ones"](https://github.com/joncampbell123/dosbox-x/pull/6822).
@@ -109,7 +109,8 @@ The lines are as the runs printed them, with these things replaced:
 | the name of the one file looked up in the large folder | `SONG.MID` |
 | the path of the large folder | `<the large folder>` |
 | the name of the launcher, in the reason of the cells Windows does not run | `the macOS launcher` |
-| the path of the MS-DOS boot image | `<a Windows 98 SE hard disk image>` |
+| the path of the MS-DOS 7.10 boot image | `<a Windows 98 SE hard disk image>` |
+| the path of the MS-DOS 6.22 boot image | `<an MS-DOS 6.22 hard disk image>` |
 | the carriage returns of the files read off the Windows 98 image | removed |
 
 That launcher was not `bench/launch.sh`. The runs were made with another launcher of ours,
