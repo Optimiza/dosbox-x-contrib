@@ -206,6 +206,7 @@ memory.sh <build> <folder> <on|off> <mode> <calls> [--file <name>]
 | `f` | `fopen`, `fread`, `fclose` |
 | `r` | a raw 716Ch open, read, close |
 | `v` | a 4Eh for the volume label |
+| `w` | the 4Eh of `v`, on the drive mounted with the label `MEMLABEL`, which it matches |
 | `c` | child processes that each make one FindFirst |
 | `e` | a 4Eh for each file of the folder in turn, by its name, never continued |
 | `k` | child processes that each make nine 4Eh for the file through one DTA |

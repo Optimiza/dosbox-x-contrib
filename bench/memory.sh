@@ -16,6 +16,7 @@ usage: memory.sh <build> <folder> <on|off> <mode> <calls> [--file <name>]
                 a access   s stat   d findfirst, never continued   o open+read+close
                 f fopen+fread+fclose   r raw 716Ch open, read, close
                 v 4Eh for the volume label   c child processes that each make one findfirst
+                w the 4Eh of v on the drive mounted with the label MEMLABEL, which it matches
                 e 4Eh for each file of the folder in turn, by its name, never continued:
                   the folder is listed first, and <calls> past its size start over
                 k child processes that each make nine 4Eh for the file through one DTA,
@@ -58,7 +59,7 @@ if [ $# -eq 7 ]; then
 fi
 need_builds "$binary"
 lfn_parse "$lfn"
-case "$mode" in a|s|d|o|f|r|v|c|e|k) ;; *) fail_usage "no such mode: $mode" ;; esac
+case "$mode" in a|s|d|o|f|r|v|w|c|e|k) ;; *) fail_usage "no such mode: $mode" ;; esac
 case "$calls" in ''|*[!0-9]*|????????*) fail_usage "bad call count: $calls" ;; esac
 folder_parse "$folder"
 if [ -z "$synth_count" ]; then
@@ -73,16 +74,18 @@ guest_build MEMPROBE "$run" || invalid "MEMPROBE did not build"
 folder_resolve "$folder" "$lfn"
 if [ -z "$file" ]; then synth_name "$synth_style" 0; file=$synth_name_out; fi
 
-# The volume label belongs to the drive, so mode v names the drive's root and not the file.
-if [ "$mode" = v ]; then guest_path='D:\*.*'; else guest_path="D:\\$base\\$file"; fi
-conf_write "$run" "$parent" " -ro" "c:" "MEMPROBE.EXE $mode \"$guest_path\" $calls C:\\HELD.TXT C:\\GO.TXT > C:\\PRB.TXT"
+# The volume label belongs to the drive, so modes v and w name the drive's root and not the file.
+guest_mode=$mode mount_options=" -ro"
+if [ "$mode" = w ]; then guest_mode=v mount_options=" -ro -label MEMLABEL"; fi
+if [ "$guest_mode" = v ]; then guest_path='D:\*.*'; else guest_path="D:\\$base\\$file"; fi
+conf_write "$run" "$parent" "$mount_options" "c:" "MEMPROBE.EXE $guest_mode \"$guest_path\" $calls C:\\HELD.TXT C:\\GO.TXT > C:\\PRB.TXT"
 
 memory_run "$binary" "$run" PRB.TXT "$SECONDS_BOUND"
 
 # The guest's own line is the last one: in mode c each child prints one before it.
 guest_line=$(LC_ALL=C tr -d '\r' < "$run/PRB.TXT" | awk '/^mode=/ { line = $0 } END { print line }')
 case "$guest_line" in
-    "mode=$mode k=$calls ok=$calls released=1 "*) ;;
+    "mode=$guest_mode k=$calls ok=$calls released=1 "*) ;;
     *) invalid "not every one of the $calls calls reached the file, or the guest was not let go: $guest_line" ;;
 esac
 memory_figures
