@@ -53,5 +53,6 @@ list|fcb-rewritten-then-12h|11h 12h, the FCB rewritten, 12h 12h 12h|,BAR     TXT
 list|fcb-copied-then-12h|11h TXT, copy, 11h MID, 12h on the copy three times|,BAR     TXT,ALPHAT~1MID,ALPHAT~2MID,ALPHAT~3MID,ALPHAT~4MID
 dump|fcb-open-wild|dta-after-0Fh|al=0 dta=changed|04 5A45442020202020545854 20 ---------------- 00 -------- 5D000007 000000EEEEEEEEEEEEEEEEEEEE
 dump|fcb-open-wild|fcb-after-0Fh|al=0|04 5A45443F3F3F3F3F545854 00008000 07000000 -------- 0000000500000000000000000000000000000000
+dump|fcb-open-wild-small|fcb-after-0Fh|al=0|04 7A65643F3F3F3F3F747874 00008000 07000000 -------- 0000000500000000000000000000000000000000
 list|folder-lost-a-middle-entry|first=0 more=5|,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
-end|lines=56
+end|lines=57

@@ -447,6 +447,11 @@ int main(int argc, char **argv)
         dump_dta("fcb-open-wild", "dta-after-0Fh", answered_dta("al", err, untouched(DTA_A, before)), DTA_A);
         dump_opened("fcb-open-wild", "fcb-after-0Fh", answered("al", err), FCB1_OFF);
         if (err == 0) fcb_call(0x10, FCB1_OFF, DTA_A);
+        /* The same open, the name written in small letters: MS-DOS leaves it so. */
+        fcb_put(FCB1_OFF, "zed?????txt", -1);
+        err = fcb_call(0x0F, FCB1_OFF, DTA_A);
+        dump_opened("fcb-open-wild-small", "fcb-after-0Fh", answered("al", err), FCB1_OFF);
+        if (err == 0) fcb_call(0x10, FCB1_OFF, DTA_A);
         chdir("C:\\");
     }
 

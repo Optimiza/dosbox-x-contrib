@@ -644,7 +644,7 @@ too.
 - a plain and an extended FCB before and after 11h and 12h, with the entry each call leaves
   in the DTA;
 - an open by wildcards (0Fh): the DTA and the FCB's name after it, which MS-DOS leaves as the
-  program had them.
+  program had them, the name in capitals and again in small letters.
 
 After each of the two interrupting calls, the search is read to its end. Then it prints what
 the FCB calls return in four situations:
