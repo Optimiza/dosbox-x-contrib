@@ -36,6 +36,11 @@
 #define DTA_ATTR 12         /* the search attribute */
 #define ALL 0x37            /* everything but the volume label */
 #define SHOWN 40
+#define DTA_ID 13           /* where DOSBox-X keeps a search's number, among the DOS's own bytes */
+#define FILL_PLACES 256     /* the DTAs of the searches that fill the emulator's search table */
+#define FILL_PER_DTA 9      /* the searches a DTA holds there: its own and eight it replaced */
+#define FILL_CALLS 4000
+#define REUSE_CALLS 2100
 
 static unsigned long g_lin;
 static unsigned short g_seg;
@@ -164,6 +169,48 @@ static int empty_and_rd(const char *dir)
         path_call(0x41, path);
     }
     return path_call(0x3A, dir);
+}
+
+static unsigned short dta_id(unsigned long lin) { unsigned short id; dosmemget(lin + DTA_ID, 2, &id); return id; }
+
+/* A search of the whole folder abandoned after its first entry, then enough searches, never
+ * continued, to fill the search table DOSBox-X keeps, which it empties when it is full: its
+ * numbers wrap past the free ones once, and drop again when it is emptied. A search
+ * for *.TXT then repeated until DOSBox-X gives it the number of the abandoned one, and read to
+ * its end. A DOS that keeps no table answers it as any search for *.TXT. */
+static void reused_number(void)
+{
+    static char list[(SHOWN + 1) * 64];
+    unsigned long fill_lin;
+    unsigned short abandoned, id, last = 0;
+    __dpmi_regs r;
+    int fill_sel, fill_seg, err, c, n, drops = 0;
+    list[0] = 0;
+    fill_seg = __dpmi_allocate_dos_memory(FILL_PLACES * DTA_SIZE / 16, &fill_sel);
+    if (fill_seg == -1) { line("drift|after-the-search-table-emptied|no conventional memory|"); return; }
+    fill_lin = (unsigned long)fill_seg << 4;
+    first(DTA_A, in_folder("*.*"), ALL);
+    abandoned = dta_id(g_lin + DTA_A * DTA_SIZE);
+    dosmemput(in_folder("*.*"), strlen(in_folder("*.*")) + 1, g_lin + PATH_OFF);
+    for (c = 0; c < FILL_CALLS; c++) {
+        memset(&r, 0, sizeof r);
+        r.h.ah = 0x1A; r.x.ds = (unsigned short)fill_seg; r.x.dx = (unsigned short)((c / FILL_PER_DTA % FILL_PLACES) * DTA_SIZE);
+        __dpmi_int(0x21, &r);
+        memset(&r, 0, sizeof r);
+        r.h.ah = 0x4E; r.x.cx = ALL; r.x.ds = g_seg; r.x.dx = PATH_OFF;
+        if (int21(&r)) break;
+        id = dta_id(fill_lin + (unsigned long)(c / FILL_PER_DTA % FILL_PLACES) * DTA_SIZE);
+        if (c && id < last && ++drops == 2) break;
+        last = id;
+    }
+    set_dta(DTA_PARK);
+    for (c = 0; c < REUSE_CALLS; c++) {
+        err = first(DTA_B, in_folder("*.TXT"), ALL);
+        if (err || dta_id(g_lin + DTA_B * DTA_SIZE) == abandoned) break;
+    }
+    n = err ? 0 : drain(DTA_B, list);
+    __dpmi_free_dos_memory(fill_sel);
+    line("drift|after-the-search-table-emptied|first=%d more=%d|%s", err, n, list);
 }
 
 enum moved_how { MOVED_NOT, MOVED_REN, MOVED_REN_REMADE, MOVED_RD, MOVED_RD_REMADE };
@@ -334,6 +381,7 @@ int main(int argc, char **argv)
     moved("in-a-folder-renamed-and-remade", "MV2", MOVED_REN_REMADE);
     moved("in-a-folder-removed", "MV3", MOVED_RD);
     moved("in-a-folder-removed-and-remade", "MV4", MOVED_RD_REMADE);
+    reused_number();
 
     fprintf(g_out, "end|lines=%d\n", g_lines);
     fclose(g_out);
