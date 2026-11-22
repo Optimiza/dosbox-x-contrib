@@ -19,16 +19,19 @@ drafted here for a pull request or a comment.
 
 - The emulator branches belong to the fork `Optimiza/dosbox-x`. The three branches merged
   upstream (`dircache-create-delete-mainai`, `dos-answers-path-mainai` and `dos-answers-cd-mainai`) are
-  removed from it. The branches kept there are the two not offered: `dircache-exact-name-mainai` and
-  `dircache-dos-paths`.
-- Upstream `main-ai` is at `2a43c7335`, the merge of [pull request 6878, "Answer a search on a CD image as MSCDEX does"](https://github.com/joncampbell123/dosbox-x/pull/6878).
+  removed from it. The branches kept there are `dircache-exact-name-mainai`, whose two commits
+  stand in `dta-searches-mainai` now, and `dircache-dos-paths`, not offered;
+  `dta-searches-mainai` is in the local clone of the fork, not pushed.
+- Upstream `main-ai` is at `ac2787a42`, a merge of `master` into it. It holds the merge of
+  [pull request 6878, "Answer a search on a CD image as MSCDEX does"](https://github.com/joncampbell123/dosbox-x/pull/6878).
 - The one pull request of ours still open upstream is 6887, the fix of subject 13. The draft 6776
   was closed unmerged, by our own choice.
-- The branch of subject 1 stands on `218ec1894`, the merge of
-  [pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831). Subjects 2 and 4 stay on `4e0b6adcf`.
+- The branch `dta-searches-mainai` holds subjects 1 and 4 and the label slot of subject 2, on
+  `ac2787a42`, head `233596320`. The tag of subject 2 stays on `4e0b6adcf`.
 - The branch of subject 13, `unmounted-drive-mainai`, is on the fork and stands on `main-ai` at
   `ac2787a42`.
-- Every figure in the pages is compared with `4e0b6adcf`, whatever `main-ai` is today.
+- Every figure in the pages is compared with `4e0b6adcf`, whatever `main-ai` is today, except
+  those of subjects 1 and 4 and of subject 2's label slot, which are compared with `ac2787a42`.
 - The instruments are developed in [`scry-mcp/scry-dosbox-x`](https://github.com/scry-mcp/scry-dosbox-x), branch `dircache`,
   folder `tests/dircache`. `bench/` is that folder as committed there, last taken at
   `b829ddc`, with the changes listed below.
@@ -72,6 +75,11 @@ Then check it, from a fresh clone:
 - every `bench/*.test.sh`: they play captured runs, with no emulator;
 - one real cell on unpatched upstream and on a patched build. Its output is compared, byte
   for byte, with what the same commit of the private folder prints.
+
+14. `dtadump.c`, `drift.c`, their tests and fixtures (`fixtures/dtadump-open-wild`,
+    `fixtures/drift-star`) and `bench/README.md` carry four cases made here (`3ad07e6`, `7e9b1c0`,
+    `85e61ad`, `c35f343`), which the private folder's branch does not hold: carry them over, or the
+    refresh drops them.
 
 Move the commit named above in the same change.
 

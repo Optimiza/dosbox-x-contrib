@@ -1,6 +1,6 @@
 # dosbox-x-contrib: fixes for DOSBox-X, with the bench that measured them
 
-Fixes offered to DOSBox-X, each on a branch of its own, with the bench that measured it. The
+Fixes offered to DOSBox-X, each on a branch, with the bench that measured it. The
 first set is the directory cache: in a large folder, DOSBox-X stalls on the first read, can give
 two files one short name and ends searches MS-DOS continues.
 
@@ -11,10 +11,10 @@ figures.
 
 | # | Subject | Branch | Needs | State |
 | --- | --- | --- | --- | --- |
-| 1 | [A search for one exact name does not copy the whole directory](docs/01-exact-name.md) | tag `archive/dircache-exact-name` | nothing | proved on macOS and Windows |
-| 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | tag `archive/dircache-retention` | subject 1 | superseded by [pull request 6831](docs/pr6831.md), merged, and [pull request 6852](https://github.com/joncampbell123/dosbox-x/pull/6852), merged |
+| 1 | [A search for one exact name does not copy the whole directory](docs/01-exact-name.md) | `dta-searches-mainai` | nothing | proved on macOS and Windows, to be offered with subject 4 |
+| 2 | [A search's copy is released without ending a live search](docs/02-retention.md) | tag `archive/dircache-retention` | subject 1 | superseded by [pull request 6831](docs/pr6831.md), merged, and [pull request 6852](https://github.com/joncampbell123/dosbox-x/pull/6852), merged; its label slot is in `dta-searches-mainai`, proved on macOS and Windows, to be offered with subject 4 |
 | 3 | [The first read of a large folder](docs/03-first-read.md) | merged | nothing | [pull request 6853](https://github.com/joncampbell123/dosbox-x/pull/6853), merged |
-| 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | tag `archive/dircache-dta` | nothing; one case on Windows needs subject 2 or 9 | proved; conflicts with pull request 6831, to be redone on `main-ai`, which has pull request 6852 now |
+| 4 | [A find call does not disturb another search's DTA](docs/04-dta.md) | `dta-searches-mainai` | nothing | proved on macOS and Windows, to be offered with subjects 1 and 2's label slot as one pull request |
 | 5 | [No two entries of a folder share a short name](docs/05-alias.md) | merged | subject 3 | [pull request 6854](https://github.com/joncampbell123/dosbox-x/pull/6854), merged |
 | 6 | [The emulator's DOS answers as MS-DOS does](docs/06-dos-answers.md) | merged | nothing | [pull request 6877, "Answer INT 21h 4Eh and the label and root searches as MS-DOS does"](https://github.com/joncampbell123/dosbox-x/pull/6877), a folder, an overlay drive and a zip drive, and [pull request 6878, "Answer a search on a CD image as MSCDEX does"](https://github.com/joncampbell123/dosbox-x/pull/6878), on top of it; both merged |
 | 9 | [An attribute change on Windows does not empty the directory cache](docs/09-setattr.md) | merged | nothing | [pull request 6873, "Keep the directory cache when a file's attributes change on Windows"](https://github.com/joncampbell123/dosbox-x/pull/6873), merged; proved on Windows, the only host it changes |
@@ -26,10 +26,10 @@ figures.
 - Subjects 7 and 8 are withdrawn: the `DIR` fix of subject 7 is a commit of subject 4, and the
   defect of subject 8 was not there.
 - [Issue 6851, "main-ai ends directory searches that MS-DOS continues"](https://github.com/joncampbell123/dosbox-x/issues/6851) says
-  how the subjects are offered, one pull request each.
+  how the subjects are offered, one pull request each, but subjects 1 and 4 share one.
 - Subject 11 stands on `main-ai` at `72ee221bf`, which has [pull request 6874, "Keep code page handlers across a cache reset"](https://github.com/joncampbell123/dosbox-x/pull/6874) merged.
-  Subject 1, not offered, stands on `218ec1894`, the merge of pull request 6831.
-- Subjects 2 and 4 stay on `4e0b6adcf`, before it. Each page names its commits.
+- Subjects 1 and 4 and subject 2's label slot are one branch, `dta-searches-mainai`, on `main-ai` at `ac2787a42`.
+  Each page names its commits.
 - The numbers are this repository's own; a four-digit number is upstream's.
 
 ## The problem, and the case that showed it
@@ -71,7 +71,7 @@ continues: [issue 6851](https://github.com/joncampbell123/dosbox-x/issues/6851) 
 
 - A check is a small DOS program and the host script that runs it headless in two builds and
   compares what they print.
-- Every figure compares a patched build with unpatched upstream `main-ai` at `4e0b6adcf`.
+- Every figure compares a patched build with unpatched upstream `main-ai` at `4e0b6adcf`, or at `ac2787a42` where a page says so.
 - The referee is a real MS-DOS 7.10, booted inside the emulator from a Windows 98 SE disk
   image. The bench boots MS-DOS 6.22 and FreeDOS beside it.
 - Every fix that is done is built on macOS and on Windows, and proved on each host whose code
