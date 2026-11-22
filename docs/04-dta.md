@@ -188,8 +188,6 @@ that search is the one subject 1 makes cheap.
 
 ## What is left
 
-Three things are left, each declared.
-
 **A template a program edited, on a FAT or CD image with long names on.** The fix reaches the
 searches the directory cache tracks, which are a mounted host folder's. On those images the
 template is read as before, and no case measured it.

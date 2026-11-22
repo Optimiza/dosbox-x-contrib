@@ -2,7 +2,7 @@
 #       its version line, the DIR of the folder the programs read (long names beside their short ones), then
 #       the report of DRIFT and the report of DTADUMP. The files were read off the image after the run.
 #       The emulator that carries Windows 98 is unpatched upstream.
-# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; every run headless
+# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; the run these reports come from was headless
 # Date: 2026-11-22
 # Builds (source commit, sha256 of the executable):
 #   base  joncampbell123/dosbox-x main-ai ac2787a422f7a7bf008128975b1d00d9a5312387   1dd69c094f4ccadc2c4209f8e7396dc9010f4d47937697919a5fac6ba5224b1b
