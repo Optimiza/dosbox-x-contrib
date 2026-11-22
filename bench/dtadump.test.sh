@@ -3,7 +3,8 @@
 # fixtures/dtadump holds DTADUMP's report of a build whose failed FindFirst rewrites the DTA (1)
 # and of a build that leaves it alone (2). fixtures/dtadump-open-wild holds one build twice, with the
 # case of an open by wildcards that writes into the DTA; the FCB it opened has its date and time
-# dashed.
+# dashed. fixtures/dtadump-fcb-star holds, with long names on, a build that reads an FCB search
+# for '*' to its end (1) and one that stops after its first entry (2).
 set -u
 # shellcheck source=testlib.sh
 . "$(dirname "$0")/testlib.sh"
@@ -25,6 +26,9 @@ t_case "an open by wildcards that writes the program's DTA" 0 "dump|fcb-open-wil
 t_case "the open counts among the calls that must leave a DTA alone" 0 "dtadump.sh: figures A: template=1c5027e13814 untouched=3/7 resumed=3/6 fcb=ce9cdd5c399c" run off
 t_case "the FCB the open filled, its date and time dashed" 0 "dump|fcb-open-wild|fcb-after-0Fh|al=0|04 5A45443F3F3F3F3F545854 00008000 07000000 -------- 00000005" run off
 t_case "an open by wildcards that leaves a name in small letters as written" 0 "dump|fcb-open-wild-small|fcb-after-0Fh|al=0|04 7A65643F3F3F3F3F747874" run off
+t_play "$f/dtadump-fcb-star"
+t_case "an FCB search for '*' with long names on, cut after its first entry" 1 "> list|fcb-star-for-both|11h then 12h, 1 found|" run on
+t_case "the same search read to its end" 1 "< list|fcb-star-for-both|11h then 12h, 12 found|" run on
 t_derive "$f/dtadump"; cp "$derived/1/DTADUMP.TXT" "$derived/2/DTADUMP.TXT"; t_play "$derived"
 t_case "the same report twice" 0 "dtadump.sh: ALIKE" run off
 t_derive "$f/dtadump"; sed -i '' '$d' "$derived/1/DTADUMP.TXT"; t_play "$derived"

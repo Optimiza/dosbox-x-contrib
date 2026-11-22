@@ -286,6 +286,19 @@ static void fcb_name(int dta, int found, char *list)
     strcat(list, name);
 }
 
+/* 11h on a plain FCB holding <name11>, then 12h until it fails: the names it returned. */
+static void fcb_listing(const char *label, const char *name11)
+{
+    static char list[(SHOWN + 1) * 16];
+    int n = 0;
+    list[0] = 0;
+    fcb_put(FCB1_OFF, name11, -1);
+    if (fcb_call(0x11, FCB1_OFF, DTA_A) == 0) {
+        do { if (n < SHOWN) fcb_name(DTA_A, 0, list); n++; } while (fcb_call(0x12, FCB1_OFF, DTA_A) == 0);
+    }
+    line("list|fcb-%s|11h then 12h, %d found|%s", label, n, list);
+}
+
 int main(int argc, char **argv)
 {
     static char list[(SHOWN + 1) * 16], root[400], refused[400];
@@ -437,6 +450,16 @@ int main(int argc, char **argv)
         fcb_name(DTA_B, fcb_call(0x11, FCB1_OFF, DTA_B), list);
         for (i = 0; i < 3; i++) fcb_name(DTA_A, fcb_call(0x12, FCB2_OFF, DTA_A), list);
         line("list|fcb-copied-then-12h|11h TXT, copy, 11h MID, 12h on the copy three times|%s", list);
+
+        /* An FCB search to its end, by the name as the program writes it in the FCB: with '?',
+         * with '*', and in small letters, each field filled or padded with spaces. */
+        fcb_listing("every-name", "???????????");
+        fcb_listing("star-for-both", "*       *  ");
+        fcb_listing("star-for-the-name", "*       TXT");
+        fcb_listing("full-name-star-ext", "ALPHAT~?*  ");
+        fcb_listing("full-name-star-ext-small", "alphat~?*  ");
+        fcb_listing("full-name-small", "alphat~?mid");
+        fcb_listing("full-name", "ALPHAT~?MID");
 
         /* An open by wildcards is no search: it leaves the DTA and the name in the FCB as the
          * program had them. */

@@ -644,6 +644,7 @@ too.
 - the DTA before and after a 714Eh made while that DTA is the current one;
 - a plain and an extended FCB before and after 11h and 12h, with the entry each call leaves
   in the DTA;
+- an FCB search read to its end, its name written with `?`, with `*` and in small letters;
 - an open by wildcards (0Fh): the DTA and the FCB's name after it, which MS-DOS leaves as the
   program had them, the name in capitals and again in small letters.
 
