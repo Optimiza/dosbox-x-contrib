@@ -68,9 +68,9 @@ Each guest program asks the emulator one kind of question. The pages name them i
 
 ## The base
 
-Every figure compares a patched build with unpatched upstream `main-ai` at `4e0b6adcf`. That
-revision does not compile on macOS without two lines, so every build here carries them, the
-base included.
+Every figure compares a patched build with unpatched upstream `main-ai` at `4e0b6adcf`, except
+those of subjects 1 and 4 and subject 2's label slot, which use `ac2787a42`. The older revision
+does not compile on macOS without two lines, so its builds carry them, the base included.
 
 The two lines are
 [pull request 6822, "fix(ide): give the ATAPI sector counters the type of the ATA ones"](https://github.com/joncampbell123/dosbox-x/pull/6822).

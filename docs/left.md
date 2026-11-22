@@ -73,9 +73,11 @@ answer on such a host, not a failure.
 
 ## Subject 7 is a commit of subject 4
 
-The shell's `DIR` printed the free space of another drive only once the DTA branch left a
-failed FindFirst's DTA alone. So the fix is the sixth commit of [subject 4](04-dta.md), and
-subject 7 is no pull request of its own.
+The shell's `DIR` printed the free space of another drive only once a failed FindFirst left a
+DTA alone. [Subject 4](04-dta.md) leaves the shell's own temporary DTA as a failed search ran it,
+so `DIR` prints its own volume's line, and subject 7 is no pull request of its own.
+
+Source: `template.sh <unpatched> <patched> fat on`, line `shell`, in [results/macos/dta-searches-answers.txt](../results/macos/dta-searches-answers.txt).
 
 ## Subject 8 is withdrawn: the defect was not there
 

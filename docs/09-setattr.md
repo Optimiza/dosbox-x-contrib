@@ -72,8 +72,7 @@ were shown by a probe the bench does not carry. [bench/README.md](../bench/READM
 
 ## What it needs
 
-Nothing. On Windows it also closes the case of [subject 4](04-dta.md) that otherwise needs
-[subject 2](02-retention.md).
+Nothing. It stands alone.
 
 ## What is left
 
