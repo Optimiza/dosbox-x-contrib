@@ -3,7 +3,7 @@
 # Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1); every run headless
 # Date: 2026-11-22
 # Builds (source commit, sha256 of the executable):
-#   dta   dta-searches-mainai 233596320f93c4a835791539e7196d47ae657b37             23bd83e53b97fde5e60f690bc8ca22d3905901a35d1d918be4aa3f3497f91585
+#   dta   dta-searches-mainai cbc326e0f350b35fb0535b2155d9036c7ef8eb36             027315eb3c2473fe42828c0be83f260025b22235f293c34443049246a11e6e39
 # run 1: dirgone.sh dta dta off   (exit code 0)
 dirgone.sh: ALIKE
 # run 1: dosans.sh dta dta cd off   (exit code 0)

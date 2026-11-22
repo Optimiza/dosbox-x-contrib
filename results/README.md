@@ -32,10 +32,10 @@ command and its exit code, which the run printed apart from its lines.
 | [`macos/dta-searches-memory.txt`](macos/dta-searches-memory.txt) | memory held: the label slot, the searches child programs leave kept, a synthetic folder and the large folder, unpatched against the branch |
 | [`macos/dta-searches-msdos.txt`](macos/dta-searches-msdos.txt) | what MS-DOS 7.10 and MS-DOS 6.22 answered to DTADUMP and DRIFT, and MS-DOS 7.10 to FINDLIFE, FINDPOS and TEMPLATE |
 | [`macos/dta-searches-win98.txt`](macos/dta-searches-win98.txt) | DRIFT and DTADUMP inside Windows 98 SE's DOS box, with its version and the folder it read |
-| [`windows/dta-searches-answers.txt`](windows/dta-searches-answers.txt) | the same answers on Windows: unpatched `main-ai` against the branch, and the head before the last commit against it |
+| [`windows/dta-searches-answers.txt`](windows/dta-searches-answers.txt) | the same answers on Windows: unpatched `main-ai` against the branch |
 | [`windows/dta-searches-alike.txt`](windows/dta-searches-alike.txt) | the verdict lines of those scripts with the branch as both builds, run twice, on Windows |
 | [`windows/dta-searches-run.txt`](windows/dta-searches-run.txt) | LISTDUMP on Windows: the large folder and the synthetic folders, unpatched against the branch |
-| [`windows/dta-searches-memory.txt`](windows/dta-searches-memory.txt) | memory held on Windows: the label slot and the large folder, unpatched against the branch |
+| [`windows/dta-searches-memory.txt`](windows/dta-searches-memory.txt) | memory held on Windows: the label slot, the searches child programs leave kept and the large folder, unpatched against the branch |
 | [`macos/dta-restored-bisect.txt`](macos/dta-restored-bisect.txt) | the case `saved-and-restored-then-edited` on three builds of upstream `main-ai`: before another author's pull request merged, after it, and after the next |
 | [`macos/dta-iso-index.txt`](macos/dta-iso-index.txt) | a probe that sets the search number of a CD image's DTA past the table, in several runs, unpatched and the branch |
 | [`macos/first-read-wall.txt`](macos/first-read-wall.txt) | the seconds a first read takes: unpatched, first-read and alias builds |

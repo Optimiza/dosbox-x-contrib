@@ -5,19 +5,19 @@
 # Date: 2026-11-22
 # Builds (source commit, sha256 of the executable):
 #   base  joncampbell123/dosbox-x main-ai ac2787a422f7a7bf008128975b1d00d9a5312387   be324b5f83c1e7580a1d47e3b946c81c3d6985718030f8eb2899b60b6bfda800
-#   dta   dta-searches-mainai 233596320f93c4a835791539e7196d47ae657b37             23bd83e53b97fde5e60f690bc8ca22d3905901a35d1d918be4aa3f3497f91585
+#   dta   dta-searches-mainai cbc326e0f350b35fb0535b2155d9036c7ef8eb36             027315eb3c2473fe42828c0be83f260025b22235f293c34443049246a11e6e39
 # run.sh base dta <the large folder> on   (exit code 0)
 run.sh: folder <the large folder> (169452 entries on the host), long names on
 run.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 run.sh: build A: 4e=169108 lfn=169108 look=10
-run.sh: build B: dta-233596320 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+run.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 run.sh: build B: 4e=169108 lfn=169108 look=10
 run.sh: IDENTICAL
 # run.sh base dta <the large folder> off   (exit code 0)
 run.sh: folder <the large folder> (169452 entries on the host), long names off
 run.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 run.sh: build A: 4e=169108 lfn=0 look=5
-run.sh: build B: dta-233596320 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+run.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 run.sh: build B: 4e=169108 lfn=0 look=5
 run.sh: IDENTICAL
 # run.sh base dta 10000 83 off   (exit code 0)
