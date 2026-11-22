@@ -15,6 +15,8 @@
  *     date, size, name
  *   an FCB, 44 bytes from the start of its block: the header of an extended one, drive, name,
  *     the ten bytes at +0Ch where MS-DOS keeps the search, the rest
+ *   an FCB 0Fh opened, 44 bytes: drive, name, block and record size, file size, date and time,
+ *     the rest
  *   a DTA after 11h or 12h, 43 bytes: the header of an extended FCB, drive, then a directory
  *     entry: name, attribute, 10 reserved bytes, time and date, cluster, size; the rest
  * The DOS's own 8 bytes and every time and date are printed as dashes: they belong to one DOS
@@ -137,6 +139,7 @@ static void fill(int dta) { char ee[DTA_SIZE]; memset(ee, 0xEE, sizeof ee); dosm
 static const int DTA_FIND[] = {1, 11, 1, -8, 1, -4, 4, 13, 0};
 static const int FCB_PLAIN[] = {1, 11, 10, 22, 0};
 static const int FCB_EXTENDED[] = {7, 1, 11, 10, 15, 0};
+static const int FCB_OPENED[] = {1, 11, 4, 4, -4, 20, 0};
 static const int FOUND_PLAIN[] = {1, 11, 1, 10, -4, 2, 4, 10, 0};
 static const int FOUND_EXTENDED[] = {7, 1, 11, 1, 10, -4, 2, 4, 3, 0};
 
@@ -167,6 +170,11 @@ static void dump_dta(const char *label, const char *step, const char *answer, in
 static void dump_fcb(const char *label, const char *step, const char *answer, int off, int extended)
 {
     line("dump|%s|%s|%s|%s", label, step, answer, hex(g_lin + off, extended ? FCB_EXTENDED : FCB_PLAIN));
+}
+
+static void dump_opened(const char *label, const char *step, const char *answer, int off)
+{
+    line("dump|%s|%s|%s|%s", label, step, answer, hex(g_lin + off, FCB_OPENED));
 }
 
 static void dump_found(const char *label, const char *step, int dta, int extended)
@@ -437,7 +445,7 @@ int main(int argc, char **argv)
         fcb_put(FCB1_OFF, "ZED?????TXT", -1);
         err = fcb_call(0x0F, FCB1_OFF, DTA_A);
         dump_dta("fcb-open-wild", "dta-after-0Fh", answered_dta("al", err, untouched(DTA_A, before)), DTA_A);
-        dump_fcb("fcb-open-wild", "fcb-after-0Fh", answered("al", err), FCB1_OFF, 0);
+        dump_opened("fcb-open-wild", "fcb-after-0Fh", answered("al", err), FCB1_OFF);
         if (err == 0) fcb_call(0x10, FCB1_OFF, DTA_A);
         chdir("C:\\");
     }

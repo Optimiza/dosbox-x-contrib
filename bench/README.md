@@ -682,8 +682,9 @@ a report has no trailer or lacks the lines the figures are read from.
 **What it does not show.**
 
 - The bytes a DOS keeps for itself are not compared. Whether a search goes on is `resumed`'s.
-- The ten bytes at +0Ch of an FCB are printed as they are. They hold a DOS's own numbers, so
-  a build's lines there differ from another DOS's even when both keep the search in the FCB.
+- The ten bytes at +0Ch of an FCB after 11h and 12h are printed as they are. They hold a
+  DOS's own numbers, so a build's lines there differ from another DOS's even when both keep
+  the search in the FCB.
 - The last case removes a file, so each build gets its own copy of the folder.
 - `realdos.sh` runs it whole. There 714Eh answers that it does not exist.
 
