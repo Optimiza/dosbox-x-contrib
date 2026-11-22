@@ -1,0 +1,59 @@
+# What: memory.sh lines. The label slot: 20,000 searches for the volume label that finds none, in a folder of
+#       100 files, with long names on; slots_full counts how often the emulator emptied its search table.
+#       The synthetic folder: 50,000 files, one call repeated 1 and 20 times. The large folder: one file
+#       looked up 1 and 20 times by access (a) and by libc stat (d), one sample on unpatched upstream
+#       and three on the branch at 7275c8657, the head before the last commit.
+# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; every run headless
+# Date: 2026-11-22
+# Builds (source commit, sha256 of the executable):
+#   base  joncampbell123/dosbox-x main-ai ac2787a422f7a7bf008128975b1d00d9a5312387   1dd69c094f4ccadc2c4209f8e7396dc9010f4d47937697919a5fac6ba5224b1b
+#   dta   dta-searches-mainai 233596320f93c4a835791539e7196d47ae657b37             69c16361e2e976dc0ccf8e5d29e44b639e98c69972fb7bfcee8802036146faeb
+#   dta-7275c8657 dta-searches-mainai 7275c8657a0c1fe6808af3e983d47f38387dc5af             484a584fb5c1811bcdd7621fa7814ad1ac7d76007f85d25b7243447419dff26f
+# memory.sh base synthetic:100:long on v 20000   (exit code 0)
+memory.sh: mode=v calls=20000 lfn=on folder=synthetic:100:long file=Alpha track 000000.mid entries=100 peak_rss_kb=209440 held_rss_kb=209440 held_footprint_kb=170480 samples=9 slots_full=9 guest="mode=v k=20000 ok=20000 released=1 guest_us=404382" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=main-ai-ac2787a42
+# memory.sh dta synthetic:100:long on v 20000   (exit code 0)
+memory.sh: mode=v calls=20000 lfn=on folder=synthetic:100:long file=Alpha track 000000.mid entries=100 peak_rss_kb=203888 held_rss_kb=203888 held_footprint_kb=164960 samples=9 slots_full=0 guest="mode=v k=20000 ok=20000 released=1 guest_us=413385" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-233596320
+# memory.sh base synthetic:100:long on a 20000   (exit code 0)
+memory.sh: mode=a calls=20000 lfn=on folder=synthetic:100:long file=Alpha track 000000.mid entries=100 peak_rss_kb=204416 held_rss_kb=204416 held_footprint_kb=165456 samples=14 slots_full=0 guest="mode=a k=20000 ok=20000 released=1 guest_us=1609280" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=main-ai-ac2787a42
+# memory.sh dta synthetic:100:long on a 20000   (exit code 0)
+memory.sh: mode=a calls=20000 lfn=on folder=synthetic:100:long file=Alpha track 000000.mid entries=100 peak_rss_kb=204128 held_rss_kb=204128 held_footprint_kb=165200 samples=16 slots_full=0 guest="mode=a k=20000 ok=20000 released=1 guest_us=2039175" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-233596320
+# memory.sh base synthetic:50000:long on a 1   (exit code 0)
+memory.sh: mode=a calls=1 lfn=on folder=synthetic:50000:long file=Alpha track 000000.mid entries=50000 peak_rss_kb=303712 held_rss_kb=303712 held_footprint_kb=214016 samples=8 slots_full=0 guest="mode=a k=1 ok=1 released=1 guest_us=69" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=main-ai-ac2787a42
+# memory.sh base synthetic:50000:long on a 20   (exit code 0)
+memory.sh: mode=a calls=20 lfn=on folder=synthetic:50000:long file=Alpha track 000000.mid entries=50000 peak_rss_kb=303760 held_rss_kb=303760 held_footprint_kb=214064 samples=9 slots_full=0 guest="mode=a k=20 ok=20 released=1 guest_us=8520" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=main-ai-ac2787a42
+# memory.sh dta synthetic:50000:long on a 1   (exit code 0)
+memory.sh: mode=a calls=1 lfn=on folder=synthetic:50000:long file=Alpha track 000000.mid entries=50000 peak_rss_kb=239136 held_rss_kb=239136 held_footprint_kb=200224 samples=8 slots_full=0 guest="mode=a k=1 ok=1 released=1 guest_us=108" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-233596320
+# memory.sh dta synthetic:50000:long on a 20   (exit code 0)
+memory.sh: mode=a calls=20 lfn=on folder=synthetic:50000:long file=Alpha track 000000.mid entries=50000 peak_rss_kb=239104 held_rss_kb=239104 held_footprint_kb=200192 samples=11 slots_full=0 guest="mode=a k=20 ok=20 released=1 guest_us=7658" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-233596320
+# memory.sh base <the large folder> on a 1 --file SONG.MID   (exit code 0)
+memory.sh: mode=a calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=546800 held_rss_kb=546800 held_footprint_kb=387649 samples=13 slots_full=0 guest="mode=a k=1 ok=1 released=1 guest_us=69" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=main-ai-ac2787a42
+# memory.sh base <the large folder> on a 20 --file SONG.MID   (exit code 0)
+memory.sh: mode=a calls=20 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=548528 held_rss_kb=548528 held_footprint_kb=279409 samples=25 slots_full=0 guest="mode=a k=20 ok=20 released=1 guest_us=1100" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=main-ai-ac2787a42
+# memory.sh base <the large folder> on d 1 --file SONG.MID   (exit code 0)
+memory.sh: mode=d calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=546816 held_rss_kb=546816 held_footprint_kb=387617 samples=13 slots_full=0 guest="mode=d k=1 ok=1 released=1 guest_us=37" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=main-ai-ac2787a42
+# memory.sh base <the large folder> on d 20 --file SONG.MID   (exit code 0)
+memory.sh: mode=d calls=20 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=546144 held_rss_kb=546144 held_footprint_kb=278961 samples=26 slots_full=0 guest="mode=d k=20 ok=20 released=1 guest_us=688" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=main-ai-ac2787a42
+# memory.sh dta-7275c8657 <the large folder> on a 1 --file SONG.MID   (sample 1)   (exit code 0)
+memory.sh: mode=a calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=326640 held_rss_kb=326640 held_footprint_kb=287777 samples=12 slots_full=0 guest="mode=a k=1 ok=1 released=1 guest_us=61" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on a 1 --file SONG.MID   (sample 2)   (exit code 0)
+memory.sh: mode=a calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=325616 held_rss_kb=325616 held_footprint_kb=286785 samples=12 slots_full=0 guest="mode=a k=1 ok=1 released=1 guest_us=87" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on a 1 --file SONG.MID   (sample 3)   (exit code 0)
+memory.sh: mode=a calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=325696 held_rss_kb=325696 held_footprint_kb=286849 samples=12 slots_full=0 guest="mode=a k=1 ok=1 released=1 guest_us=65" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on a 20 --file SONG.MID   (sample 1)   (exit code 0)
+memory.sh: mode=a calls=20 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=325552 held_rss_kb=325552 held_footprint_kb=286689 samples=20 slots_full=0 guest="mode=a k=20 ok=20 released=1 guest_us=1541" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on a 20 --file SONG.MID   (sample 2)   (exit code 0)
+memory.sh: mode=a calls=20 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=325632 held_rss_kb=325632 held_footprint_kb=286752 samples=20 slots_full=0 guest="mode=a k=20 ok=20 released=1 guest_us=1395" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on a 20 --file SONG.MID   (sample 3)   (exit code 0)
+memory.sh: mode=a calls=20 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=325696 held_rss_kb=325696 held_footprint_kb=286849 samples=19 slots_full=0 guest="mode=a k=20 ok=20 released=1 guest_us=1146" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on d 1 --file SONG.MID   (sample 1)   (exit code 0)
+memory.sh: mode=d calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=325568 held_rss_kb=325568 held_footprint_kb=286721 samples=12 slots_full=0 guest="mode=d k=1 ok=1 released=1 guest_us=46" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on d 1 --file SONG.MID   (sample 2)   (exit code 0)
+memory.sh: mode=d calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=325744 held_rss_kb=325744 held_footprint_kb=286913 samples=12 slots_full=0 guest="mode=d k=1 ok=1 released=1 guest_us=47" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on d 1 --file SONG.MID   (sample 3)   (exit code 0)
+memory.sh: mode=d calls=1 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=325696 held_rss_kb=325696 held_footprint_kb=286849 samples=12 slots_full=0 guest="mode=d k=1 ok=1 released=1 guest_us=62" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on d 20 --file SONG.MID   (sample 1)   (exit code 0)
+memory.sh: mode=d calls=20 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=325600 held_rss_kb=325600 held_footprint_kb=286737 samples=20 slots_full=0 guest="mode=d k=20 ok=20 released=1 guest_us=895" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on d 20 --file SONG.MID   (sample 2)   (exit code 0)
+memory.sh: mode=d calls=20 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=328064 held_rss_kb=328064 held_footprint_kb=289217 samples=21 slots_full=0 guest="mode=d k=20 ok=20 released=1 guest_us=934" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657
+# memory.sh dta-7275c8657 <the large folder> on d 20 --file SONG.MID   (sample 3)   (exit code 0)
+memory.sh: mode=d calls=20 lfn=on folder=<the large folder> file=SONG.MID entries=169457 peak_rss_kb=326784 held_rss_kb=326784 held_footprint_kb=287921 samples=20 slots_full=0 guest="mode=d k=20 ok=20 released=1 guest_us=815" build="DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team." binary=dta-7275c8657

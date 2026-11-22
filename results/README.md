@@ -5,6 +5,9 @@ was measured. Each file opens with the command, the host, the date and the build
 
 Each build is named with the commit it was made from and the sha256 of its executable.
 
+In the files whose names begin `dta-`, a line starting `# ` after the header opens a section: the
+command and its exit code, which the run printed apart from its lines.
+
 ## The files
 
 | File | What it holds |
@@ -23,6 +26,14 @@ Each build is named with the commit it was made from and the sha256 of its execu
 | [`macos/launchers.txt`](macos/launchers.txt) | five commands through `bench/launch.sh` and through the launcher the battery files were made with |
 | [`windows/reporters.txt`](windows/reporters.txt) | the reporters' cells on Windows: the exact-name and retention builds |
 | [`macos/dta-dir.txt`](macos/dta-dir.txt), [`windows/dta-dir.txt`](windows/dta-dir.txt) | the shell's `DIR` line on the DTA branch, and its fifth head against its sixth |
+| [`macos/dta-searches-answers.txt`](macos/dta-searches-answers.txt) | the answers of the search-fix branch against unpatched `main-ai` at `ac2787a42`: DTADUMP, DRIFT, FINDLIFE, EXACT, FINDPOS, TEMPLATE and DIRGONE |
+| [`macos/dta-searches-alike.txt`](macos/dta-searches-alike.txt) | the verdict lines of the same scripts with the branch as both builds, run twice |
+| [`macos/dta-searches-run.txt`](macos/dta-searches-run.txt) | LISTDUMP on the large folder and on the synthetic folders, unpatched against the branch |
+| [`macos/dta-searches-memory.txt`](macos/dta-searches-memory.txt) | memory held: the label slot, a synthetic folder and the large folder, unpatched against the branch |
+| [`macos/dta-searches-msdos.txt`](macos/dta-searches-msdos.txt) | what MS-DOS 7.10 answered to DTADUMP, DRIFT, FINDLIFE, FINDPOS and TEMPLATE |
+| [`macos/dta-searches-win98.txt`](macos/dta-searches-win98.txt) | DRIFT and DTADUMP inside Windows 98 SE's DOS box, with its version and the folder it read |
+| [`macos/dta-restored-bisect.txt`](macos/dta-restored-bisect.txt) | the case `saved-and-restored-then-edited` on three builds of upstream `main-ai`: before another author's pull request merged, after it, and after the next |
+| [`macos/dta-iso-index.txt`](macos/dta-iso-index.txt) | a probe that sets the search number of a CD image's DTA past the table, in several runs, unpatched and the branch |
 | [`macos/first-read-wall.txt`](macos/first-read-wall.txt) | the seconds a first read takes: unpatched, first-read and alias builds |
 | [`macos/first-read-listings.txt`](macos/first-read-listings.txt) | what unpatched and first-read builds list, compared in every folder |
 | [`macos/first-read-memory.txt`](macos/first-read-memory.txt) | memory held after a first read: unpatched and first-read builds |
@@ -68,11 +79,12 @@ The whole reports behind one run are kept too, as the recording the battery's ow
 
 ## What is the same in every run
 
-Three things hold for every file here.
+These hold for every file here.
 
 - **The builds.** Every build is upstream `main-ai` at `4e0b6adcf`, or a branch cut from it,
-  plus two lines without which that revision does not compile. The patched builds are named
-  by their branch and commit; only the branches offered upstream are published, on the fork
+  plus two lines without which that revision does not compile, but the files named `dta-` are of
+  `ac2787a42` and its branch. The patched builds are named by their branch and commit.
+- **The branches.** Only the branches offered upstream are published, on the fork
   `Optimiza/dosbox-x`.
 - **The large folder.** A music library of 169,457 files with long names, read-only and not
   kept here. On Windows it is the same names as empty files, of which 169,452 could be made.
@@ -94,6 +106,7 @@ The lines are as the runs printed them, with these things replaced:
 | the path of the large folder | `<the large folder>` |
 | the name of the launcher, in the reason of the cells Windows does not run | `the macOS launcher` |
 | the path of the MS-DOS boot image | `<a Windows 98 SE hard disk image>` |
+| the carriage returns of the files read off the Windows 98 image | removed |
 
 That launcher was not `bench/launch.sh`. The runs were made with another launcher of ours,
 not published, that gives the emulator the same arguments.

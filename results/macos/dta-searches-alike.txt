@@ -1,0 +1,99 @@
+# What: the same scripts with the search-fix branch as both builds, run twice: the verdict lines of each cell.
+#       Each section is one cell; ALIKE or IDENTICAL on every one is the control that the scripts read the
+#       same build the same way.
+# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; every run headless
+# Date: 2026-11-22
+# Builds (source commit, sha256 of the executable):
+#   dta   dta-searches-mainai 233596320f93c4a835791539e7196d47ae657b37             69c16361e2e976dc0ccf8e5d29e44b639e98c69972fb7bfcee8802036146faeb
+# run 1: dirgone.sh dta dta off   (exit code 0)
+dirgone.sh: ALIKE
+# run 1: dosans.sh dta dta cd off   (exit code 0)
+dosans.sh: ALIKE
+# run 1: dosans.sh dta dta labelled off   (exit code 0)
+dosans.sh: ALIKE
+# run 1: drift.sh dta dta off   (exit code 0)
+drift.sh: ALIKE
+# run 1: drift.sh dta dta on   (exit code 0)
+drift.sh: ALIKE
+# run 1: dtadump.sh dta dta off   (exit code 0)
+dtadump.sh: ALIKE
+# run 1: exact.sh dta dta off   (exit code 0)
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (67 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+# run 1: exact.sh dta dta on   (exit code 0)
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (69 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+# run 1: findlife.sh dta dta off   (exit code 0)
+findlife.sh: ALIKE
+# run 1: findlife.sh dta dta on   (exit code 0)
+case|lfn-next-after-its-end|lfn=1 of 1 again=0012 search_in_first_slot=1 of 32 foreign=0|DIFFERS
+case|lfn-next-after-its-end|lfn=1 of 1 again=0012 search_in_first_slot=1 of 32 foreign=0|DIFFERS
+findlife.sh: ALIKE
+# run 1: findpos.sh dta dta labelled off   (exit code 0)
+findpos.sh: ALIKE
+# run 1: findpos.sh dta dta labelled on   (exit code 0)
+findpos.sh: ALIKE
+# run 1: findpos.sh dta dta unlabelled off   (exit code 0)
+findpos.sh: ALIKE
+# run 1: findpos.sh dta dta unlabelled on   (exit code 0)
+findpos.sh: ALIKE
+# run 1: template.sh dta dta fat off   (exit code 0)
+template.sh: ALIKE
+# run 1: template.sh dta dta fat on   (exit code 0)
+template.sh: ALIKE
+# run 1: template.sh dta dta host off   (exit code 0)
+template.sh: ALIKE
+# run 1: template.sh dta dta host on   (exit code 0)
+template.sh: ALIKE
+# run 2: dirgone.sh dta dta off   (exit code 0)
+dirgone.sh: ALIKE
+# run 2: dosans.sh dta dta cd off   (exit code 0)
+dosans.sh: ALIKE
+# run 2: dosans.sh dta dta labelled off   (exit code 0)
+dosans.sh: ALIKE
+# run 2: drift.sh dta dta off   (exit code 0)
+drift.sh: ALIKE
+# run 2: drift.sh dta dta on   (exit code 0)
+drift.sh: ALIKE
+# run 2: dtadump.sh dta dta off   (exit code 0)
+dtadump.sh: ALIKE
+# run 2: exact.sh dta dta off   (exit code 0)
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (67 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+# run 2: exact.sh dta dta on   (exit code 0)
+exact.sh: basic: ALIKE (362 lines)
+exact.sh: life: ALIKE (9 lines)
+exact.sh: shell: ALIKE (69 lines)
+exact.sh: tree: ALIKE (20 lines)
+exact.sh: drift: ALIKE (7 lines)
+# run 2: findlife.sh dta dta off   (exit code 0)
+findlife.sh: ALIKE
+# run 2: findlife.sh dta dta on   (exit code 0)
+case|lfn-next-after-its-end|lfn=1 of 1 again=0012 search_in_first_slot=1 of 32 foreign=0|DIFFERS
+case|lfn-next-after-its-end|lfn=1 of 1 again=0012 search_in_first_slot=1 of 32 foreign=0|DIFFERS
+findlife.sh: ALIKE
+# run 2: findpos.sh dta dta labelled off   (exit code 0)
+findpos.sh: ALIKE
+# run 2: findpos.sh dta dta labelled on   (exit code 0)
+findpos.sh: ALIKE
+# run 2: findpos.sh dta dta unlabelled off   (exit code 0)
+findpos.sh: ALIKE
+# run 2: findpos.sh dta dta unlabelled on   (exit code 0)
+findpos.sh: ALIKE
+# run 2: template.sh dta dta fat off   (exit code 0)
+template.sh: ALIKE
+# run 2: template.sh dta dta fat on   (exit code 0)
+template.sh: ALIKE
+# run 2: template.sh dta dta host off   (exit code 0)
+template.sh: ALIKE
+# run 2: template.sh dta dta host on   (exit code 0)
+template.sh: ALIKE

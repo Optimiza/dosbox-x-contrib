@@ -1,0 +1,194 @@
+# What: drift.sh run on three builds of upstream main-ai, long names off: the first against itself, then against the second, then the second against the third. The case
+#       saved-and-restored-then-edited, a DTA a program saved, put back and edited. Before pull request 6831
+#       merged it returns six names; from its merge on, none. The lines that differ are the only ones.
+# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; every run headless
+# Date: 2026-11-22
+# Builds (source commit, sha256 of the executable):
+#   pre   joncampbell123/dosbox-x main-ai b368e6a00c427a4e4800e1a09543c107dbabf118   4f10a44667d4047710eb6e425264c6e010cb121a62617d124e5c9161d56fcc8d
+#   6831  joncampbell123/dosbox-x main-ai 218ec1894d67909c753828374d89600e7ae03645   51aff880a196bbfae5ec075a614779983af971ece34c7c985e2041b2098d2a2a
+#   6852  joncampbell123/dosbox-x main-ai 8de17e7f537ebc34d2fad8be673bf9ccc414b1b8   9aa16acdbcd39f6c4c47eb1604dbc809a25a681ef0898882b3df8bf1a7e73ecb
+# drift.sh pre pre off   (exit code 0)
+drift.sh: long names off
+drift.sh: build A: main-ai-b368e6a00 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-does-not|first=0 more=0|
+drift|to-a-later-exact-name|first=0 more=0|
+drift|to-an-earlier-exact-name|first=0 more=0|
+drift|to-a-missing-exact-name|first=0 more=0|
+drift|to-its-own-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-lower-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-full-length-name-in-mixed-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-exact-name-zero-padded|first=0 more=1|,ZED.TXT:20:7
+drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+drift|to-its-own-name-zero-padded|first=0 more=0|
+drift|to-a-later-name-with-a-star|first=0 more=1|,ZED.TXT:20:7
+drift|to-a-star-for-the-name|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-the-last-entry|first=0 more=0|
+drift|from-a-missing-name|first=18 more=0|
+drift|edited-twice|first=0 more=1|,FOO.TXT:20:3
+drift|saved-and-restored-then-edited|first=0 inner=16 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-gained-files|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-the-entry|first=0 more=5|,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+end|lines=27
+drift.sh: build B: main-ai-b368e6a00 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-does-not|first=0 more=0|
+drift|to-a-later-exact-name|first=0 more=0|
+drift|to-an-earlier-exact-name|first=0 more=0|
+drift|to-a-missing-exact-name|first=0 more=0|
+drift|to-its-own-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-lower-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-full-length-name-in-mixed-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-exact-name-zero-padded|first=0 more=1|,ZED.TXT:20:7
+drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+drift|to-its-own-name-zero-padded|first=0 more=0|
+drift|to-a-later-name-with-a-star|first=0 more=1|,ZED.TXT:20:7
+drift|to-a-star-for-the-name|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-the-last-entry|first=0 more=0|
+drift|from-a-missing-name|first=18 more=0|
+drift|edited-twice|first=0 more=1|,FOO.TXT:20:3
+drift|saved-and-restored-then-edited|first=0 inner=16 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-gained-files|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-the-entry|first=0 more=5|,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+end|lines=27
+drift.sh: ALIKE
+# drift.sh pre 6831 off   (exit code 1)
+drift.sh: long names off
+drift.sh: build A: main-ai-b368e6a00 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-does-not|first=0 more=0|
+drift|to-a-later-exact-name|first=0 more=0|
+drift|to-an-earlier-exact-name|first=0 more=0|
+drift|to-a-missing-exact-name|first=0 more=0|
+drift|to-its-own-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-lower-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-full-length-name-in-mixed-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-exact-name-zero-padded|first=0 more=1|,ZED.TXT:20:7
+drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+drift|to-its-own-name-zero-padded|first=0 more=0|
+drift|to-a-later-name-with-a-star|first=0 more=1|,ZED.TXT:20:7
+drift|to-a-star-for-the-name|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-the-last-entry|first=0 more=0|
+drift|from-a-missing-name|first=18 more=0|
+drift|edited-twice|first=0 more=1|,FOO.TXT:20:3
+drift|saved-and-restored-then-edited|first=0 inner=16 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-gained-files|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-the-entry|first=0 more=5|,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+end|lines=27
+drift.sh: build B: main-ai-218ec1894 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-does-not|first=0 more=0|
+drift|to-a-later-exact-name|first=0 more=0|
+drift|to-an-earlier-exact-name|first=0 more=0|
+drift|to-a-missing-exact-name|first=0 more=0|
+drift|to-its-own-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-lower-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-full-length-name-in-mixed-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-exact-name-zero-padded|first=0 more=1|,ZED.TXT:20:7
+drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+drift|to-its-own-name-zero-padded|first=0 more=0|
+drift|to-a-later-name-with-a-star|first=0 more=1|,ZED.TXT:20:7
+drift|to-a-star-for-the-name|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-the-last-entry|first=0 more=0|
+drift|from-a-missing-name|first=18 more=0|
+drift|edited-twice|first=0 more=1|,FOO.TXT:20:3
+drift|saved-and-restored-then-edited|first=0 inner=16 more=0|
+drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-gained-files|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-the-entry|first=0 more=5|,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+end|lines=27
+drift.sh: DIFFERENT, the lines that differ (A then B):
+< drift|saved-and-restored-then-edited|first=0 inner=16 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+> drift|saved-and-restored-then-edited|first=0 inner=16 more=0|
+# drift.sh 6831 6852 off   (exit code 0)
+drift.sh: long names off
+drift.sh: build A: main-ai-218ec1894 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-does-not|first=0 more=0|
+drift|to-a-later-exact-name|first=0 more=0|
+drift|to-an-earlier-exact-name|first=0 more=0|
+drift|to-a-missing-exact-name|first=0 more=0|
+drift|to-its-own-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-lower-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-full-length-name-in-mixed-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-exact-name-zero-padded|first=0 more=1|,ZED.TXT:20:7
+drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+drift|to-its-own-name-zero-padded|first=0 more=0|
+drift|to-a-later-name-with-a-star|first=0 more=1|,ZED.TXT:20:7
+drift|to-a-star-for-the-name|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-the-last-entry|first=0 more=0|
+drift|from-a-missing-name|first=18 more=0|
+drift|edited-twice|first=0 more=1|,FOO.TXT:20:3
+drift|saved-and-restored-then-edited|first=0 inner=16 more=0|
+drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-gained-files|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-the-entry|first=0 more=5|,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+end|lines=27
+drift.sh: build B: main-ai-8de17e7f5 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|to-wildcard-that-does-not|first=0 more=0|
+drift|to-a-later-exact-name|first=0 more=0|
+drift|to-an-earlier-exact-name|first=0 more=0|
+drift|to-a-missing-exact-name|first=0 more=0|
+drift|to-its-own-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-lower-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-full-length-name-in-mixed-case|first=0 more=1|,ALPHAT~2.MID:20:3
+drift|to-a-later-exact-name-zero-padded|first=0 more=1|,ZED.TXT:20:7
+drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+drift|to-its-own-name-zero-padded|first=0 more=0|
+drift|to-a-later-name-with-a-star|first=0 more=1|,ZED.TXT:20:7
+drift|to-a-star-for-the-name|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:5,ALPHAT~2.MID:20:3,ALPHAT~3.MID:20:4,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|from-the-last-entry|first=0 more=0|
+drift|from-a-missing-name|first=18 more=0|
+drift|edited-twice|first=0 more=1|,FOO.TXT:20:3
+drift|saved-and-restored-then-edited|first=0 inner=16 more=0|
+drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-gained-files|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-the-entry|first=0 more=5|,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+drift|label-search-then-edited|first=18 more=4|,.:10:0,..:10:0,X:10:0,FOO.TXT:20:4
+end|lines=27
+drift.sh: ALIKE

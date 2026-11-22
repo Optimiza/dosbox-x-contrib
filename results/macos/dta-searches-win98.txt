@@ -1,0 +1,124 @@
+# What: DRIFT and DTADUMP run inside Windows 98 SE's own DOS box, long names on, from a clone of the disk image:
+#       its version line, the DIR of the folder the programs read (long names beside their short ones), then
+#       the report of DRIFT and the report of DTADUMP. The files were read off the image after the run.
+#       The emulator that carries Windows 98 is unpatched upstream.
+# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; every run headless
+# Date: 2026-11-22
+# Builds (source commit, sha256 of the executable):
+#   base  joncampbell123/dosbox-x main-ai ac2787a422f7a7bf008128975b1d00d9a5312387   1dd69c094f4ccadc2c4209f8e7396dc9010f4d47937697919a5fac6ba5224b1b
+# VER.TXT
+
+Windows 98 [Version 4.10.2222]
+
+# DIR.TXT
+
+ Volume in drive C has no label
+ Volume Serial Number is 000E-65C0
+ Directory of C:\X
+
+.              <DIR>        11-22-26 12:34p .
+..             <DIR>        11-22-26 12:34p ..
+SUBDIR         <DIR>        11-22-26 12:34p SUBDIR
+LONGSU~1       <DIR>        11-22-26 12:34p Long Sub Directory
+ALPHAT~1 MID             4  11-22-26 12:34p ALPHAT~1.MID
+FOO      TXT             3  11-22-26 12:34p FOO.TXT
+BAR      TXT             5  11-22-26 12:34p BAR.TXT
+ZED      TXT             7  11-22-26 12:34p ZED.TXT
+NOEXT                    1  11-22-26 12:34p NOEXT
+A        B               2  11-22-26 12:34p A.B
+MIXCASE  TXT             5  11-22-26 12:34p MixCase.Txt
+ALPHAT~2 MID             2  11-22-26 12:34p Alpha track 000000.mid
+ALPHAT~3 MID             3  11-22-26 12:34p Alpha track 000001.mid
+ALPHAT~4 MID             5  11-22-26 12:34p Alpha tr.mid
+TWO~1    TXT             4  11-22-26 12:34p Two.dots.name.txt
+NOEXTE~1                 9  11-22-26 12:34p No extension long name
+        12 file(s)             50 bytes
+         4 dir(s)        7,637.70 MB free
+# DRIFT, OUT.TXT
+drift|whole-folder|first=0 n=16|.:10:0,..:10:0,SUBDIR:10:0,LONGSU~1:10:0,ALPHAT~1.MID:20:4,FOO.TXT:20:3,BAR.TXT:20:5,ZED.TXT:20:7,NOEXT:20:1,A.B:20:2,MIXCASE.TXT:20:5,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,TWO~1.TXT:20:4,NOEXTE~1:20:9
+drift|to-every-name|first=0 more=9|,ZED.TXT:20:7,NOEXT:20:1,A.B:20:2,MIXCASE.TXT:20:5,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,TWO~1.TXT:20:4,NOEXTE~1:20:9
+drift|to-wildcard-that-matches-the-entry|first=0 more=3|,ZED.TXT:20:7,MIXCASE.TXT:20:5,TWO~1.TXT:20:4
+drift|to-wildcard-that-does-not|first=0 more=3|,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5
+drift|to-a-later-exact-name|first=0 more=0|
+drift|to-an-earlier-exact-name|first=0 more=0|
+drift|to-a-missing-exact-name|first=0 more=0|
+drift|to-its-own-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-lower-case|first=0 more=0|
+drift|to-a-later-full-length-name-in-mixed-case|first=0 more=0|
+drift|to-a-later-exact-name-zero-padded|first=0 more=0|
+drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+drift|to-its-own-name-zero-padded|first=0 more=0|
+drift|to-a-later-name-with-a-star|first=0 more=0|
+drift|to-a-star-for-the-name|first=0 more=0|
+drift|from-a-directory|first=0 more=13|,LONGSU~1:10:0,ALPHAT~1.MID:20:4,FOO.TXT:20:3,BAR.TXT:20:5,ZED.TXT:20:7,NOEXT:20:1,A.B:20:2,MIXCASE.TXT:20:5,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,TWO~1.TXT:20:4,NOEXTE~1:20:9
+drift|from-the-last-entry|first=0 more=8|,NOEXT:20:1,A.B:20:2,MIXCASE.TXT:20:5,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,TWO~1.TXT:20:4,NOEXTE~1:20:9
+drift|from-a-missing-name|first=18 more=0|
+drift|edited-twice|first=0 more=1|,ZED.TXT:20:7
+drift|saved-and-restored-then-edited|first=0 inner=16 more=9|,ZED.TXT:20:7,NOEXT:20:1,A.B:20:2,MIXCASE.TXT:20:5,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,TWO~1.TXT:20:4,NOEXTE~1:20:9
+drift|two-searches-one-edited|first=0 more=9 other=0|,ZED.TXT:20:7,NOEXT:20:1,A.B:20:2,MIXCASE.TXT:20:5,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,TWO~1.TXT:20:4,NOEXTE~1:20:9
+drift|folder-gained-files|first=0 more=11|,ZED.TXT:20:7,NOEXT:20:1,A.B:20:2,MIXCASE.TXT:20:5,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,TWO~1.TXT:20:4,NOEXTE~1:20:9,AAANEW.TXT:20:1,BARNEW.TXT:20:1
+drift|folder-lost-the-entry|first=0 more=0|
+drift|folder-lost-a-later-entry|first=0 more=9|,ZED.TXT:20:7,NOEXT:20:1,A.B:20:2,MIXCASE.TXT:20:5,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,TWO~1.TXT:20:4,NOEXTE~1:20:9
+drift|label-search-then-edited|first=18 more=0|
+end|lines=27
+# DTADUMP, DTA.TXT
+list|whole-folder|first=0 n=16|.,..,SUBDIR,LONGSU~1,ALPHAT~1.MID,FOO.TXT,BAR.TXT,ZED.TXT,NOEXT,A.B,MIXCASE.TXT,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,TWO~1.TXT,NOEXTE~1
+dump|template *.*|after|first=0|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 2E00202020202020EEEEEEEEEE
+dump|template BAR.TXT|after|first=0|83 4241522020202020545854 16 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+dump|template bar.txt|after|first=0|83 4241522020202020545854 16 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+dump|template B*.TXT|after|first=0|83 423F3F3F3F3F3F3F545854 16 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+dump|template B*R.TXT|after|first=0|83 423F3F3F3F3F3F3F545854 16 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+dump|template *R.TXT|after|first=0|83 3F3F3F3F3F3F3F3F545854 16 ---------------- 20 -------- 03000000 464F4F2E54585400EEEEEEEEEE
+dump|template B*|after|first=18|EE EEEEEEEEEEEEEEEEEEEEEE EE ---------------- EE -------- EEEEEEEE EEEEEEEEEEEEEEEEEEEEEEEEEE
+dump|template NOEXT|after|first=0|83 4E4F455854202020202020 16 ---------------- 20 -------- 01000000 4E4F455854002020EEEEEEEEEE
+dump|template *|after|first=0|83 3F3F3F3F3F3F3F3F202020 16 ---------------- 10 -------- 00000000 2E00202020202020EEEEEEEEEE
+dump|template *.|after|first=0|83 3F3F3F3F3F3F3F3F202020 16 ---------------- 10 -------- 00000000 2E00202020202020EEEEEEEEEE
+dump|template A.B|after|first=0|83 4120202020202020422020 16 ---------------- 20 -------- 02000000 412E420020202020EEEEEEEEEE
+dump|template ?OO.T?T|after|first=0|83 3F4F4F2020202020543F54 16 ---------------- 20 -------- 03000000 464F4F2E54585400EEEEEEEEEE
+dump|template ZED.*|after|first=0|83 5A454420202020203F3F3F 16 ---------------- 20 -------- 07000000 5A45442E54585400EEEEEEEEEE
+dump|template ZED.T*T|after|first=0|83 5A45442020202020543F3F 16 ---------------- 20 -------- 07000000 5A45442E54585400EEEEEEEEEE
+dump|template ALPHAT~1.MID|after|first=0|83 414C504841547E314D4944 16 ---------------- 20 -------- 04000000 414C504841547E312E4D494400
+dump|template NOSUCH.TXT|after|first=18|EE EEEEEEEEEEEEEEEEEEEEEE EE ---------------- EE -------- EEEEEEEE EEEEEEEEEEEEEEEEEEEEEEEEEE
+dump|next|after-first|first=0|83 423F3F3F3F3F3F3F545854 16 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+dump|next|after-failed-next|next=18|83 423F3F3F3F3F3F3F545854 16 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+dump|next|after-second-failed-next|next=18|83 423F3F3F3F3F3F3F545854 16 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+dump|next|wild-after-first|first=0|83 3F3F3F3F3F3F3F3F545854 16 ---------------- 20 -------- 03000000 464F4F2E54585400EEEEEEEEEE
+dump|next|wild-after-next|next=0|83 3F3F3F3F3F3F3F3F545854 16 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
+dump|failed-first no-such-file|before|-|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+dump|failed-first no-such-file|after|first=18 dta=changed|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+list|failed-first no-such-file|failed=18 then more=0 of 13|
+dump|failed-first no-such-directory|before|-|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+dump|failed-first no-such-directory|after|first=3 dta=changed|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+list|failed-first no-such-directory|failed=3 then more=0 of 13|
+dump|failed-first trailing-backslash|before|-|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+dump|failed-first trailing-backslash|after|first=3 dta=unchanged|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+list|failed-first trailing-backslash|failed=3 then more=13 of 13|,LONGSU~1,ALPHAT~1.MID,FOO.TXT,BAR.TXT,ZED.TXT,NOEXT,A.B,MIXCASE.TXT,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,TWO~1.TXT,NOEXTE~1
+dump|failed-first label-by-name|before|-|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+dump|failed-first label-by-name|after|first=18 dta=changed|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+list|failed-first label-by-name|failed=18 then more=0 of 13|
+dump|failed-first label-any|before|-|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+dump|failed-first label-any|after|first=18 dta=changed|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+list|failed-first label-any|failed=18 then more=0 of 13|
+dump|lfn-first|before|-|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+dump|lfn-first|after|714E=0 dta=unchanged|83 3F3F3F3F3F3F3F3F3F3F3F 16 ---------------- 10 -------- 00000000 5355424449520020EEEEEEEEEE
+list|lfn-first|714E=0 then more=13 of 13|,LONGSU~1,ALPHAT~1.MID,FOO.TXT,BAR.TXT,ZED.TXT,NOEXT,A.B,MIXCASE.TXT,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,TWO~1.TXT,NOEXTE~1
+dump|fcb-plain|fcb-before|-|00 3F3F3F3F3F3F3F3F545854 00000000000000000000 00000000000000000000000000000000000000000000
+dump|fcb-plain|fcb-after-11h|al=0|00 3F3F3F3F3F3F3F3F545854 0007009F2A0100000083 00000000000000000000000000000000000000000000
+dump|fcb-plain|dta-after-11h|-|03 464F4F2020202020545854 20 20756E6D6F6400000100 -------- B12A 03000000 EEEEEEEEEEEEEEEEEEEE
+dump|fcb-plain|fcb-after-12h|al=0|00 3F3F3F3F3F3F3F3F545854 0008009F2A0100000083 00000000000000000000000000000000000000000000
+dump|fcb-plain|dta-after-12h|-|03 4241522020202020545854 20 20756E6D6F6400000100 -------- B22A 05000000 EEEEEEEEEEEEEEEEEEEE
+dump|fcb-extended|fcb-before|-|FF000000000010 00 3F3F3F3F3F3F3F3F3F3F3F 00000000000000000000 000000000000000000000000000000
+dump|fcb-extended|fcb-after-11h|al=0|FF000000000010 00 3F3F3F3F3F3F3F3F3F3F3F 1000009F2A0100000083 000000000000000000000000000000
+dump|fcb-extended|dta-after-11h|-|FF000000000010 03 2E20202020202020202020 10 20756E6D6F6400000100 -------- 9F2A 00000000 EEEEEE
+dump|fcb-not-found|fcb-after-11h|al=1|00 4E4F53554348202058595A 00000000000000000000 00000000000000000000000000000000000000000000
+list|fcb-two-searches|TXT and MID turn about|,FOO     TXT,ALPHAT~1MID,BAR     TXT,ALPHAT~2MID,ZED     TXT,ALPHAT~3MID,MIXCASE TXT,ALPHAT~4MID
+list|fcb-around-4e|inner first=0|,FOO     TXT,BAR     TXT,ZED     TXT,MIXCASE TXT,TWO~1   TXT
+list|fcb-rewritten-then-12h|11h 12h, the FCB rewritten, 12h 12h 12h|,FOO     TXT,BAR     TXT,-,-,-
+list|fcb-copied-then-12h|11h TXT, copy, 11h MID, 12h on the copy three times|,FOO     TXT,ALPHAT~1MID,BAR     TXT,ZED     TXT,MIXCASE TXT
+dump|fcb-open-wild|dta-after-0Fh|al=1 dta=unchanged|EE EEEEEEEEEEEEEEEEEEEEEE EE ---------------- EE -------- EEEEEEEE EEEEEEEEEEEEEEEEEEEEEEEEEE
+dump|fcb-open-wild|fcb-after-0Fh|al=1|00 5A45443F3F3F3F3F545854 00000000 00000000 -------- 0000000000000000000000000000000000000000
+dump|fcb-open-wild-small|fcb-after-0Fh|al=1|00 7A65643F3F3F3F3F747874 00000000 00000000 -------- 0000000000000000000000000000000000000000
+list|folder-lost-a-middle-entry|first=0 more=10|,BAR.TXT,ZED.TXT,NOEXT,A.B,MIXCASE.TXT,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,TWO~1.TXT,NOEXTE~1
+end|lines=57

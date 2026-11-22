@@ -1,0 +1,153 @@
+# What: dosans.sh base dta cd off with a probe program that sets the search number in bytes 0Dh-0Eh of the DTA to a
+#       value past the table of 2,048 searches, then calls 4Fh on a CD image: the lines of the probe, in each
+#       build's report, for 13 values and 5 runs. The probe is not part of the bench.
+# Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; every run headless
+# Date: 2026-11-22
+# Builds (source commit, sha256 of the executable):
+#   base  joncampbell123/dosbox-x main-ai ac2787a422f7a7bf008128975b1d00d9a5312387   1dd69c094f4ccadc2c4209f8e7396dc9010f4d47937697919a5fac6ba5224b1b
+#   dta-3779d25a2 dta-searches-mainai 3779d25a2197ea2877ef50aa36323bfd18c9e42e   47ef9491158be599343ffa834f0711fe4d9b858b60ad91d6447350798ba3950f
+# dosans.sh base dta-3779d25a2 cd off, probe, run 1   (exit code 1)
+dosans.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+dirid|D:\*.*|id=0800|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0801|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0802|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0810|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0900|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0C00|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=1000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=2000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=4000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=7FFF|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=8000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=C000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=FFFF|first=0|next=18|n=0|last=
+dosans.sh: build B: dta-3779d25a2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+dirid|D:\*.*|id=0800|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0801|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0802|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0810|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0900|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0C00|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=1000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=2000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=4000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=7FFF|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=8000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=C000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=FFFF|first=0|next=18|n=0|last=
+# dosans.sh base dta-3779d25a2 cd off, probe, run 2   (exit code 1)
+dosans.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+dirid|D:\*.*|id=0800|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0801|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0802|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0810|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0900|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0C00|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=1000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=2000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=4000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=7FFF|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=8000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=C000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=FFFF|first=0|next=18|n=0|last=
+dosans.sh: build B: dta-3779d25a2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+dirid|D:\*.*|id=0800|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0801|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0802|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0810|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0900|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0C00|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=1000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=2000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=4000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=7FFF|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=8000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=C000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=FFFF|first=0|next=18|n=0|last=
+# dosans.sh base dta-3779d25a2 cd off, probe, run 3   (exit code 1)
+dosans.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+dirid|D:\*.*|id=0800|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0801|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0802|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0810|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0900|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0C00|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=1000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=2000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=4000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=7FFF|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=8000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=C000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=FFFF|first=0|next=18|n=0|last=
+dosans.sh: build B: dta-3779d25a2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+dirid|D:\*.*|id=0800|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0801|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0802|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0810|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0900|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0C00|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=1000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=2000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=4000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=7FFF|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=8000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=C000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=FFFF|first=0|next=18|n=0|last=
+# dosans.sh base dta-3779d25a2 cd off, probe, run 4   (exit code 1)
+dosans.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+dirid|D:\*.*|id=0800|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0801|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0802|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0810|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0900|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0C00|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=1000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=2000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=4000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=7FFF|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=8000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=C000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=FFFF|first=0|next=18|n=0|last=
+dosans.sh: build B: dta-3779d25a2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+dirid|D:\*.*|id=0800|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0801|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0802|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0810|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0900|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0C00|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=1000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=2000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=4000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=7FFF|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=8000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=C000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=FFFF|first=0|next=18|n=0|last=
+# dosans.sh base dta-3779d25a2 cd off, probe, run 5   (exit code 1)
+dosans.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+dirid|D:\*.*|id=0800|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0801|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0802|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0810|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0900|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0C00|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=1000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=2000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=4000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=7FFF|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=8000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=C000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=FFFF|first=0|next=18|n=0|last=
+dosans.sh: build B: dta-3779d25a2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+dirid|D:\*.*|id=0800|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0801|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0802|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0810|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0900|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=0C00|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=1000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=2000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=4000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=7FFF|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=8000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=C000|first=0|next=18|n=0|last=
+dirid|D:\*.*|id=FFFF|first=0|next=18|n=0|last=
