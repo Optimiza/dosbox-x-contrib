@@ -1,0 +1,54 @@
+# What: run.sh, unpatched upstream against the search-fix branch: LISTDUMP lists every folder, and the lines of the two
+#       builds are compared. The large folder first, whole; then the verdict line of each of the 16 synthetic folders.
+#       The large folder there is the same names as empty files: 169,452 of the 169,457 could be made.
+# Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1); every run headless
+# Date: 2026-11-22
+# Builds (source commit, sha256 of the executable):
+#   base  joncampbell123/dosbox-x main-ai ac2787a422f7a7bf008128975b1d00d9a5312387   be324b5f83c1e7580a1d47e3b946c81c3d6985718030f8eb2899b60b6bfda800
+#   dta   dta-searches-mainai 233596320f93c4a835791539e7196d47ae657b37             23bd83e53b97fde5e60f690bc8ca22d3905901a35d1d918be4aa3f3497f91585
+# run.sh base dta <the large folder> on   (exit code 0)
+run.sh: folder <the large folder> (169452 entries on the host), long names on
+run.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+run.sh: build A: 4e=169108 lfn=169108 look=10
+run.sh: build B: dta-233596320 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+run.sh: build B: 4e=169108 lfn=169108 look=10
+run.sh: IDENTICAL
+# run.sh base dta <the large folder> off   (exit code 0)
+run.sh: folder <the large folder> (169452 entries on the host), long names off
+run.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+run.sh: build A: 4e=169108 lfn=0 look=5
+run.sh: build B: dta-233596320 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+run.sh: build B: 4e=169108 lfn=0 look=5
+run.sh: IDENTICAL
+# run.sh base dta 10000 83 off   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 10000 83 on   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 10000 long off   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 10000 long on   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 1000 83 off   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 1000 83 on   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 1000 long off   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 1000 long on   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 50000 83 off   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 50000 83 on   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 50000 long off   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta 50000 long on   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta synthetic:10240 mix off   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta synthetic:10240 mix on   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta synthetic:120 wine off   (exit code 0)
+run.sh: IDENTICAL
+# run.sh base dta synthetic:120 wine on   (exit code 0)
+run.sh: IDENTICAL
