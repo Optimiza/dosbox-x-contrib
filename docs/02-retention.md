@@ -5,6 +5,9 @@ and [pull request 6852, "Keep a search alive when its DTA is reused or its child
 adds what that one lacked. The page stays as the measurement of the other design, proved on
 macOS and Windows.
 
+One piece of it is still missing from `main-ai`, and the branch of [subject 4](04-dta.md) carries
+it: a search for the volume label that finds none gives its slot back.
+
 ## What was wrong
 
 A listing could stop short, and the emulator kept a search's memory long after the search was
@@ -90,6 +93,16 @@ Source: `battery.sh`, cells `memory synthetic:50000:83 c <1|20>`, in the same tw
 The rise on Windows is not the directory cache's. It is a leak of the x86 dynamic core, which
 [subject 10](10-dyncore-cache-reset.md) fixes, and with it merged the line holds flat.
 
+On today's `main-ai`, the search table of 2,048 slots fills when a program repeats a search for
+the volume label that finds none:
+
+| Build | Times the emulator emptied its search table, macOS | The same on Windows |
+| --- | --- | --- |
+| Unpatched `main-ai` at `ac2787a42` | 9 | 9 |
+| The branch of subject 4 | none | none |
+
+Source: `memory.sh <build> synthetic:100:long on v 20000`, in [results/macos/dta-searches-memory.txt](../results/macos/dta-searches-memory.txt) and [results/windows/dta-searches-memory.txt](../results/windows/dta-searches-memory.txt); each is 20,000 label searches.
+
 ## What a program can notice
 
 Five answers move. Three go to MS-DOS's answer, and two are in long-name calls, where no real
@@ -136,7 +149,13 @@ search that is never continued. Without that patch each one would still hold a w
 
 ## What is left
 
-One thing is left, and it is declared.
+What is left is declared.
+
+**A full table is still emptied whole.** A program reaches that only by holding 2,048 searches
+open, and FINDLIFE's two cases of it read alike on unpatched upstream and on the branch of
+[subject 4](04-dta.md).
+
+Source: `findlife.sh base dta on`, cases `left-open-past-the-slots` and `turn-about-past-the-slots`, in [results/macos/dta-searches-answers.txt](../results/macos/dta-searches-answers.txt).
 
 **A search rewound by its saved DTA.** MS-DOS keeps the place of a search in the 21 bytes of
 the DTA it reserves, so a program can rewind a search by putting saved bytes back. The
