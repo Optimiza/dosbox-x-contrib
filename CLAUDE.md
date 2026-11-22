@@ -22,11 +22,11 @@ drafted here for a pull request or a comment.
   removed from it. The branches kept there are the two not offered: `dircache-exact-name-mainai` and
   `dircache-dos-paths`.
 - Upstream `main-ai` is at `2a43c7335`, the merge of [pull request 6878, "Answer a search on a CD image as MSCDEX does"](https://github.com/joncampbell123/dosbox-x/pull/6878).
-- The one pull request of ours still open upstream is the draft 6776.
+- The pull requests of ours still open upstream are the draft 6776 and 6887, the fix of subject 13.
 - The branch of subject 1 stands on `218ec1894`, the merge of
   [pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831). Subjects 2 and 4 stay on `4e0b6adcf`.
-- The branch of subject 13, `unmounted-drive-mainai`, is local, not pushed and not offered. It
-  stands on `main-ai` at `ac2787a42`.
+- The branch of subject 13, `unmounted-drive-mainai`, is on the fork and stands on `main-ai` at
+  `ac2787a42`.
 - Every figure in the pages is compared with `4e0b6adcf`, whatever `main-ai` is today.
 - The instruments are developed in [`scry-mcp/scry-dosbox-x`](https://github.com/scry-mcp/scry-dosbox-x), branch `dircache`,
   folder `tests/dircache`. `bench/` is that folder as committed there, last taken at
