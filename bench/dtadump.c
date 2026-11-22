@@ -429,6 +429,16 @@ int main(int argc, char **argv)
         fcb_name(DTA_B, fcb_call(0x11, FCB1_OFF, DTA_B), list);
         for (i = 0; i < 3; i++) fcb_name(DTA_A, fcb_call(0x12, FCB2_OFF, DTA_A), list);
         line("list|fcb-copied-then-12h|11h TXT, copy, 11h MID, 12h on the copy three times|%s", list);
+
+        /* An open by wildcards is no search: it leaves the DTA and the name in the FCB as the
+         * program had them. */
+        fill(DTA_A);
+        dosmemget(g_lin + DTA_A * DTA_SIZE, DTA_BYTES, before);
+        fcb_put(FCB1_OFF, "ZED?????TXT", -1);
+        err = fcb_call(0x0F, FCB1_OFF, DTA_A);
+        dump_dta("fcb-open-wild", "dta-after-0Fh", answered_dta("al", err, untouched(DTA_A, before)), DTA_A);
+        dump_fcb("fcb-open-wild", "fcb-after-0Fh", answered("al", err), FCB1_OFF, 0);
+        if (err == 0) fcb_call(0x10, FCB1_OFF, DTA_A);
         chdir("C:\\");
     }
 
