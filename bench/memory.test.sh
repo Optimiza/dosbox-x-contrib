@@ -2,7 +2,8 @@
 # memory.sh's verdicts against captured guest lines: bash memory.test.sh
 # On a Mac only: the sampler reads ps and footprint. fixtures/memory is five calls that
 # reached their file, memory-missing five that named one that is not there, memory-each 25
-# lookups over a folder of 20 files, one file after another.
+# lookups over a folder of 20 files, one file after another, memory-kept 300 children of mode k
+# on a build that keeps their searches.
 set -u
 # shellcheck source=testlib.sh
 . "$(dirname "$0")/testlib.sh"
@@ -22,6 +23,8 @@ t_derive "$f/memory"; sed -i '' 's/released=1/released=0/' "$derived/1/PRB.TXT";
 t_case "a guest that gave up waiting" 3 "was not let go" run synthetic:20:83 on a 5
 t_play "$f/memory-each"
 t_case "a lookup for each file in turn, past the folder's size" 0 'guest="mode=e k=25 ok=25 released=1' run synthetic:20:83 off e 25
+t_play "$f/memory-kept"
+t_case "children whose searches for one name fill the search table" 0 'slots_full=1 guest="mode=k k=300 ok=300 released=1' run synthetic:100:83 off k 300
 t_play "$f/memory"
 STUB_RC=3 t_case "the launcher refuses the run" 3 "did not run to its end" run synthetic:20:83 on a 5
 t_case "no such mode" 2 "no such mode" run synthetic:20:83 on z 5

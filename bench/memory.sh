@@ -18,6 +18,8 @@ usage: memory.sh <build> <folder> <on|off> <mode> <calls> [--file <name>]
                 v 4Eh for the volume label   c child processes that each make one findfirst
                 e 4Eh for each file of the folder in turn, by its name, never continued:
                   the folder is listed first, and <calls> past its size start over
+                k child processes that each make nine 4Eh for the file through one DTA,
+                  every child's DTA at another place
   <calls>     how many times
   --file <name>   the file inside <folder> the guest names, as the guest can reach it (a host
                   directory needs it; a synthetic folder defaults to its first file)
@@ -56,7 +58,7 @@ if [ $# -eq 7 ]; then
 fi
 need_builds "$binary"
 lfn_parse "$lfn"
-case "$mode" in a|s|d|o|f|r|v|c|e) ;; *) fail_usage "no such mode: $mode" ;; esac
+case "$mode" in a|s|d|o|f|r|v|c|e|k) ;; *) fail_usage "no such mode: $mode" ;; esac
 case "$calls" in ''|*[!0-9]*|????????*) fail_usage "bad call count: $calls" ;; esac
 folder_parse "$folder"
 if [ -z "$synth_count" ]; then

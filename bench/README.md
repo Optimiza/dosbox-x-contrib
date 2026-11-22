@@ -208,6 +208,7 @@ memory.sh <build> <folder> <on|off> <mode> <calls> [--file <name>]
 | `v` | a 4Eh for the volume label |
 | `c` | child processes that each make one FindFirst |
 | `e` | a 4Eh for each file of the folder in turn, by its name, never continued |
+| `k` | child processes that each make nine 4Eh for the file through one DTA |
 
 - `--file <name>` is the file inside `<folder>` the guest names, as the guest can reach it. A
   host directory needs it; a synthetic folder defaults to its first file.
@@ -216,6 +217,9 @@ memory.sh <build> <folder> <on|off> <mode> <calls> [--file <name>]
   has no call to close.
 - Mode `e` is a program that checks, one name after another, that each file of a folder is
   there. It lists the folder first, and `<calls>` past its size start over.
+- Mode `k` is a program run again and again that looks one name up nine times through one DTA,
+  each run's DTA at another place. Read its `slots_full`: a build that keeps those searches past
+  the program's end fills the search table.
 
 **What it prints.** One line: the call, the folder, three memory figures in kB of 1,024
 bytes, then the counts and the build.

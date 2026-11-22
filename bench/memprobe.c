@@ -10,6 +10,8 @@
  *         c  K child processes, each one findfirst() and then its exit
  *         e  raw 4Eh for one file of <path>'s folder after another, by its 8.3 name, never
  *            continued: the folder is listed first, files only, and K past its size starts over
+ *         k  K child processes, each nine raw 4Eh for <path> through one DTA and then its exit,
+ *            every child's DTA at another place: mode n, its K the place
  *
  * With long names libc closes its own 714Eh handle for a name without wildcards, so d and c
  * leave no search open. Without them the 4Eh search stays open in the DTA, which libc puts
@@ -47,6 +49,10 @@
 #define FOLDER_SIZE 300
 #define LABEL_ATTR 0x08
 #define FILES_ATTR 0x27     /* every file, no directory: no "." and no ".." */
+#define CHILD_FINDS 9       /* the 4Eh calls of a child of mode k: one more than a DTA keeps */
+#define DTA_STRIDE 48       /* mode n's DTA places, from DTA_OFF on in the transfer buffer */
+
+static int g_place;
 
 char **__crt0_glob_function(char *arg)
 {
@@ -89,10 +95,11 @@ static void raw_close(int h)
  * when an entry was found, with its 8.3 name in name[] when that is not NULL. */
 static int raw_find(const char *path, int attr, char *name)
 {
+    const unsigned long dta = __tb + DTA_OFF + (unsigned long)g_place * DTA_STRIDE;
     __dpmi_regs r;
     memset(&r, 0, sizeof r);
     r.h.ah = 0x1A;
-    r.x.ds = (unsigned short)((__tb + DTA_OFF) >> 4); r.x.dx = (unsigned short)((__tb + DTA_OFF) & 15);
+    r.x.ds = (unsigned short)(dta >> 4); r.x.dx = (unsigned short)(dta & 15);
     __dpmi_int(0x21, &r);
     memset(&r, 0, sizeof r);
     if (path) {
@@ -104,7 +111,7 @@ static int raw_find(const char *path, int attr, char *name)
     }
     __dpmi_int(0x21, &r);
     if (r.x.flags & 1) return -1;
-    if (name) dosmemget(__tb + DTA_OFF + 30, NAME_SIZE, name);
+    if (name) dosmemget(dta + 30, NAME_SIZE, name);
     return 0;
 }
 
@@ -139,6 +146,12 @@ static void dotted(char *out, size_t size, const char *path, int n)
     snprintf(out, size, "%.*s", len, path);
     while (n-- > 0 && strlen(out) + 3 < size) strcat(out, ".\\");
     snprintf(out + strlen(out), size - strlen(out), "%s", path + len);
+}
+
+/* How many DTAs of mode n fit in the transfer buffer behind DTA_OFF. */
+static int places(void)
+{
+    return (int)((_go32_info_block.size_of_transfer_buffer - DTA_OFF - 64) / DTA_STRIDE);
 }
 
 static int call_once(char mode, const char *path, const char *self, int i)
@@ -182,6 +195,12 @@ static int call_once(char mode, const char *path, const char *self, int i)
         snprintf(full, sizeof full, "%s%s", folder, names[i % files]);
         return raw_find(full, FILES_ATTR, NULL) == 0;
     }
+    if (mode == 'n') return raw_find(path, FILES_ATTR, NULL) == 0;
+    if (mode == 'k') {
+        char place[12];
+        sprintf(place, "%d", i % places());
+        return spawnl(P_WAIT, self, self, "n", path, place, "-", "-", (char *)NULL) == 0;
+    }
     dotted(varied, sizeof varied, path, i % CHILD_PATHS);
     return spawnl(P_WAIT, self, self, "d", varied, "1", "-", "-", (char *)NULL) == 0;
 }
@@ -196,15 +215,19 @@ int main(int argc, char **argv)
     FILE *held;
 
     if (argc != 6) {
-        fprintf(stderr, "usage: MEMPROBE <mode a|s|d|o|f|r|v|c|e> <path> <K> <held file> <go file>\n");
+        fprintf(stderr, "usage: MEMPROBE <mode a|s|d|o|f|r|v|c|e|k|n> <path> <K> <held file> <go file>\n");
         return 2;
     }
     mode = argv[1][0];
     path = argv[2];
     k = atoi(argv[3]);
-    if (!strchr("asdofrvce", mode) || argv[1][1]) {
+    if (!strchr("asdofrvcekn", mode) || argv[1][1]) {
         fprintf(stderr, "MEMPROBE: no such mode: %s\n", argv[1]);
         return 2;
+    }
+    if (mode == 'n') {
+        g_place = k;
+        k = CHILD_FINDS;
     }
     t0 = uclock();
     for (i = 0; i < k; i++) ok += call_once(mode, path, argv[0], i);
