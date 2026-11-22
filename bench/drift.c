@@ -11,6 +11,8 @@
  *   drift|<case>|first=<FindFirst's error> more=<entries FindNext returned>|,<name>:<attr>:<size>...
  *   end|lines=<n>
  *
+ * The cases in a folder renamed or removed add op=<error of the 56h or the 3Ah> before more=.
+ *
  * No long-name call is made, so it runs whole on a DOS that has none.
  */
 #include <dpmi.h>
@@ -28,6 +30,7 @@
 #define DTA_B 1
 #define DTA_PARK 3
 #define PATH_OFF 2400
+#define NEW_OFF 2800
 #define DTA_BYTES 43
 #define DTA_PATTERN 1       /* the 11 characters of the search template */
 #define DTA_ATTR 12         /* the search attribute */
@@ -120,6 +123,73 @@ static int drain(int dta, char *list)
 static void edit(int dta, const char *pattern11) { dosmemput(pattern11, 11, g_lin + dta * DTA_SIZE + DTA_PATTERN); }
 
 static void touch(const char *name) { FILE *f = fopen(in_folder(name), "w"); if (f) { fputs("x", f); fclose(f); } }
+
+/* 39h, 3Ah and 41h: a call on one path. */
+static int path_call(int ah, const char *name)
+{
+    __dpmi_regs r;
+    const char *path = in_folder(name);
+    dosmemput(path, strlen(path) + 1, g_lin + PATH_OFF);
+    memset(&r, 0, sizeof r);
+    r.h.ah = (unsigned char)ah; r.x.ds = g_seg; r.x.dx = PATH_OFF;
+    return int21(&r);
+}
+
+/* 56h: DS:DX the name, ES:DI the new name. */
+static int rename_entry(const char *from, const char *to)
+{
+    __dpmi_regs r;
+    const char *old_path = in_folder(from), *new_path = in_folder(to);
+    dosmemput(old_path, strlen(old_path) + 1, g_lin + PATH_OFF);
+    dosmemput(new_path, strlen(new_path) + 1, g_lin + NEW_OFF);
+    memset(&r, 0, sizeof r);
+    r.h.ah = 0x56; r.x.ds = g_seg; r.x.dx = PATH_OFF; r.x.es = g_seg; r.x.di = NEW_OFF;
+    return int21(&r);
+}
+
+static void file_in(const char *dir, const char *name)
+{
+    char path[64];
+    sprintf(path, "%s\\%s", dir, name);
+    touch(path);
+}
+
+static int empty_and_rd(const char *dir)
+{
+    static const char *const names[] = { "AAA.TXT", "MMM.TXT", "NNN.TXT", "ZZZ.TXT" };
+    char path[64];
+    size_t i;
+    for (i = 0; i < sizeof names / sizeof names[0]; i++) {
+        sprintf(path, "%s\\%s", dir, names[i]);
+        path_call(0x41, path);
+    }
+    return path_call(0x3A, dir);
+}
+
+enum moved_how { MOVED_NOT, MOVED_REN, MOVED_REN_REMADE, MOVED_RD, MOVED_RD_REMADE };
+
+/* A folder of its own made with AAA.TXT, MMM.TXT and ZZZ.TXT, a search for MMM.TXT in it, the
+ * folder renamed or removed (and a folder made again under its old name, holding NNN.TXT), then
+ * the template edited to every name. op is the error of the 56h or of the 3Ah. */
+static void moved(const char *label, const char *dir, enum moved_how how)
+{
+    static char list[(SHOWN + 1) * 64];
+    char path[64], other[16];
+    int err, op = 0, n;
+    list[0] = 0;
+    sprintf(other, "%.6s_R", dir);
+    path_call(0x39, dir);
+    file_in(dir, "AAA.TXT"); file_in(dir, "MMM.TXT"); file_in(dir, "ZZZ.TXT");
+    sprintf(path, "%s\\MMM.TXT", dir);
+    err = first(DTA_A, in_folder(path), ALL);
+    if (how == MOVED_REN || how == MOVED_REN_REMADE) op = rename_entry(dir, other);
+    if (how == MOVED_RD || how == MOVED_RD_REMADE) op = empty_and_rd(dir);
+    if (how == MOVED_REN_REMADE || how == MOVED_RD_REMADE) { path_call(0x39, dir); file_in(dir, "NNN.TXT"); }
+    edit(DTA_A, "???????????");
+    n = drain(DTA_A, list);
+    empty_and_rd(dir); empty_and_rd(other);
+    line("drift|%s|first=%d op=%d more=%d|%s", label, err, op, n, list);
+}
 
 /* FindFirst for <name>, the template rewritten to <pattern11>, then the search to its end. */
 static void edited(const char *label, const char *name, const char *pattern11)
@@ -256,6 +326,14 @@ int main(int argc, char **argv)
     dosmemput(&attr, 1, g_lin + DTA_A * DTA_SIZE + DTA_ATTR);
     n = drain(DTA_A, list);
     line("drift|label-search-then-edited|first=%d more=%d|%s", err, n, list);
+
+    /* A search for one name in a folder that is then renamed or removed: DOS reads on in the
+     * directory it was searching, under its new name, and finds nothing in a removed one. */
+    moved("in-a-folder-kept", "MV0", MOVED_NOT);
+    moved("in-a-folder-renamed", "MV1", MOVED_REN);
+    moved("in-a-folder-renamed-and-remade", "MV2", MOVED_REN_REMADE);
+    moved("in-a-folder-removed", "MV3", MOVED_RD);
+    moved("in-a-folder-removed-and-remade", "MV4", MOVED_RD_REMADE);
 
     fprintf(g_out, "end|lines=%d\n", g_lines);
     fclose(g_out);

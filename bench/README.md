@@ -561,7 +561,8 @@ Then it does the same in other situations:
 - after the DTA was saved and restored around another search;
 - beside a second search;
 - after the folder gained or lost files;
-- after a search for the volume label alone.
+- after a search for the volume label alone;
+- in a folder renamed by 56h or removed, and one made again under its old name.
 
 **How it is called.**
 
@@ -578,7 +579,7 @@ a report has no case or no trailer.
 **What it does not show.**
 
 - A search for one exact name only. What an edited whole-folder search answers is not here.
-- Three cases create and remove files in the folder, so each build gets its own copy.
+- Some cases create and remove files and folders in the folder, so each build gets its own copy.
 - It makes no long-name call, so `realdos.sh` runs it whole.
 
 ## findpos.sh

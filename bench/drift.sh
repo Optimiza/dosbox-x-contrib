@@ -11,8 +11,8 @@ usage: drift.sh <build A> <build B> <on|off>
   <build A>, <build B>  two DOSBox-X executables (the same one twice is the A/A control)
   <on|off>              the guest's long file names ([dos] lfn)
 
-the folder is the one exact.sh makes (its --help lists it), a copy per build: three cases
-create and remove files in it.
+the folder is the one exact.sh makes (its --help lists it), a copy per build: some cases
+create and remove files and folders in it.
 
 prints each build's path, version line and report whole, then the lines that differ.
 
