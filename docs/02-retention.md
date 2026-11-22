@@ -157,6 +157,23 @@ open, and FINDLIFE's two cases of it read alike on unpatched upstream and on the
 
 Source: `findlife.sh base dta on`, cases `left-open-past-the-slots` and `turn-about-past-the-slots`, in [results/macos/dta-searches-answers.txt](../results/macos/dta-searches-answers.txt).
 
+**A search for the volume label that matches keeps its slot.** The label search that finds the
+drive's label returns without a record, so a later search or its program's end does not release
+it.
+
+Closing the slot where the search starts would let a FindNext through the same DTA read the
+search that took the slot. Recording the label search where FindFirst's results are kept is the
+other way, and a change of its own.
+
+| Calls for the label the drive has, long names off | Times the emulator emptied its search table, macOS | The same on Windows |
+| --- | --- | --- |
+| 2,100, unpatched `main-ai` | 1 | 1 |
+| 2,100, the branch of subject 4 | 1 | 1 |
+| 20,000, unpatched `main-ai` | 9 | not run |
+| 20,000, the branch of subject 4 | 9 | not run |
+
+Source: `memory.sh <build> synthetic:100:83 off w <2100|20000>`, in [results/macos/dta-searches-memory.txt](../results/macos/dta-searches-memory.txt) and [results/windows/dta-searches-memory.txt](../results/windows/dta-searches-memory.txt).
+
 **A search rewound by its saved DTA.** MS-DOS keeps the place of a search in the 21 bytes of
 the DTA it reserves, so a program can rewind a search by putting saved bytes back. The
 emulator keeps the place in its own table, before and after this branch.

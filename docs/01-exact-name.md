@@ -2,7 +2,7 @@
 
 A program that opens or checks one file in a large folder no longer makes the emulator copy the
 whole folder for it. On macOS the peak memory in the large folder falls from 546,800 kB to about
-325,600 kB. It is proved on macOS and Windows, and is to be offered with [subject 4](04-dta.md).
+325,500 kB. It is proved on macOS and Windows, and is to be offered with [subject 4](04-dta.md).
 
 ## What was wrong
 
@@ -25,9 +25,12 @@ A search for one name keeps only the entries that match.
 - Wildcard searches are untouched.
 - A later FindNext can arrive with another pattern, because the program edited its DTA. The
   copy is made then, and the search goes on behind the entry already returned.
+- A rename of the folder makes that copy first, so the search goes on as MS-DOS's does.
+- The searches for one name a program leaves kept are released when it ends.
 
-The two commits are `d957231fb` and `892497054` of the branch `dta-searches-mainai`, on `main-ai`
-at `ac2787a42`, with the commits of [subject 4](04-dta.md). The fork keeps them as well on
+The commits are `d957231fb` and `892497054`, and the two corrections `c8fd18dea` and `c8f5d14aa`,
+of the branch `dta-searches-mainai`, on `main-ai` at `ac2787a42`, with the commits of
+[subject 4](04-dta.md). The fork keeps them as well on
 `dircache-exact-name-mainai`, which stands on the merge of
 [pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831).
 
@@ -38,26 +41,31 @@ memory held is a little higher. On macOS, one call repeated on one file, long na
 
 | Folder and call | Held after 1 call, unpatched → patched (kB) | Held after 20, unpatched → patched (kB) | Peak, unpatched → patched (kB) |
 | --- | --- | --- | --- |
-| 169,457 files, `access` | 387,649 → 286,785 to 287,777 | 279,409 → 286,689 to 286,849 | 546,800 → 325,616 to 326,640 |
-| 169,457 files, a FindFirst | 387,617 → 286,721 to 286,913 | 278,961 → 286,737 to 289,217 | 546,816 → 325,568 to 325,744 |
-| 50,000 files, `access` | 214,016 → 200,224 | 214,064 → 200,192 | 303,712 → 239,136 |
+| 169,457 files, `access` | 387,649 → 286,560 to 286,768 | 279,409 → 286,753 to 286,849 | 546,800 → 325,456 to 325,664 |
+| 169,457 files, a FindFirst | 387,617 → 286,608 to 286,833 | 278,961 → 286,769 to 287,009 | 546,816 → 325,504 to 325,712 |
+| 50,000 files, `access` | 213,872 → 200,192 | 214,081 → 200,320 | 303,568 → 239,120 |
 
-Source: `memory.sh <build> <the large folder> on <a|d> <1|20> --file SONG.MID` and `memory.sh <build> synthetic:50000:long on a <1|20>`, in [results/macos/dta-searches-memory.txt](../results/macos/dta-searches-memory.txt). The patched cells of the large folder are three samples each, so they read as a range; the patched build there is at `7275c8657`, the head before the last commit.
+Source: `memory.sh <build> <the large folder> on <a|d> <1|20> --file SONG.MID` and `memory.sh <build> synthetic:50000:long on a <1|20>`, in [results/macos/dta-searches-memory.txt](../results/macos/dta-searches-memory.txt). The patched cells of the large folder are three samples each, so they read as a range.
 
-After the repeated calls the patched build holds 7,000 to 10,000 kB more than unpatched on the
+After the repeated calls the patched build holds 7,300 to 8,100 kB more than unpatched on the
 large folder. Where those kB come from is not examined.
 
 On Windows, one call repeated on one file in the large folder of 169,452 files, long names on:
 
 | Call | Held after 1 call, unpatched → patched (kB) | Held after 20, unpatched → patched (kB) | Peak, unpatched → patched (kB) |
 | --- | --- | --- | --- |
-| `access` | 297,700 to 298,012 → 301,520 to 301,748 | 332,936 to 333,956 → 301,652 to 301,808 | 486,232 to 487,256 → 280,784 to 281,040 |
-| A FindFirst | 298,248 to 298,340 → 301,664 to 301,896 | 333,280 to 333,836 → 301,532 to 301,628 | 486,480 to 486,968 → 280,912 to 281,116 |
+| `access` | 297,700 to 298,012 → 301,456 to 301,552 | 332,936 to 333,956 → 301,520 to 301,764 | 486,232 to 487,256 → 280,784 to 281,004 |
+| A FindFirst | 298,248 to 298,340 → 301,436 to 301,744 | 333,280 to 333,836 → 301,444 to 301,724 | 486,596 to 486,804 → 280,716 to 281,060 |
 
 Source: `memory.sh <build> <the large folder> on <a|d> <1|20> --file SONG.MID`, three samples each, in [results/windows/dta-searches-memory.txt](../results/windows/dta-searches-memory.txt).
 
-There the patched build holds about 3,800 kB more after one call and about 32,000 kB less after
-20. Its peak is about 205,000 kB lower, and its memory does not move with the calls.
+There the patched build, against unpatched:
+
+- holds 3,100 to 3,900 kB more after one call;
+- holds 31,200 to 32,400 kB less after the repeated calls;
+- peaks 205,000 to 206,500 kB lower.
+
+Its memory does not move with the calls.
 
 The cell's field is `held_footprint_kb` on macOS and `held_private_kb` on Windows.
 

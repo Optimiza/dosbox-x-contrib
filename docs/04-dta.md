@@ -37,14 +37,18 @@ program does to its DTA.
 - The template is padded with spaces, and a `*` in it is the character it is.
 - A search for one name goes on when the program restores its DTA and edits it. It is cheap
   because [subject 1](01-exact-name.md) keeps one entry for it and not the folder.
-- With long names on, a template the program edited is read as with them off. Each search the
-  directory cache tracks keeps the 11 bytes its FindFirst wrote, and a DTA that differs from them
-  was edited.
+- With long names on, a template the program edited is read as with them off, in a DTA and in an
+  FCB. Each search the directory cache tracks keeps the 11 bytes its FindFirst wrote, and a
+  template that differs from them was edited.
+- That record belongs to its slot's generation and drive, so a later search that gets the same
+  number is not read as edited.
+- A search for one name goes on when its folder is renamed: it is widened before the rename.
+- The searches for one name a program leaves kept are released when it ends.
 - The index `isoDrive::FindNext` reads from the guest is checked.
 - A search for the volume label that finds none gives its slot back, which is
   [subject 2](02-retention.md)'s.
 
-The branch is `dta-searches-mainai`, on upstream `main-ai` at `ac2787a42`, head `233596320`. It is
+The branch is `dta-searches-mainai`, on upstream `main-ai` at `ac2787a42`, head `cbc326e0f`. It is
 proved and not pushed. Its commits, in order:
 
 - `e900909c8` keeps the DTA search template in the form MS-DOS writes.
@@ -60,7 +64,11 @@ proved and not pushed. Its commits, in order:
 - `01d8efc7e` keeps a search for one name that another FindFirst through its DTA replaced.
 - `7d45b51d4` gives back the search slot of a label search that finds no label.
 - `cb2e60cf6` reads a template a program edited the same with long names on.
-- `233596320` adds the `CHANGELOG` entries.
+- `c8fd18dea` widens a search for one name before its folder is renamed.
+- `9c3bdb928` reads an FCB search's template as its FindFirst wrote it with long names on.
+- `c8f5d14aa` releases the kept searches for one name when their program ends.
+- `9dbb3cc4c` matches a search's template record by its slot's generation and drive.
+- `cbc326e0f` adds the `CHANGELOG` entries.
 
 ## The figures
 
@@ -74,13 +82,13 @@ On macOS, long names off unless a row says on, against unpatched `main-ai` at `a
 | Calls that must leave a DTA alone: how many left its 43 bytes unchanged | 3 of 7 | 7 of 7 | 7 of 7 |
 | The searches those calls interrupted: how many returned the rest of the folder | 3 of 6 | 6 of 6 | 6 of 6 |
 | The template bytes of every FindFirst dumped (digest) | `1c5027e13814` | `8044d2aed1bc` | `8044d2aed1bc` |
-| What the FCB searches return (digest) | `ce9cdd5c399c` | `f9c92156e849` | `f9c92156e849` |
+| What the FCB searches return (digest) | `27e8db5e7991` | `8c1c0a9f4233` | `8c1c0a9f4233` |
 | A label search that finds none, through the DTA of a live search: entries the search then returns | 0 | 12 | 12 |
 
 Source: `dtadump.sh`, `findlife.sh` and `findpos.sh`, in [results/macos/dta-searches-answers.txt](../results/macos/dta-searches-answers.txt); MS-DOS 7.10's lines are in [results/macos/dta-searches-msdos.txt](../results/macos/dta-searches-msdos.txt).
 
 DRIFT edits the DTA between a FindFirst and its FindNext, and counts the entries the search
-returns. Of its 27 cases, these differ between the two builds, long names off:
+returns. Of its 33 cases, these differ between the two builds, long names off:
 
 | Case | Unpatched | Patched | MS-DOS 7.10 |
 | --- | --- | --- | --- |
@@ -96,8 +104,23 @@ returns. Of its 27 cases, these differ between the two builds, long names off:
 Source: `drift.sh base dta off`, in [results/macos/dta-searches-answers.txt](../results/macos/dta-searches-answers.txt); MS-DOS 7.10's lines are in [results/macos/dta-searches-msdos.txt](../results/macos/dta-searches-msdos.txt).
 
 Counted line by line, with the `ALPHAT~` entry numbers made alike, the patched build equals
-MS-DOS's on 25 of the 27 lines. Unpatched upstream equals it on 16. The two that differ are told
+MS-DOS's on 31 of the 33 lines. Unpatched upstream equals it on 22. The two that differ are told
 under "What is left".
+
+Six other DRIFT cases and seven FCB searches hold what the fix could have broken. They all read
+as unpatched upstream and as MS-DOS:
+
+| Case | Unpatched | Patched | MS-DOS 7.10 |
+| --- | --- | --- | --- |
+| A search for one name, its folder renamed, then edited to a wildcard: entries returned | 1 | 1 | 1 |
+| The same, with a new folder made under the old name | 1 | 1 | 1 |
+| The same, with the folder removed, and with a new one made after | 0 | 0 | 0 |
+| A search of `*.TXT` that gets the number of an abandoned search, after the table was emptied | 4 | 4 | 4 |
+| An FCB search for every name, with `?` or with `*`, long names on: files found | 12 | 12 | 12 |
+| An FCB search with `*` for the name: files found | 5 | 5 | 5 |
+| An FCB search for a full name, with `*` for the extension or in small letters: files found | 4 | 4 | 4 |
+
+Source: `drift.sh base dta off` and `drift.sh base dta on`, cases `in-a-folder-*` and `after-the-search-table-emptied`, and `dtadump.sh base dta on`, lines `list|fcb-*`, in [results/macos/dta-searches-answers.txt](../results/macos/dta-searches-answers.txt); MS-DOS 7.10's lines are in [results/macos/dta-searches-msdos.txt](../results/macos/dta-searches-msdos.txt).
 
 The saved and restored case read six names before [pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831) merged, and none from its merge on:
 
@@ -110,7 +133,7 @@ The saved and restored case read six names before [pull request 6831, "Release d
 Source: `drift.sh`, case `saved-and-restored-then-edited`, in [results/macos/dta-restored-bisect.txt](../results/macos/dta-restored-bisect.txt).
 
 With long names on, a template the program edited is read as MS-DOS reads it. Windows 98's own
-DOS box has long names, and agrees with MS-DOS on these cases:
+DOS box has long names, ran the first 27 of the 33 cases, and agrees with MS-DOS on these:
 
 | Case, entries returned, long names on | Unpatched | Patched | Windows 98 |
 | --- | --- | --- | --- |
@@ -132,8 +155,9 @@ Everything else answers as unpatched upstream:
 | EXACT's four judged sections | ALIKE, long names on and off |
 | FINDLIFE and DIRGONE, long names off | ALIKE |
 | The patched build against itself, twice | ALIKE in 36 of 36 cells |
+| 300 child programs that each leave kept searches for one name: times the search table was emptied | none, as unpatched |
 
-Source: `run.sh`, `exact.sh`, `findlife.sh` and `dirgone.sh`, in [results/macos/dta-searches-run.txt](../results/macos/dta-searches-run.txt), [results/macos/dta-searches-answers.txt](../results/macos/dta-searches-answers.txt) and [results/macos/dta-searches-alike.txt](../results/macos/dta-searches-alike.txt).
+Source: `run.sh`, `exact.sh`, `findlife.sh`, `dirgone.sh` and `memory.sh <build> synthetic:100:83 off k 300`, in [results/macos/dta-searches-run.txt](../results/macos/dta-searches-run.txt), [results/macos/dta-searches-answers.txt](../results/macos/dta-searches-answers.txt), [results/macos/dta-searches-alike.txt](../results/macos/dta-searches-alike.txt) and [results/macos/dta-searches-memory.txt](../results/macos/dta-searches-memory.txt).
 
 On Windows the cells read as on macOS, but for the alias names NTFS gives and the host's `NUL`
 device, which are equal in both builds. LISTDUMP is byte-identical in 18 of 18 cells. With long
@@ -148,8 +172,12 @@ names on, the seven cases of the table above read as on macOS.
 | A label search that finds none, through the DTA of a live search: entries the search then returns | 0 | 12 |
 | A DTA saved, put back and edited: entries returned | 0 | 6 |
 | A label search, then edited: entries returned | 2 | 0 |
+| A search for one name, its folder renamed, then edited to a wildcard: entries returned | 1 | 1 |
+| A search of `*.TXT` that gets the number of an abandoned search, after the table was emptied: entries returned | 4 | 4 |
+| An FCB search with `*` for the name, long names off: files found | 5 | 5 |
+| 300 child programs that each leave kept searches for one name: times the search table was emptied | none | none |
 
-Source: `dtadump.sh`, `findlife.sh`, `findpos.sh` and `drift.sh`, in [results/windows/dta-searches-answers.txt](../results/windows/dta-searches-answers.txt); LISTDUMP and the control run in [results/windows/dta-searches-run.txt](../results/windows/dta-searches-run.txt) and [results/windows/dta-searches-alike.txt](../results/windows/dta-searches-alike.txt).
+Source: `dtadump.sh`, `findlife.sh`, `findpos.sh` and `drift.sh`, in [results/windows/dta-searches-answers.txt](../results/windows/dta-searches-answers.txt); `memory.sh <build> synthetic:100:83 off k 300` in [results/windows/dta-searches-memory.txt](../results/windows/dta-searches-memory.txt); LISTDUMP and the control run in [results/windows/dta-searches-run.txt](../results/windows/dta-searches-run.txt) and [results/windows/dta-searches-alike.txt](../results/windows/dta-searches-alike.txt).
 
 The index `isoDrive::FindNext` has no such line. Thirteen numbers past the table, each tried five
 times, all answer 18 on both builds, in [results/macos/dta-iso-index.txt](../results/macos/dta-iso-index.txt). The evidence is a read of
