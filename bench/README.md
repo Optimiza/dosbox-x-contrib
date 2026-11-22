@@ -551,6 +551,7 @@ It starts a 4Eh search for one exact name, rewrites the eleven pattern bytes of 
 reads the search to its end. It rewrites them:
 
 - to every name, or to a wildcard;
+- to a name with a `*`, which no directory entry holds;
 - to another exact name, padded with spaces or with zeros;
 - in small letters or in mixed case;
 - twice.

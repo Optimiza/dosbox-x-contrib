@@ -177,6 +177,10 @@ int main(int argc, char **argv)
     edited("to-a-later-exact-name-zero-padded", "BAR.TXT", "ZED\0\0\0\0\0TXT");
     edited("to-an-earlier-exact-name-zero-padded", "FOO.TXT", "BAR\0\0\0\0\0TXT");
     edited("to-its-own-name-zero-padded", "BAR.TXT", "BAR\0\0\0\0\0TXT");
+    /* No directory entry holds a '*', so a template that has one matches nothing: the program
+     * writes the eleven bytes itself, and a DOS reads them byte for byte. */
+    edited("to-a-later-name-with-a-star", "BAR.TXT", "Z*      TXT");
+    edited("to-a-star-for-the-name", "BAR.TXT", "*       TXT");
     edited("from-a-directory", "SUBDIR", "???????????");
     edited("from-the-last-entry", "ZED.TXT", "???????????");
     edited("from-a-missing-name", "NOSUCH.TXT", "???????????");
