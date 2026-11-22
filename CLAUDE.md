@@ -27,7 +27,7 @@ drafted here for a pull request or a comment.
 - The one pull request of ours still open upstream is 6887, the fix of subject 13. The draft 6776
   was closed unmerged, by our own choice.
 - The branch `dta-searches-mainai` holds subjects 1 and 4 and the label slot of subject 2, on
-  `ac2787a42`, head `233596320`. The tag of subject 2 stays on `4e0b6adcf`.
+  `ac2787a42`, head `cbc326e0f`. The tag of subject 2 stays on `4e0b6adcf`.
 - The branch of subject 13, `unmounted-drive-mainai`, is on the fork and stands on `main-ai` at
   `ac2787a42`.
 - Every figure in the pages is compared with `4e0b6adcf`, whatever `main-ai` is today, except
@@ -76,10 +76,12 @@ Then check it, from a fresh clone:
 - one real cell on unpatched upstream and on a patched build. Its output is compared, byte
   for byte, with what the same commit of the private folder prints.
 
-14. `dtadump.c`, `drift.c`, their tests and fixtures (`fixtures/dtadump-open-wild`,
-    `fixtures/drift-star`) and `bench/README.md` carry four cases made here (`3ad07e6`, `7e9b1c0`,
-    `85e61ad`, `c35f343`), which the private folder's branch does not hold: carry them over, or the
-    refresh drops them.
+14. `dtadump.c`, `drift.c`, `memprobe.c`, `memory.sh`, their tests and fixtures
+    (`fixtures/dtadump-open-wild`, `fixtures/drift-star`, `fixtures/drift-moved`,
+    `fixtures/drift-reused`, `fixtures/dtadump-fcb-star`, `fixtures/memory-kept`,
+    `fixtures/memory-label`) and `bench/README.md` carry cases made here (`3ad07e6`, `7e9b1c0`,
+    `85e61ad`, `c35f343`, `5c38bc8`, `35a81e8`, `615f753`, `c3385f4`, `b82e033`), which the
+    private folder's branch does not hold: carry them over, or the refresh drops them.
 
 Move the commit named above in the same change.
 
