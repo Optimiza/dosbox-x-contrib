@@ -1,8 +1,8 @@
 # What: the reports of MS-DOS 7.10 and 6.22, booted inside the emulator, 7.10 from a Windows 98 SE disk image and 6.22 from its own, for
 #       dtadump.sh, drift.sh, findlife.sh, findpos.sh and template.sh: realdos.sh <build> <dos> <image> <script>.
 #       The emulator that carries the DOS is unpatched upstream for findlife, findpos and template, the branch at
-#       cbc326e0f for dtadump, and the branch at 3f2e6d08f for drift; a DOS answers the same under any of them, as the 27
-#       lines of drift.sh that an earlier run on unpatched upstream and a later one print show.
+#       cbc326e0f for dtadump, and the branch at 3f2e6d08f for drift; a DOS answers the same under any of them, as the 25
+#       lines of drift.sh that an earlier run on unpatched upstream and this one both print show.
 # Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; every run headless
 # Date: 2026-11-23
 # Builds (source commit, sha256 of the executable):
