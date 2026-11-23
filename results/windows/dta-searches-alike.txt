@@ -1,9 +1,9 @@
 # What: the same scripts with the search-fix branch as both builds, run twice: the verdict lines of each cell.
 #       ALIKE or IDENTICAL on every cell is the control that the scripts read the same build the same way.
 # Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1); every run headless
-# Date: 2026-11-22
+# Date: 2026-11-23
 # Builds (source commit, sha256 of the executable):
-#   dta   dta-searches-mainai cbc326e0f350b35fb0535b2155d9036c7ef8eb36             027315eb3c2473fe42828c0be83f260025b22235f293c34443049246a11e6e39
+#   dta-3f2e6d08f dta-searches-mainai 3f2e6d08f143852e9a26ca38654a7a5732ec6c01             ceffc9c2c2c226fbfa0544a8ee4a0a45aed11f012cd60e52ea7f16b4aeac43db
 # run 1: dirgone.sh dta dta off   (exit code 0)
 dirgone.sh: ALIKE
 # run 1: dosans.sh dta dta cd off   (exit code 0)

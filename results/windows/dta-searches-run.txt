@@ -2,22 +2,22 @@
 #       builds are compared. The large folder first, whole; then the verdict line of each of the 16 synthetic folders.
 #       The large folder there is the same names as empty files: 169,452 of the 169,457 could be made.
 # Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1); every run headless
-# Date: 2026-11-22
+# Date: 2026-11-23
 # Builds (source commit, sha256 of the executable):
 #   base  joncampbell123/dosbox-x main-ai ac2787a422f7a7bf008128975b1d00d9a5312387   be324b5f83c1e7580a1d47e3b946c81c3d6985718030f8eb2899b60b6bfda800
-#   dta   dta-searches-mainai cbc326e0f350b35fb0535b2155d9036c7ef8eb36             027315eb3c2473fe42828c0be83f260025b22235f293c34443049246a11e6e39
+#   dta-3f2e6d08f dta-searches-mainai 3f2e6d08f143852e9a26ca38654a7a5732ec6c01             ceffc9c2c2c226fbfa0544a8ee4a0a45aed11f012cd60e52ea7f16b4aeac43db
 # run.sh base dta <the large folder> on   (exit code 0)
 run.sh: folder <the large folder> (169452 entries on the host), long names on
 run.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 run.sh: build A: 4e=169108 lfn=169108 look=10
-run.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+run.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 run.sh: build B: 4e=169108 lfn=169108 look=10
 run.sh: IDENTICAL
 # run.sh base dta <the large folder> off   (exit code 0)
 run.sh: folder <the large folder> (169452 entries on the host), long names off
 run.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 run.sh: build A: 4e=169108 lfn=0 look=5
-run.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+run.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 run.sh: build B: 4e=169108 lfn=0 look=5
 run.sh: IDENTICAL
 # run.sh base dta 10000 83 off   (exit code 0)

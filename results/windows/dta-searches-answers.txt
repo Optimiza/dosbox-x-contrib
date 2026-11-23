@@ -2,10 +2,10 @@
 #       dtadump.sh, drift.sh, findlife.sh, exact.sh, findpos.sh, template.sh and dirgone.sh.
 #       The alias names NTFS gives (TWODOT~1 for TWO~1) are the host's, equal in both builds.
 # Host: Windows 11 x64, NTFS with 8.3 name creation enabled, Git Bash; builds made with MSBuild vs/dosbox-x.sln, Release, x64 (SDL1); every run headless
-# Date: 2026-11-22
+# Date: 2026-11-23
 # Builds (source commit, sha256 of the executable):
 #   base  joncampbell123/dosbox-x main-ai ac2787a422f7a7bf008128975b1d00d9a5312387   be324b5f83c1e7580a1d47e3b946c81c3d6985718030f8eb2899b60b6bfda800
-#   dta   dta-searches-mainai cbc326e0f350b35fb0535b2155d9036c7ef8eb36             027315eb3c2473fe42828c0be83f260025b22235f293c34443049246a11e6e39
+#   dta-3f2e6d08f dta-searches-mainai 3f2e6d08f143852e9a26ca38654a7a5732ec6c01             ceffc9c2c2c226fbfa0544a8ee4a0a45aed11f012cd60e52ea7f16b4aeac43db
 # dtadump.sh base dta off   (exit code 1)
 dtadump.sh: long names off
 dtadump.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
@@ -74,7 +74,7 @@ dump|fcb-open-wild|fcb-after-0Fh|al=0|04 5A45443F3F3F3F3F545854 00008000 0700000
 dump|fcb-open-wild-small|fcb-after-0Fh|al=0|04 7A65643F3F3F3F3F747874 00008000 07000000 -------- 0000000500000000000000000000000000000000
 list|folder-lost-a-middle-entry|first=0 more=5|,MIXCASE.TXT,NOEXT,NOEXTE~1,TWODOT~1.TXT,ZED.TXT
 end|lines=64
-dtadump.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+dtadump.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 list|whole-folder|first=0 n=16|.,..,LONGSU~1,SUBDIR,A.B,ALPHAT~1.MID,ALPHAT~2.MID,ALPHAT~3.MID,ALPHAT~4.MID,BAR.TXT,FOO.TXT,MIXCASE.TXT,NOEXT,NOEXTE~1,TWODOT~1.TXT,ZED.TXT
 dump|template *.*|after|first=0|04 3F3F3F3F3F3F3F3F3F3F3F 37 ---------------- 10 -------- 00000000 2E00202020202020EEEEEEEEEE
 dump|template BAR.TXT|after|first=0|04 4241522020202020545854 37 ---------------- 20 -------- 05000000 4241522E54585400EEEEEEEEEE
@@ -262,9 +262,10 @@ drift|in-a-folder-renamed|first=0 op=0 more=1|,ZZZ.TXT:20:1
 drift|in-a-folder-renamed-and-remade|first=0 op=0 more=1|,ZZZ.TXT:20:1
 drift|in-a-folder-removed|first=0 op=0 more=0|
 drift|in-a-folder-removed-and-remade|first=0 op=0 more=0|
+drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=0|
 drift|after-the-search-table-emptied|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWODOT~1.TXT:20:4,ZED.TXT:20:7
-end|lines=33
-drift.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+end|lines=34
+drift.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
 drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
 drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWODOT~1.TXT:20:4,ZED.TXT:20:7
@@ -297,8 +298,9 @@ drift|in-a-folder-renamed|first=0 op=0 more=1|,ZZZ.TXT:20:1
 drift|in-a-folder-renamed-and-remade|first=0 op=0 more=1|,ZZZ.TXT:20:1
 drift|in-a-folder-removed|first=0 op=0 more=0|
 drift|in-a-folder-removed-and-remade|first=0 op=0 more=0|
+drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=1|,ZZZ.TXT:20:0
 drift|after-the-search-table-emptied|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWODOT~1.TXT:20:4,ZED.TXT:20:7
-end|lines=33
+end|lines=34
 drift.sh: DIFFERENT, the lines that differ (A then B):
 < drift|to-a-later-exact-name|first=0 more=0|
 > drift|to-a-later-exact-name|first=0 more=1|,ZED.TXT:20:7
@@ -320,6 +322,8 @@ drift.sh: DIFFERENT, the lines that differ (A then B):
 > drift|folder-gained-files|first=0 more=7|,BARNEW.TXT:20:1,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
 < drift|label-search-then-edited|first=18 more=2|,X:10:0,FOO.TXT:20:4
 > drift|label-search-then-edited|first=18 more=0|
+< drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=0|
+> drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=1|,ZZZ.TXT:20:0
 # drift.sh base dta on   (exit code 1)
 drift.sh: long names on
 drift.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
@@ -355,9 +359,10 @@ drift|in-a-folder-renamed|first=0 op=0 more=1|,ZZZ.TXT:20:1
 drift|in-a-folder-renamed-and-remade|first=0 op=0 more=1|,ZZZ.TXT:20:1
 drift|in-a-folder-removed|first=0 op=0 more=0|
 drift|in-a-folder-removed-and-remade|first=0 op=0 more=0|
+drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=0|
 drift|after-the-search-table-emptied|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWODOT~1.TXT:20:4,ZED.TXT:20:7
-end|lines=33
-drift.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+end|lines=34
+drift.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
 drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
 drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWODOT~1.TXT:20:4,ZED.TXT:20:7
@@ -390,8 +395,9 @@ drift|in-a-folder-renamed|first=0 op=0 more=1|,ZZZ.TXT:20:1
 drift|in-a-folder-renamed-and-remade|first=0 op=0 more=1|,ZZZ.TXT:20:1
 drift|in-a-folder-removed|first=0 op=0 more=0|
 drift|in-a-folder-removed-and-remade|first=0 op=0 more=0|
+drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=1|,ZZZ.TXT:20:0
 drift|after-the-search-table-emptied|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWODOT~1.TXT:20:4,ZED.TXT:20:7
-end|lines=33
+end|lines=34
 drift.sh: DIFFERENT, the lines that differ (A then B):
 < drift|to-a-later-exact-name|first=0 more=0|
 > drift|to-a-later-exact-name|first=0 more=1|,ZED.TXT:20:7
@@ -409,6 +415,8 @@ drift.sh: DIFFERENT, the lines that differ (A then B):
 > drift|folder-gained-files|first=0 more=7|,BARNEW.TXT:20:1,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
 < drift|label-search-then-edited|first=18 more=2|,X:10:0,FOO.TXT:20:4
 > drift|label-search-then-edited|first=18 more=0|
+< drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=0|
+> drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=1|,ZZZ.TXT:20:0
 # findlife.sh base dta on   (exit code 1)
 findlife.sh: long names on
 findlife.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
@@ -438,7 +446,7 @@ case|lfn-first-with-no-handle-left|turned_away=2100 outer=42 of 42 foreign=0|ok
 case|left-open-past-the-slots|left_open=2100 outer=42 of 42 foreign=0|ok
 case|turn-about-past-the-slots|lookups=2940 found=2940 first=42 of 42 second=32 of 32 foreign=0|ok
 end|cases=24
-findlife.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+findlife.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 folders|a=42 b=32 foreign=0
 case|remount|mount_rc=0 before=3 search_on_new_drive=32 of 32 foreign=0|ok
 case|lfn-next-after-its-end|lfn=1 of 1 again=0012 search_in_first_slot=1 of 32 foreign=0|DIFFERS
@@ -501,7 +509,7 @@ case|lfn-first-with-no-handle-left|714Eh was not turned away for want of a handl
 case|left-open-past-the-slots|left_open=2100 outer=42 of 42 foreign=0|ok
 case|turn-about-past-the-slots|lookups=2940 found=2940 first=42 of 42 second=32 of 32 foreign=0|ok
 end|cases=24
-findlife.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+findlife.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 folders|a=42 b=32 foreign=0
 case|remount|mount_rc=0 before=3 search_on_new_drive=32 of 32 foreign=0|ok
 case|lfn-next-after-its-end|714Eh failed, error 7100|not judged
@@ -534,7 +542,7 @@ exact.sh: long names on
 exact.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 exact.sh: build A, EXACT: slots_full=0 out_of_range=23
 exact.sh: build A, the shell test: slots_full=0 out_of_range=0
-exact.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+exact.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 exact.sh: build B, EXACT: slots_full=0 out_of_range=20
 exact.sh: build B, the shell test: slots_full=0 out_of_range=0
 exact.sh: basic: ALIKE (362 lines)
@@ -570,7 +578,7 @@ exact.sh: long names off
 exact.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 exact.sh: build A, EXACT: slots_full=0 out_of_range=15
 exact.sh: build A, the shell test: slots_full=0 out_of_range=0
-exact.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+exact.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 exact.sh: build B, EXACT: slots_full=0 out_of_range=12
 exact.sh: build B, the shell test: slots_full=0 out_of_range=0
 exact.sh: basic: ALIKE (362 lines)
@@ -611,7 +619,7 @@ pos|label-alone-by-its-own-name|no label|
 pos|label-with-everything|first=0 entry=X:10:0 n=2|,FOO.TXT:20:4
 pos|label-alone-through-a-live-search|first=0 label=18 more=0|
 end|lines=12
-findpos.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+findpos.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 pos|whole-folder|first=0 n=16|,.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
 pos|rewound-by-restored-dta|first=0 read=3 then=5 more=7|,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
 pos|rewound-by-its-first-21-bytes|first=0 read=3 then=5 more=7|,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
@@ -644,7 +652,7 @@ pos|label-alone-by-its-own-name|no label|
 pos|label-with-everything|first=0 entry=X:10:0 n=2|,FOO.TXT:20:4
 pos|label-alone-through-a-live-search|first=0 label=18 more=0|
 end|lines=12
-findpos.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+findpos.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 pos|whole-folder|first=0 n=16|,.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:2,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:5,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
 pos|rewound-by-restored-dta|first=0 read=3 then=5 more=7|,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
 pos|rewound-by-its-first-21-bytes|first=0 read=3 then=5 more=7|,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWODOT~1.TXT:20:4,ZED.TXT:20:7
@@ -703,7 +711,7 @@ fcbname|????????TXT|al=0|name=3F3F3F3F3F3F3F3F545854|more=4
 fcbname|NOSUCH  TXT|al=1|name=4E4F535543482020545854|more=0
 end|lines=37
 shell|DIR of the volume while empty, after a DIR of another drive|free=66,781,184
-template.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+template.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label|V:\|first=0 DISK1|more=0|
 label|V:|first=0 DISK1|more=0|
 label|V:\*.*|first=0 DISK1|more=0|
@@ -761,7 +769,7 @@ gone|ren-parent|first=0000 entry=. op=0000 made=- next=0012 rest=..,ID.TXT
 gone|ren-twice|first=0000 entry=. op=0000 made=0000 next=0012 rest=..,ID.TXT
 gone|ren-then-rd|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
 end|lines=11
-dirgone.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+dirgone.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 gone|kept|first=0000 entry=. op=- made=- next=0012 rest=..,ID.TXT,TWO.TXT
 gone|rd|first=0000 entry=. op=0000 made=- next=0012 rest=..
 gone|rd-remade|first=0000 entry=. op=0000 made=0000 next=0012 rest=..
