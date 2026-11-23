@@ -1,14 +1,15 @@
 # What: the reports of MS-DOS 7.10 and 6.22, booted inside the emulator, 7.10 from a Windows 98 SE disk image and 6.22 from its own, for
 #       dtadump.sh, drift.sh, findlife.sh, findpos.sh and template.sh: realdos.sh <build> <dos> <image> <script>.
-#       The emulator that carries the DOS is unpatched upstream for findlife, findpos and template and the
-#       branch at 233596320 for dtadump and drift; a DOS answers the same under either, as the 27 lines
-#       of drift.sh that an earlier run on unpatched upstream and this one both print show.
+#       The emulator that carries the DOS is unpatched upstream for findlife, findpos and template, the branch at
+#       cbc326e0f for dtadump, and the branch at 3f2e6d08f for drift; a DOS answers the same under any of them, as the 27
+#       lines of drift.sh that an earlier run on unpatched upstream and a later one print show.
 # Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; every run headless
-# Date: 2026-11-22
+# Date: 2026-11-23
 # Builds (source commit, sha256 of the executable):
 #   base  joncampbell123/dosbox-x main-ai ac2787a422f7a7bf008128975b1d00d9a5312387   1dd69c094f4ccadc2c4209f8e7396dc9010f4d47937697919a5fac6ba5224b1b
-#   dta-233596320 dta-searches-mainai 233596320f93c4a835791539e7196d47ae657b37             69c16361e2e976dc0ccf8e5d29e44b639e98c69972fb7bfcee8802036146faeb
-# realdos.sh dta-233596320 msdos710 <a Windows 98 SE hard disk image> dtadump   (exit code 0)
+#   dta-cbc326e0f dta-searches-mainai cbc326e0f350b35fb0535b2155d9036c7ef8eb36             f2ff2fbfd0b052cdee0e65a20fe23b9d92374873236aa5c3279ddf3e5d0bb235
+#   dta   dta-searches-mainai 3f2e6d08f143852e9a26ca38654a7a5732ec6c01             a5d68f615f606edb93a27bca7718e6ac2b31ef75e0e5225a60c4e3a7aacec7d2
+# realdos.sh dta-cbc326e0f msdos710 <a Windows 98 SE hard disk image> dtadump   (exit code 0)
 realdos.sh: msdos710: machine: dta-233596320 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 realdos.sh: msdos710: image: <a Windows 98 SE hard disk image>
 realdos.sh: msdos710: ver: Windows 98 [Version 4.10.2222]
@@ -84,51 +85,7 @@ msdos710|dump|fcb-open-wild|fcb-after-0Fh|al=0|04 5A45443F3F3F3F3F545854 0000800
 msdos710|dump|fcb-open-wild-small|fcb-after-0Fh|al=0|04 7A65643F3F3F3F3F747874 00008000 07000000 -------- 400342120021020F000000000000000000000000
 msdos710|list|folder-lost-a-middle-entry|first=0 more=5|,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
 msdos710|end|lines=64
-# realdos.sh dta-233596320 msdos710 <a Windows 98 SE hard disk image> drift   (exit code 0)
-realdos.sh: msdos710: machine: dta-233596320 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
-realdos.sh: msdos710: image: <a Windows 98 SE hard disk image>
-realdos.sh: msdos710: ver: Windows 98 [Version 4.10.2222]
-realdos.sh: msdos710: dos|version=7.10 oem=FF
-realdos.sh: msdos710: dos|true_version=7.10 flags=10
-realdos.sh: msdos710: dos|int21=030F:04A0 code=EAB20FC9002EF606
-realdos.sh: msdos710: dos|lfn_714e=7100
-realdos.sh: msdos710: dos|windows_1600=00
-realdos.sh: msdos710: dos|drive_z=3
-msdos710|drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
-msdos710|drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
-msdos710|drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
-msdos710|drift|to-wildcard-that-does-not|first=0 more=0|
-msdos710|drift|to-a-later-exact-name|first=0 more=1|,ZED.TXT:20:7
-msdos710|drift|to-an-earlier-exact-name|first=0 more=0|
-msdos710|drift|to-a-missing-exact-name|first=0 more=0|
-msdos710|drift|to-its-own-name-in-lower-case|first=0 more=0|
-msdos710|drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
-msdos710|drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
-msdos710|drift|to-a-later-full-length-name-in-lower-case|first=0 more=0|
-msdos710|drift|to-a-later-full-length-name-in-mixed-case|first=0 more=0|
-msdos710|drift|to-a-later-exact-name-zero-padded|first=0 more=0|
-msdos710|drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
-msdos710|drift|to-its-own-name-zero-padded|first=0 more=0|
-msdos710|drift|to-a-later-name-with-a-star|first=0 more=0|
-msdos710|drift|to-a-star-for-the-name|first=0 more=0|
-msdos710|drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
-msdos710|drift|from-the-last-entry|first=0 more=0|
-msdos710|drift|from-a-missing-name|first=18 more=0|
-msdos710|drift|edited-twice|first=0 more=2|,FOO.TXT:20:3,ZED.TXT:20:7
-msdos710|drift|saved-and-restored-then-edited|first=0 inner=16 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
-msdos710|drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
-msdos710|drift|folder-gained-files|first=0 more=8|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7,AAANEW.TXT:20:1,BARNEW.TXT:20:1
-msdos710|drift|folder-lost-the-entry|first=0 more=0|
-msdos710|drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
-msdos710|drift|label-search-then-edited|first=18 more=0|
-msdos710|drift|in-a-folder-kept|first=0 op=0 more=1|,ZZZ.TXT:20:1
-msdos710|drift|in-a-folder-renamed|first=0 op=0 more=1|,ZZZ.TXT:20:1
-msdos710|drift|in-a-folder-renamed-and-remade|first=0 op=0 more=1|,ZZZ.TXT:20:1
-msdos710|drift|in-a-folder-removed|first=0 op=0 more=0|
-msdos710|drift|in-a-folder-removed-and-remade|first=0 op=0 more=0|
-msdos710|drift|after-the-search-table-emptied|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
-msdos710|end|lines=33
-# realdos.sh dta-233596320 msdos622 <an MS-DOS 6.22 hard disk image> dtadump   (exit code 0)
+# realdos.sh dta-cbc326e0f msdos622 <an MS-DOS 6.22 hard disk image> dtadump   (exit code 0)
 realdos.sh: msdos622: machine: dta-233596320 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 realdos.sh: msdos622: image: <an MS-DOS 6.22 hard disk image>
 realdos.sh: msdos622: ver: MS-DOS Version 6.22
@@ -204,8 +161,53 @@ msdos622|dump|fcb-open-wild|fcb-after-0Fh|al=0|04 5A45443F3F3F3F3F545854 0000800
 msdos622|dump|fcb-open-wild-small|fcb-after-0Fh|al=0|04 7A65643F3F3F3F3F747874 00008000 07000000 -------- 400342120021020F000000000000000000000000
 msdos622|list|folder-lost-a-middle-entry|first=0 more=5|,MIXCASE.TXT,NOEXT,NOEXTE~1,TWO~1.TXT,ZED.TXT
 msdos622|end|lines=64
-# realdos.sh dta-233596320 msdos622 <an MS-DOS 6.22 hard disk image> drift   (exit code 0)
-realdos.sh: msdos622: machine: dta-233596320 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+# realdos.sh dta-3f2e6d08f msdos710 <a Windows 98 SE hard disk image> drift   (exit code 0)
+realdos.sh: msdos710: machine: dta-3f2e6d08f (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos710: image: <a Windows 98 SE hard disk image>
+realdos.sh: msdos710: ver: Windows 98 [Version 4.10.2222]
+realdos.sh: msdos710: dos|version=7.10 oem=FF
+realdos.sh: msdos710: dos|true_version=7.10 flags=10
+realdos.sh: msdos710: dos|int21=030F:04A0 code=EAB20FC9002EF606
+realdos.sh: msdos710: dos|lfn_714e=7100
+realdos.sh: msdos710: dos|windows_1600=00
+realdos.sh: msdos710: dos|drive_z=3
+msdos710|drift|whole-folder|first=0 n=16|.:10:0,..:10:0,LONGSU~1:10:0,SUBDIR:10:0,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos710|drift|to-every-name|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos710|drift|to-wildcard-that-matches-the-entry|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos710|drift|to-wildcard-that-does-not|first=0 more=0|
+msdos710|drift|to-a-later-exact-name|first=0 more=1|,ZED.TXT:20:7
+msdos710|drift|to-an-earlier-exact-name|first=0 more=0|
+msdos710|drift|to-a-missing-exact-name|first=0 more=0|
+msdos710|drift|to-its-own-name-in-lower-case|first=0 more=0|
+msdos710|drift|to-a-later-exact-name-in-lower-case|first=0 more=0|
+msdos710|drift|to-a-later-exact-name-in-mixed-case|first=0 more=0|
+msdos710|drift|to-a-later-full-length-name-in-lower-case|first=0 more=0|
+msdos710|drift|to-a-later-full-length-name-in-mixed-case|first=0 more=0|
+msdos710|drift|to-a-later-exact-name-zero-padded|first=0 more=0|
+msdos710|drift|to-an-earlier-exact-name-zero-padded|first=0 more=0|
+msdos710|drift|to-its-own-name-zero-padded|first=0 more=0|
+msdos710|drift|to-a-later-name-with-a-star|first=0 more=0|
+msdos710|drift|to-a-star-for-the-name|first=0 more=0|
+msdos710|drift|from-a-directory|first=0 more=12|,A.B:20:2,ALPHAT~1.MID:20:4,ALPHAT~2.MID:20:5,ALPHAT~3.MID:20:3,ALPHAT~4.MID:20:2,BAR.TXT:20:5,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos710|drift|from-the-last-entry|first=0 more=0|
+msdos710|drift|from-a-missing-name|first=18 more=0|
+msdos710|drift|edited-twice|first=0 more=2|,FOO.TXT:20:3,ZED.TXT:20:7
+msdos710|drift|saved-and-restored-then-edited|first=0 inner=16 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos710|drift|two-searches-one-edited|first=0 more=6 other=0|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos710|drift|folder-gained-files|first=0 more=8|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7,AAANEW.TXT:20:1,BARNEW.TXT:20:1
+msdos710|drift|folder-lost-the-entry|first=0 more=0|
+msdos710|drift|folder-lost-a-later-entry|first=0 more=6|,FOO.TXT:20:3,MIXCASE.TXT:20:5,NOEXT:20:1,NOEXTE~1:20:9,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos710|drift|label-search-then-edited|first=18 more=0|
+msdos710|drift|in-a-folder-kept|first=0 op=0 more=1|,ZZZ.TXT:20:1
+msdos710|drift|in-a-folder-renamed|first=0 op=0 more=1|,ZZZ.TXT:20:1
+msdos710|drift|in-a-folder-renamed-and-remade|first=0 op=0 more=1|,ZZZ.TXT:20:1
+msdos710|drift|in-a-folder-removed|first=0 op=0 more=0|
+msdos710|drift|in-a-folder-removed-and-remade|first=0 op=0 more=0|
+msdos710|drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=1|,ZZZ.TXT:20:0
+msdos710|drift|after-the-search-table-emptied|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
+msdos710|end|lines=34
+# realdos.sh dta-3f2e6d08f msdos622 <an MS-DOS 6.22 hard disk image> drift   (exit code 0)
+realdos.sh: msdos622: machine: dta-3f2e6d08f (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 realdos.sh: msdos622: image: <an MS-DOS 6.22 hard disk image>
 realdos.sh: msdos622: ver: MS-DOS Version 6.22
 realdos.sh: msdos622: dos|version=6.22 oem=FF
@@ -246,8 +248,9 @@ msdos622|drift|in-a-folder-renamed|first=0 op=0 more=1|,ZZZ.TXT:20:1
 msdos622|drift|in-a-folder-renamed-and-remade|first=0 op=0 more=1|,ZZZ.TXT:20:1
 msdos622|drift|in-a-folder-removed|first=0 op=0 more=0|
 msdos622|drift|in-a-folder-removed-and-remade|first=0 op=0 more=0|
+msdos622|drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=1|,ZZZ.TXT:20:0
 msdos622|drift|after-the-search-table-emptied|first=0 more=4|,FOO.TXT:20:3,MIXCASE.TXT:20:5,TWO~1.TXT:20:4,ZED.TXT:20:7
-msdos622|end|lines=33
+msdos622|end|lines=34
 # realdos.sh main-ai-ac2787a42 msdos710 <a Windows 98 SE hard disk image> findlife
 realdos.sh: msdos710: machine: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 realdos.sh: msdos710: image: <a Windows 98 SE hard disk image>

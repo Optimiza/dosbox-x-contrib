@@ -3,22 +3,22 @@
 #       first, whole; then the verdict line of each of the 18 synthetic folders: 1,000, 10,000 and 50,000 files
 #       with short names and with long names, 10,240 mixed names, 432 names with dots and 120 Wine-style names, long names on and off.
 # Host: macOS 26 on Apple silicon (Mac mini M4); builds made with ./configure --enable-sdl2 and make, SDL2; every run headless
-# Date: 2026-11-22
+# Date: 2026-11-23
 # Builds (source commit, sha256 of the executable):
 #   base  joncampbell123/dosbox-x main-ai ac2787a422f7a7bf008128975b1d00d9a5312387   1dd69c094f4ccadc2c4209f8e7396dc9010f4d47937697919a5fac6ba5224b1b
-#   dta   dta-searches-mainai cbc326e0f350b35fb0535b2155d9036c7ef8eb36             f2ff2fbfd0b052cdee0e65a20fe23b9d92374873236aa5c3279ddf3e5d0bb235
+#   dta   dta-searches-mainai 3f2e6d08f143852e9a26ca38654a7a5732ec6c01             a5d68f615f606edb93a27bca7718e6ac2b31ef75e0e5225a60c4e3a7aacec7d2
 # run.sh base dta <the large folder> on   (exit code 0)
 run.sh: folder <the large folder> (169457 entries on the host), long names on
 run.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 run.sh: build A: 4e=169113 lfn=169113 look=10
-run.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+run.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 run.sh: build B: 4e=169113 lfn=169113 look=10
 run.sh: IDENTICAL
 # run.sh base dta <the large folder> off   (exit code 0)
 run.sh: folder <the large folder> (169457 entries on the host), long names off
 run.sh: build A: main-ai-ac2787a42 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 run.sh: build A: 4e=169113 lfn=0 look=5
-run.sh: build B: dta-cbc326e0f (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+run.sh: build B: dta-3f2e6d08f (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 run.sh: build B: 4e=169113 lfn=0 look=5
 run.sh: IDENTICAL
 # run.sh base dta 10000 83 off   (exit code 0)
