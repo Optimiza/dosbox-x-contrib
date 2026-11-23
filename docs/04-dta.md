@@ -51,8 +51,8 @@ program does to its DTA.
 - A search for the volume label that finds none gives its slot back, which is
   [subject 2](02-retention.md)'s.
 
-The branch is `dta-searches-mainai`, on upstream `main-ai` at `ac2787a42`, head `3f2e6d08f`. It is
-proved and not pushed. Its commits, in order:
+The branch is `dta-searches-mainai`, on upstream `main-ai` at `ac2787a42`, nineteen commits, head
+`3f2e6d08f`. It is proved and not pushed. Its commits, in order:
 
 - `e900909c8` keeps the DTA search template in the form MS-DOS writes.
 - `7c76f4fe5` leaves the DTA as it was when a FindFirst finds nothing.
@@ -178,6 +178,7 @@ names on, the seven cases of the table above read as on macOS.
 | A DTA saved, put back and edited: entries returned | 0 | 6 |
 | A label search, then edited: entries returned | 2 | 0 |
 | A search for one name, its folder renamed, then edited to a wildcard: entries returned | 1 | 1 |
+| A search for one name, its folder rename failed, then edited: entries returned | 0 | 1 |
 | A search of `*.TXT` that gets the number of an abandoned search, after the table was emptied: entries returned | 4 | 4 |
 | An FCB search with `*` for the name, long names off: files found | 5 | 5 |
 | 300 child programs that each leave kept searches for one name: times the search table was emptied | none | none |

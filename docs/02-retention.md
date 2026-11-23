@@ -103,6 +103,8 @@ the volume label that finds none:
 
 Source: `memory.sh <build> synthetic:100:long on v 20000`, in [results/macos/dta-searches-memory.txt](../results/macos/dta-searches-memory.txt) and [results/windows/dta-searches-memory.txt](../results/windows/dta-searches-memory.txt); each is 20,000 label searches.
 
+The Windows cells of the branch in this table and under "What is left" are its build at `cbc326e0f`; the fix after it touches only a rename that fails.
+
 ## What a program can notice
 
 Five answers move. Three go to MS-DOS's answer, and two are in long-name calls, where no real

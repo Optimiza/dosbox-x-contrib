@@ -54,16 +54,16 @@ On Windows, one call repeated on one file in the large folder of 169,452 files, 
 
 | Call | Held after 1 call, unpatched → patched (kB) | Held after 20, unpatched → patched (kB) | Peak, unpatched → patched (kB) |
 | --- | --- | --- | --- |
-| `access` | 297,700 to 298,012 → 301,456 to 301,552 | 332,936 to 333,956 → 301,520 to 301,764 | 486,232 to 487,256 → 280,784 to 281,004 |
-| A FindFirst | 298,248 to 298,340 → 301,436 to 301,744 | 333,280 to 333,836 → 301,444 to 301,724 | 486,596 to 486,804 → 280,716 to 281,060 |
+| `access` | 297,700 to 298,012 → 301,504 to 301,568 | 332,936 to 333,956 → 301,632 to 301,740 | 486,232 to 487,256 → 280,772 to 280,824 |
+| A FindFirst | 298,248 to 298,340 → 301,556 to 301,572 | 333,280 to 333,836 → 301,484 to 301,636 | 486,596 to 486,804 → 280,732 to 280,808 |
 
 Source: `memory.sh <build> <the large folder> on <a|d> <1|20> --file SONG.MID`, three samples each, in [results/windows/dta-searches-memory.txt](../results/windows/dta-searches-memory.txt).
 
 There the patched build, against unpatched:
 
-- holds 3,100 to 3,900 kB more after one call;
+- holds 3,200 to 3,900 kB more after one call;
 - holds 31,200 to 32,400 kB less after the repeated calls;
-- peaks 205,000 to 206,500 kB lower.
+- peaks 205,400 to 206,500 kB lower.
 
 Its memory does not move with the calls.
 
