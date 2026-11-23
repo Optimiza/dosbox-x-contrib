@@ -2,7 +2,7 @@
 
 A program that opens or checks one file in a large folder no longer makes the emulator copy the
 whole folder for it. On macOS the peak memory in the large folder falls from 546,800 kB to about
-325,500 kB. It is proved on macOS and Windows, and is to be offered with [subject 4](04-dta.md).
+326,000 kB. It is proved on macOS and Windows, and is to be offered with [subject 4](04-dta.md).
 
 ## What was wrong
 
@@ -41,13 +41,13 @@ memory held is a little higher. On macOS, one call repeated on one file, long na
 
 | Folder and call | Held after 1 call, unpatched → patched (kB) | Held after 20, unpatched → patched (kB) | Peak, unpatched → patched (kB) |
 | --- | --- | --- | --- |
-| 169,457 files, `access` | 387,649 → 286,560 to 286,768 | 279,409 → 286,753 to 286,849 | 546,800 → 325,456 to 325,664 |
-| 169,457 files, a FindFirst | 387,617 → 286,608 to 286,833 | 278,961 → 286,769 to 287,009 | 546,816 → 325,504 to 325,712 |
-| 50,000 files, `access` | 213,872 → 200,192 | 214,081 → 200,320 | 303,568 → 239,120 |
+| 169,457 files, `access` | 387,649 → 286,785 to 287,889 | 279,409 → 286,753 to 288,161 | 546,800 → 325,712 to 326,816 |
+| 169,457 files, a FindFirst | 387,617 → 286,801 to 288,304 | 278,961 → 286,801 to 287,456 | 546,816 → 325,744 to 327,264 |
+| 50,000 files, `access` | 214,048 → 200,352 | 213,984 → 200,272 | 303,696 → 239,328 |
 
 Source: `memory.sh <build> <the large folder> on <a|d> <1|20> --file SONG.MID` and `memory.sh <build> synthetic:50000:long on a <1|20>`, in [results/macos/dta-searches-memory.txt](../results/macos/dta-searches-memory.txt). The patched cells of the large folder are three samples each, so they read as a range.
 
-After the repeated calls the patched build holds 7,300 to 8,100 kB more than unpatched on the
+After the repeated calls the patched build holds 7,300 to 8,800 kB more than unpatched on the
 large folder. Where those kB come from is not examined.
 
 On Windows, one call repeated on one file in the large folder of 169,452 files, long names on:

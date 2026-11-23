@@ -16,8 +16,9 @@ A search in progress loses its place when another call writes over its state. Un
 - The FCB find calls and the emulator's own path lookups share one temporary DTA. So an FCB
   search does not survive a long-name call.
 - AH=0Fh, which opens an FCB by wildcards, writes the entry it finds into the program's DTA.
-- The DTA's search template is padded with zeros where MS-DOS pads with spaces. So a template a
-  program writes the MS-DOS way matches nothing, and a `*` in it is read as a wildcard.
+- With long names off, the DTA's search template is padded with zeros where MS-DOS pads with
+  spaces. So a template a program writes the MS-DOS way matches nothing, and a `*` in it is read
+  as a wildcard.
 - A DTA a program saved, put back and edited has lost its search, because a search for one name
   is released when another FindFirst goes through its DTA. That came with
   [pull request 6831, "Release directory search snapshots when searches end"](https://github.com/joncampbell123/dosbox-x/pull/6831).
@@ -34,7 +35,8 @@ program does to its DTA.
 - A FindFirst that fails leaves the DTA as it was.
 - A 714Eh, and an AH=0Fh open by wildcards, leave the program's DTA alone.
 - The state of an FCB search lives in the program's FCB, as MS-DOS keeps it.
-- The template is padded with spaces, and a `*` in it is the character it is.
+- With long names off, the template is padded with spaces, and a `*` in it is the character it
+  is.
 - A search for one name goes on when the program restores its DTA and edits it. It is cheap
   because [subject 1](01-exact-name.md) keeps one entry for it and not the folder.
 - With long names on, a template the program edited is read as with them off, in a DTA and in an
@@ -42,13 +44,14 @@ program does to its DTA.
   template that differs from them was edited.
 - That record belongs to its slot's generation and drive, so a later search that gets the same
   number is not read as edited.
-- A search for one name goes on when its folder is renamed: it is widened before the rename.
+- A search for one name goes on when its folder is renamed: it is widened once the rename has
+  succeeded.
 - The searches for one name a program leaves kept are released when it ends.
 - The index `isoDrive::FindNext` reads from the guest is checked.
 - A search for the volume label that finds none gives its slot back, which is
   [subject 2](02-retention.md)'s.
 
-The branch is `dta-searches-mainai`, on upstream `main-ai` at `ac2787a42`, head `cbc326e0f`. It is
+The branch is `dta-searches-mainai`, on upstream `main-ai` at `ac2787a42`, head `3f2e6d08f`. It is
 proved and not pushed. Its commits, in order:
 
 - `e900909c8` keeps the DTA search template in the form MS-DOS writes.
@@ -68,7 +71,8 @@ proved and not pushed. Its commits, in order:
 - `9c3bdb928` reads an FCB search's template as its FindFirst wrote it with long names on.
 - `c8f5d14aa` releases the kept searches for one name when their program ends.
 - `9dbb3cc4c` matches a search's template record by its slot's generation and drive.
-- `cbc326e0f` adds the `CHANGELOG` entries.
+- `35781d468` widens a search after its folder was renamed, not before.
+- `3f2e6d08f` adds the `CHANGELOG` entries.
 
 ## The figures
 
@@ -88,7 +92,7 @@ On macOS, long names off unless a row says on, against unpatched `main-ai` at `a
 Source: `dtadump.sh`, `findlife.sh` and `findpos.sh`, in [results/macos/dta-searches-answers.txt](../results/macos/dta-searches-answers.txt); MS-DOS 7.10's lines are in [results/macos/dta-searches-msdos.txt](../results/macos/dta-searches-msdos.txt).
 
 DRIFT edits the DTA between a FindFirst and its FindNext, and counts the entries the search
-returns. Of its 33 cases, these differ between the two builds, long names off:
+returns. Of its 34 cases, these read differently on the two builds and as MS-DOS, long names off:
 
 | Case | Unpatched | Patched | MS-DOS 7.10 |
 | --- | --- | --- | --- |
@@ -100,11 +104,12 @@ returns. Of its 33 cases, these differ between the two builds, long names off:
 | Edited twice | 1 | 2 | 2 |
 | Saved, put back and edited | 0 | 6 | 6 |
 | A label search, then edited | 2 | 0 | 0 |
+| In a folder whose rename failed, then edited | 0 | 1 | 1 |
 
 Source: `drift.sh base dta off`, in [results/macos/dta-searches-answers.txt](../results/macos/dta-searches-answers.txt); MS-DOS 7.10's lines are in [results/macos/dta-searches-msdos.txt](../results/macos/dta-searches-msdos.txt).
 
 Counted line by line, with the `ALPHAT~` entry numbers made alike, the patched build equals
-MS-DOS's on 31 of the 33 lines. Unpatched upstream equals it on 22. The two that differ are told
+MS-DOS's on 32 of the 34 lines. Unpatched upstream equals it on 22. The two that differ are told
 under "What is left".
 
 Six other DRIFT cases and seven FCB searches hold what the fix could have broken. They all read
@@ -133,7 +138,7 @@ The saved and restored case read six names before [pull request 6831, "Release d
 Source: `drift.sh`, case `saved-and-restored-then-edited`, in [results/macos/dta-restored-bisect.txt](../results/macos/dta-restored-bisect.txt).
 
 With long names on, a template the program edited is read as MS-DOS reads it. Windows 98's own
-DOS box has long names, ran the first 27 of the 33 cases, and agrees with MS-DOS on these:
+DOS box has long names, ran the first 27 of the 34 cases, and agrees with MS-DOS on these:
 
 | Case, entries returned, long names on | Unpatched | Patched | Windows 98 |
 | --- | --- | --- | --- |
@@ -225,8 +230,8 @@ Closing it needs a record of the template for searches the cache does not track.
 **Two DRIFT lines still differ from MS-DOS.** They are nobody's fix here.
 
 - One is `folder-gained-files`: the branch returns 7 entries where MS-DOS returns 8.
-- The other is `folder-lost-the-entry`, the order in which a directory that lost an entry is read
-  on.
+- The other is `folder-lost-the-entry`: the branch returns 5 entries where MS-DOS returns none,
+  because the emulator reads on where MS-DOS stops.
 
 **`tree q:` and `tree 1:` leave the shell's DTA replaced.** `CMD_TREE` returns without putting it
 back, and six commands after it showed no effect.
