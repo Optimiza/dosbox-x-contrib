@@ -30,4 +30,5 @@ drift|in-a-folder-renamed|first=0 op=0 more=1|,ZZZ.TXT:20:1
 drift|in-a-folder-renamed-and-remade|first=0 op=0 more=1|,ZZZ.TXT:20:1
 drift|in-a-folder-removed|first=0 op=0 more=0|
 drift|in-a-folder-removed-and-remade|first=0 op=0 more=0|
-end|lines=32
+drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=1|,ZZZ.TXT:20:0
+end|lines=33

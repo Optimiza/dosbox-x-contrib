@@ -11,7 +11,8 @@
  *   drift|<case>|first=<FindFirst's error> more=<entries FindNext returned>|,<name>:<attr>:<size>...
  *   end|lines=<n>
  *
- * The cases in a folder renamed or removed add op=<error of the 56h or the 3Ah> before more=.
+ * The cases in a folder renamed or removed add op=<error of the 56h or the 3Ah> before more=; the
+ * one whose rename fails adds create=<error of the 3Ch that makes a file after it> after op=.
  *
  * No long-name call is made, so it runs whole on a DOS that has none.
  */
@@ -152,6 +153,24 @@ static int rename_entry(const char *from, const char *to)
     return int21(&r);
 }
 
+/* 3Ch, then 3Eh: a file made by the guest and its handle given back. */
+static int create_entry(const char *name)
+{
+    __dpmi_regs r, c;
+    const char *path = in_folder(name);
+    int err;
+    dosmemput(path, strlen(path) + 1, g_lin + PATH_OFF);
+    memset(&r, 0, sizeof r);
+    r.h.ah = 0x3C; r.x.cx = 0; r.x.ds = g_seg; r.x.dx = PATH_OFF;
+    err = int21(&r);
+    if (!err) {
+        memset(&c, 0, sizeof c);
+        c.h.ah = 0x3E; c.x.bx = r.x.ax;
+        __dpmi_int(0x21, &c);
+    }
+    return err;
+}
+
 static void file_in(const char *dir, const char *name)
 {
     char path[64];
@@ -213,29 +232,41 @@ static void reused_number(void)
     line("drift|after-the-search-table-emptied|first=%d more=%d|%s", err, n, list);
 }
 
-enum moved_how { MOVED_NOT, MOVED_REN, MOVED_REN_REMADE, MOVED_RD, MOVED_RD_REMADE };
+enum moved_how { MOVED_NOT, MOVED_REN, MOVED_REN_REMADE, MOVED_REN_FAILED, MOVED_RD, MOVED_RD_REMADE };
 
-/* A folder of its own made with AAA.TXT, MMM.TXT and ZZZ.TXT, a search for MMM.TXT in it, the
- * folder renamed or removed (and a folder made again under its old name, holding NNN.TXT), then
- * the template edited to every name. op is the error of the 56h or of the 3Ah. */
+/* A folder of its own made with AAA.TXT and MMM.TXT (and ZZZ.TXT), a search for MMM.TXT in it,
+ * the folder renamed or removed (and a folder made again under its old name, holding NNN.TXT),
+ * then the template edited to every name. op is the error of the 56h or of the 3Ah. A rename
+ * into the folder itself fails on the host: ZZZ.TXT is made after it, and create is the error
+ * of the 3Ch that makes it. */
 static void moved(const char *label, const char *dir, enum moved_how how)
 {
     static char list[(SHOWN + 1) * 64];
-    char path[64], other[16];
-    int err, op = 0, n;
+    char path[64], other[16], inner[16];
+    int err, op = 0, create = 0, n;
     list[0] = 0;
     sprintf(other, "%.6s_R", dir);
     path_call(0x39, dir);
-    file_in(dir, "AAA.TXT"); file_in(dir, "MMM.TXT"); file_in(dir, "ZZZ.TXT");
+    file_in(dir, "AAA.TXT"); file_in(dir, "MMM.TXT");
+    if (how != MOVED_REN_FAILED) file_in(dir, "ZZZ.TXT");
     sprintf(path, "%s\\MMM.TXT", dir);
     err = first(DTA_A, in_folder(path), ALL);
     if (how == MOVED_REN || how == MOVED_REN_REMADE) op = rename_entry(dir, other);
+    if (how == MOVED_REN_FAILED) {
+        sprintf(inner, "%s\\SUB", dir);
+        op = rename_entry(dir, inner);
+        sprintf(inner, "%s\\ZZZ.TXT", dir);
+        create = create_entry(inner);
+    }
     if (how == MOVED_RD || how == MOVED_RD_REMADE) op = empty_and_rd(dir);
     if (how == MOVED_REN_REMADE || how == MOVED_RD_REMADE) { path_call(0x39, dir); file_in(dir, "NNN.TXT"); }
     edit(DTA_A, "???????????");
     n = drain(DTA_A, list);
     empty_and_rd(dir); empty_and_rd(other);
-    line("drift|%s|first=%d op=%d more=%d|%s", label, err, op, n, list);
+    if (how == MOVED_REN_FAILED)
+        line("drift|%s|first=%d op=%d create=%d more=%d|%s", label, err, op, create, n, list);
+    else
+        line("drift|%s|first=%d op=%d more=%d|%s", label, err, op, n, list);
 }
 
 /* FindFirst for <name>, the template rewritten to <pattern11>, then the search to its end. */
@@ -381,6 +412,7 @@ int main(int argc, char **argv)
     moved("in-a-folder-renamed-and-remade", "MV2", MOVED_REN_REMADE);
     moved("in-a-folder-removed", "MV3", MOVED_RD);
     moved("in-a-folder-removed-and-remade", "MV4", MOVED_RD_REMADE);
+    moved("in-a-folder-renamed-and-failed", "MV5", MOVED_REN_FAILED);
     reused_number();
 
     fprintf(g_out, "end|lines=%d\n", g_lines);

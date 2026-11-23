@@ -568,6 +568,7 @@ Then it does the same in other situations:
 - after the folder gained or lost files;
 - after a search for the volume label alone;
 - in a folder renamed by 56h or removed, and one made again under its old name;
+- in a folder whose rename fails, with a file made in it after the failure;
 - after enough searches never continued to fill the emulator's own table of searches, which
   it then empties: a search for `*.TXT` given the number of an abandoned search.
 

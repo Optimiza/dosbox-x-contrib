@@ -22,6 +22,7 @@ t_case "a '*' for the whole name" 0 "drift|to-a-star-for-the-name|first=0 more=4
 t_play "$f/drift-moved"
 t_case "a search for one name in a renamed folder, read on in it" 1 "> drift|in-a-folder-renamed|first=0 op=0 more=0|" run off
 t_case "the same in a removed folder, alike" 1 "drift|in-a-folder-removed|first=0 op=0 more=0|" run off
+t_case "a search in a folder whose rename failed, read on with the rest" 1 "> drift|in-a-folder-renamed-and-failed|first=0 op=5 create=0 more=0|" run off
 t_play "$f/drift-reused"
 t_case "a search given the number of an abandoned one, cut after its first entry" 1 "> drift|after-the-search-table-emptied|first=0 more=0|" run on
 t_derive "$f/drift"; cp "$derived/1/DRIFT.TXT" "$derived/2/DRIFT.TXT"; t_play "$derived"
