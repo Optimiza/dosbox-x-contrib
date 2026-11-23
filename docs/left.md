@@ -36,7 +36,7 @@ A search reads a folder that changed under it otherwise than MS-DOS does.
 | Case | The builds return | MS-DOS 7.10 returns | What becomes of it |
 | --- | --- | --- | --- |
 | `folder-gained-files` | 7 with the exact-name patch | 8 | half closed by [subject 1](01-exact-name.md) |
-| `folder-lost-the-entry` | 5 more | none | the order a changed directory is read in, left |
+| `folder-lost-the-entry` | 5 more | none | the emulator reads on where MS-DOS stops, left |
 
 Source: `battery.sh --real-dos --raw`, calls `drift.sh` and `realdos.sh msdos710 drift`, in [drift_base-build_off.txt](../bench/fixtures/battery/drift_base-build_off.txt) and [realdos_msdos710_drift_off.txt](../bench/fixtures/battery/realdos_msdos710_drift_off.txt).
 
