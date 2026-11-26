@@ -5,8 +5,8 @@ and [pull request 6852, "Keep a search alive when its DTA is reused or its child
 adds what that one lacked. The page stays as the measurement of the other design, proved on
 macOS and Windows.
 
-One piece of it is still missing from `main-ai`, and the branch of [subject 4](04-dta.md) carries
-it: a search for the volume label that finds none gives its slot back.
+One piece of it is in `main-ai`, carried in [pull request 6889](https://github.com/joncampbell123/dosbox-x/pull/6889)
+by [subject 4](04-dta.md): a search for the volume label that finds none gives its slot back.
 
 ## What was wrong
 

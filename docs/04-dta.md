@@ -1,8 +1,9 @@
 # 4. A find call does not disturb another search's DTA
 
 A program that runs one search inside another, mixes the old and the long-name calls, or puts a
-saved DTA back now gets what MS-DOS gives. It is proved on macOS and Windows, and is to be
-offered together with the pieces of subjects 1 and 2 as one pull request.
+saved DTA back now gets what MS-DOS gives. It is proved on macOS and Windows, and merged with the
+pieces of subjects 1 and 2 in [pull request 6889, "Answer a find call from the search it belongs
+to, as MS-DOS does"](https://github.com/joncampbell123/dosbox-x/pull/6889).
 
 ## What was wrong
 

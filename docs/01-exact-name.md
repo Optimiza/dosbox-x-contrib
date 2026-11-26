@@ -2,7 +2,8 @@
 
 A program that opens or checks one file in a large folder no longer makes the emulator copy the
 whole folder for it. On macOS the peak memory in the large folder falls from 546,800 kB to about
-326,000 kB. It is proved on macOS and Windows, and is to be offered with [subject 4](04-dta.md).
+326,000 kB. It is proved on macOS and Windows, and merged with [subject 4](04-dta.md) in
+[pull request 6889](https://github.com/joncampbell123/dosbox-x/pull/6889).
 
 ## What was wrong
 

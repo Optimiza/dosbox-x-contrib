@@ -2,7 +2,7 @@
 
 `LABEL`, `VOL`, `TREE` and `CD` on a drive with nothing mounted, or with no mounted drive current,
 no longer end the emulator. `IMGMAKE` and `START` go on as with `C:` current. It is proved on macOS
-and Windows, and offered upstream as
+and Windows, and merged upstream as
 [pull request 6887, "Answer "Invalid drive specification" instead of ending the emulator on an unmounted drive"](https://github.com/joncampbell123/dosbox-x/pull/6887).
 
 ## What was wrong

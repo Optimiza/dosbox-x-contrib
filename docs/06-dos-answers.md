@@ -1,8 +1,8 @@
 # 6. The emulator's DOS answers as MS-DOS does
 
 A search for a file or for the volume label answers a program as MS-DOS 6.22 and 7.10 do, on a
-mounted folder, an overlay drive, a zip drive and a CD image. It is offered as two pull requests, and
-proved on macOS and Windows against both MS-DOS booted from their own disks.
+mounted folder, an overlay drive, a zip drive and a CD image. It reached `main-ai` as two pull
+requests, and is proved on macOS and Windows against both MS-DOS booted from their own disks.
 
 ## What was wrong
 

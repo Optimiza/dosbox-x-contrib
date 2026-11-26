@@ -19,17 +19,20 @@ drafted here for a pull request or a comment.
 
 - The emulator branches belong to the fork `Optimiza/dosbox-x`. The three branches merged
   upstream (`dircache-create-delete-mainai`, `dos-answers-path-mainai` and `dos-answers-cd-mainai`) are
-  removed from it. The branches kept there are `dircache-exact-name-mainai`, whose two commits
-  stand in `dta-searches-mainai` now, and `dircache-dos-paths`, not offered;
-  `dta-searches-mainai` is in the local clone of the fork, not pushed.
-- Upstream `main-ai` is at `ac2787a42`, a merge of `master` into it. It holds the merge of
-  [pull request 6878, "Answer a search on a CD image as MSCDEX does"](https://github.com/joncampbell123/dosbox-x/pull/6878).
-- The one pull request of ours still open upstream is 6887, the fix of subject 13. The draft 6776
-  was closed unmerged, by our own choice.
-- The branch `dta-searches-mainai` holds subjects 1 and 4 and the label slot of subject 2, on
-  `ac2787a42`, head `3f2e6d08f`. The tag of subject 2 stays on `4e0b6adcf`.
-- The branch of subject 13, `unmounted-drive-mainai`, is on the fork and stands on `main-ai` at
-  `ac2787a42`.
+  removed from it.
+- `dta-searches-mainai` and `unmounted-drive-mainai` are merged and still on the fork. The
+  branches kept there are `dircache-exact-name-mainai`, whose two commits stand in
+  `dta-searches-mainai` now, and `dircache-dos-paths`, not offered.
+- Upstream `main-ai` holds the merges of
+  [pull request 6877, "Answer INT 21h 4Eh and the label and root searches as MS-DOS does"](https://github.com/joncampbell123/dosbox-x/pull/6877)
+  and [pull request 6878, "Answer a search on a CD image as MSCDEX does"](https://github.com/joncampbell123/dosbox-x/pull/6878).
+- It also holds the merges of
+  [pull request 6887, "Answer "Invalid drive specification" instead of ending the emulator on an unmounted drive"](https://github.com/joncampbell123/dosbox-x/pull/6887)
+  and [pull request 6889, "Answer a find call from the search it belongs to, as MS-DOS does"](https://github.com/joncampbell123/dosbox-x/pull/6889).
+- No pull request of ours is open upstream. The draft 6776 was closed unmerged, by our own
+  choice.
+- Subjects 1 and 4 and the label slot of subject 2 were merged in pull request 6889, and
+  subject 13 in pull request 6887. The tag of subject 2 stays on `4e0b6adcf`.
 - Every figure in the pages is compared with `4e0b6adcf`, whatever `main-ai` is today, except
   those of subjects 1 and 4 and of subject 2's label slot, which are compared with `ac2787a42`.
 - The instruments are developed in [`scry-mcp/scry-dosbox-x`](https://github.com/scry-mcp/scry-dosbox-x), branch `dircache`,
