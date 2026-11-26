@@ -1,5 +1,11 @@
 start
 C:
 line
-Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+A.TXT
+DOSBOX.LOG
+EMULATOR.PID
+LAUNCHER.TXT
+NODRIVE.EXE
+OUT.TXT
+RUN~1.CON
 nodrive-end

@@ -1,7 +1,5 @@
 start
 C:
 line
-
- Volume in drive C has no label
- Volume Serial Number is 1A69-9A4F
+C:\
 nodrive-end

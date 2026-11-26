@@ -189,6 +189,8 @@ msdos710|label-qx|label q:X|Invalid drive specification
 msdos710|xcopy-q|xcopy c:\A.TXT q:\|Invalid drive specification /         0 File(s) copied
 # exit code 0
 
+# exit code 0
+
 # realdos.sh base msdos622 <an MS-DOS 6.22 hard disk image> nodrive   (exit code 0)
 realdos.sh: msdos622: machine: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 realdos.sh: msdos622: image: <an MS-DOS 6.22 hard disk image>
@@ -208,7 +210,7 @@ msdos622|xcopy-q|xcopy c:\A.TXT q:\|Invalid drive specification /         0 File
 #   base  joncampbell123/dosbox-x main-ai 0948c6a9b   825b371d2b42a5a7ebb09b1ff21a17be32af4fbd7987256c651ea2b9fff38713
 #   fix   unmounted-xcopy-mainai 2aee89f5b   46687092e13a595f408db7176c213b171d402cfed798c96fc70c9002749c9d93
 # a run of 2026-11-26, on the macOS the header names, after the review changed the handler
-nodrive.sh: build A: /tmp/dosbox-x-base-0948c6a9b (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+nodrive.sh: build A: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
 label-q|label q:|Invalid drive specification
@@ -235,7 +237,7 @@ tree-1|tree 1:|Invalid drive specification
 tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
 xcopy-q|xcopy c:\A.TXT q:\|did not reach its last line
 xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
-nodrive.sh: build B: /tmp/dosbox-x-fix2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+nodrive.sh: build B: fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
 label-q|label q:|Invalid drive specification
@@ -262,11 +264,11 @@ tree-1|tree 1:|Invalid drive specification
 tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
 xcopy-q|xcopy c:\A.TXT q:\|
 xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
-nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) did not reach its last line; the run is kept in /private/var/folders/9p/smf5trpd0js052m0tvsgwzd00000gn/T/dircache-nodrive.whyA42
+nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) did not reach its last line; the run is kept in <the run's directory>
 # exit code 3
 # nodrive.sh fix fix
 #   fix   the same build, twice
-nodrive.sh: build A: /tmp/dosbox-x-fix2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+nodrive.sh: build A: fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
 label-q|label q:|Invalid drive specification
@@ -293,7 +295,7 @@ tree-1|tree 1:|Invalid drive specification
 tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
 xcopy-q|xcopy c:\A.TXT q:\|
 xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
-nodrive.sh: build B: /tmp/dosbox-x-fix2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+nodrive.sh: build B: fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
 label-q|label q:|Invalid drive specification
@@ -321,4 +323,154 @@ tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number
 xcopy-q|xcopy c:\A.TXT q:\|
 xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
 nodrive.sh: ALIKE
+# exit code 0
+
+# nodrive.sh base base
+#   base  joncampbell123/dosbox-x main-ai 0948c6a9b   196e76c104aaa0b0e30145dc25d493fdf0ceb4248052cee91275486daaad056f
+# a run of 2026-11-26 with the ten path commands after the XCOPY line
+nodrive.sh: build A: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 0000-1234
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 0000-1234
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
+xcopy-q|xcopy c:\A.TXT q:\|did not reach its last line
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
+copy-q|copy c:\A.TXT q:\|Path not found
+copy-q-control|copy c:\A.TXT c:\|File cannot be copied onto itself
+del-q|del q:\A.TXT|Path not found
+del-q-control|del c:\A.TXT|
+type-q|type q:\A.TXT|Path not found
+type-q-control|type c:\A.TXT|x
+attrib-q|attrib q:\A.TXT|Path not found
+attrib-q-control|attrib c:\A.TXT|  A     	C:\A.TXT
+truename-q|truename q:\A.TXT|Path not found
+truename-q-control|truename c:\A.TXT|C:\A.TXT
+cd-q|cd q:|Path not found
+cd-q-control|cd c:|C:\
+cd-q-root|cd q:\|Invalid directory - q:\
+cd-q-root-control|cd c:\|
+md-q|md q:\X|Unable to create directory - q:\X
+md-q-control|md c:\X|
+dir-q|dir q:\ /B|
+dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / DOSBOX~1.ERR / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
+ren-q|ren q:\A.TXT B.TXT|
+ren-q-control|ren c:\A.TXT B.TXT|
+nodrive.sh: build B: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 0000-1234
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 0000-1234
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
+xcopy-q|xcopy c:\A.TXT q:\|did not reach its last line
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
+copy-q|copy c:\A.TXT q:\|Path not found
+copy-q-control|copy c:\A.TXT c:\|File cannot be copied onto itself
+del-q|del q:\A.TXT|Path not found
+del-q-control|del c:\A.TXT|
+type-q|type q:\A.TXT|Path not found
+type-q-control|type c:\A.TXT|x
+attrib-q|attrib q:\A.TXT|Path not found
+attrib-q-control|attrib c:\A.TXT|  A     	C:\A.TXT
+truename-q|truename q:\A.TXT|Path not found
+truename-q-control|truename c:\A.TXT|C:\A.TXT
+cd-q|cd q:|Path not found
+cd-q-control|cd c:|C:\
+cd-q-root|cd q:\|Invalid directory - q:\
+cd-q-root-control|cd c:\|
+md-q|md q:\X|Unable to create directory - q:\X
+md-q-control|md c:\X|
+dir-q|dir q:\ /B|
+dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / DOSBOX~1.ERR / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
+ren-q|ren q:\A.TXT B.TXT|
+ren-q-control|ren c:\A.TXT B.TXT|
+nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) did not reach its last line; build B: "xcopy c:\A.TXT q:\" (xcopy-q) did not reach its last line; the run is kept in <the run's directory>
+# exit code 3
+# realdos.sh base msdos710 <a Windows 98 SE hard disk image> nodrive   (exit code 0)
+realdos.sh: msdos710: machine: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos710: image: <a Windows 98 SE hard disk image>
+realdos.sh: msdos710: ver: Windows 98 [Version 4.10.2222]
+realdos.sh: msdos710: dos|version=7.10 oem=FF
+realdos.sh: msdos710: dos|true_version=7.10 flags=10
+realdos.sh: msdos710: dos|int21=030F:04A0 code=EAB20FC9002EF606
+realdos.sh: msdos710: dos|lfn_714e=7100
+realdos.sh: msdos710: dos|windows_1600=00
+realdos.sh: msdos710: dos|drive_z=3
+msdos710|label-q-x|label q: X|Invalid drive specification
+msdos710|label-q|label q:|Invalid drive specification
+msdos710|label-qx|label q:X|Invalid drive specification
+msdos710|xcopy-q|xcopy c:\A.TXT q:\|Invalid drive specification /         0 File(s) copied
+msdos710|copy-q|copy c:\A.TXT q:\|Invalid drive specification
+msdos710|del-q|del q:\A.TXT|Invalid drive specification
+msdos710|type-q|type q:\A.TXT|Invalid drive specification
+msdos710|attrib-q|attrib q:\A.TXT|Path not found - q:\A.TXT
+msdos710|truename-q|truename q:\A.TXT|Invalid drive specification
+msdos710|cd-q|cd q:|Invalid drive specification
+msdos710|cd-q-root|cd q:\|Invalid drive specification
+msdos710|md-q|md q:\X|Invalid drive specification
+msdos710|dir-q|dir q:\ /B|Invalid drive specification
+msdos710|ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
+
+# realdos.sh base msdos622 <an MS-DOS 6.22 hard disk image> nodrive   (exit code 0)
+realdos.sh: msdos622: machine: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos622: image: <an MS-DOS 6.22 hard disk image>
+realdos.sh: msdos622: ver: MS-DOS Version 6.22
+realdos.sh: msdos622: dos|version=6.22 oem=FF
+realdos.sh: msdos622: dos|true_version=6.22 flags=00
+realdos.sh: msdos622: dos|int21=0021:40F8 code=FA80FC6C77D280FC
+realdos.sh: msdos622: dos|lfn_714e=0000
+realdos.sh: msdos622: dos|windows_1600=00
+realdos.sh: msdos622: dos|drive_z=3
+msdos622|label-q-x|label q: X|Invalid drive specification
+msdos622|label-q|label q:|Invalid drive specification
+msdos622|label-qx|label q:X|Invalid drive specification
+msdos622|xcopy-q|xcopy c:\A.TXT q:\|Invalid drive specification /         0 File(s) copied
+msdos622|copy-q|copy c:\A.TXT q:\|Invalid drive specification
+msdos622|del-q|del q:\A.TXT|Invalid drive specification
+msdos622|type-q|type q:\A.TXT|Invalid drive specification
+msdos622|attrib-q|attrib q:\A.TXT|Path not found - Q:\A.TXT
+msdos622|truename-q|truename q:\A.TXT|Invalid drive specification
+msdos622|cd-q|cd q:|Invalid drive specification
+msdos622|cd-q-root|cd q:\|Invalid drive specification
+msdos622|md-q|md q:\X|Invalid drive specification
+msdos622|dir-q|dir q:\ /B|Invalid drive specification
+msdos622|ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 # exit code 0

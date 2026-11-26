@@ -49,7 +49,8 @@ usage: realdos.sh <build> <dos> <boot image> <id|findlife|exact|enumstat|drift|d
                 (xcomsim/calls.txt) and its defaults: a model, not the game
   xcomsim-relay the same with --relay: the listing through the lookups' one DTA
   nodrive       the lines of nodrive.sh on Q:, a letter the DOS has no drive for: label q: X,
-                label q:, label q:X and xcopy c:\A.TXT q:, each through REDIR, which keeps the
+                label q:, label q:X, xcopy c:\A.TXT q:\ and the path commands copy, del, type,
+                attrib, truename, cd, md, dir and ren, each through REDIR, which keeps the
                 error messages too
   junktest      the batch files of the archive of upstream issue 6827, unpacked in <folder>,
                 in the run the issue describes: 300.BAT, JUNK.BAT, 300.BAT, each through
@@ -107,11 +108,21 @@ DIRTEST_KEYS=600
 DIRTEST_BOOT_SECONDS=6000
 DISK_MB=64
 # name|line: nodrive.sh's lines on a drive that is not mounted, under its names. The XCOPY line
-# reads A.TXT off C:, where the batch copies it before the lines run.
+# and the path commands read A.TXT off C:, where the batch copies it before the lines run.
 NODRIVE_LINES='label-q-x|label q: X
 label-q|label q:
 label-qx|label q:X'
-NODRIVE_LINES+=$'\n'"xcopy-q|xcopy c:\\A.TXT q:\\"
+NODRIVE_LINES+=$'\n'"xcopy-q|xcopy c:\\A.TXT q:\\
+copy-q|copy c:\\A.TXT q:\\
+del-q|del q:\\A.TXT
+type-q|type q:\\A.TXT
+attrib-q|attrib q:\\A.TXT
+truename-q|truename q:\\A.TXT
+cd-q|cd q:
+cd-q-root|cd q:\\
+md-q|md q:\\X
+dir-q|dir q:\\ /B
+ren-q|ren q:\\A.TXT B.TXT"
 
 if [ $# -eq 1 ] && [ "$1" = "--help" ]; then usage; exit 0; fi
 if [ $# -ne 4 ] && [ $# -ne 5 ]; then usage >&2; exit 2; fi

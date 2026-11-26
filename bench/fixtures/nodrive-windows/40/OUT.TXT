@@ -1,5 +1,5 @@
 start
 C:
 line
-Volume in drive C has no label
+C:\A.TXT
 nodrive-end

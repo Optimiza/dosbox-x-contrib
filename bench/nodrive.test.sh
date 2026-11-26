@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # nodrive.sh's verdicts against captured runs, no emulator: bash nodrive.test.sh
-# fixtures/nodrive holds a base build against itself on macOS: 52 starts, a line and its control
-# in turn, build A's 26 then build B's. lines_a and lines_b are the starts that do not answer: the
+# fixtures/nodrive holds a base build against itself on macOS: 92 starts, a line and its control
+# in turn, build A's 46 then build B's. lines_a and lines_b are the starts that do not answer: the
 # nine that die on SIGSEGV (EXIT 139), recorded before the unmounted-drive fix merged upstream, and
 # the XCOPY line, recorded from upstream main-ai at 0948c6a9b, where it is cut at its bound before
-# its last line.
+# its last line. The ten path commands after it are recorded from the same build.
 set -u
 # shellcheck source=testlib.sh
 . "$(dirname "$0")/testlib.sh"
@@ -23,7 +23,7 @@ survive() {
         printf 'nodrive-end\r\n' >> "$d/$n/OUT.TXT"
     done
 }
-lines_a=(1 3 5 7 9 11 13 15 17 25) lines_b=(27 29 31 33 35 37 39 41 43 51)
+lines_a=(1 3 5 7 9 11 13 15 17 25) lines_b=(47 49 51 53 55 57 59 61 63 71)
 
 t_play "$f"
 t_case "a line that ends the emulator is INVALID" 3 "nodrive.sh: INVALID: build A: \"label q: X\" (label-q-x) ended the emulator: SEGV, exit 139" run
@@ -39,6 +39,24 @@ t_case "the other" 3 "tree-1|tree 1:|Invalid drive specification
 tree-1-control|tree c:|Directory PATH listing" run
 t_case "the XCOPY line cut at its bound, never reaching its last line" 3 "xcopy-q|xcopy c:\\A.TXT q:\\|did not reach its last line" run
 t_case "and named with the lines that do not answer" 3 "build A: \"xcopy c:\\A.TXT q:\\\" (xcopy-q) did not reach its last line" run
+# The ten path commands after it, each beside its control on C:.
+t_case "copy and del answer as their controls do not" 3 "copy-q|copy c:\\A.TXT q:\\|Path not found
+copy-q-control|copy c:\\A.TXT c:\\|File cannot be copied onto itself
+del-q|del q:\\A.TXT|Path not found
+del-q-control|del c:\\A.TXT" run
+t_case "type and attrib" 3 "type-q|type q:\\A.TXT|Path not found
+type-q-control|type c:\\A.TXT|x
+attrib-q|attrib q:\\A.TXT|Path not found" run
+t_case "truename" 3 "truename-q|truename q:\\A.TXT|Path not found
+truename-q-control|truename c:\\A.TXT|C:\\A.TXT" run
+t_case "cd to that drive, with and without its root" 3 "cd-q|cd q:|Path not found
+cd-q-control|cd c:|C:\\
+cd-q-root|cd q:\\|Invalid directory - q:\\" run
+t_case "md on that drive" 3 "md-q|md q:\\X|Unable to create directory - q:\\X" run
+t_case "dir lists names only, and answers nothing there" 3 "dir-q|dir q:\\ /B|
+dir-q-control|dir c:\\ /B|A.TXT / DOSBOX.LOG" run
+t_case "ren on that drive, which answers nothing either" 3 "ren-q|ren q:\\A.TXT B.TXT|
+ren-q-control|ren c:\\A.TXT B.TXT|" run
 t_derive "$f"
 survive "$derived" "" "${lines_a[@]}" "${lines_b[@]}"; t_play "$derived"
 t_case "every line survives, alike" 0 "nodrive.sh: ALIKE" run
@@ -112,7 +130,7 @@ where() {
     awk '$0 ~ /\/run-[AB]-[a-z0-9-]+$/ { n[$0]++ } END { print length(n) " run folders, " NR " starts" }' "$work/where.txt"
     printf 'in the caller'\''s folder: [%s]\n' "$(ls -A "$work/caller")"
 }
-t_case "each start runs in a folder of its own" 0 "52 run folders, 52 starts" where
+t_case "each start runs in a folder of its own" 0 "92 run folders, 92 starts" where
 t_case "and writes nothing in the caller's folder" 0 "in the caller's folder: []" where
 # args.sh records what the launcher is given: the XCOPY line is bounded shorter than the rest.
 args=$work/args.sh
@@ -134,7 +152,9 @@ whole_of() { bash -c 'tool=t here=$1; . "$here/common.sh" && cd "$2" && printf "
 t_case "a path from a drive letter or from the root is kept, another is named from here" 0 "[C:/dosbox/d.exe] [/c/w/d.exe] [$work/d.exe]" whole_of
 # fixtures/nodrive-windows holds the unpatched base against itself on Windows, as windows.ps1
 # wrote its starts and as stub-powershell.sh plays them, the build's path replaced. win_dead are
-# the starts that die on 0xC0000005.
+# the starts that die on 0xC0000005. The XCOPY line and the ten path commands are recorded from
+# upstream main-ai at 0948c6a9b; the rest predates the fix merged there, which is why some of
+# them die.
 w=$here/fixtures/nodrive-windows
 mkdir -p "$work/winbin" || exit 3
 printf '#!/bin/sh\necho MINGW64_NT-10.0-26300\n' > "$work/winbin/uname"
@@ -151,10 +171,10 @@ win_survive() {
         echo 0 > "$d/$n/launcher.rc" && rm "$d/$n/launcher.err" && printf 'nodrive-end\r\n' >> "$d/$n/OUT.TXT" || exit 3
     done
 }
-win_dead=(1 3 5 7 9 11 13 15 17 25 27 31 33 35 37 39 41 43 45 47 55 57)
+win_dead=(1 3 5 7 9 11 13 15 17 25 27 51 53 55 57 59 61 63 65 67 75 77)
 # win_killed: the starts the bound cut, the XCOPY line on a drive that is not mounted, on each
 # build. They are not deaths and a run that survives them ends them too.
-win_killed=(29 59)
+win_killed=(29 79)
 t_play "$w"
 t_case "Windows: a line that ends the emulator is named by its exception" 3 "nodrive.sh: INVALID: build A: \"label q: X\" (label-q-x) ended the emulator: 0xC0000005, exit -1073741819" win
 t_case "Windows: every line that does is named, of both builds" 3 "build B: \"start /hid whoami.exe\" (cur-start) ended the emulator: 0xC0000005, exit -1073741819; build B: \"xcopy c:\\A.TXT q:\\\" (xcopy-q) passed the bound of 10 s and was killed; the run is kept" win
@@ -163,6 +183,13 @@ t_case "Windows: IMGMAKE -source with C: current" 3 "cur-imgsrc-control|imgmake 
 t_case "Windows: START with C: current" 3 "cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)" win
 t_case "Windows: the XCOPY line is cut at its bound and named so" 3 "xcopy-q|xcopy c:\\A.TXT q:\\|killed: passed the bound of 10 s" win
 t_case "Windows: and the line\'s control on C: answers" 3 "xcopy-q-control|xcopy c:\\A.TXT c:\\|File cannot be copied onto itself - c:\\A.TXT / 0 file(s) copied" win
+t_case "Windows: the path commands on a drive that is not mounted" 3 "copy-q|copy c:\\A.TXT q:\\|Path not found
+copy-q-control|copy c:\\A.TXT c:\\|File cannot be copied onto itself
+del-q|del q:\\A.TXT|Path not found
+del-q-control|del c:\\A.TXT|
+type-q|type q:\\A.TXT|Path not found" win
+t_case "Windows: dir lists names only, and answers nothing there" 3 "dir-q|dir q:\\ /B|
+dir-q-control|dir c:\\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT" win
 t_derive "$w"; sed -i '' 's/^windows\.ps1: exit code: .*/windows.ps1: exit code: -1073740791\r/' "$derived/1/report.txt"; t_play "$derived"
 t_case "Windows: another exception, by its own code" 3 "(label-q-x) ended the emulator: 0xC0000409, exit -1073740791" win
 t_derive "$w"; sed -i '' 's/^windows\.ps1: exit code: .*/windows.ps1: exit code: 3\r/' "$derived/1/report.txt"; t_play "$derived"

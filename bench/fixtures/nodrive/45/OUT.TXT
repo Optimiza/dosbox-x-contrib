@@ -1,5 +1,4 @@
 start
-A:
+C:
 line
-A:\
 nodrive-end

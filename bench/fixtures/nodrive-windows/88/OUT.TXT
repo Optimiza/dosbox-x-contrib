@@ -1,0 +1,5 @@
+start
+C:
+line
+  A     	C:\A.TXT
+nodrive-end

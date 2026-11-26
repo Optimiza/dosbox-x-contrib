@@ -1,0 +1,5 @@
+start
+C:
+line
+Unable to create directory - q:\X
+nodrive-end

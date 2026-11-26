@@ -29,8 +29,18 @@ other. Q: is never mounted, C: is the run's folder, which holds A.TXT and no lab
 on Windows also, with START.COM made by startcmd=true:
   cur-imgsrc  imgmake x.img -source q   after NODRIVE.EXE   control: the same line on C:
   cur-start   start /hid whoami.exe     after NODRIVE.EXE   control: the same line on C:
-the last line on every host:
+then, on every host:
   xcopy-q     xcopy c:\A.TXT q:\   bound 10 s   control: xcopy c:\A.TXT c:\
+  copy-q      copy c:\A.TXT q:\      control: copy c:\A.TXT c:\
+  del-q       del q:\A.TXT           control: del c:\A.TXT
+  type-q      type q:\A.TXT          control: type c:\A.TXT
+  attrib-q    attrib q:\A.TXT        control: attrib c:\A.TXT
+  truename-q  truename q:\A.TXT      control: truename c:\A.TXT
+  cd-q        cd q:                  control: cd c:
+  cd-q-root   cd q:\                 control: cd c:\
+  md-q        md q:\X                control: md c:\X
+  dir-q       dir q:\ /B             control: dir c:\ /B
+  ren-q       ren q:\A.TXT B.TXT     control: ren c:\A.TXT B.TXT
 
 Every line is bounded at 60 seconds, except xcopy-q at 10: on a drive that is not mounted it
 fills the emulator's log until the bound.
@@ -110,6 +120,19 @@ if [ "$HOST_KIND" = windows ]; then
 fi
 # The last line on every host: on a drive that is not mounted it fills the log until its bound.
 CASES+=$'\n'"xcopy-q|q|xcopy c:\\A.TXT q:\\|$XCOPY_SECONDS_BOUND"
+# The shell's path commands on the drive nothing is mounted on, each beside its control on C:.
+# A.TXT is staged in C:, and each run has a copy of that folder, so a control that writes or
+# deletes the file touches no other run.
+CASES+=$'\ncopy-q|q|copy c:\\A.TXT q:\\
+del-q|q|del q:\\A.TXT
+type-q|q|type q:\\A.TXT
+attrib-q|q|attrib q:\\A.TXT
+truename-q|q|truename q:\\A.TXT
+cd-q|q|cd q:
+cd-q-root|q|cd q:\\
+md-q|q|md q:\\X
+dir-q|q|dir q:\\ /B
+ren-q|q|ren q:\\A.TXT B.TXT'
 
 # signal_of <exit code>: the signal a code past 128 carries on a Mac, the exception a negative
 # code is on Windows (an NTSTATUS read as signed), or the code itself.

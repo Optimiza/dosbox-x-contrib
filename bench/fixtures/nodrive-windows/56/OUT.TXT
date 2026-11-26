@@ -1,6 +1,4 @@
 start
 C:
 line
-
-
-Unable to read floppy.nodrive-end
+nodrive-end

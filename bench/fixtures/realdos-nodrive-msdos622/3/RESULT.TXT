@@ -23,4 +23,34 @@ section nodrive-xcopy-q
 Invalid drive specification
         0 File(s) copied
 
+section nodrive-copy-q
+Invalid drive specification
+
+section nodrive-del-q
+Invalid drive specification
+
+section nodrive-type-q
+Invalid drive specification
+
+section nodrive-attrib-q
+Path not found - Q:\A.TXT
+
+section nodrive-truename-q
+Invalid drive specification
+
+section nodrive-cd-q
+Invalid drive specification
+
+section nodrive-cd-q-root
+Invalid drive specification
+
+section nodrive-md-q
+Invalid drive specification
+
+section nodrive-dir-q
+Invalid drive specification
+
+section nodrive-ren-q
+Invalid drive specification
+
 section done

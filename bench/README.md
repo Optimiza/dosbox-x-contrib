@@ -35,7 +35,7 @@ program sees when it does anything but run one search to its end. The code under
 | [`resprb.sh`](#resprbsh) | `resprb.c` | how much host memory a build keeps after a program repeats a child process, a change of the FPU's control word, or a search |
 | [`aliases.sh`](#aliasessh) | `aliases.c` | whether two entries of a folder share a short name, and whether each short name opens its own file |
 | [`longpath.sh`](#longpathsh) | none: shell commands | whether the emulator survives a host path, or a path inside a zip, longer than the arrays it builds paths in |
-| [`nodrive.sh`](#nodrivesh) | `nodrive.c`, then the shell's `LABEL`, `VOL`, `TREE`, `CD` and `IMGMAKE`, the `XCOPY` the shell runs, and `START` on Windows | whether the emulator survives a command on a drive that is not mounted, or with no drive behind the current one, and what it answers |
+| [`nodrive.sh`](#nodrivesh) | `nodrive.c`, then the shell's `LABEL`, `VOL`, `TREE`, `CD`, `IMGMAKE`, `COPY`, `DEL`, `TYPE`, `ATTRIB`, `TRUENAME`, `MD`, `DIR` and `REN`, the `XCOPY` the shell runs, and `START` on Windows | whether the emulator survives a command on a drive that is not mounted, or with no drive behind the current one, and what it answers |
 | [`unit.sh`](#unitsh) | none: the emulator's own unit tests | how many of a build's unit tests ran and failed |
 | [`passfail.sh`](#passfailsh) | a program you hand it | how many checks of a self-testing DOS program pass on a build |
 | [`junktest.sh`](#junktestsh) | the batch files a reporter attached to an upstream issue, then `memprobe.c` to hold | how much host memory a build keeps after the reporter's own run |
@@ -1386,11 +1386,19 @@ nodrive.sh <build A> <build B>
 | `cur-cd` | `cd`, after `NODRIVE.EXE` | the same with `C:` current |
 | `vol-1`, `tree-1` | `vol 1:`, `tree 1:` | the same on `c:` |
 | `xcopy-q` | `xcopy c:\A.TXT q:\` | the same on `c:` |
+| `copy-q` | `copy c:\A.TXT q:\` | the same on `c:` |
+| `del-q`, `type-q`, `attrib-q`, `truename-q` | `del q:\A.TXT`, `type q:\A.TXT`, `attrib q:\A.TXT`, `truename q:\A.TXT` | the same on `c:` |
+| `cd-q`, `cd-q-root` | `cd q:`, `cd q:\` | the same on `c:` |
+| `md-q`, `dir-q`, `ren-q` | `md q:\X`, `dir q:\ /B`, `ren q:\A.TXT B.TXT` | the same on `c:` |
 | `cur-imgsrc`, on Windows | `imgmake x.img -source q`, after `NODRIVE.EXE` | the same with `C:` current |
 | `cur-start`, on Windows | `start /hid whoami.exe`, after `NODRIVE.EXE` | the same with `C:` current |
 
 - `Q:` is never mounted, and `C:` is the run's folder with no label, which holds `A.TXT`, the
-  source of the XCOPY line. `1:` names no drive letter at all.
+  source of the XCOPY line and of the path commands. `1:` names no drive letter at all.
+- Each run starts from a copy of that folder, so a control that deletes or renames `A.TXT`
+  touches no other run.
+- `dir-q` lists names only: the dates and hours `DIR` prints would differ between two runs of
+  the same build, and a build compared with itself would read as two.
 - Every line is bounded at 60 seconds, and `xcopy-q` at 10: on a drive that is not mounted it
   fills the emulator's log until the bound. The control names `A.TXT` as both its source and its
   destination.
@@ -1429,7 +1437,6 @@ that differ.
   state.
 - On macOS it does not run `IMGMAKE -source` or `START`, which read the current drive the same
   way but are built on Windows only.
-- On Windows it does not run the XCOPY line: the bench holds no recorded runs of it there.
 
 ## unit.sh
 

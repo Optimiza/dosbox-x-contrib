@@ -1,5 +1,3 @@
 start
 C:
 line
-Invalid drive specification
-nodrive-end
