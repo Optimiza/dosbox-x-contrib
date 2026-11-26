@@ -35,58 +35,20 @@ drafted here for a pull request or a comment.
   subject 13 in pull request 6887. The tag of subject 2 stays on `4e0b6adcf`.
 - Every figure in the pages is compared with `4e0b6adcf`, whatever `main-ai` is today, except
   those of subjects 1 and 4 and of subject 2's label slot, which are compared with `ac2787a42`.
-- The instruments are developed in [`scry-mcp/scry-dosbox-x`](https://github.com/scry-mcp/scry-dosbox-x), branch `dircache`,
-  folder `tests/dircache`. `bench/` is that folder as committed there, last taken at
-  `b829ddc`, with the changes listed below.
-- The record of which subjects are delivered, and with what figures, is kept in that
-  repository.
 - The raw lines of every run are filed outside both repositories, by the work's own record.
   `results/` is made from them.
 
-## Bringing `bench/` up to date
+## The bench's conventions
 
-Take `tests/dircache` from a commit of `dircache` (`git archive <sha> tests/dircache`), never
-from a working tree. Then apply these changes, each of which must match:
-
-1. `launch.sh`, `launch.test.sh` and `fixtures/stub-emulator.sh` exist only here: keep them.
-2. `common.sh`: the launcher is `${DIRCACHE_LAUNCHER:-$here/launch.sh}`, called without
-   `--mode`. `need_tools` checks that it is executable.
-3. `fixtures/stub-dosbox-run.sh` is `fixtures/stub-launcher.sh` here, and `testlib.sh` hands
-   it to the scripts through `DIRCACHE_LAUNCHER`.
-4. `run.test.sh`: the case of a missing launcher uses `DIRCACHE_LAUNCHER`.
-5. `battery.sh`: the launcher's name, in the reason of a cell that is not run.
-6. `README.md` is this repository's own, written to the writing rules: keep it. A fact the
-   private folder's page gained goes into the entry of its script.
-7. `fixtures/battery`: the one file name of the large folder is `SONG.MID`.
-8. `battery.sh` and `battery.test.sh`: the lock's folder is `dosbox-x-dircache`, never the
-   private repository's name.
-9. The reporters' archives are named by their issue, never by their file name, and their run is
-   a run, not a session: `JUNKTEST_RUNS` in `battery.sh`, and the reporters' folder
-   `junktest` in its tests and recordings.
-10. The first comment lines of `p5probe.c`, `p5rep.c` and `attrcost.test.sh` say what the program
-    does, never how the work was organised, and no comment names a run by its place in that
-    work (`overlay.sh`'s answer of the three DOS).
-11. `fixtures/judge/load.txt`: every process outside the run is named `app`.
-12. `batch.sh` and the tests that start `judge.py` or `analyze.py` call `python3 -I`.
-13. `common.sh` reads the emulator's exit code from the report line `launch.sh: exit code:`,
-    and `fixtures/stub-launcher.sh` writes it so. `launch.test.sh` checks that `launch.sh`
-    writes it.
-
-Then check it, from a fresh clone:
-
-- `shellcheck -x -P bench bench/*.sh bench/fixtures/*.sh bench/xcomsim/*.sh`;
-- every `bench/*.test.sh`: they play captured runs, with no emulator;
-- one real cell on unpatched upstream and on a patched build. Its output is compared, byte
-  for byte, with what the same commit of the private folder prints.
-
-14. `dtadump.c`, `drift.c`, `memprobe.c`, `memory.sh`, their tests and fixtures
-    (`fixtures/dtadump-open-wild`, `fixtures/drift-star`, `fixtures/drift-moved`,
-    `fixtures/drift-reused`, `fixtures/dtadump-fcb-star`, `fixtures/memory-kept`,
-    `fixtures/memory-label`) and `bench/README.md` carry cases made here (`3ad07e6`, `7e9b1c0`,
-    `85e61ad`, `c35f343`, `5c38bc8`, `35a81e8`, `615f753`, `c3385f4`, `b82e033`, `98815fb`), which
-    the private folder's branch does not hold: carry them over, or the refresh drops them.
-
-Move the commit named above in the same change.
+- The launcher is `launch.sh`, reached through `DIRCACHE_LAUNCHER`; a script's own tests play
+  captured runs and start no emulator.
+- A Python that a script starts runs with `python3 -I`.
+- The lock's folder is `dosbox-x-dircache`, and the one file name of the large folder is
+  `SONG.MID`.
+- The reporters' archives are named by their issue, never by their file name, and their run is
+  a run, not a session: the folder `junktest` and `JUNKTEST_RUNS` in `battery.sh`.
+- Every process outside a run is named `app` in `fixtures/judge/load.txt`.
+- A comment in a program here says what the program does, never how the work was organised.
 
 ## A figure
 
