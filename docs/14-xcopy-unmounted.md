@@ -76,8 +76,9 @@ The branch is `unmounted-xcopy-mainai`, one commit on upstream `main-ai` at `094
 **The message's text.** Only DOS 5.00 and 6.22's is printed. A build that reports DOS 7 to its
 programs still prints it, where MS-DOS 7.10 prints its own two lines.
 
-**Protected mode.** A divide error inside a DPMI client reaches the client's own handler and not
-this vector, and is untouched.
+**Protected mode.** A protected-mode program that divides ends the same on the unpatched build and
+on the fix: a DJGPP program printed its line before the division and nothing after it, and the
+batch went on. That case does not reach this vector.
 
 **The exit code.** The handler passes 0, and MS-DOS 6.22 measured the same to the program's
 caller, with a batch whose `IF ERRORLEVEL` tests sit below one and do not fire for it, while one
