@@ -79,4 +79,8 @@ programs still prints it, where MS-DOS 7.10 prints its own two lines.
 **Protected mode.** A divide error inside a DPMI client reaches the client's own handler and not
 this vector, and is untouched.
 
-**The exit code** the aborted program leaves to its caller was not measured against a real DOS.
+**The exit code.** The handler passes 0, and MS-DOS 6.22 measured the same to the program's
+caller, with a batch whose `IF ERRORLEVEL` tests sit below one and do not fire for it, while one
+test at four does.
+
+MS-DOS 7.10 and FreeDOS were not measured for it.
