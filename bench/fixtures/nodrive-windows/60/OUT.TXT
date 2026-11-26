@@ -1,0 +1,6 @@
+start
+C:
+line
+File cannot be copied onto itself - c:\A.TXT
+0 file(s) copied
+nodrive-end

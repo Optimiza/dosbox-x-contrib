@@ -26,11 +26,11 @@ other. Q: is never mounted, C: is the run's folder, which holds A.TXT and no lab
   cur-cd      cd             after NODRIVE.EXE      control: the same line on C:
   vol-1       vol 1:         control: vol c:
   tree-1      tree 1:        control: tree c:
-on macOS only, until the bench holds recorded runs of it on Windows:
-  xcopy-q     xcopy c:\A.TXT q:\   bound 10 s   control: xcopy c:\A.TXT c:\
 on Windows also, with START.COM made by startcmd=true:
   cur-imgsrc  imgmake x.img -source q   after NODRIVE.EXE   control: the same line on C:
   cur-start   start /hid whoami.exe     after NODRIVE.EXE   control: the same line on C:
+the last line on every host:
+  xcopy-q     xcopy c:\A.TXT q:\   bound 10 s   control: xcopy c:\A.TXT c:\
 
 Every line is bounded at 60 seconds, except xcopy-q at 10: on a drive that is not mounted it
 fills the emulator's log until the bound.
@@ -107,11 +107,9 @@ if [ "$HOST_KIND" = windows ]; then
     CASES+=$'\ncur-imgsrc|none|imgmake x.img -source q\ncur-start|none|start /hid whoami.exe'
     # shellcheck disable=SC2034  # read by conf_write
     conf_dos=startcmd=true
-else
-    # nodrive.test.sh plays what a run left, one recorded run per call: on Windows there is none of
-    # this line yet, and the line joins there with them.
-    CASES+=$'\n'"xcopy-q|q|xcopy c:\\A.TXT q:\\|$XCOPY_SECONDS_BOUND"
 fi
+# The last line on every host: on a drive that is not mounted it fills the log until its bound.
+CASES+=$'\n'"xcopy-q|q|xcopy c:\\A.TXT q:\\|$XCOPY_SECONDS_BOUND"
 
 # signal_of <exit code>: the signal a code past 128 carries on a Mac, the exception a negative
 # code is on Windows (an NTSTATUS read as signed), or the code itself.

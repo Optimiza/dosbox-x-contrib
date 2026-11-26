@@ -127,9 +127,9 @@ cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C t
 nodrive.sh: ALIKE
 # exit code 0
 # nodrive.sh base fix
-#   base  joncampbell123/dosbox-x main-ai 0948c6a9b   b84b14723e36156875eb03c94ebe5846ab41535201f49be620a78b79defb5e60
-#   fix   unmounted-xcopy-mainai 5d9bab7ac, its patch applied on top of 0948c6a9b on this host   5c36887649cc3f40daddd0f33a47b514c03d8b8c71b4c88d1c5aafa6a2b5e4be
-# a run of 2026-11-26, on the Windows the header names
+#   base  joncampbell123/dosbox-x main-ai 0948c6a9b   73f8f5c9cb41b42f491b1cabf4bae5be745c993729957f7339dd1b9416770ed0
+#   fix   unmounted-xcopy-mainai 5d9bab7ac, its patch applied on top of 0948c6a9b on this host   3572d027e24fcc4216f5ea1d2826a7368412d581e874d82a16fd64419d4229ca
+# a run of 2026-11-26, on the Windows the header names, the XCOPY line among the cases
 nodrive.sh: build A: /c/Users/optim/scratch/xcopy/dosbox-x-base.exe (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -159,6 +159,8 @@ cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
 cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
 cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
 cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+xcopy-q|xcopy c:\A.TXT q:\|killed: passed the bound of 10 s
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
 nodrive.sh: build B: /c/Users/optim/scratch/xcopy/dosbox-x-fix.exe (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -188,8 +190,10 @@ cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
 cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
 cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
 cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
-nodrive.sh: ALIKE
-# exit code 0
+xcopy-q|xcopy c:\A.TXT q:\|
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
+nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of 10 s and was killed; the run is kept in /tmp/dircache-nodrive.YxwYLg
+# exit code 3
 # nodrive.sh fix fix
 #   fix   the same build, twice
 nodrive.sh: build A: /c/Users/optim/scratch/xcopy/dosbox-x-fix.exe (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
@@ -221,6 +225,8 @@ cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
 cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
 cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
 cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+xcopy-q|xcopy c:\A.TXT q:\|
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
 nodrive.sh: build B: /c/Users/optim/scratch/xcopy/dosbox-x-fix.exe (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -250,19 +256,7 @@ cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
 cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
 cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
 cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+xcopy-q|xcopy c:\A.TXT q:\|
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
 nodrive.sh: ALIKE
 # exit code 0
-# The XCOPY line is not among nodrive.sh's Windows cases: run on its own, bounded at 10 s as
-# the script bounds it on macOS, each build in an emulator start of its own, the answer read
-# from C:\OUT.TXT between a "line" marker and the last line. The control on C: answers "File
-# cannot be copied onto itself" on both builds.
-== dosbox-x-base.exe rc=3
-   windows.ps1: INVALID: the emulator passed the bound of 10 s and was killed
-   --- OUT.TXT:
-   | start
-   | line
-== dosbox-x-fix.exe rc=0
-   --- OUT.TXT:
-   | start
-   | line
-   | nodrive-end

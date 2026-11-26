@@ -151,13 +151,18 @@ win_survive() {
         echo 0 > "$d/$n/launcher.rc" && rm "$d/$n/launcher.err" && printf 'nodrive-end\r\n' >> "$d/$n/OUT.TXT" || exit 3
     done
 }
-win_dead=(1 3 5 7 9 11 13 15 17 25 27 29 31 33 35 37 39 41 43 45 53 55)
+win_dead=(1 3 5 7 9 11 13 15 17 25 27 31 33 35 37 39 41 43 45 47 55 57)
+# win_killed: the starts the bound cut, the XCOPY line on a drive that is not mounted, on each
+# build. They are not deaths and a run that survives them ends them too.
+win_killed=(29 59)
 t_play "$w"
 t_case "Windows: a line that ends the emulator is named by its exception" 3 "nodrive.sh: INVALID: build A: \"label q: X\" (label-q-x) ended the emulator: 0xC0000005, exit -1073741819" win
-t_case "Windows: every line that does is named, of both builds" 3 "build B: \"start /hid whoami.exe\" (cur-start) ended the emulator: 0xC0000005, exit -1073741819; the run is kept" win
+t_case "Windows: every line that does is named, of both builds" 3 "build B: \"start /hid whoami.exe\" (cur-start) ended the emulator: 0xC0000005, exit -1073741819; build B: \"xcopy c:\\A.TXT q:\\\" (xcopy-q) passed the bound of 10 s and was killed; the run is kept" win
 t_case "Windows: the line that died, in its report" 3 "cur-imgsrc|imgmake x.img -source q|died: 0xC0000005, exit -1073741819" win
 t_case "Windows: IMGMAKE -source with C: current" 3 "cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy." win
 t_case "Windows: START with C: current" 3 "cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)" win
+t_case "Windows: the XCOPY line is cut at its bound and named so" 3 "xcopy-q|xcopy c:\\A.TXT q:\\|killed: passed the bound of 10 s" win
+t_case "Windows: and the line\'s control on C: answers" 3 "xcopy-q-control|xcopy c:\\A.TXT c:\\|File cannot be copied onto itself - c:\\A.TXT / 0 file(s) copied" win
 t_derive "$w"; sed -i '' 's/^windows\.ps1: exit code: .*/windows.ps1: exit code: -1073740791\r/' "$derived/1/report.txt"; t_play "$derived"
 t_case "Windows: another exception, by its own code" 3 "(label-q-x) ended the emulator: 0xC0000409, exit -1073740791" win
 t_derive "$w"; sed -i '' 's/^windows\.ps1: exit code: .*/windows.ps1: exit code: 3\r/' "$derived/1/report.txt"; t_play "$derived"
@@ -167,7 +172,7 @@ t_case "Windows: a code that is no exception, by its number" 3 "(label-q-x) ende
 t_derive "$w"; cp "$here/fixtures/nodrive-windows-bound/"* "$derived/2/" || exit 3; t_play "$derived"
 t_case "Windows: a run killed at its bound is named so, never as a crash" 3 "build A: \"label c: X\" (label-q-x-control) passed the bound of 5 s and was killed;" win
 t_case "and its report says so" 3 "label-q-x-control|label c: X|killed: passed the bound of 5 s" win
-t_derive "$w"; win_survive "$derived" "${win_dead[@]}"; t_play "$derived"
+t_derive "$w"; win_survive "$derived" "${win_dead[@]}" "${win_killed[@]}"; t_play "$derived"
 t_case "Windows: every line survives, alike" 0 "nodrive.sh: ALIKE" win
 t_play "$w"
 t_case "Windows: every run has START.COM" 0 '[dos]

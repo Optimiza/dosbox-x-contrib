@@ -1,1 +1,1 @@
-windows.ps1: INVALID: the emulator exited -1073741819
+windows.ps1: INVALID: the emulator passed the bound of 10 s and was killed
