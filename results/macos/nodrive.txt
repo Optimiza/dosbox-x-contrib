@@ -206,8 +206,8 @@ msdos622|xcopy-q|xcopy c:\A.TXT q:\|Invalid drive specification /         0 File
 # exit code 0
 # nodrive.sh base fix
 #   base  joncampbell123/dosbox-x main-ai 0948c6a9b   825b371d2b42a5a7ebb09b1ff21a17be32af4fbd7987256c651ea2b9fff38713
-#   fix   unmounted-xcopy-mainai 5d9bab7ac   a978c31d8720005161e636043fcfa61600d3da1e98051a1f56c4d3c38a0ac838
-# a run of 2026-11-26, on the macOS the header names
+#   fix   unmounted-xcopy-mainai 2aee89f5b   46687092e13a595f408db7176c213b171d402cfed798c96fc70c9002749c9d93
+# a run of 2026-11-26, on the macOS the header names, after the review changed the handler
 nodrive.sh: build A: /tmp/dosbox-x-base-0948c6a9b (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -235,7 +235,7 @@ tree-1|tree 1:|Invalid drive specification
 tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
 xcopy-q|xcopy c:\A.TXT q:\|did not reach its last line
 xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
-nodrive.sh: build B: /tmp/dosbox-x-fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+nodrive.sh: build B: /tmp/dosbox-x-fix2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
 label-q|label q:|Invalid drive specification
@@ -262,10 +262,11 @@ tree-1|tree 1:|Invalid drive specification
 tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
 xcopy-q|xcopy c:\A.TXT q:\|
 xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
-nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) did not reach its last line; the run is kept in /private/var/folders/9p/smf5trpd0js052m0tvsgwzd00000gn/T/dircache-nodrive.SlcZPJ
+nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) did not reach its last line; the run is kept in /private/var/folders/9p/smf5trpd0js052m0tvsgwzd00000gn/T/dircache-nodrive.whyA42
 # exit code 3
 # nodrive.sh fix fix
-nodrive.sh: build A: /tmp/dosbox-x-fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+#   fix   the same build, twice
+nodrive.sh: build A: /tmp/dosbox-x-fix2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
 label-q|label q:|Invalid drive specification
@@ -292,7 +293,7 @@ tree-1|tree 1:|Invalid drive specification
 tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
 xcopy-q|xcopy c:\A.TXT q:\|
 xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
-nodrive.sh: build B: /tmp/dosbox-x-fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+nodrive.sh: build B: /tmp/dosbox-x-fix2 (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
 label-q|label q:|Invalid drive specification

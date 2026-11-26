@@ -19,9 +19,14 @@ wrote a line to the emulator's log, and the run had to be killed at its bound.
 
 ## What the fix changes
 
-The DOS now installs its own handler for INT 00h. It writes `Divide overflow` to the CON device and
-ends the current program through the same path INT 21h AH=4Ch uses, so the program's caller goes on
-as it does after any program that ends. A guest OS that is booted gets the BIOS stub back.
+The DOS now installs its own handler for INT 00h. It writes `Divide overflow` straight to the CON
+device, as the shell writes its own messages, so neither a redirection nor a full open-file table
+keeps it out.
+
+It ends the current program through the same path INT 21h AH=4Ch uses, so its caller goes on as it
+does after any program that ends.
+
+A guest OS that is booted gets the BIOS stub back.
 
 The message goes to the console and not to the line's redirection, as MS-DOS does: with
 `xcopy c:\A.TXT q:\ > C:\MSG.TXT` the file is left empty on both.
@@ -79,6 +84,9 @@ programs still prints it, where MS-DOS 7.10 prints its own two lines.
 **Protected mode.** A protected-mode program that divides ends the same on the unpatched build and
 on the fix: a DJGPP program printed its line before the division and nothing after it, and the
 batch went on. That case does not reach this vector.
+
+**A process that is its own parent.** A divide error in code running under the shell's own PSP,
+a TSR for instance, still loops: there is no parent to return to, and MS-DOS would end the shell.
 
 **The exit code.** The handler passes 0, and MS-DOS 6.22 measured the same to the program's
 caller, with a batch whose `IF ERRORLEVEL` tests sit below one and do not fire for it, while one

@@ -127,9 +127,9 @@ cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C t
 nodrive.sh: ALIKE
 # exit code 0
 # nodrive.sh base fix
-#   base  joncampbell123/dosbox-x main-ai 0948c6a9b   73f8f5c9cb41b42f491b1cabf4bae5be745c993729957f7339dd1b9416770ed0
-#   fix   unmounted-xcopy-mainai 5d9bab7ac, its patch applied on top of 0948c6a9b on this host   3572d027e24fcc4216f5ea1d2826a7368412d581e874d82a16fd64419d4229ca
-# a run of 2026-11-26, on the Windows the header names, the XCOPY line among the cases
+#   base  joncampbell123/dosbox-x main-ai 0948c6a9b   06c2ba0bf49da2ef75369d64eeee2eef9596512ba64c1cdf841fae7dd78cec9e
+#   fix   unmounted-xcopy-mainai 2aee89f5b, its two commits applied on top of 0948c6a9b on this host   f351d2681b6f187e38e18b157b0cce1bd6e2c7be2855c3cefdb29570944e01e5
+# a run of 2026-11-26, on the Windows the header names, after the review changed the handler
 nodrive.sh: build A: /c/Users/optim/scratch/xcopy/dosbox-x-base.exe (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -192,7 +192,7 @@ cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit i
 cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
 xcopy-q|xcopy c:\A.TXT q:\|
 xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
-nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of 10 s and was killed; the run is kept in /tmp/dircache-nodrive.YxwYLg
+nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of 10 s and was killed; the run is kept in /tmp/dircache-nodrive.Pk5ZXK
 # exit code 3
 # nodrive.sh fix fix
 #   fix   the same build, twice
