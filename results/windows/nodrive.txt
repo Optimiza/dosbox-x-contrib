@@ -126,3 +126,143 @@ cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit i
 cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
 nodrive.sh: ALIKE
 # exit code 0
+# nodrive.sh base fix
+#   base  joncampbell123/dosbox-x main-ai 0948c6a9b   b84b14723e36156875eb03c94ebe5846ab41535201f49be620a78b79defb5e60
+#   fix   unmounted-xcopy-mainai 5d9bab7ac, its patch applied on top of 0948c6a9b on this host   5c36887649cc3f40daddd0f33a47b514c03d8b8c71b4c88d1c5aafa6a2b5e4be
+# a run of 2026-11-26, on the Windows the header names
+nodrive.sh: build A: /c/Users/optim/scratch/xcopy/dosbox-x-base.exe (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C: / No subdirectories exist
+cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
+cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
+cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+nodrive.sh: build B: /c/Users/optim/scratch/xcopy/dosbox-x-fix.exe (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C: / No subdirectories exist
+cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
+cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
+cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+nodrive.sh: ALIKE
+# exit code 0
+# nodrive.sh fix fix
+#   fix   the same build, twice
+nodrive.sh: build A: /c/Users/optim/scratch/xcopy/dosbox-x-fix.exe (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C: / No subdirectories exist
+cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
+cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
+cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+nodrive.sh: build B: /c/Users/optim/scratch/xcopy/dosbox-x-fix.exe (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C: / No subdirectories exist
+cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
+cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
+cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+nodrive.sh: ALIKE
+# exit code 0
+# The XCOPY line is not among nodrive.sh's Windows cases: run on its own, bounded at 10 s as
+# the script bounds it on macOS, each build in an emulator start of its own, the answer read
+# from C:\OUT.TXT between a "line" marker and the last line. The control on C: answers "File
+# cannot be copied onto itself" on both builds.
+== dosbox-x-base.exe rc=3
+   windows.ps1: INVALID: the emulator passed the bound of 10 s and was killed
+   --- OUT.TXT:
+   | start
+   | line
+== dosbox-x-fix.exe rc=0
+   --- OUT.TXT:
+   | start
+   | line
+   | nodrive-end
