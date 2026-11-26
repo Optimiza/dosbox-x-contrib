@@ -110,3 +110,97 @@ tree-1|tree 1:|Invalid drive specification
 tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
 nodrive.sh: ALIKE
 # exit code 0
+
+# nodrive.sh base base
+#   base  joncampbell123/dosbox-x main-ai 0948c6a9b   6ce924cbb3b1319e23ebb98f28b7ccf2ac9897447dad5c6bd7bfa62436821e82
+# a run of 2026-11-26, on the macOS the header names
+nodrive.sh: build A: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 0000-1234
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 0000-1234
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
+xcopy-q|xcopy c:\A.TXT q:\|did not reach its last line
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
+nodrive.sh: build B: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 0000-1234
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 0000-1234
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
+xcopy-q|xcopy c:\A.TXT q:\|did not reach its last line
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
+# exit code 3
+nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) did not reach its last line; build B: "xcopy c:\A.TXT q:\" (xcopy-q) did not reach its last line; the run is kept in <the run's directory>
+# The XCOPY line ended at its bound of 10 s: its log held 263,975,179 bytes on build A and
+# 296,515,441 on build B, and the guest's OUT.TXT stopped after "line".
+
+# realdos.sh base msdos710 <a Windows 98 SE hard disk image> nodrive   (exit code 0)
+realdos.sh: msdos710: machine: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos710: image: <a Windows 98 SE hard disk image>
+realdos.sh: msdos710: ver: Windows 98 [Version 4.10.2222]
+realdos.sh: msdos710: dos|version=7.10 oem=FF
+realdos.sh: msdos710: dos|true_version=7.10 flags=10
+realdos.sh: msdos710: dos|int21=030F:04A0 code=EAB20FC9002EF606
+realdos.sh: msdos710: dos|lfn_714e=7100
+realdos.sh: msdos710: dos|windows_1600=00
+realdos.sh: msdos710: dos|drive_z=3
+msdos710|label-q-x|label q: X|Invalid drive specification
+msdos710|label-q|label q:|Invalid drive specification
+msdos710|label-qx|label q:X|Invalid drive specification
+msdos710|xcopy-q|xcopy c:\A.TXT q:\|Invalid drive specification /         0 File(s) copied
+# exit code 0
+
+# realdos.sh base msdos622 <an MS-DOS 6.22 hard disk image> nodrive   (exit code 0)
+realdos.sh: msdos622: machine: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
+realdos.sh: msdos622: image: <an MS-DOS 6.22 hard disk image>
+realdos.sh: msdos622: ver: MS-DOS Version 6.22
+realdos.sh: msdos622: dos|version=6.22 oem=FF
+realdos.sh: msdos622: dos|true_version=6.22 flags=00
+realdos.sh: msdos622: dos|int21=0021:40F8 code=FA80FC6C77D280FC
+realdos.sh: msdos622: dos|lfn_714e=0000
+realdos.sh: msdos622: dos|windows_1600=00
+realdos.sh: msdos622: dos|drive_z=3
+msdos622|label-q-x|label q: X|Invalid drive specification
+msdos622|label-q|label q:|Invalid drive specification
+msdos622|label-qx|label q:X|Invalid drive specification
+msdos622|xcopy-q|xcopy c:\A.TXT q:\|Invalid drive specification /         0 File(s) copied
+# exit code 0

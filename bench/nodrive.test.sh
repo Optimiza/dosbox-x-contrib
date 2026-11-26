@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # nodrive.sh's verdicts against captured runs, no emulator: bash nodrive.test.sh
-# fixtures/nodrive holds the unpatched base against itself on macOS: a start per line and per
-# control, in turn, build A's then build B's. lines_a and lines_b are the starts that die on
-# SIGSEGV (EXIT 139); every other start answers.
+# fixtures/nodrive holds a base build against itself on macOS: 52 starts, a line and its control
+# in turn, build A's 26 then build B's. lines_a and lines_b are the starts that do not answer: the
+# nine that die on SIGSEGV (EXIT 139), recorded before the unmounted-drive fix merged upstream, and
+# the XCOPY line, recorded from upstream main-ai at 0948c6a9b, where it is cut at its bound before
+# its last line.
 set -u
 # shellcheck source=testlib.sh
 . "$(dirname "$0")/testlib.sh"
@@ -21,11 +23,11 @@ survive() {
         printf 'nodrive-end\r\n' >> "$d/$n/OUT.TXT"
     done
 }
-lines_a=(1 3 5 7 9 11 13 15 17) lines_b=(25 27 29 31 33 35 37 39 41)
+lines_a=(1 3 5 7 9 11 13 15 17 25) lines_b=(27 29 31 33 35 37 39 41 43 51)
 
 t_play "$f"
 t_case "a line that ends the emulator is INVALID" 3 "nodrive.sh: INVALID: build A: \"label q: X\" (label-q-x) ended the emulator: SEGV, exit 139" run
-t_case "every line that does is named, of both builds" 3 "build B: \"imgmake x.img -t hd -size 4\" (cur-hd) ended the emulator: SEGV, exit 139; the run is kept" run
+t_case "every line that does is named, of both builds" 3 "build B: \"imgmake x.img -t hd -size 4\" (cur-hd) ended the emulator: SEGV, exit 139; build B: \"xcopy c:\\A.TXT q:\\\" (xcopy-q) did not reach its last line; the run is kept" run
 t_case "with no drive current" 3 "build A: \"vol\" (cur-vol) ended the emulator: SEGV, exit 139" run
 t_case "each report printed whole" 3 "cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C:. / No subdirectories exist" run
 t_case "the line that died, in its report" 3 "label-q|label q:|died: SEGV, exit 139" run
@@ -35,15 +37,17 @@ t_case "a drive named by no letter, beside its control" 3 "vol-1|vol 1:|Invalid 
 vol-1-control|vol c:| Volume in drive C has no label" run
 t_case "the other" 3 "tree-1|tree 1:|Invalid drive specification
 tree-1-control|tree c:|Directory PATH listing" run
+t_case "the XCOPY line cut at its bound, never reaching its last line" 3 "xcopy-q|xcopy c:\\A.TXT q:\\|did not reach its last line" run
+t_case "and named with the lines that do not answer" 3 "build A: \"xcopy c:\\A.TXT q:\\\" (xcopy-q) did not reach its last line" run
 t_derive "$f"
 survive "$derived" "" "${lines_a[@]}" "${lines_b[@]}"; t_play "$derived"
 t_case "every line survives, alike" 0 "nodrive.sh: ALIKE" run
 t_derive "$f"
 survive "$derived" "" "${lines_b[@]}"; t_play "$derived"
-t_case "only build B survives: build A's lines are named" 3 "build A: \"imgmake x.img -t hd -size 4\" (cur-hd) ended the emulator: SEGV, exit 139; the run is kept" run
+t_case "only build B survives: build A's lines are named" 3 "build A: \"imgmake x.img -t hd -size 4\" (cur-hd) ended the emulator: SEGV, exit 139; build A: \"xcopy c:\\A.TXT q:\\\" (xcopy-q) did not reach its last line; the run is kept" run
 t_derive "$f"
 survive "$derived" "" "${lines_a[@]}"; survive "$derived" "Invalid drive specification" "${lines_b[@]}"; t_play "$derived"
-t_case "two builds that survive and answer otherwise" 1 "nodrive.sh: DIFFERENT, 9 lines differ" run
+t_case "two builds that survive and answer otherwise" 1 "nodrive.sh: DIFFERENT, 10 lines differ" run
 t_case "the lines that differ, of the second build" 1 "> cur-vol|vol|Invalid drive specification" run
 t_derive "$f"; echo 0 > "$derived/1/EXIT"; t_play "$derived"
 t_case "a run that stops short of its last line, whenever it stopped" 3 "build A: \"label q: X\" (label-q-x) did not reach its last line; " run
@@ -108,8 +112,22 @@ where() {
     awk '$0 ~ /\/run-[AB]-[a-z0-9-]+$/ { n[$0]++ } END { print length(n) " run folders, " NR " starts" }' "$work/where.txt"
     printf 'in the caller'\''s folder: [%s]\n' "$(ls -A "$work/caller")"
 }
-t_case "each start runs in a folder of its own" 0 "48 run folders, 48 starts" where
+t_case "each start runs in a folder of its own" 0 "52 run folders, 52 starts" where
 t_case "and writes nothing in the caller's folder" 0 "in the caller's folder: []" where
+# args.sh records what the launcher is given: the XCOPY line is bounded shorter than the rest.
+args=$work/args.sh
+# shellcheck disable=SC2016  # the script written here expands its own variables
+printf '%s\n' '#!/bin/bash' 'printf "%s\n" "$*" >> "$SPY_OUT"' "exec \"$here/fixtures/stub-launcher.sh\" \"\$@\"" > "$args" && chmod +x "$args" || exit 3
+bounds() {
+    rm -rf "$work/caller" "$work/args.txt" && mkdir "$work/caller" || exit 3
+    (cd "$work/caller" && SPY_OUT=$work/args.txt DIRCACHE_LAUNCHER=$args run > /dev/null 2>&1)
+    awk '{ s = ""; c = ""; for (i = 1; i < NF; i++) { if ($i == "--seconds") s = $(i + 1); if ($i == "--conf") c = $(i + 1) }
+        sub(/^.*\/run-/, "", c); sub(/\/run\.conf$/, "", c)
+        if (c == "A-xcopy-q" || c == "A-xcopy-q-control" || c == "A-cur-vol") print c " " s }' "$work/args.txt"
+}
+t_case "the XCOPY line and its control are bounded at 10 seconds, every other line at 60" 0 "A-cur-vol 60
+A-xcopy-q 10
+A-xcopy-q-control 10" bounds
 # whole is common.sh's: nodrive.sh and findlife.sh name the builds by it before they change folder.
 # shellcheck disable=SC2016  # the child shell expands its own variables
 whole_of() { bash -c 'tool=t here=$1; . "$here/common.sh" && cd "$2" && printf "[%s] [%s] [%s]\n" "$(whole C:/dosbox/d.exe)" "$(whole /c/w/d.exe)" "$(whole d.exe)"' _ "$here" "$work"; }

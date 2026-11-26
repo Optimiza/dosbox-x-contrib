@@ -51,7 +51,7 @@ command and its exit code, which the run printed apart from its lines.
 | [`macos/dyncore-mainai.txt`](macos/dyncore-mainai.txt), [`windows/dyncore-mainai.txt`](windows/dyncore-mainai.txt) | memory held after child programs on `main-ai`, with and without the fix |
 | [`macos/create-delete-mainai.txt`](macos/create-delete-mainai.txt), [`windows/create-delete-mainai.txt`](windows/create-delete-mainai.txt) | the same cases as subject 11 on `main-ai`, and on `main-ai` with the branches of subjects 3 and 5 |
 | [`macos/scry-create-delete.txt`](macos/scry-create-delete.txt), [`windows/scry-create-delete.txt`](windows/scry-create-delete.txt) | the fork's scry before and after create-delete was merged into it: long paths, the cases of subject 11 and the COPY case |
-| [`macos/nodrive.txt`](macos/nodrive.txt), [`windows/nodrive.txt`](windows/nodrive.txt) | what each shell command answers on a drive that is not mounted: unpatched upstream against the fix, and the fix against itself |
+| [`macos/nodrive.txt`](macos/nodrive.txt), [`windows/nodrive.txt`](windows/nodrive.txt) | what each shell command answers on a drive that is not mounted: unpatched upstream against the fix, and the fix against itself; on macOS also a base against itself with the XCOPY line, and what both real MS-DOS answer to the same lines |
 | [`macos/dos-answers/`](macos/dos-answers/README.txt), [`windows/dos-answers/`](windows/dos-answers/README.txt) | the DOS answers of a mounted folder, an overlay drive, a zip drive and a CD image: what both MS-DOS answered, what each comparing script printed on `main-ai` and on the two halves, and what `agree.py` counted |
 
 Pull request 6831 is

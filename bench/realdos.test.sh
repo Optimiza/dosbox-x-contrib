@@ -96,8 +96,10 @@ t_derive "$f/realdos-dosans"; sed -i '' '/^call|3B|D:\\X\\|/d' "$derived/3/RESUL
 t_case "DOSANS's report with a line missing" 3 "DOSANS's report has no trailer or its count disagrees" run dosans
 t_play "$f/realdos-nodrive"
 t_case "what MS-DOS 7.10 answers on a drive that is not there" 0 "msdos710|label-q-x|label q: X|Invalid drive specification" run nodrive
+t_case "and XCOPY on it" 0 "msdos710|xcopy-q|xcopy c:\\A.TXT q:\\|Invalid drive specification" run nodrive
 t_play "$f/realdos-nodrive-msdos622"
 t_case "and MS-DOS 6.22" 0 "msdos622|label-qx|label q:X|Invalid drive specification" run_on msdos622 "$work/boot.vhd" nodrive
+t_case "and XCOPY on it" 0 "msdos622|xcopy-q|xcopy c:\\A.TXT q:\\|Invalid drive specification" run_on msdos622 "$work/boot.vhd" nodrive
 t_derive "$f/realdos-nodrive"; sed -i '' '/^section nodrive-label-q[[:cntrl:]]*$/,/^section nodrive-label-qx/{/^Invalid/d;}' "$derived/3/RESULT.TXT"; t_play "$derived"
 t_case "a line the DOS answered with nothing" 3 "the DOS printed nothing for \"label q:\"" run nodrive
 batch_of() {
@@ -109,6 +111,7 @@ t_case "each line runs through REDIR, which keeps the error messages" 0 'REDIR.E
 t_case "and what REDIR kept goes into the result" 0 'REDIR.EXE C:\RD\OUT.TXT label q:X
 TYPE C:\RD\OUT.TXT >> C:\RD\RESULT.TXT
 ECHO.>> C:\RD\RESULT.TXT' batch_of nodrive
+t_case "A.TXT reaches C:'s root for the XCOPY line" 0 'COPY /Y C:\RD\A.TXT C:\A.TXT > NUL' batch_of nodrive
 t_play "$f/realdos-xcomsim"
 t_case "XCOMSIM's report of the image's DOS" 0 "msdos710|lookups|made=2118 as_the_game=2118 differ=0 loads=18.41" run xcomsim
 t_case "XCOMSIM's verdict on the image's DOS" 0 "realdos.sh: msdos710: listing=40/40 40/40 lost=0" run xcomsim

@@ -12,7 +12,7 @@ usage: nodrive.sh <build A> <build B>
   <build A>, <build B>  two DOSBox-X executables (the same one twice is the A/A control)
 
 each line runs in an emulator start of its own, so that one that ends the emulator hides no
-other. Q: is never mounted, C: is the run's folder and holds no label. The lines:
+other. Q: is never mounted, C: is the run's folder, which holds A.TXT and no label. The lines:
 
   label-q-x   label q: X     control: label c: X
   label-q     label q:       control: label c:
@@ -26,9 +26,14 @@ other. Q: is never mounted, C: is the run's folder and holds no label. The lines
   cur-cd      cd             after NODRIVE.EXE      control: the same line on C:
   vol-1       vol 1:         control: vol c:
   tree-1      tree 1:        control: tree c:
+on macOS only, until the bench holds recorded runs of it on Windows:
+  xcopy-q     xcopy c:\A.TXT q:\   bound 10 s   control: xcopy c:\A.TXT c:\
 on Windows also, with START.COM made by startcmd=true:
   cur-imgsrc  imgmake x.img -source q   after NODRIVE.EXE   control: the same line on C:
   cur-start   start /hid whoami.exe     after NODRIVE.EXE   control: the same line on C:
+
+Every line is bounded at 60 seconds, except xcopy-q at 10: on a drive that is not mounted it
+fills the emulator's log until the bound.
 
 NODRIVE.EXE makes A:, which nothing mounts, the current drive, and prints the current drive as
 INT 21h 19h answers it; NODRIVE.EXE /S prints it only, with C: current: before the lines on Q:
@@ -54,6 +59,7 @@ EOT
 }
 
 SECONDS_BOUND=60
+XCOPY_SECONDS_BOUND=10
 
 if [ $# -eq 1 ] && [ "$1" = "--help" ]; then usage; exit 0; fi
 if [ $# -ne 2 ]; then usage >&2; exit 2; fi
@@ -71,6 +77,7 @@ need_tools
 
 run_begin nodrive
 guest_build NODRIVE "$tmp/c" || invalid "NODRIVE did not build"
+printf 'x' > "$tmp/c/A.TXT" || invalid "could not stage A.TXT"
 mkdir -p "$tmp/d" || invalid "could not make D:'s folder"
 
 # Each start runs in its own run's folder, as windows.ps1 starts it there too: IMGMAKE with no
@@ -79,9 +86,9 @@ mkdir -p "$tmp/d" || invalid "could not make D:'s folder"
 # whole before the script moves.
 build_a=$(whole "$build_a") build_b=$(whole "$build_b") launcher=$(whole "$launcher")
 
-# name|state|line: state q is a line on a drive nothing is mounted on, Q: or 1:, whose control
-# runs it on C:; state none runs the line after NODRIVE.EXE, and its control the same line with C:
-# current.
+# name|state|line|bound: state q is a line on a drive nothing is mounted on, Q: or 1:, whose
+# control runs it on C:; state none runs the line after NODRIVE.EXE, and its control the same line
+# with C: current. An empty bound is SECONDS_BOUND.
 CASES='label-q-x|q|label q: X
 label-q|q|label q:
 label-qx|q|label q:X
@@ -100,6 +107,10 @@ if [ "$HOST_KIND" = windows ]; then
     CASES+=$'\ncur-imgsrc|none|imgmake x.img -source q\ncur-start|none|start /hid whoami.exe'
     # shellcheck disable=SC2034  # read by conf_write
     conf_dos=startcmd=true
+else
+    # nodrive.test.sh plays what a run left, one recorded run per call: on Windows there is none of
+    # this line yet, and the line joins there with them.
+    CASES+=$'\n'"xcopy-q|q|xcopy c:\\A.TXT q:\\|$XCOPY_SECONDS_BOUND"
 fi
 
 # signal_of <exit code>: the signal a code past 128 carries on a Mac, the exception a negative
@@ -124,16 +135,16 @@ not_trusted() {
 }
 joined() { awk '{ printf "%s%s", sep, $0; sep = "; " }' "$1"; }
 
-# run_one <label> <build> <name> <state> <line>: one emulator start. The guest writes "start",
-# the drive NODRIVE.EXE names, "line" and the line's answer into OUT.TXT, then END_MARK. Appends
-# the report line, and to $tmp/dead what ended the emulator or kept it from its last line.
+# run_one <label> <build> <name> <state> <line> <bound>: one emulator start. The guest writes
+# "start", the drive NODRIVE.EXE names, "line" and the line's answer into OUT.TXT, then END_MARK.
+# Appends the report line, and to $tmp/dead what ended the emulator or kept it from its last line.
 run_one() {
-    local label=$1 binary=$2 name=$3 state=$4 line=$5 run=$tmp/run-$1-$3 code before='NODRIVE.EXE /S' answer current refused bound
+    local label=$1 binary=$2 name=$3 state=$4 line=$5 seconds=${6:-$SECONDS_BOUND} run=$tmp/run-$1-$3 code before='NODRIVE.EXE /S' answer current refused bound
     if ! mkdir -p "$run" || ! cp -R "$tmp/c/." "$run/" || ! cd "$run"; then not_trusted "could not make the run directory of $label $name"; fi
     if [ "$state" = none ]; then before='NODRIVE.EXE'; fi
     conf_write "$run" "$tmp/d" "" 'c:' 'echo start> C:\OUT.TXT' "$before >> C:\\OUT.TXT" \
         'echo line>> C:\OUT.TXT' "$line >> C:\\OUT.TXT" "echo $END_MARK>> C:\\OUT.TXT"
-    emu_start "$binary" "$run" OUT.TXT "$SECONDS_BOUND"
+    emu_start "$binary" "$run" OUT.TXT "$seconds"
     wait "$emu_job"
     emu_job=""
     emu_version=$(sed -n 's/^[^ ]*: version: //p' "$run/report.txt" 2> /dev/null)
@@ -190,12 +201,12 @@ run_one() {
 for label in A B; do
     if [ "$label" = A ]; then binary=$build_a; else binary=$build_b; fi
     : > "$tmp/report-$label.txt"
-    while IFS='|' read -r name state line; do
-        run_one "$label" "$binary" "$name" "$state" "$line"
+    while IFS='|' read -r name state line bound; do
+        run_one "$label" "$binary" "$name" "$state" "$line" "$bound"
         if [ "$state" = q ]; then
-            run_one "$label" "$binary" "$name-control" q "$(printf '%s\n' "$line" | sed 's/ [q1]:/ c:/')"
+            run_one "$label" "$binary" "$name-control" q "$(printf '%s\n' "$line" | sed 's/ [q1]:/ c:/')" "$bound"
         else
-            run_one "$label" "$binary" "$name-control" c "$line"
+            run_one "$label" "$binary" "$name-control" c "$line" "$bound"
         fi
     done <<< "$CASES"
     echo "$tool: build $label: $binary ($emu_version)"

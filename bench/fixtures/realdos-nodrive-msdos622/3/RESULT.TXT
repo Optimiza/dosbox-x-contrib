@@ -19,4 +19,8 @@ Invalid drive specification
 section nodrive-label-qx
 Invalid drive specification
 
+section nodrive-xcopy-q
+Invalid drive specification
+        0 File(s) copied
+
 section done

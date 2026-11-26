@@ -49,7 +49,8 @@ usage: realdos.sh <build> <dos> <boot image> <id|findlife|exact|enumstat|drift|d
                 (xcomsim/calls.txt) and its defaults: a model, not the game
   xcomsim-relay the same with --relay: the listing through the lookups' one DTA
   nodrive       the lines of nodrive.sh on Q:, a letter the DOS has no drive for: label q: X,
-                label q: and label q:X, each through REDIR, which keeps the error messages too
+                label q:, label q:X and xcopy c:\A.TXT q:, each through REDIR, which keeps the
+                error messages too
   junktest      the batch files of the archive of upstream issue 6827, unpacked in <folder>,
                 in the run the issue describes: 300.BAT, JUNK.BAT, 300.BAT, each through
                 COMMAND /C so that what it prints is kept, with the emulator's FC.EXE as
@@ -105,10 +106,12 @@ JUNKTEST_BATCHES="300 JUNK 300"
 DIRTEST_KEYS=600
 DIRTEST_BOOT_SECONDS=6000
 DISK_MB=64
-# name|line: nodrive.sh's lines on a drive that is not mounted, under its names.
+# name|line: nodrive.sh's lines on a drive that is not mounted, under its names. The XCOPY line
+# reads A.TXT off C:, where the batch copies it before the lines run.
 NODRIVE_LINES='label-q-x|label q: X
 label-q|label q:
 label-qx|label q:X'
+NODRIVE_LINES+=$'\n'"xcopy-q|xcopy c:\\A.TXT q:\\"
 
 if [ $# -eq 1 ] && [ "$1" = "--help" ]; then usage; exit 0; fi
 if [ $# -ne 4 ] && [ $# -ne 5 ]; then usage >&2; exit 2; fi
@@ -187,6 +190,7 @@ chmod u+w "$boot/$image_name" || invalid "could not make the copy of the image w
 for p in DOSID $programs; do
     guest_build "$p" "$stage/RD" || invalid "$p did not build"
 done
+if [ "$what" = nodrive ]; then printf 'x' > "$stage/RD/A.TXT" || invalid "could not write A.TXT"; fi
 if [ "$what" = dosans-cd ]; then
     gzip -dc "$here/fixtures/cdans/game.iso.gz" > "$tmp/game.iso" || invalid "the CD image could not be unpacked"
     if [ "$dos" = msdos710 ]; then cp "$DIRCACHE_CD1_SYS" "$stage/RD/CD1.SYS" || invalid "could not copy the CD driver"; fi
@@ -273,8 +277,9 @@ case "$what" in
             "TYPE $out >> $result" "DEL $out")
         ;;
     nodrive)
-        # A blank line after each answer: a message that ends with no line break would join the
-        # next section's name.
+        # A.TXT goes to C:'s root, where the XCOPY line names it. A blank line after each answer:
+        # a message that ends with no line break would join the next section's name.
+        batch+=("COPY /Y C:\\RD\\A.TXT C:\\A.TXT > NUL")
         while IFS='|' read -r name line; do
             batch+=("ECHO section nodrive-$name>> $result" "REDIR.EXE $out $line" "TYPE $out >> $result" "ECHO.>> $result" "DEL $out")
         done <<< "$NODRIVE_LINES"
