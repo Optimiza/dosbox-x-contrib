@@ -368,3 +368,220 @@ ren-q|ren q:\A.TXT B.TXT|
 ren-q-control|ren c:\A.TXT B.TXT|
 nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of 10 s and was killed; build B: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of 10 s and was killed; the run is kept in <the run's directory>
 # exit code 3
+
+# nodrive.sh base fix
+#   base  joncampbell123/dosbox-x main-ai 0948c6a9b   798ec23e864cd748d1973be03011cb3995b03c56921c0aec3b04bee54348d3d2
+#   fix   unmounted-answers-mainai's two commits applied with git am on top of the divide error fix's commit, on this host   87ab4bb75b92ea1e54fced4474ad573217c249fee3be65d102121e53e850e2ab
+# a run of 2026-11-26 on the Windows the header names: the ten path commands answer on the branch, and the
+# XCOPY line's own fix ends that line on the branch while the base is killed at its bound
+nodrive.sh: build A: base (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C: / No subdirectories exist
+cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
+cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
+cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+xcopy-q|xcopy c:\A.TXT q:\|killed: passed the bound of 10 s
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
+copy-q|copy c:\A.TXT q:\|Path not found
+copy-q-control|copy c:\A.TXT c:\|File cannot be copied onto itself
+del-q|del q:\A.TXT|Path not found
+del-q-control|del c:\A.TXT|
+type-q|type q:\A.TXT|Path not found
+type-q-control|type c:\A.TXT|x
+attrib-q|attrib q:\A.TXT|Path not found
+attrib-q-control|attrib c:\A.TXT|  A     	C:\A.TXT
+truename-q|truename q:\A.TXT|Path not found
+truename-q-control|truename c:\A.TXT|C:\A.TXT
+cd-q|cd q:|Path not found
+cd-q-control|cd c:|C:\
+cd-q-root|cd q:\|Invalid directory - q:\
+cd-q-root-control|cd c:\|
+md-q|md q:\X|Unable to create directory - q:\X
+md-q-control|md c:\X|
+dir-q|dir q:\ /B|
+dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
+ren-q|ren q:\A.TXT B.TXT|
+ren-q-control|ren c:\A.TXT B.TXT|
+nodrive.sh: build B: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C: / No subdirectories exist
+cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
+cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
+cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+xcopy-q|xcopy c:\A.TXT q:\|
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
+copy-q|copy c:\A.TXT q:\|Invalid drive specification
+copy-q-control|copy c:\A.TXT c:\|File cannot be copied onto itself
+del-q|del q:\A.TXT|Invalid drive specification
+del-q-control|del c:\A.TXT|
+type-q|type q:\A.TXT|Invalid drive specification
+type-q-control|type c:\A.TXT|x
+attrib-q|attrib q:\A.TXT|Path not found - q:\A.TXT
+attrib-q-control|attrib c:\A.TXT|  A     	C:\A.TXT
+truename-q|truename q:\A.TXT|Invalid drive specification
+truename-q-control|truename c:\A.TXT|C:\A.TXT
+cd-q|cd q:|Invalid drive specification
+cd-q-control|cd c:|C:\
+cd-q-root|cd q:\|Invalid drive specification
+cd-q-root-control|cd c:\|
+md-q|md q:\X|Invalid drive specification
+md-q-control|md c:\X|
+dir-q|dir q:\ /B|Invalid drive specification
+dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
+ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
+ren-q-control|ren c:\A.TXT B.TXT|
+nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of 10 s and was killed; the run is kept in <the run's directory> build A: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C: / No subdirectories exist
+cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
+cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
+cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+xcopy-q|xcopy c:\A.TXT q:\|
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
+copy-q|copy c:\A.TXT q:\|Invalid drive specification
+copy-q-control|copy c:\A.TXT c:\|File cannot be copied onto itself
+del-q|del q:\A.TXT|Invalid drive specification
+del-q-control|del c:\A.TXT|
+type-q|type q:\A.TXT|Invalid drive specification
+type-q-control|type c:\A.TXT|x
+attrib-q|attrib q:\A.TXT|Path not found - q:\A.TXT
+attrib-q-control|attrib c:\A.TXT|  A     	C:\A.TXT
+truename-q|truename q:\A.TXT|Invalid drive specification
+truename-q-control|truename c:\A.TXT|C:\A.TXT
+cd-q|cd q:|Invalid drive specification
+cd-q-control|cd c:|C:\
+cd-q-root|cd q:\|Invalid drive specification
+cd-q-root-control|cd c:\|
+md-q|md q:\X|Invalid drive specification
+md-q-control|md c:\X|
+dir-q|dir q:\ /B|Invalid drive specification
+dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
+ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
+ren-q-control|ren c:\A.TXT B.TXT|
+nodrive.sh: build B: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+label-q-x|label q: X|Invalid drive specification
+label-q-x-control|label c: X|
+label-q|label q:|Invalid drive specification
+label-q-control|label c:|Volume in drive C has no label
+label-qx|label q:X|Invalid drive specification
+label-qx-control|label c:X|
+cur-label-x|label X|Invalid drive specification
+cur-label-x-control|label X|
+cur-label|label|Invalid drive specification
+cur-label-control|label|Volume in drive C has no label
+cur-vol|vol|Invalid drive specification
+cur-vol-control|vol| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+cur-tree|tree|Invalid drive specification
+cur-tree-control|tree|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C:. / No subdirectories exist
+cur-fd|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-fd-control|imgmake x.img -t fd_1440|Creating image file "x.img" with 80 cylinders, 2 heads and 18 sectors
+cur-hd|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-hd-control|imgmake x.img -t hd -size 4|Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+cur-cd|cd|Invalid drive specification
+cur-cd-control|cd|C:\
+vol-1|vol 1:|Invalid drive specification
+vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 1A69-9A4F
+tree-1|tree 1:|Invalid drive specification
+tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 1A69-9A4F / C: / No subdirectories exist
+cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
+cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
+cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
+xcopy-q|xcopy c:\A.TXT q:\|
+xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
+copy-q|copy c:\A.TXT q:\|Invalid drive specification
+copy-q-control|copy c:\A.TXT c:\|File cannot be copied onto itself
+del-q|del q:\A.TXT|Invalid drive specification
+del-q-control|del c:\A.TXT|
+type-q|type q:\A.TXT|Invalid drive specification
+type-q-control|type c:\A.TXT|x
+attrib-q|attrib q:\A.TXT|Path not found - q:\A.TXT
+attrib-q-control|attrib c:\A.TXT|  A     	C:\A.TXT
+truename-q|truename q:\A.TXT|Invalid drive specification
+truename-q-control|truename c:\A.TXT|C:\A.TXT
+cd-q|cd q:|Invalid drive specification
+cd-q-control|cd c:|C:\
+cd-q-root|cd q:\|Invalid drive specification
+cd-q-root-control|cd c:\|
+md-q|md q:\X|Invalid drive specification
+md-q-control|md c:\X|
+dir-q|dir q:\ /B|Invalid drive specification
+dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
+ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
+ren-q-control|ren c:\A.TXT B.TXT|
+# exit code 3
+
+# nodrive.sh fix fix
+#   fix   the same executable as the run above   87ab4bb75b92ea1e54fced4474ad573217c249fee3be65d102121e53e850e2ab
+# the A/A control of the run above
+nodrive.sh: ALIKE
+# exit code 0
