@@ -61,6 +61,13 @@ it: it ends as it does on MS-DOS, and its caller sees the end of a program, not 
 
 A batch file that runs such a program goes on to its next line.
 
+The caller sees exit code 0, as it does on MS-DOS 6.22: a batch of `IF ERRORLEVEL` tests below one
+does not fire for the program, while one test at four does.
+
+A program in protected mode is not touched by any of this: a DJGPP program that divides by zero
+ends the same way on the unpatched build and on the fix, with the batch going on, because that case
+never reaches this vector.
+
 ## How to check it
 
 Run every line on the two builds:
@@ -74,22 +81,13 @@ With an unpatched build the script exits 3 and names the XCOPY line; two builds 
 
 ## What it needs
 
-The branch is `unmounted-xcopy-mainai`, one commit on upstream `main-ai` at `0948c6a9b`.
+The branch is `unmounted-xcopy-mainai`, two commits on upstream `main-ai` at `0948c6a9b`: the fix
+and the `CHANGELOG` line.
 
 ## What is left
 
 **The message's text.** Only DOS 5.00 and 6.22's is printed. A build that reports DOS 7 to its
 programs still prints it, where MS-DOS 7.10 prints its own two lines.
 
-**Protected mode.** A protected-mode program that divides ends the same on the unpatched build and
-on the fix: a DJGPP program printed its line before the division and nothing after it, and the
-batch went on. That case does not reach this vector.
-
 **A process that is its own parent.** A divide error in code running under the shell's own PSP,
 a TSR for instance, still loops: there is no parent to return to, and MS-DOS would end the shell.
-
-**The exit code.** The handler passes 0, and MS-DOS 6.22 measured the same to the program's
-caller, with a batch whose `IF ERRORLEVEL` tests sit below one and do not fire for it, while one
-test at four does.
-
-MS-DOS 7.10 and FreeDOS were not measured for it.
