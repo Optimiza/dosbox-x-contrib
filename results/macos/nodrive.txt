@@ -697,3 +697,16 @@ ren-q-control|ren c:\A.TXT B.TXT|
 nodrive.sh: ALIKE
 
 # exit code 0
+
+# del q:\A.TXT on the branch, with the DOS version the emulator reports set by `ver set`
+#   fix   unmounted-answers-mainai 7848689df   49cad1c0a553f71fb46d4483ec8aabfb6d8325aee7ed4e0bfccf7fdd9104469a
+# a run of 2026-11-27 on the macOS the header names, one emulator start per version; these are the
+# lines each start left in its OUT.TXT, made by `echo start`, the line, and `echo done`
+# DOS 5.00, the default
+start|line|Invalid drive specification|done
+# DOS 6.22, after `ver set 6 22`
+start|line|Invalid drive specification|done
+# DOS 7.10, after `ver set 7 10`
+start|line|Invalid drive specification|done
+# the control, `del c:\NOPE.TXT`, a missing file on the mounted drive
+start|line|Unable to delete - c:\NOPE.TXT|done

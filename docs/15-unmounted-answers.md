@@ -47,6 +47,11 @@ The ten lines are the only ones that differ between the two runs, and the script
 `DIFFERENT, 10 lines differ`. Against itself the branch answers the same on both builds, `ALIKE`
 on both hosts.
 
+The message does not depend on the DOS version the emulator reports. `del q:\A.TXT` answers
+`Invalid drive specification` at every version `ver set` gives it, the default one and both
+MS-DOS ones. A control on a missing file of a mounted drive answers its own message, and those
+lines are in the same file.
+
 ## What a program can notice
 
 A batch file that tests the error now sees a message where `dir` and `ren` printed nothing. The
