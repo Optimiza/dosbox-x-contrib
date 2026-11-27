@@ -73,7 +73,7 @@ continues: [issue 6851](https://github.com/joncampbell123/dosbox-x/issues/6851) 
 
 - A check is a small DOS program and the host script that runs it headless in two builds and
   compares what they print.
-- Every figure compares a patched build with unpatched upstream `main-ai` at `4e0b6adcf`, or at `ac2787a42` where a page says so.
+- Every figure compares a patched build with unpatched upstream `main-ai` at the commit its page names, mostly `4e0b6adcf`.
 - The referee is a real MS-DOS 7.10, booted inside the emulator from a Windows 98 SE disk
   image. The bench boots MS-DOS 6.22 and FreeDOS beside it.
 - Every fix that is done is built on macOS and on Windows, and proved on each host whose code

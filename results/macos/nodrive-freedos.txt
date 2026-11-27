@@ -1,0 +1,54 @@
+# What: what FreeDOS 1.4 answered to the lines of nodrive.sh, through the nodrive arm of realdos.sh.
+# Command: realdos.sh <unpatched> freedos <the FreeDOS 1.4 USB Lite image> nodrive   (exit code 3)
+# Host: macOS 26 on Apple silicon (Mac mini M4); the build made with make (SDL2)
+# Date: 2026-11-26
+# The run is INVALID: the image's DOS did not reach the end of its batch inside the boot bound.
+# This is the batch's RESULT.TXT as the DOS left it, twelve sections long, stopped after the
+# header of the section for `md q:\X`.
+section ver
+
+FreeCom version 0.86 - WATCOMC - XMS_Swap [Dec 30 2024 22:10:51]
+section dos
+dos|version=7.10 oem=FD
+dos|true_version=7.10 flags=00
+dos|int21=00D9:129A code=EAA5015A06E86E00
+dos|lfn_714e=7100
+dos|windows_1600=00
+dos|drive_z=3
+end
+section nodrive-label-q-x
+Bad command or filename - "label".
+
+section nodrive-label-q
+Bad command or filename - "label".
+
+section nodrive-label-qx
+Bad command or filename - "label".
+
+section nodrive-xcopy-q
+Insufficient disk space in destination path - q:\A.TXT
+0 file(s) copied
+
+section nodrive-copy-q
+Invalid drive Q:.
+
+section nodrive-del-q
+File not found. - 'Q:\A.TXT'
+no file removed.
+
+section nodrive-type-q
+File not found. - 'q:\A.TXT'
+
+section nodrive-attrib-q
+ATTRIB: no targets: Q:\A.TXT
+
+section nodrive-truename-q
+File not found. - 'q:\A.TXT'
+
+section nodrive-cd-q
+Drive Q: not responding.
+
+section nodrive-cd-q-root
+CHDIR failed for 'q:\'.
+
+section nodrive-md-q

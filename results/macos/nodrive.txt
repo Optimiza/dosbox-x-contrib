@@ -475,10 +475,29 @@ msdos622|dir-q|dir q:\ /B|Invalid drive specification
 msdos622|ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 # exit code 0
 
-# nodrive.sh base fix
-#   base  joncampbell123/dosbox-x main-ai a325b1292   ae1955bb53677c944a2902d5b58d2bd44d72b418bbf3faf8bb88e091eddf840d
-#   fix   unmounted-answers-mainai 7848689df   49cad1c0a553f71fb46d4483ec8aabfb6d8325aee7ed4e0bfccf7fdd9104469a
-# a run of 2026-11-27, on the macOS the header names, after the divide error fix merged upstream
+# del q:\A.TXT on the branch, with the DOS version the emulator reports set by `ver set`
+#   fix   unmounted-answers-mainai 0bc97dd2d   652a2104b8427da68ade9dc5ce38e0022422db4304b535e36bad22fb5576d783
+# a run of 2026-11-27 on the macOS the header names, one emulator start per version; these are the
+# lines each start left in its OUT.TXT, made by `echo start`, the line, and `echo done`
+# The conf each start booted, with the run's own folder on C: and `ver set` only where the
+# version differs from the default:
+#   [autoexec]
+#   mount c "<the run's folder>" -label ""
+#   c:
+#   ver set 6 22        (the 6.22 start, and `ver set 7 10` the 7.10 one)
+#   echo start> C:\OUT.TXT
+#   echo line>> C:\OUT.TXT
+#   del q:\A.TXT >> C:\OUT.TXT
+#   echo done>> C:\OUT.TXT
+#   exit
+# DOS 5.00, the default
+start|line|Invalid drive specification|done
+# DOS 6.22, after `ver set 6 22`
+start|line|Invalid drive specification|done
+# DOS 7.10, after `ver set 7 10`
+start|line|Invalid drive specification|done
+# the control, `del c:\NOPE.TXT`, a missing file on the mounted drive
+start|line|Unable to delete - c:\NOPE.TXT|done
 nodrive.sh: build A: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -596,10 +615,6 @@ nodrive.sh: DIFFERENT, 10 lines differ (A then B):
 > ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 
 # exit code 1
-
-# nodrive.sh fix fix
-#   fix   unmounted-answers-mainai 7848689df   49cad1c0a553f71fb46d4483ec8aabfb6d8325aee7ed4e0bfccf7fdd9104469a
-# the A/A control of the run above
 nodrive.sh: build A: fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -697,16 +712,3 @@ ren-q-control|ren c:\A.TXT B.TXT|
 nodrive.sh: ALIKE
 
 # exit code 0
-
-# del q:\A.TXT on the branch, with the DOS version the emulator reports set by `ver set`
-#   fix   unmounted-answers-mainai 7848689df   49cad1c0a553f71fb46d4483ec8aabfb6d8325aee7ed4e0bfccf7fdd9104469a
-# a run of 2026-11-27 on the macOS the header names, one emulator start per version; these are the
-# lines each start left in its OUT.TXT, made by `echo start`, the line, and `echo done`
-# DOS 5.00, the default
-start|line|Invalid drive specification|done
-# DOS 6.22, after `ver set 6 22`
-start|line|Invalid drive specification|done
-# DOS 7.10, after `ver set 7 10`
-start|line|Invalid drive specification|done
-# the control, `del c:\NOPE.TXT`, a missing file on the mounted drive
-start|line|Unable to delete - c:\NOPE.TXT|done

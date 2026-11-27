@@ -29,12 +29,19 @@ drafted here for a pull request or a comment.
 - It also holds the merges of
   [pull request 6887, "Answer "Invalid drive specification" instead of ending the emulator on an unmounted drive"](https://github.com/joncampbell123/dosbox-x/pull/6887)
   and [pull request 6889, "Answer a find call from the search it belongs to, as MS-DOS does"](https://github.com/joncampbell123/dosbox-x/pull/6889).
+- It holds
+  [pull request 6901, "End the program on a divide error, as MS-DOS does, instead of looping forever"](https://github.com/joncampbell123/dosbox-x/pull/6901),
+  merged as `15a4e534a`; `unmounted-xcopy-mainai` is merged and still on the fork.
 - No pull request of ours is open upstream. The draft 6776 was closed unmerged, by our own
   choice.
-- Subjects 1 and 4 and the label slot of subject 2 were merged in pull request 6889, and
-  subject 13 in pull request 6887. The tag of subject 2 stays on `4e0b6adcf`.
-- Every figure in the pages is compared with `4e0b6adcf`, whatever `main-ai` is today, except
-  those of subjects 1 and 4 and of subject 2's label slot, which are compared with `ac2787a42`.
+- Subjects 1 and 4 and the label slot of subject 2 were merged in
+  [pull request 6889](https://github.com/joncampbell123/dosbox-x/pull/6889), subject 13 in
+  [pull request 6887](https://github.com/joncampbell123/dosbox-x/pull/6887), and subject 14 in
+  [pull request 6901](https://github.com/joncampbell123/dosbox-x/pull/6901). Subject 15's branch,
+  `unmounted-answers-mainai`, is local, cut from the tip that merge left; its pull request waits
+  on the owner's yes. The tag of subject 2 stays on `4e0b6adcf`.
+- Every figure in the pages is compared with the commit its page names, whatever `main-ai` is
+  today: `4e0b6adcf` for most, `ac2787a42` for subjects 1 and 4 and subject 2's label slot.
 - The raw lines of every run are filed outside both repositories, by the work's own record.
   `results/` is made from them.
 
