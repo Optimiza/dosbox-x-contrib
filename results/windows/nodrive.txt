@@ -370,10 +370,9 @@ nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of
 # exit code 3
 
 # nodrive.sh base fix
-#   base  joncampbell123/dosbox-x main-ai 0948c6a9b   798ec23e864cd748d1973be03011cb3995b03c56921c0aec3b04bee54348d3d2
-#   fix   unmounted-answers-mainai's two commits applied with git am on top of the divide error fix's commit, on this host   87ab4bb75b92ea1e54fced4474ad573217c249fee3be65d102121e53e850e2ab
-# a run of 2026-11-26 on the Windows the header names: the ten path commands answer on the branch, and the
-# XCOPY line's own fix ends that line on the branch while the base is killed at its bound
+#   base  joncampbell123/dosbox-x main-ai a325b1292   9f1c86297e512fc0cb7b5569960bc8e398bd22f0070c22af32f9d56ab1af5bc2
+#   fix   unmounted-answers-mainai 7848689df, its commit applied with git am on this host, executable   ae297cf2424ef3cf4f6b567deb37fb8d4c03572060db66ae6159c53277747e3c
+# a run of 2026-11-27 on the Windows the header names, after the divide error fix merged upstream
 nodrive.sh: build A: base (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -403,7 +402,7 @@ cur-imgsrc|imgmake x.img -source q|Unable to read floppy.
 cur-imgsrc-control|imgmake x.img -source q|Unable to read floppy.
 cur-start|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
 cur-start-control|start /hid whoami.exe|Starting whoami.exe... / (Press Ctrl+C to exit immediately)
-xcopy-q|xcopy c:\A.TXT q:\|killed: passed the bound of 10 s
+xcopy-q|xcopy c:\A.TXT q:\|
 xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
 copy-q|copy c:\A.TXT q:\|Path not found
 copy-q-control|copy c:\A.TXT c:\|File cannot be copied onto itself
@@ -476,7 +475,33 @@ dir-q|dir q:\ /B|Invalid drive specification
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 ren-q-control|ren c:\A.TXT B.TXT|
-nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of 10 s and was killed; the run is kept in <the run's directory> build A: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
+nodrive.sh: DIFFERENT, 10 lines differ (A then B):
+< copy-q|copy c:\A.TXT q:\|Path not found
+> copy-q|copy c:\A.TXT q:\|Invalid drive specification
+< del-q|del q:\A.TXT|Path not found
+> del-q|del q:\A.TXT|Invalid drive specification
+< type-q|type q:\A.TXT|Path not found
+> type-q|type q:\A.TXT|Invalid drive specification
+< attrib-q|attrib q:\A.TXT|Path not found
+> attrib-q|attrib q:\A.TXT|Path not found - q:\A.TXT
+< truename-q|truename q:\A.TXT|Path not found
+> truename-q|truename q:\A.TXT|Invalid drive specification
+< cd-q|cd q:|Path not found
+> cd-q|cd q:|Invalid drive specification
+< cd-q-root|cd q:\|Invalid directory - q:\
+> cd-q-root|cd q:\|Invalid drive specification
+< md-q|md q:\X|Unable to create directory - q:\X
+> md-q|md q:\X|Invalid drive specification
+< dir-q|dir q:\ /B|
+> dir-q|dir q:\ /B|Invalid drive specification
+< ren-q|ren q:\A.TXT B.TXT|
+> ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
+# exit code 1
+
+# nodrive.sh fix fix
+#   fix   the same executable as the run above   ae297cf2424ef3cf4f6b567deb37fb8d4c03572060db66ae6159c53277747e3c
+# the A/A control of the run above
+nodrive.sh: build A: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
 label-q|label q:|Invalid drive specification
@@ -578,10 +603,5 @@ dir-q|dir q:\ /B|Invalid drive specification
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 ren-q-control|ren c:\A.TXT B.TXT|
-# exit code 3
-
-# nodrive.sh fix fix
-#   fix   the same executable as the run above   87ab4bb75b92ea1e54fced4474ad573217c249fee3be65d102121e53e850e2ab
-# the A/A control of the run above
 nodrive.sh: ALIKE
 # exit code 0

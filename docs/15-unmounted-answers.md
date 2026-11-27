@@ -43,7 +43,9 @@ with the same command on `C:` as its control, and the control answers on every b
 Source: `nodrive.sh <unpatched> <the branch>`, in [results/macos/nodrive.txt](../results/macos/nodrive.txt)
 and [results/windows/nodrive.txt](../results/windows/nodrive.txt).
 
-Against itself the branch answers the same on both builds: `ALIKE` on both hosts.
+The ten lines are the only ones that differ between the two runs, and the script says so:
+`DIFFERENT, 10 lines differ`. Against itself the branch answers the same on both builds, `ALIKE`
+on both hosts.
 
 ## What a program can notice
 

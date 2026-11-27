@@ -476,10 +476,9 @@ msdos622|ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 # exit code 0
 
 # nodrive.sh base fix
-#   base  joncampbell123/dosbox-x main-ai 0948c6a9b   b69bcc8c1d7e9e1cd21f5c7708ea13cab4accc6f0a2971571b15d7d5682ebde3
-#   fix   unmounted-answers-mainai 9fcfc0230, its two commits and the divide error fix's two under them   2f7142e9381ce62a428824c764bd56cf409d1b1e70b0b6a2568de5555a234833
-# a run of 2026-11-26 on the macOS the header names: the ten path commands answer on the branch, and the
-# XCOPY line's own fix ends that line on the branch while the base still hangs there
+#   base  joncampbell123/dosbox-x main-ai a325b1292   ae1955bb53677c944a2902d5b58d2bd44d72b418bbf3faf8bb88e091eddf840d
+#   fix   unmounted-answers-mainai 7848689df   49cad1c0a553f71fb46d4483ec8aabfb6d8325aee7ed4e0bfccf7fdd9104469a
+# a run of 2026-11-27, on the macOS the header names, after the divide error fix merged upstream
 nodrive.sh: build A: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -505,7 +504,7 @@ vol-1|vol 1:|Invalid drive specification
 vol-1-control|vol c:| Volume in drive C has no label /  Volume Serial Number is 0000-1234
 tree-1|tree 1:|Invalid drive specification
 tree-1-control|tree c:|Directory PATH listing for Volume  / Volume Serial Number is 0000-1234 / C: / No subdirectories exist
-xcopy-q|xcopy c:\A.TXT q:\|did not reach its last line
+xcopy-q|xcopy c:\A.TXT q:\|
 xcopy-q-control|xcopy c:\A.TXT c:\|File cannot be copied onto itself - c:\A.TXT / 0 file(s) copied
 copy-q|copy c:\A.TXT q:\|Path not found
 copy-q-control|copy c:\A.TXT c:\|File cannot be copied onto itself
@@ -574,11 +573,32 @@ dir-q|dir q:\ /B|Invalid drive specification
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / DOSBOX~1.ERR / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 ren-q-control|ren c:\A.TXT B.TXT|
-nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) did not reach its last line; the run is kept in <the run's directory>
-# exit code 3
+nodrive.sh: DIFFERENT, 10 lines differ (A then B):
+< copy-q|copy c:\A.TXT q:\|Path not found
+> copy-q|copy c:\A.TXT q:\|Invalid drive specification
+< del-q|del q:\A.TXT|Path not found
+> del-q|del q:\A.TXT|Invalid drive specification
+< type-q|type q:\A.TXT|Path not found
+> type-q|type q:\A.TXT|Invalid drive specification
+< attrib-q|attrib q:\A.TXT|Path not found
+> attrib-q|attrib q:\A.TXT|Path not found - q:\A.TXT
+< truename-q|truename q:\A.TXT|Path not found
+> truename-q|truename q:\A.TXT|Invalid drive specification
+< cd-q|cd q:|Path not found
+> cd-q|cd q:|Invalid drive specification
+< cd-q-root|cd q:\|Invalid directory - q:\
+> cd-q-root|cd q:\|Invalid drive specification
+< md-q|md q:\X|Unable to create directory - q:\X
+> md-q|md q:\X|Invalid drive specification
+< dir-q|dir q:\ /B|
+> dir-q|dir q:\ /B|Invalid drive specification
+< ren-q|ren q:\A.TXT B.TXT|
+> ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
+
+# exit code 1
 
 # nodrive.sh fix fix
-#   fix   unmounted-answers-mainai 9fcfc0230, its two commits and the divide error fix's two under them   2f7142e9381ce62a428824c764bd56cf409d1b1e70b0b6a2568de5555a234833
+#   fix   unmounted-answers-mainai 7848689df   49cad1c0a553f71fb46d4483ec8aabfb6d8325aee7ed4e0bfccf7fdd9104469a
 # the A/A control of the run above
 nodrive.sh: build A: fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
