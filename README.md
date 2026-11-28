@@ -23,7 +23,7 @@ figures.
 | 12 | [A path longer than the emulator's arrays answers "path not found"](docs/12-longname.md) | merged | nothing | [pull request 6872, "Answer path not found for a host path past CROSS_LEN"](https://github.com/joncampbell123/dosbox-x/pull/6872), merged; proved on macOS and Windows |
 | 13 | [A command on an unmounted drive answers "Invalid drive specification"](docs/13-unmounted-drive.md) | merged | nothing | [pull request 6887, "Answer "Invalid drive specification" instead of ending the emulator on an unmounted drive"](https://github.com/joncampbell123/dosbox-x/pull/6887), merged; proved on macOS and Windows |
 | 14 | [A divide error ends the program as MS-DOS ends it](docs/14-xcopy-unmounted.md) | merged | nothing | [pull request 6901, "End the program on a divide error, as MS-DOS does, instead of looping forever"](https://github.com/joncampbell123/dosbox-x/pull/6901), merged; proved on macOS and Windows |
-| 15 | [Ten shell commands answer MS-DOS's message on a drive that is not mounted](docs/15-unmounted-answers.md) | `unmounted-answers-mainai` | nothing | proved on macOS and Windows; its pull request is written and waits on the owner |
+| 15 | [Ten shell commands answer MS-DOS's message on a drive that is not mounted](docs/15-unmounted-answers.md) | `unmounted-answers-mainai` | nothing | [pull request 6911, "Answer MS-DOS's message on a drive that is not mounted, instead of the path"](https://github.com/joncampbell123/dosbox-x/pull/6911), not merged yet; proved on macOS and Windows |
 
 - Subjects 7 and 8 are withdrawn: the `DIR` fix of subject 7 is a commit of subject 4, and the
   defect of subject 8 was not there.
