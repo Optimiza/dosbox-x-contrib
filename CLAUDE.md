@@ -36,10 +36,11 @@ drafted here for a pull request or a comment.
   choice.
 - Subjects 1 and 4 and the label slot of subject 2 were merged in
   [pull request 6889](https://github.com/joncampbell123/dosbox-x/pull/6889), subject 13 in
-  [pull request 6887](https://github.com/joncampbell123/dosbox-x/pull/6887), and subject 14 in
-  [pull request 6901](https://github.com/joncampbell123/dosbox-x/pull/6901). Subject 15 is
-  offered as [pull request 6911](https://github.com/joncampbell123/dosbox-x/pull/6911), from
-  `unmounted-answers-mainai`, not merged yet. The tag of subject 2 stays on `4e0b6adcf`.
+  [pull request 6887](https://github.com/joncampbell123/dosbox-x/pull/6887), subject 14 in
+  [pull request 6901](https://github.com/joncampbell123/dosbox-x/pull/6901), and subject 15 in
+  [pull request 6911](https://github.com/joncampbell123/dosbox-x/pull/6911), merged as
+  `a9f4a3947`. Their branches are removed from the fork. The tag of subject 2 stays on
+  `4e0b6adcf`.
 - Every figure in the pages is compared with the commit its page names, whatever `main-ai` is
   today: `4e0b6adcf` for most, `ac2787a42` for subjects 1 and 4 and subject 2's label slot.
 - The raw lines of every run are filed outside both repositories, by the work's own record.
