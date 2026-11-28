@@ -41,6 +41,8 @@ then, on every host:
   md-q        md q:\X                control: md c:\X
   dir-q       dir q:\ /B             control: dir c:\ /B
   ren-q       ren q:\A.TXT B.TXT     control: ren c:\A.TXT B.TXT
+  rd-q        rd q:\X                control: rd c:\X
+  quoted-q    type "q:\A.TXT"        control: type "c:\A.TXT"
 
 Every line is bounded at 60 seconds, except xcopy-q at 10: on a drive that is not mounted it
 fills the emulator's log until the bound.
@@ -132,7 +134,9 @@ cd-q|q|cd q:
 cd-q-root|q|cd q:\\
 md-q|q|md q:\\X
 dir-q|q|dir q:\\ /B
-ren-q|q|ren q:\\A.TXT B.TXT'
+ren-q|q|ren q:\\A.TXT B.TXT
+rd-q|q|rd q:\\X
+quoted-q|q|type "q:\\A.TXT"'
 
 # signal_of <exit code>: the signal a code past 128 carries on a Mac, the exception a negative
 # code is on Windows (an NTSTATUS read as signed), or the code itself.
@@ -225,7 +229,7 @@ for label in A B; do
     while IFS='|' read -r name state line bound; do
         run_one "$label" "$binary" "$name" "$state" "$line" "$bound"
         if [ "$state" = q ]; then
-            run_one "$label" "$binary" "$name-control" q "$(printf '%s\n' "$line" | sed 's/ [q1]:/ c:/')" "$bound"
+            run_one "$label" "$binary" "$name-control" q "$(printf '%s\n' "$line" | sed -e 's/ [q1]:/ c:/' -e 's/"q:/"c:/')" "$bound"
         else
             run_one "$label" "$binary" "$name-control" c "$line" "$bound"
         fi

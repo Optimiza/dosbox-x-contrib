@@ -1,5 +1,8 @@
 start
 C:
 line
-Creating image file "x.img" with 512 cylinders, 2 heads and 8 sectors
+Directory PATH listing for Volume 
+Volume Serial Number is 1A69-9A4F
+C:.
+No subdirectories exist
 nodrive-end

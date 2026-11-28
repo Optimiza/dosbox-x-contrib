@@ -122,7 +122,9 @@ cd-q|cd q:
 cd-q-root|cd q:\\
 md-q|md q:\\X
 dir-q|dir q:\\ /B
-ren-q|ren q:\\A.TXT B.TXT"
+ren-q|ren q:\\A.TXT B.TXT
+rd-q|rd q:\\X
+quoted-q|type \"q:\\A.TXT\""
 
 if [ $# -eq 1 ] && [ "$1" = "--help" ]; then usage; exit 0; fi
 if [ $# -ne 4 ] && [ $# -ne 5 ]; then usage >&2; exit 2; fi

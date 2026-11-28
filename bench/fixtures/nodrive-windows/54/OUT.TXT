@@ -1,5 +1,4 @@
 start
 C:
 line
-Volume in drive C has no label
-nodrive-end
+xnodrive-end

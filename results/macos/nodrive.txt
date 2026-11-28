@@ -498,6 +498,11 @@ start|line|Invalid drive specification|done
 start|line|Invalid drive specification|done
 # the control, `del c:\NOPE.TXT`, a missing file on the mounted drive
 start|line|Unable to delete - c:\NOPE.TXT|done
+
+# nodrive.sh base fix
+#   base  joncampbell123/dosbox-x main-ai a325b1292   5460e1f990f17e36e39a7beceb7f6f76ee9b9c1a01e21ac7d52b67d1ceae7be3
+#   fix   unmounted-answers-mainai d5001e534   06677692ab5288c43bce8d585a5c415a5a6964c94a491eb2bb7d02d41c8215ed
+# a run of 2026-11-28, on the macOS the header names, after the divide error fix merged upstream
 nodrive.sh: build A: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -545,6 +550,10 @@ dir-q|dir q:\ /B|
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / DOSBOX~1.ERR / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|
 ren-q-control|ren c:\A.TXT B.TXT|
+rd-q|rd q:\X|Invalid path, not directory, or directory not empty - q:\X
+rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
+quoted-q|type "q:\A.TXT"|Path not found
+quoted-q-control|type "c:\A.TXT"|x
 nodrive.sh: build B: fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -592,7 +601,11 @@ dir-q|dir q:\ /B|Invalid drive specification
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / DOSBOX~1.ERR / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 ren-q-control|ren c:\A.TXT B.TXT|
-nodrive.sh: DIFFERENT, 10 lines differ (A then B):
+rd-q|rd q:\X|Invalid drive specification
+rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
+quoted-q|type "q:\A.TXT"|Invalid drive specification
+quoted-q-control|type "c:\A.TXT"|x
+nodrive.sh: DIFFERENT, 12 lines differ (A then B):
 < copy-q|copy c:\A.TXT q:\|Path not found
 > copy-q|copy c:\A.TXT q:\|Invalid drive specification
 < del-q|del q:\A.TXT|Path not found
@@ -613,8 +626,16 @@ nodrive.sh: DIFFERENT, 10 lines differ (A then B):
 > dir-q|dir q:\ /B|Invalid drive specification
 < ren-q|ren q:\A.TXT B.TXT|
 > ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
+< rd-q|rd q:\X|Invalid path, not directory, or directory not empty - q:\X
+> rd-q|rd q:\X|Invalid drive specification
+< quoted-q|type "q:\A.TXT"|Path not found
+> quoted-q|type "q:\A.TXT"|Invalid drive specification
 
 # exit code 1
+
+# nodrive.sh fix fix
+#   fix   unmounted-answers-mainai d5001e534   06677692ab5288c43bce8d585a5c415a5a6964c94a491eb2bb7d02d41c8215ed
+# the A/A control of the run above
 nodrive.sh: build A: fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -662,6 +683,10 @@ dir-q|dir q:\ /B|Invalid drive specification
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / DOSBOX~1.ERR / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 ren-q-control|ren c:\A.TXT B.TXT|
+rd-q|rd q:\X|Invalid drive specification
+rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
+quoted-q|type "q:\A.TXT"|Invalid drive specification
+quoted-q-control|type "c:\A.TXT"|x
 nodrive.sh: build B: fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -709,6 +734,10 @@ dir-q|dir q:\ /B|Invalid drive specification
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / DOSBOX~1.ERR / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 ren-q-control|ren c:\A.TXT B.TXT|
+rd-q|rd q:\X|Invalid drive specification
+rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
+quoted-q|type "q:\A.TXT"|Invalid drive specification
+quoted-q-control|type "c:\A.TXT"|x
 nodrive.sh: ALIKE
 
 # exit code 0

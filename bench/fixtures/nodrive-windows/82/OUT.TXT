@@ -1,5 +1,6 @@
 start
 C:
 line
-File cannot be copied onto itself
+Starting whoami.exe...
+(Press Ctrl+C to exit immediately)
 nodrive-end

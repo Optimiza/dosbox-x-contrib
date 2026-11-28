@@ -1,5 +1,5 @@
 start
-C:
+A:
 line
-Invalid drive specification
+A:\
 nodrive-end

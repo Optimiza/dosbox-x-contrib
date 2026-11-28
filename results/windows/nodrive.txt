@@ -370,11 +370,11 @@ nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of
 # exit code 3
 
 # nodrive.sh base fix
-#   base  joncampbell123/dosbox-x main-ai a325b1292   106fdcce4ef14609cb8c4a610f3dfc9b0b6233b454cee20cc78cd4e3ecc137e2
-#   fix   unmounted-answers-mainai 0bc97dd2d, its code commit applied with git am on this host (its
+#   base  joncampbell123/dosbox-x main-ai a325b1292   00ab04d052498106c703d2004ce5cb58c82d997094ae35e3be4a6b6347b5ed6b
+#   fix   unmounted-answers-mainai d5001e534, its code commit applied with git am on this host (its
 #         other commit is the CHANGELOG line, which no build reads), executable
-#         0f889c819c83e9be25db313adc9b198111dfc99b78757527d75b8e5ee286a008
-# a run of 2026-11-27 on the Windows the header names, after the divide error fix merged upstream
+#         9c7102eea1ba947b008facfd404c0e179656abc6e29f68ea54d515fd1d716256
+# a run of 2026-11-28 on the Windows the header names, after the divide error fix merged upstream
 nodrive.sh: build A: base (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -426,6 +426,10 @@ dir-q|dir q:\ /B|
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|
 ren-q-control|ren c:\A.TXT B.TXT|
+rd-q|rd q:\X|Invalid path, not directory, or directory not empty - q:\X
+rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
+quoted-q|type "q:\A.TXT"|Path not found
+quoted-q-control|type "c:\A.TXT"|x
 nodrive.sh: build B: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -477,7 +481,11 @@ dir-q|dir q:\ /B|Invalid drive specification
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 ren-q-control|ren c:\A.TXT B.TXT|
-nodrive.sh: DIFFERENT, 10 lines differ (A then B):
+rd-q|rd q:\X|Invalid drive specification
+rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
+quoted-q|type "q:\A.TXT"|Invalid drive specification
+quoted-q-control|type "c:\A.TXT"|x
+nodrive.sh: DIFFERENT, 12 lines differ (A then B):
 < copy-q|copy c:\A.TXT q:\|Path not found
 > copy-q|copy c:\A.TXT q:\|Invalid drive specification
 < del-q|del q:\A.TXT|Path not found
@@ -498,10 +506,14 @@ nodrive.sh: DIFFERENT, 10 lines differ (A then B):
 > dir-q|dir q:\ /B|Invalid drive specification
 < ren-q|ren q:\A.TXT B.TXT|
 > ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
+< rd-q|rd q:\X|Invalid path, not directory, or directory not empty - q:\X
+> rd-q|rd q:\X|Invalid drive specification
+< quoted-q|type "q:\A.TXT"|Path not found
+> quoted-q|type "q:\A.TXT"|Invalid drive specification
 # exit code 1
 
 # nodrive.sh fix fix
-#   fix   the same executable as the run above   0f889c819c83e9be25db313adc9b198111dfc99b78757527d75b8e5ee286a008
+#   fix   the same executable as the run above   9c7102eea1ba947b008facfd404c0e179656abc6e29f68ea54d515fd1d716256
 # the A/A control of the run above
 nodrive.sh: build A: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
@@ -554,6 +566,10 @@ dir-q|dir q:\ /B|Invalid drive specification
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 ren-q-control|ren c:\A.TXT B.TXT|
+rd-q|rd q:\X|Invalid drive specification
+rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
+quoted-q|type "q:\A.TXT"|Invalid drive specification
+quoted-q-control|type "c:\A.TXT"|x
 nodrive.sh: build B: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -605,5 +621,9 @@ dir-q|dir q:\ /B|Invalid drive specification
 dir-q-control|dir c:\ /B|A.TXT / DOSBOX.LOG / EMULATOR.PID / LAUNCHER.TXT / NODRIVE.EXE / OUT.TXT / RUN~1.CON
 ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
 ren-q-control|ren c:\A.TXT B.TXT|
+rd-q|rd q:\X|Invalid drive specification
+rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
+quoted-q|type "q:\A.TXT"|Invalid drive specification
+quoted-q-control|type "c:\A.TXT"|x
 nodrive.sh: ALIKE
 # exit code 0

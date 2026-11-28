@@ -1,6 +1,7 @@
 start
 C:
 line
-File cannot be copied onto itself - c:\A.TXT
-0 file(s) copied
+
+ Volume in drive C has no label
+ Volume Serial Number is 0000-1234
 nodrive-end

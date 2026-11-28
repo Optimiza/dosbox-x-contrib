@@ -1,5 +1,5 @@
 start
 C:
 line
-Path not found
+Invalid drive specification
 nodrive-end

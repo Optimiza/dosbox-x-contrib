@@ -1,8 +1,5 @@
 start
 C:
 line
-Directory PATH listing for Volume 
-Volume Serial Number is 0000-1234
-C:
-No subdirectories exist
+C:\
 nodrive-end

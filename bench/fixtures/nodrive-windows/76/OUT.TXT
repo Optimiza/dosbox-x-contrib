@@ -2,5 +2,6 @@ start
 C:
 line
 
-
-Unable to read floppy.nodrive-end
+ Volume in drive C has no label
+ Volume Serial Number is 1A69-9A4F
+nodrive-end

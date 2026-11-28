@@ -1,5 +1,4 @@
 start
 C:
 line
-C:\A.TXT
-nodrive-end
+xnodrive-end

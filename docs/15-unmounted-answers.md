@@ -1,22 +1,22 @@
-# 15. Nine shell commands answer MS-DOS's message on a drive that is not mounted
+# 15. Ten shell commands answer MS-DOS's message on a drive that is not mounted
 
-Nine shell commands no longer report the path they cannot reach when the drive is not mounted.
-`copy`, `del`, `type`, `truename`, `cd`, `md`, `dir` and `ren` answer `Invalid drive specification`,
-as MS-DOS 6.22 and 7.10 do, and `attrib` answers the DOSes' own `Path not found - <the path>`. It
-is proved on macOS and Windows.
+Ten shell commands no longer report the path they cannot reach when the drive is not mounted.
+`copy`, `del`, `type`, `truename`, `cd`, `md`, `rd`, `dir` and `ren` answer `Invalid drive
+specification`, as MS-DOS 6.22 and 7.10 do, and `attrib` answers the DOSes' own
+`Path not found - <the path>`. It is proved on macOS and Windows.
 
 ## What was wrong
 
 The shell resolved a path before it looked at the drive. A path on a drive nothing was mounted on
 failed inside the resolver, and each command reported what it made of that failure.
 
-Six commands said `Path not found`. `cd q:\` said `Invalid directory - q:\`, and `md` said
-`Unable to create directory - q:\X`. `dir` and `ren` said nothing at all, which a batch file cannot
-tell from success.
+Six commands said `Path not found`. `cd q:\` said `Invalid directory - q:\`, `md` said
+`Unable to create directory - q:\X` and `rd` said `Invalid path, not directory, or directory not
+empty - q:\X`. `dir` and `ren` said nothing at all, which a batch file cannot tell from success.
 
 ## What the fix changes
 
-Each of the nine commands now checks the drive its path names before its own path work. It reads
+Each of the ten commands now checks the drive its path names before its own path work. It reads
 the drive the way the DOS path resolver does, so a quoted name is read alike.
 
 Eight of them answer `Invalid drive specification`. `attrib` answers `Path not found - <the path>`,
@@ -38,6 +38,8 @@ with the same command on `C:` as its control.
 | `cd-q-root` | `Invalid directory - q:\` | `Invalid drive specification` | `Invalid drive specification` |
 | `md-q` | `Unable to create directory - q:\X` | `Invalid drive specification` | `Invalid drive specification` |
 | `dir-q`, `ren-q` | nothing | `Invalid drive specification` | `Invalid drive specification` |
+| `rd-q` | `Invalid path, not directory, or directory not empty - q:\X` | `Invalid drive specification` | `Invalid drive specification` |
+| `quoted-q` | `Path not found` | `Invalid drive specification` | `Invalid drive specification`; 6.22 answers `Parameter format not correct` |
 | `attrib-q` | `Path not found` | `Path not found - q:\A.TXT` | `Path not found - Q:\A.TXT`, as typed on 7.10 |
 
 Source: `nodrive.sh <unpatched> <the branch>` on both hosts, and
@@ -45,8 +47,8 @@ Source: `nodrive.sh <unpatched> <the branch>` on both hosts, and
 [results/macos/nodrive.txt](../results/macos/nodrive.txt); the `nodrive.sh` run on Windows is in
 [results/windows/nodrive.txt](../results/windows/nodrive.txt).
 
-The ten lines are the only ones that differ between the two runs, and the script says so:
-`DIFFERENT, 10 lines differ`. Against itself the branch answers the same on both builds, `ALIKE`
+The twelve lines are the only ones that differ between the two runs, and the script says so:
+`DIFFERENT, 12 lines differ`. Against itself the branch answers the same on both builds, `ALIKE`
 on both hosts.
 
 The message does not depend on the DOS version the emulator reports: `del q:\A.TXT` answers
@@ -86,11 +88,9 @@ The DOS column needs a hard disk image of each MS-DOS, which is not kept in this
 
 ## What is left
 
-`rd` is outside this subject: it still answers `Invalid path, not directory, or directory not
-empty - q:\X`, and neither DOS has been asked that line.
-
-MS-DOS's answer to a quoted path was not measured on either DOS. The shell reads the quote as the
-resolver reads it, but no bench line covers it.
+MS-DOS 6.22 has no quoting in its shell: `type "q:\A.TXT"` there is a parameter error, not a
+drive error. 7.10 strips the quotes and answers as the branch does, and the branch reads a quoted
+path as its own resolver does.
 
 `attrib` echoes the path as it was typed, which is MS-DOS 7.10's form; MS-DOS 6.22 writes the drive
 letter in capitals. One of the two can be matched, and the shell's own convention is the one taken.

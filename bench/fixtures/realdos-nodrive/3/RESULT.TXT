@@ -53,4 +53,10 @@ Invalid drive specification
 section nodrive-ren-q
 Invalid drive specification
 
+section nodrive-rd-q
+Invalid drive specification
+
+section nodrive-quoted-q
+Invalid drive specification
+
 section done
