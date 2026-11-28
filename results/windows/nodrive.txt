@@ -370,10 +370,10 @@ nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of
 # exit code 3
 
 # nodrive.sh base fix
-#   base  joncampbell123/dosbox-x main-ai a325b1292   b0225609cdffa28db778e8d250ce251e3119e790e557401cc8a938f8be04fff6
-#   fix   unmounted-answers-mainai b053bfbdf, its code commit applied with git am on this host (its
+#   base  joncampbell123/dosbox-x main-ai a325b1292   a6a52c0731a46e0671c14d0bfc9970691b7061d4d7f71ee126137ca4d626e623
+#   fix   unmounted-answers-mainai de3aed8ad, its code commit applied with git am on this host (its
 #         other commit is the CHANGELOG line, which no build reads), executable
-#         b7851474f09b05c207da6037399b6d09d67c9b524fd3ed7b53223c2f006c378e
+#         de2c2ddc68840b302a0e9a0bc12ccb1bb03673d54c8e72e7be66945e057ce054
 # a run of 2026-11-28 on the Windows the header names, with `cd @:` among the lines
 nodrive.sh: build A: base (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
@@ -521,7 +521,7 @@ nodrive.sh: DIFFERENT, 14 lines differ (A then B):
 # exit code 1
 
 # nodrive.sh fix fix
-#   fix   the same executable as the run above   b7851474f09b05c207da6037399b6d09d67c9b524fd3ed7b53223c2f006c378e
+#   fix   the same executable as the run above   de2c2ddc68840b302a0e9a0bc12ccb1bb03673d54c8e72e7be66945e057ce054
 # the A/A control of the run above
 nodrive.sh: build A: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification

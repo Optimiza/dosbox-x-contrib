@@ -506,7 +506,7 @@ start|line|Unable to delete - c:\NOPE.TXT|done
 
 # nodrive.sh base fix
 #   base  joncampbell123/dosbox-x main-ai a325b1292   5460e1f990f17e36e39a7beceb7f6f76ee9b9c1a01e21ac7d52b67d1ceae7be3
-#   fix   unmounted-answers-mainai b053bfbdf   d961eb878f6247fc6676eaf804df8539c51a9ec57a906239113dfcdd7fcd4f80
+#   fix   unmounted-answers-mainai de3aed8ad   223c030e84906726adb8534529789eac2630df5224415425c12b9346d5aadbec
 # a run of 2026-11-28, on the macOS the header names, with `cd @:` among the lines
 nodrive.sh: build A: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
@@ -647,7 +647,7 @@ nodrive.sh: DIFFERENT, 14 lines differ (A then B):
 # exit code 1
 
 # nodrive.sh fix fix
-#   fix   unmounted-answers-mainai b053bfbdf   d961eb878f6247fc6676eaf804df8539c51a9ec57a906239113dfcdd7fcd4f80
+#   fix   unmounted-answers-mainai de3aed8ad   223c030e84906726adb8534529789eac2630df5224415425c12b9346d5aadbec
 # the A/A control of the run above
 nodrive.sh: build A: fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
