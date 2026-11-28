@@ -19,7 +19,7 @@ empty - q:\X`. `dir` and `ren` said nothing at all, which a batch file cannot te
 Each of the ten commands now checks the drive its path names before its own path work. It reads
 the drive the way the DOS path resolver does, so a quoted name is read alike.
 
-Eight of them answer `Invalid drive specification`. `attrib` answers `Path not found - <the path>`,
+Nine of them answer `Invalid drive specification`. `attrib` answers `Path not found - <the path>`,
 which is what both DOSes print for a file on a drive that is not there.
 
 `cd` keeps the hint it prints at the `Z:` prompt, where its message tells a new user how to mount a
@@ -40,7 +40,7 @@ with the same command on `C:` as its control.
 | `dir-q`, `ren-q` | nothing | `Invalid drive specification` | `Invalid drive specification` |
 | `rd-q` | `Invalid path, not directory, or directory not empty - q:\X` | `Invalid drive specification` | `Invalid drive specification` |
 | `quoted-q` | `Path not found` | `Invalid drive specification` | `Invalid drive specification`; 6.22 answers `Parameter format not correct` |
-| `attrib-q` | `Path not found` | `Path not found - q:\A.TXT` | `Path not found - Q:\A.TXT`, as typed on 7.10 |
+| `attrib-q` | `Path not found` | `Path not found - q:\A.TXT` | `Path not found - Q:\A.TXT` on 6.22; 7.10 keeps the case as typed |
 
 Source: `nodrive.sh <unpatched> <the branch>` on both hosts, and
 `realdos.sh <unpatched> msdos710 <an image> nodrive` and the same with `msdos622`, all in
@@ -71,7 +71,7 @@ bench/nodrive.sh <unpatched> <the branch>
 ```
 
 Each line runs in an emulator start of its own, beside the same command on `C:`. The script says
-`DIFFERENT, 10 lines differ`, and the ten lines are the ones in the table.
+`DIFFERENT, 12 lines differ`, and the twelve lines are the ones in the table.
 
 A control whose command prints nothing on a mounted drive answers nothing, on every build; the
 script judges a run by whether it reached its last line, not by its answer.
@@ -95,7 +95,9 @@ path as its own resolver does.
 `attrib` echoes the path as it was typed, which is MS-DOS 7.10's form; MS-DOS 6.22 writes the drive
 letter in capitals. One of the two can be matched, and the shell's own convention is the one taken.
 
-FreeDOS 1.4 was asked the same lines and does not finish them. It answers the lines it reaches
-differently from both MS-DOS, and `md q:\X` never returns, so `dir` and `ren` are never asked. Its
-`RESULT.TXT` is in [results/macos/nodrive-freedos.txt](../results/macos/nodrive-freedos.txt), and
-nothing here is filed from it as an answer.
+FreeDOS 1.4 was asked the batch of lines it was given then and does not finish it. It answers the
+lines it reaches differently from both MS-DOS, and `md q:\X` never returns, so `dir`, `ren`, `rd`
+and the quoted line are never asked there either.
+
+Its `RESULT.TXT` is in [results/macos/nodrive-freedos.txt](../results/macos/nodrive-freedos.txt),
+and nothing here is filed from it as an answer.

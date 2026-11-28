@@ -50,8 +50,8 @@ usage: realdos.sh <build> <dos> <boot image> <id|findlife|exact|enumstat|drift|d
   xcomsim-relay the same with --relay: the listing through the lookups' one DTA
   nodrive       the lines of nodrive.sh on Q:, a letter the DOS has no drive for: label q: X,
                 label q:, label q:X, xcopy c:\A.TXT q:\ and the path commands copy, del, type,
-                attrib, truename, cd, md, dir and ren, each through REDIR, which keeps the
-                error messages too
+                attrib, truename, cd, md, rd, dir, ren and a quoted path, each through REDIR,
+                which keeps the error messages too
   junktest      the batch files of the archive of upstream issue 6827, unpacked in <folder>,
                 in the run the issue describes: 300.BAT, JUNK.BAT, 300.BAT, each through
                 COMMAND /C so that what it prints is kept, with the emulator's FC.EXE as

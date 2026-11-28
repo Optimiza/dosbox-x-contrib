@@ -103,8 +103,8 @@ yours.
 Each push runs `shellcheck` and those tests on GitHub, but `battery.test.sh`, which needs eight
 cores. A cell needs an emulator, so it runs by hand.
 
-The branches and the bench were written with AI assistance (Claude Fable 5.2), so under the
-project's Artificial Intelligence Policy they do not comply for `master` and are meant for
-`main-ai`. I have reviewed them myself as well.
+The branches and the bench were written with AI assistance (Claude Fable 5.2 and DeepSeek
+Flash), so under the project's Artificial Intelligence Policy they do not comply for `master` and
+are meant for `main-ai`. I have reviewed them myself as well.
 
 Developed by Optimiza ([Marcos Hernández](https://www.linkedin.com/in/optimiza/)), in collaboration with [MS-DOS Club](https://msdos.club) and its [podcast](https://www.ivoox.com/podcast-ms-dos-club_sq_f11160693_1.html).

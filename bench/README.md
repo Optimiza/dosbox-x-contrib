@@ -35,7 +35,7 @@ program sees when it does anything but run one search to its end. The code under
 | [`resprb.sh`](#resprbsh) | `resprb.c` | how much host memory a build keeps after a program repeats a child process, a change of the FPU's control word, or a search |
 | [`aliases.sh`](#aliasessh) | `aliases.c` | whether two entries of a folder share a short name, and whether each short name opens its own file |
 | [`longpath.sh`](#longpathsh) | none: shell commands | whether the emulator survives a host path, or a path inside a zip, longer than the arrays it builds paths in |
-| [`nodrive.sh`](#nodrivesh) | `nodrive.c`, then the shell's `LABEL`, `VOL`, `TREE`, `CD`, `IMGMAKE`, `COPY`, `DEL`, `TYPE`, `ATTRIB`, `TRUENAME`, `MD`, `DIR` and `REN`, the `XCOPY` the shell runs, and `START` on Windows | whether the emulator survives a command on a drive that is not mounted, or with no drive behind the current one, and what it answers |
+| [`nodrive.sh`](#nodrivesh) | `nodrive.c`, then the shell's `LABEL`, `VOL`, `TREE`, `CD`, `IMGMAKE`, `COPY`, `DEL`, `TYPE`, `ATTRIB`, `TRUENAME`, `MD`, `RD`, `DIR` and `REN`, the `XCOPY` the shell runs, and `START` on Windows | whether the emulator survives a command on a drive that is not mounted, or with no drive behind the current one, and what it answers |
 | [`unit.sh`](#unitsh) | none: the emulator's own unit tests | how many of a build's unit tests ran and failed |
 | [`passfail.sh`](#passfailsh) | a program you hand it | how many checks of a self-testing DOS program pass on a build |
 | [`junktest.sh`](#junktestsh) | the batch files a reporter attached to an upstream issue, then `memprobe.c` to hold | how much host memory a build keeps after the reporter's own run |
@@ -1389,7 +1389,8 @@ nodrive.sh <build A> <build B>
 | `copy-q` | `copy c:\A.TXT q:\` | the same on `c:` |
 | `del-q`, `type-q`, `attrib-q`, `truename-q` | `del q:\A.TXT`, `type q:\A.TXT`, `attrib q:\A.TXT`, `truename q:\A.TXT` | the same on `c:` |
 | `cd-q`, `cd-q-root` | `cd q:`, `cd q:\` | the same on `c:` |
-| `md-q`, `dir-q`, `ren-q` | `md q:\X`, `dir q:\ /B`, `ren q:\A.TXT B.TXT` | the same on `c:` |
+| `md-q`, `rd-q`, `dir-q`, `ren-q` | `md q:\X`, `rd q:\X`, `dir q:\ /B`, `ren q:\A.TXT B.TXT` | the same on `c:` |
+| `quoted-q` | `type "q:\A.TXT"` | the same on `c:`, quoted |
 | `cur-imgsrc`, on Windows | `imgmake x.img -source q`, after `NODRIVE.EXE` | the same with `C:` current |
 | `cur-start`, on Windows | `start /hid whoami.exe`, after `NODRIVE.EXE` | the same with `C:` current |
 

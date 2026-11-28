@@ -448,6 +448,8 @@ msdos710|cd-q-root|cd q:\|Invalid drive specification
 msdos710|md-q|md q:\X|Invalid drive specification
 msdos710|dir-q|dir q:\ /B|Invalid drive specification
 msdos710|ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
+msdos710|rd-q|rd q:\X|Invalid drive specification
+msdos710|quoted-q|type "q:\A.TXT"|Invalid drive specification
 
 # realdos.sh base msdos622 <an MS-DOS 6.22 hard disk image> nodrive   (exit code 0)
 realdos.sh: msdos622: machine: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
@@ -473,7 +475,8 @@ msdos622|cd-q-root|cd q:\|Invalid drive specification
 msdos622|md-q|md q:\X|Invalid drive specification
 msdos622|dir-q|dir q:\ /B|Invalid drive specification
 msdos622|ren-q|ren q:\A.TXT B.TXT|Invalid drive specification
-# exit code 0
+msdos622|rd-q|rd q:\X|Invalid drive specification
+msdos622|quoted-q|type "q:\A.TXT"|Parameter format not correct -  "q:\A.TXT"
 
 # del q:\A.TXT on the branch, with the DOS version the emulator reports set by `ver set`
 #   fix   unmounted-answers-mainai 0bc97dd2d   652a2104b8427da68ade9dc5ce38e0022422db4304b535e36bad22fb5576d783
@@ -501,7 +504,7 @@ start|line|Unable to delete - c:\NOPE.TXT|done
 
 # nodrive.sh base fix
 #   base  joncampbell123/dosbox-x main-ai a325b1292   5460e1f990f17e36e39a7beceb7f6f76ee9b9c1a01e21ac7d52b67d1ceae7be3
-#   fix   unmounted-answers-mainai d5001e534   06677692ab5288c43bce8d585a5c415a5a6964c94a491eb2bb7d02d41c8215ed
+#   fix   unmounted-answers-mainai a763b0941   8133dc1af4d0e28f157022af13b26c254dec67f483a014d8932fe00824c720b6
 # a run of 2026-11-28, on the macOS the header names, after the divide error fix merged upstream
 nodrive.sh: build A: base (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
@@ -634,7 +637,7 @@ nodrive.sh: DIFFERENT, 12 lines differ (A then B):
 # exit code 1
 
 # nodrive.sh fix fix
-#   fix   unmounted-answers-mainai d5001e534   06677692ab5288c43bce8d585a5c415a5a6964c94a491eb2bb7d02d41c8215ed
+#   fix   unmounted-answers-mainai a763b0941   8133dc1af4d0e28f157022af13b26c254dec67f483a014d8932fe00824c720b6
 # the A/A control of the run above
 nodrive.sh: build A: fix (DOSBox-X version 2026.10.01 SDL2, copyright 2011-2026 The DOSBox-X Team.)
 label-q-x|label q: X|Invalid drive specification
