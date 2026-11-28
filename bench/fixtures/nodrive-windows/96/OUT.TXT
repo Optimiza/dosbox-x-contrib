@@ -1,5 +1,5 @@
 start
 C:
 line
-C:\
+C:\A.TXT
 nodrive-end

@@ -50,7 +50,8 @@ usage: realdos.sh <build> <dos> <boot image> <id|findlife|exact|enumstat|drift|d
   xcomsim-relay the same with --relay: the listing through the lookups' one DTA
   nodrive       the lines of nodrive.sh on Q:, a letter the DOS has no drive for: label q: X,
                 label q:, label q:X, xcopy c:\A.TXT q:\ and the path commands copy, del, type,
-                attrib, truename, cd, md, rd, dir, ren and a quoted path, each through REDIR,
+                attrib, truename, cd, md, rd, dir, ren, a quoted path and a drive letter that is
+                no letter, each through REDIR,
                 which keeps the error messages too
   junktest      the batch files of the archive of upstream issue 6827, unpacked in <folder>,
                 in the run the issue describes: 300.BAT, JUNK.BAT, 300.BAT, each through
@@ -124,7 +125,8 @@ md-q|md q:\\X
 dir-q|dir q:\\ /B
 ren-q|ren q:\\A.TXT B.TXT
 rd-q|rd q:\\X
-quoted-q|type \"q:\\A.TXT\""
+quoted-q|type \"q:\\A.TXT\"
+cd-at|cd @:"
 
 if [ $# -eq 1 ] && [ "$1" = "--help" ]; then usage; exit 0; fi
 if [ $# -ne 4 ] && [ $# -ne 5 ]; then usage >&2; exit 2; fi

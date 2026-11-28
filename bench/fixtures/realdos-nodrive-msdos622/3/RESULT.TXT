@@ -59,4 +59,7 @@ Invalid drive specification
 section nodrive-quoted-q
 Parameter format not correct -  "q:\A.TXT"
 
+section nodrive-cd-at
+Invalid drive specification
+
 section done

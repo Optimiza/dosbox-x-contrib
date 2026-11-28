@@ -1391,6 +1391,7 @@ nodrive.sh <build A> <build B>
 | `cd-q`, `cd-q-root` | `cd q:`, `cd q:\` | the same on `c:` |
 | `md-q`, `rd-q`, `dir-q`, `ren-q` | `md q:\X`, `rd q:\X`, `dir q:\ /B`, `ren q:\A.TXT B.TXT` | the same on `c:` |
 | `quoted-q` | `type "q:\A.TXT"` | the same on `c:`, quoted |
+| `cd-at` | `cd @:`, after `NODRIVE.EXE` | the same with `C:` current |
 | `cur-imgsrc`, on Windows | `imgmake x.img -source q`, after `NODRIVE.EXE` | the same with `C:` current |
 | `cur-start`, on Windows | `start /hid whoami.exe`, after `NODRIVE.EXE` | the same with `C:` current |
 

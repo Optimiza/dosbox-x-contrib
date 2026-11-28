@@ -1,5 +1,4 @@
 start
 C:
 line
-Invalid path, not directory, or directory not empty - c:\X
 nodrive-end

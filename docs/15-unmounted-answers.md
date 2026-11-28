@@ -14,6 +14,8 @@ Six commands said `Path not found`. `cd q:\` said `Invalid directory - q:\`, `md
 `Unable to create directory - q:\X` and `rd` said `Invalid path, not directory, or directory not
 empty - q:\X`. `dir` and `ren` said nothing at all, which a batch file cannot tell from success.
 
+`cd @:`, a letter that is no drive, named the current drive: with `C:` current it printed `@:\`.
+
 ## What the fix changes
 
 Each of the ten commands now checks the drive its path names before its own path work. It reads
@@ -40,6 +42,7 @@ with the same command on `C:` as its control.
 | `dir-q`, `ren-q` | nothing | `Invalid drive specification` | `Invalid drive specification` |
 | `rd-q` | `Invalid path, not directory, or directory not empty - q:\X` | `Invalid drive specification` | `Invalid drive specification` |
 | `quoted-q` | `Path not found` | `Invalid drive specification` | `Invalid drive specification`; 6.22 answers `Parameter format not correct` |
+| `cd-at` | `Path not found`, or `@:\` with `C:` current | `Invalid drive specification` | `Invalid drive specification` |
 | `attrib-q` | `Path not found` | `Path not found - q:\A.TXT` | `Path not found - Q:\A.TXT` on 6.22; 7.10 keeps the case as typed |
 
 Source: `nodrive.sh <unpatched> <the branch>` on both hosts, and
@@ -47,8 +50,8 @@ Source: `nodrive.sh <unpatched> <the branch>` on both hosts, and
 [results/macos/nodrive.txt](../results/macos/nodrive.txt); the `nodrive.sh` run on Windows is in
 [results/windows/nodrive.txt](../results/windows/nodrive.txt).
 
-The twelve lines are the only ones that differ between the two runs, and the script says so:
-`DIFFERENT, 12 lines differ`. Against itself the branch answers the same on both builds, `ALIKE`
+The fourteen lines are the only ones that differ between the two runs, and the script says so:
+`DIFFERENT, 14 lines differ`. Against itself the branch answers the same on both builds, `ALIKE`
 on both hosts.
 
 The message does not depend on the DOS version the emulator reports: `del q:\A.TXT` answers
@@ -71,7 +74,7 @@ bench/nodrive.sh <unpatched> <the branch>
 ```
 
 Each line runs in an emulator start of its own, beside the same command on `C:`. The script says
-`DIFFERENT, 12 lines differ`, and the twelve lines are the ones in the table.
+`DIFFERENT, 14 lines differ`, and the fourteen lines are the ones in the table.
 
 A control whose command prints nothing on a mounted drive answers nothing, on every build; the
 script judges a run by whether it reached its last line, not by its answer.

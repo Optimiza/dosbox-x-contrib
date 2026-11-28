@@ -59,4 +59,7 @@ Invalid drive specification
 section nodrive-quoted-q
 Invalid drive specification
 
+section nodrive-cd-at
+Invalid drive specification
+
 section done

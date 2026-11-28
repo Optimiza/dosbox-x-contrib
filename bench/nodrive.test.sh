@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # nodrive.sh's verdicts against captured runs, no emulator: bash nodrive.test.sh
-# fixtures/nodrive holds a base build against itself on macOS: 100 starts, a line and its control
-# in turn, build A's 50 then build B's. lines_a and lines_b are the starts that do not answer: the
+# fixtures/nodrive holds a base build against itself on macOS: 104 starts, a line and its control
+# in turn, build A's 52 then build B's. lines_a and lines_b are the starts that do not answer: the
 # nine that die on SIGSEGV (EXIT 139), recorded before the unmounted-drive fix merged upstream, and
 # the XCOPY line, recorded from upstream main-ai at 0948c6a9b, where it is cut at its bound before
 # its last line. The ten path commands after it are recorded from the same build.
@@ -23,7 +23,7 @@ survive() {
         printf 'nodrive-end\r\n' >> "$d/$n/OUT.TXT"
     done
 }
-lines_a=(1 3 5 7 9 11 13 15 17 25) lines_b=(51 53 55 57 59 61 63 65 67 75)
+lines_a=(1 3 5 7 9 11 13 15 17 25) lines_b=(53 55 57 59 61 63 65 67 69 77)
 
 t_play "$f"
 t_case "a line that ends the emulator is INVALID" 3 "nodrive.sh: INVALID: build A: \"label q: X\" (label-q-x) ended the emulator: SEGV, exit 139" run
@@ -61,6 +61,8 @@ t_case "rd on that drive, beside its control" 3 "rd-q|rd q:\\X|Invalid path, not
 rd-q-control|rd c:\\X|Invalid path, not directory, or directory not empty - c:\\X" run
 t_case "a quoted path is read as the path resolver reads it" 3 "quoted-q|type \"q:\\A.TXT\"|Path not found
 quoted-q-control|type \"c:\\A.TXT\"|x" run
+t_case "a drive letter that is no letter, with no drive current and on C:" 3 "cd-at|cd @:|Path not found
+cd-at-control|cd @:|@:\\" run
 t_derive "$f"
 survive "$derived" "" "${lines_a[@]}" "${lines_b[@]}"; t_play "$derived"
 t_case "every line survives, alike" 0 "nodrive.sh: ALIKE" run
@@ -134,7 +136,7 @@ where() {
     awk '$0 ~ /\/run-[AB]-[a-z0-9-]+$/ { n[$0]++ } END { print length(n) " run folders, " NR " starts" }' "$work/where.txt"
     printf 'in the caller'\''s folder: [%s]\n' "$(ls -A "$work/caller")"
 }
-t_case "each start runs in a folder of its own" 0 "100 run folders, 100 starts" where
+t_case "each start runs in a folder of its own" 0 "104 run folders, 104 starts" where
 t_case "and writes nothing in the caller's folder" 0 "in the caller's folder: []" where
 # args.sh records what the launcher is given: the XCOPY line is bounded shorter than the rest.
 args=$work/args.sh
@@ -175,10 +177,10 @@ win_survive() {
         echo 0 > "$d/$n/launcher.rc" && rm "$d/$n/launcher.err" && printf 'nodrive-end\r\n' >> "$d/$n/OUT.TXT" || exit 3
     done
 }
-win_dead=(1 3 5 7 9 11 13 15 17 25 27 55 57 59 61 63 65 67 69 71 79 81)
+win_dead=(1 3 5 7 9 11 13 15 17 25 27 57 59 61 63 65 67 69 71 73 81 83)
 # win_killed: the starts the bound cut, the XCOPY line on a drive that is not mounted, on each
 # build. They are not deaths and a run that survives them ends them too.
-win_killed=(29 83)
+win_killed=(29 85)
 t_play "$w"
 t_case "Windows: a line that ends the emulator is named by its exception" 3 "nodrive.sh: INVALID: build A: \"label q: X\" (label-q-x) ended the emulator: 0xC0000005, exit -1073741819" win
 t_case "Windows: every line that does is named, of both builds" 3 "build B: \"start /hid whoami.exe\" (cur-start) ended the emulator: 0xC0000005, exit -1073741819; build B: \"xcopy c:\\A.TXT q:\\\" (xcopy-q) passed the bound of 10 s and was killed; the run is kept" win

@@ -1,5 +1,5 @@
 start
 C:
 line
-Path not found
+Invalid path, not directory, or directory not empty - q:\X
 nodrive-end

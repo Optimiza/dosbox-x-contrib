@@ -1,5 +1,3 @@
 start
 C:
 line
-Path not found
-nodrive-end

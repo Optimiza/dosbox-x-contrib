@@ -1,5 +1,5 @@
 start
 C:
 line
-Unable to create directory - q:\X
+Invalid directory - q:\
 nodrive-end

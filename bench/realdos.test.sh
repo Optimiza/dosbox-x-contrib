@@ -99,6 +99,7 @@ t_case "what MS-DOS 7.10 answers on a drive that is not there" 0 "msdos710|label
 t_case "and XCOPY on it" 0 "msdos710|xcopy-q|xcopy c:\\A.TXT q:\\|Invalid drive specification" run nodrive
 t_case "and RD on it" 0 "msdos710|rd-q|rd q:\\X|Invalid drive specification" run nodrive
 t_case "and a quoted path" 0 'msdos710|quoted-q|type "q:\A.TXT"|Invalid drive specification' run nodrive
+t_case "and a drive letter that is no letter" 0 "msdos710|cd-at|cd @:|Invalid drive specification" run nodrive
 t_play "$f/realdos-nodrive-msdos622"
 t_case "and MS-DOS 6.22" 0 "msdos622|label-qx|label q:X|Invalid drive specification" run_on msdos622 "$work/boot.vhd" nodrive
 t_case "and XCOPY on it" 0 "msdos622|xcopy-q|xcopy c:\\A.TXT q:\\|Invalid drive specification" run_on msdos622 "$work/boot.vhd" nodrive

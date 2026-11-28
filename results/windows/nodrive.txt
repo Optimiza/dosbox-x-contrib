@@ -370,11 +370,11 @@ nodrive.sh: INVALID: build A: "xcopy c:\A.TXT q:\" (xcopy-q) passed the bound of
 # exit code 3
 
 # nodrive.sh base fix
-#   base  joncampbell123/dosbox-x main-ai a325b1292   ec0c6aa78fb5e00931cedd37bf95df9836f6337e31d38ff0efecb7390928bdb5
-#   fix   unmounted-answers-mainai a763b0941, its code commit applied with git am on this host (its
+#   base  joncampbell123/dosbox-x main-ai a325b1292   b0225609cdffa28db778e8d250ce251e3119e790e557401cc8a938f8be04fff6
+#   fix   unmounted-answers-mainai b053bfbdf, its code commit applied with git am on this host (its
 #         other commit is the CHANGELOG line, which no build reads), executable
-#         87e17a988db351b0d94e7d60efc8f2735932764e924404f498d965010f30ad70
-# a run of 2026-11-28 on the Windows the header names, after the divide error fix merged upstream
+#         b7851474f09b05c207da6037399b6d09d67c9b524fd3ed7b53223c2f006c378e
+# a run of 2026-11-28 on the Windows the header names, with `cd @:` among the lines
 nodrive.sh: build A: base (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -430,6 +430,8 @@ rd-q|rd q:\X|Invalid path, not directory, or directory not empty - q:\X
 rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
 quoted-q|type "q:\A.TXT"|Path not found
 quoted-q-control|type "c:\A.TXT"|x
+cd-at|cd @:|Path not found
+cd-at-control|cd @:|@:\
 nodrive.sh: build B: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -485,7 +487,9 @@ rd-q|rd q:\X|Invalid drive specification
 rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
 quoted-q|type "q:\A.TXT"|Invalid drive specification
 quoted-q-control|type "c:\A.TXT"|x
-nodrive.sh: DIFFERENT, 12 lines differ (A then B):
+cd-at|cd @:|Invalid drive specification
+cd-at-control|cd @:|Invalid drive specification
+nodrive.sh: DIFFERENT, 14 lines differ (A then B):
 < copy-q|copy c:\A.TXT q:\|Path not found
 > copy-q|copy c:\A.TXT q:\|Invalid drive specification
 < del-q|del q:\A.TXT|Path not found
@@ -510,10 +514,14 @@ nodrive.sh: DIFFERENT, 12 lines differ (A then B):
 > rd-q|rd q:\X|Invalid drive specification
 < quoted-q|type "q:\A.TXT"|Path not found
 > quoted-q|type "q:\A.TXT"|Invalid drive specification
+< cd-at|cd @:|Path not found
+< cd-at-control|cd @:|@:\
+> cd-at|cd @:|Invalid drive specification
+> cd-at-control|cd @:|Invalid drive specification
 # exit code 1
 
 # nodrive.sh fix fix
-#   fix   the same executable as the run above   87e17a988db351b0d94e7d60efc8f2735932764e924404f498d965010f30ad70
+#   fix   the same executable as the run above   b7851474f09b05c207da6037399b6d09d67c9b524fd3ed7b53223c2f006c378e
 # the A/A control of the run above
 nodrive.sh: build A: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
@@ -570,6 +578,8 @@ rd-q|rd q:\X|Invalid drive specification
 rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
 quoted-q|type "q:\A.TXT"|Invalid drive specification
 quoted-q-control|type "c:\A.TXT"|x
+cd-at|cd @:|Invalid drive specification
+cd-at-control|cd @:|Invalid drive specification
 nodrive.sh: build B: fix (DOSBox-X version 2026.10.01 Commit f1c4414 (Visual Studio SDL1 64-bit))
 label-q-x|label q: X|Invalid drive specification
 label-q-x-control|label c: X|
@@ -625,5 +635,7 @@ rd-q|rd q:\X|Invalid drive specification
 rd-q-control|rd c:\X|Invalid path, not directory, or directory not empty - c:\X
 quoted-q|type "q:\A.TXT"|Invalid drive specification
 quoted-q-control|type "c:\A.TXT"|x
+cd-at|cd @:|Invalid drive specification
+cd-at-control|cd @:|Invalid drive specification
 nodrive.sh: ALIKE
 # exit code 0
